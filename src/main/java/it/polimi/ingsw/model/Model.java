@@ -25,9 +25,9 @@ public class Model {
     }
 
     public void setUpTable(){
-        for ( int i=0; i<5; i++ ){
+        for ( int i = 0; i < 5; i++ ){
 
-            for ( int j=0; j<5; j++ ){
+            for ( int j = 0; j < 5; j++ ){
 
                 this.table[i][j] = new Space( i, j );
             }
@@ -43,11 +43,11 @@ public class Model {
         cY = worker.getSpace().getY();
         cH = worker.getSpace().getHeight();
 
-        if( ( 0<=cX && cX<=4 ) && ( 0<=cY && cY<=4 )){
-            for( int i = cX-1; i< cX+2; i++ ){
-                for( int j= cY-1; j< cY+2; j++ ){
-                    if( !( i==cX && j==cY ) && ( i>=0 && i<=4 && j>=0 && j<=4 ) && table[i][j].getHeight() < 4 ){
-                        if( table[i][j].getWorker()==null && ( table[i][j].getHeight()-cH<=1 ) ) return true;
+        if( ( 0 <= cX && cX <=4 ) && ( 0 <= cY && cY <= 4 )){
+            for( int i = cX - 1; i < cX + 2; i++ ){
+                for( int j= cY - 1 ; j < cY + 2; j++ ){
+                    if( !( i == cX && j == cY ) && ( i >= 0 && i <= 4 && j >= 0 && j <= 4 ) && table[i][j].getHeight() < 4 ){
+                        if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - cH <= 1 ) ) return true;
                     }
                 }
             }
@@ -60,11 +60,11 @@ public class Model {
         cX = worker.getSpace().getX();
         cY = worker.getSpace().getY();
 
-        if( ( 0<=cX && cX<=4 ) && ( 0<=cY && cY<=4 ) ){
-            for( int i = cX-1; i< cX+2; i++ ){
-                for( int j= cY-1; j< cY+2; j++ ){
-                    if( !( i==cX && j==cY ) && ( i>=0 && i<=4 && j>=0 && j<=4 ) ){
-                        if( table[i][j].getWorker()==null && ( table[i][j].getHeight()<4 ) ) return true;
+        if( ( 0 <= cX && cX <= 4 ) && ( 0 <= cY && cY <= 4 ) ){
+            for( int i = cX - 1; i < cX + 2; i++ ){
+                for( int j = cY - 1; j < cY + 2; j++ ){
+                    if( !( i == cX && j == cY ) && ( i >= 0 && i <= 4 && j >= 0 && j <= 4 ) ){
+                        if( table[i][j].getWorker() == null && ( table[i][j].getHeight() < 4 ) ) return true;
                     }
                 }
             }
