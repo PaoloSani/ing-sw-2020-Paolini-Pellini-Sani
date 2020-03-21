@@ -1,11 +1,10 @@
 package it.polimi.ingsw.Model;
 
 public class Worker {
-    private Space space;
+    private Space space = null;
     private Player player;
 
-    public Worker(Space space, Player player) {
-        this.space = space;
+    public Worker(Player player) {
         this.player = player;
     }
 
@@ -15,6 +14,10 @@ public class Worker {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setSpace(Space space) {
+        this.space = space;
     }
 
 
