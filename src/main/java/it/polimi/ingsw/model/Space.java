@@ -7,7 +7,7 @@ public class Space {
     private Worker worker;
 
 
-    public Space(int x, int y) {
+    public Space( int x, int y ) {
         this.x = x;
         this.y = y;
         this.height = 0;
@@ -30,11 +30,11 @@ public class Space {
         return worker;
     }
 
-    public void setHeight(int height) {
+    public void setHeight( int height ) {
         this.height = height;
     }
 
-    public void setWorker(Worker worker) {
+    public void setWorker( Worker worker ) {
         this.worker = worker;
     }
 
