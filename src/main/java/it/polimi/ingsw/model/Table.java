@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Model;
+package it.polimi.ingsw.model;
 
 public class Table {
     private final static int level1 = 22;
