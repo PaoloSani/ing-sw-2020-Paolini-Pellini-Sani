@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Model;
+package it.polimi.ingsw.model;
 
 public class Table {
     private final static int level1 = 22;
@@ -13,10 +13,10 @@ public class Table {
         this.model = model;
     }
 
-    public void setUpMatrix(){
-        for (int i=0; i<5; i++){
+    public void setUpMatrix() {
+        for ( int i = 0; i < 5 ; i++ ){
 
-            for (int j=0; j<5; j++){
+            for ( int j = 0; j < 5; j++ ){
 
                 this.matrix[i][j] = new Space(i,j);
 
