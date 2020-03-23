@@ -7,6 +7,7 @@ public class MoveApollo implements Move {
         currY = worker.getSpace().getY();
         currH = worker.getSpace().getHeight();
         boolean result;
+        Worker oppWorker;
 
         //reset del boolean Athena nella classe costraint
         if( worker.getPlayer().getGodName() == "Athena" ){
@@ -20,7 +21,7 @@ public class MoveApollo implements Move {
                 currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
                 (nextSpace.getWorker() != null &&
                         nextSpace.getWorker().getPlayer().equals(worker.getPlayer()))  ||     //la prossima cella è occupata da un worker alleato
-                nextSpace.getHeight() == 4                                            ||     //la prossima cella è una cupola
+                nextSpace.getHeight() == 4                                            ||      //la prossima cella è una cupola
 
                 //se Athena è true controllo che non si possa salire
                 (worker.getPlayer().getModel().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
@@ -41,11 +42,13 @@ public class MoveApollo implements Move {
             worker.getSpace().setWorker(worker);                  //setto attributo worker nella nuova space con il valore del mio worker
         }
 
+
         else{
-            worker.getSpace().setWorker(nextSpace.getWorker());   //SWAP di worker con il worker avversario. Non controllo se è mio
-            nextSpace.getWorker().setSpace(worker.getSpace());    //perché l'ho già controllato nel primo if
-            worker.setSpace(nextSpace);
-            worker.getSpace().setWorker(worker);
+            oppWorker = nextSpace.getWorker();        //memorizzo il worker avversario
+            worker.getSpace().setWorker(oppWorker);   //Sposto nella mia cella il worker avversario
+            oppWorker.setSpace(worker.getSpace());    //La nuova cella del worker avversario è la mia cella
+            worker.setSpace(nextSpace);               //La mia nuova cella è la cella che aveva il worker avversario
+            worker.getSpace().setWorker(worker);      //La cella dove io sono mi contieneèx
         }
 
         return result;
