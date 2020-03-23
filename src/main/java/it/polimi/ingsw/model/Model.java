@@ -11,7 +11,7 @@ public class Model {
     private final static int constDome = 18;
     private Space[][] table;
     private final static int numMaxPlayers = 3;
-    private God[] deck;
+    public String[] deck;
 
 
     public Model() {
@@ -21,7 +21,6 @@ public class Model {
         this.dome = constDome;
         this.setUpTable();
         this.setUpDeck();
-
     }
 
     public void setUpTable(){
@@ -35,6 +34,21 @@ public class Model {
     }
 
     private void setUpDeck() {
+        this.deck[0] = "Apollo";
+        this.deck[1] = "Artemis";
+        this.deck[2] = "Athena";
+        this.deck[3] = "Atlas";
+        this.deck[4] = "Charon";
+        this.deck[5] = "Demeter";
+        this.deck[6] = "Hephaestus";
+        this.deck[7] = "Hypnus";
+        this.deck[8] = "Minotaur";
+        this.deck[9] = "Pan";
+        this.deck[10] = "Poseidon";
+        this.deck[11] = "Prometheus";
+        this.deck[12] = "Triton";
+        this.deck[13] = "Zeus";
+
     }
 
     private boolean isFreeToMove( Worker worker ){

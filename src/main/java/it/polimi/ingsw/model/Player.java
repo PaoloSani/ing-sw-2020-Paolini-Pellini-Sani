@@ -4,7 +4,7 @@ public class Player {
     private final String nickname;
     private Worker worker1;
     private Worker worker2;
-    private God god = null;
+    private String godName;
 
     public Player( String nickname ) {
         this.nickname = nickname;
@@ -25,11 +25,11 @@ public class Player {
         return worker2;
     }
 
-    public void setGod( God god ) {
-        this.god = god;
+    public void setGodName(String godName) {
+        this.godName = godName;
+
+       // switch (godName) ...
     }
-
-
 
 }
 
