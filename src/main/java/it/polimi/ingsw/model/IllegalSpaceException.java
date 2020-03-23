@@ -5,7 +5,7 @@ public class IllegalSpaceException extends Exception{
         super();
     }
 
-    public IllegalSpaceException(String message) {
-        super(message);
+    public IllegalSpaceException( String message ) {
+        super( message );
     }
 }
