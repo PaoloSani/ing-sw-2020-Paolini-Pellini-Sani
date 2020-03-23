@@ -9,7 +9,7 @@ public class Model {
     private final static int constLevel2 = 18;
     private final static int constLevel3 = 14;
     private final static int constDome = 18;
-    private static Space[][] table; //per minotauro
+    private Space[][] table;
     private final static int numMaxPlayers = 3;
     private Constraint constraint;
     public String[] deck;
@@ -128,6 +128,36 @@ public class Model {
         return false;
     }
 
+    //lascio al controller la gestione del caso in cui myWorker coincide con oppWorker e che la cella passata sia effetivamente nelle celle adiacenti
+    //devo anche controllare di non scambiare un worker dello stesso player
+    public void charonPower( Worker myWorker, Worker oppWorker ) throws IllegalSpaceException{
+        int myX, myY, oppX, oppY, newX, newY;
+
+        //salvo le coordinate per fare i calcoli
+        myX = myWorker.getSpace().getX();
+        myY = myWorker.getSpace().getY();
+        oppX = myWorker.getSpace().getX();
+        oppY = myWorker.getSpace().getY();
+
+        //calcolo le nuove coordinate
+        if ( myX == oppX  ){        //spostamento nella stessa riga
+            newX = oppX;
+            if ( myY > oppY ) newY = oppY + 2;
+            else newY = oppY - 2;
+        }
+        else if ( myY == oppY ){    //spostamento nella stessa colonna
+            newY = oppY;
+            if ( myX > oppX ) newX = oppX + 2;
+            else newX = oppX - 2;
+        }
+        else {                      //spostamento nella diagonale
+            if ( myX > oppX ) newX = oppX + 2;
+            else newX = oppX - 2;
+
+            if ( myY > oppY ) newY = oppY + 2;
+            else newY = oppY - 2;
+        }
+
     private boolean verifyMoveMinotaur(Space space, Space nextSpace) throws IllegalSpaceException{
         int currX,currY,currH,nextX,nextY;
         currX = space.getSpace().getY();
@@ -143,9 +173,17 @@ public class Model {
 
 
 
+        //ora che ho le nuove coordinate, controllo eventuali anomalie
+        if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
+             this.table[newX][newY].getHeight() == 4      ||        //la space non è occupate da una cupola
+             this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
+             throw new IllegalSpaceException( "Error: Invalid Space!" );
+
+        //se i controlli sono stati superati allora effettuo lo scambio
+        oppWorker.getSpace().setWorker(null);           //la cella che conteneva l'oppWorker è ora liberata
+        this.table[newX][newY].setWorker(oppWorker);    //la nuova cella contiene ora il worker
+        oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY
 
     }
-
-
 
 }
