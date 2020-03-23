@@ -1,6 +1,6 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model;
+
 import it.polimi.ingsw.model.Challenger;
 import it.polimi.ingsw.model.Model;
 import it.polimi.ingsw.model.Player;
@@ -89,7 +89,45 @@ public class Controller {
     }
 
     public boolean playTurn( Player player ){
+        //Scegli il worker
         //currWorker = ...;
 
+        switch ( player.getGodName() ) {
+
+            /*case "Charon":        chiama il metodo che sposta nello spazio opposto un worker (se la cella opposta è libera)
+                                    move()
+                                    build()
+                                    break;*/
+
+            //case "Prometheus":    2 flussi distinti
+
+            /*case "Artemis":       move()
+                                    control()
+                                    move()
+                                    build()
+                                    break;*/
+
+            /*case "Triton":        move()
+                                    while (casella sul perimetro) move()
+                                    build()
+                                    break;*/
+
+            /*case "Demeter":       move()
+                                    build()
+                                    control()
+                                    build()
+                                    break;*/
+
+            /*case "Poseidon":      move()
+                                    build()
+                                    3 build() dell'altro worker a terra (facoltativo)
+                                    break;*/
+
+            /*case "Default":       move()
+                                    build()
+                                    break;
+             */
+
+        }
     }
 }
