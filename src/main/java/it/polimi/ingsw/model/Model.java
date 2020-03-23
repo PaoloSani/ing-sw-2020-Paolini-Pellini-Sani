@@ -9,7 +9,7 @@ public class Model {
     private final static int constLevel2 = 18;
     private final static int constLevel3 = 14;
     private final static int constDome = 18;
-    private Space[][] table;
+    private static Space[][] table; //per minotauro
     private final static int numMaxPlayers = 3;
     private Constraint constraint;
     public String[] deck;
@@ -126,6 +126,24 @@ public class Model {
             }
         }
         return false;
+    }
+
+    private boolean verifyMoveMinotaur(Space space, Space nextSpace) throws IllegalSpaceException{
+        int currX,currY,currH,nextX,nextY;
+        currX = space.getSpace().getY();
+        currY = space.getSpace().getY();
+        nextX = nextSpace.getX();
+        nextY = nextSpace.getY();
+        // Controllo che il worker da spostare non sia negli angoli
+        if(( nextX == 4 && nextY ==4) || ( nextX == 4 && nextY ==4)              ||
+            ( nextX == 0 && nextY ==4) || ( nextX == 4 && nextY ==0)             ||
+        // Controllo che se il worker da spostare sta nelle cornici e il mio worker sta nelle 6 celle interne
+            currX < 4 && currX > 0 && currY < 4 && currY > 0                     &&
+            ( nextX == 0 || nextX == 4 || nextY == 0 || nextY == 4 )             ||
+
+
+
+
     }
 
 
