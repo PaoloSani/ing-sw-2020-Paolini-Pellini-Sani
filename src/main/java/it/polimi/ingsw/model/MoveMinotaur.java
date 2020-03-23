@@ -26,12 +26,7 @@ public class MoveMinotaur implements Move {
                 nextSpace.getHeight() - currH <= 1                                    ||     //sale più di un livello
                 currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
                 //Non posso spingere worker avversario indietro
-                nextSpace.getWorker() != null                                         &&
-                currX < 4 && currX > 0 && currY < 4 && currY > 0                      &&
-                ( nextX == 0 || nextX == 4 || nextY == 0 || nextY == 4 )              ||
-                //Worker che voglio muovere si trova in uno dei quattro angoli
-                ( nextX == 4 && nextY ==4) || ( nextX == 4 && nextY ==4)              ||
-                ( nextX == 0 && nextY ==4) || ( nextX == 4 && nextY ==0)              ||
+                //nextSpace.getWorker() != null                                         ||
                 //Controllo sull'altezza
                 nextSpace.getHeight() == 4                                            ||     //la prossima cella è una cupola
                 //se Athena è true controllo che non si possa salire
@@ -41,6 +36,18 @@ public class MoveMinotaur implements Move {
 
         //controllo condizione di vittoria prima di aggiornare le celle
         result = worker.getPlayer().isWinner(worker.getSpace(), nextSpace);
+
+        if ( nextSpace.getWorker() != null ){
+            //calcolo la nuova posizione -> calcoli...
+            //adesso eseguo lo spostamento sulla tabella, dopo aver controllato che newSpace sia valida
+            minotaurPower(worker, nextSpace.getWorker(), newSpace);
+            worker.getSpace().setWorker( null );      //setto il worker della space precedente a null (la svuoto)
+            worker.setSpace( nextSpace );             //setto attributo space del worker con la space successiva
+            worker.getSpace().setWorker( worker );
+
+        }
+        else //eseguo mossa normale
+
 
         //Ho eliminato il caso in cui sono atena
 

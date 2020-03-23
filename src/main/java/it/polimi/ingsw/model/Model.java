@@ -183,6 +183,7 @@ public class Model {
                 // Controllo che se il worker da spostare sta nelle cornici e il mio worker sta nelle 6 celle interne
                 currX < 4 && currX > 0 && currY < 4 && currY > 0                     &&
                         ( nextX == 0 || nextX == 4 || nextY == 0 || nextY == 4 )             ||
+
     }
 
 }
