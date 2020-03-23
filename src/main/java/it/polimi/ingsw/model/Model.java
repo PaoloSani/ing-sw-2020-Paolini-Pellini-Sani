@@ -158,21 +158,6 @@ public class Model {
             else newY = oppY - 2;
         }
 
-    private boolean verifyMoveMinotaur(Space space, Space nextSpace) throws IllegalSpaceException{
-        int currX,currY,currH,nextX,nextY;
-        currX = space.getSpace().getY();
-        currY = space.getSpace().getY();
-        nextX = nextSpace.getX();
-        nextY = nextSpace.getY();
-        // Controllo che il worker da spostare non sia negli angoli
-        if(( nextX == 4 && nextY ==4) || ( nextX == 4 && nextY ==4)              ||
-            ( nextX == 0 && nextY ==4) || ( nextX == 4 && nextY ==0)             ||
-        // Controllo che se il worker da spostare sta nelle cornici e il mio worker sta nelle 6 celle interne
-            currX < 4 && currX > 0 && currY < 4 && currY > 0                     &&
-            ( nextX == 0 || nextX == 4 || nextY == 0 || nextY == 4 )             ||
-
-
-
         //ora che ho le nuove coordinate, controllo eventuali anomalie
         if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
              this.table[newX][newY].getHeight() == 4      ||        //la space non è occupate da una cupola
@@ -184,6 +169,20 @@ public class Model {
         this.table[newX][newY].setWorker(oppWorker);    //la nuova cella contiene ora il worker
         oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY
 
+    }
+
+    private boolean verifyMoveMinotaur(Space space, Space nextSpace) throws IllegalSpaceException{
+        int currX,currY,currH,nextX,nextY;
+        currX = space.getSpace().getY();
+        currY = space.getSpace().getY();
+        nextX = nextSpace.getX();
+        nextY = nextSpace.getY();
+        // Controllo che il worker da spostare non sia negli angoli
+        if(( nextX == 4 && nextY ==4) || ( nextX == 4 && nextY ==4)              ||
+                ( nextX == 0 && nextY ==4) || ( nextX == 4 && nextY ==0)             ||
+                // Controllo che se il worker da spostare sta nelle cornici e il mio worker sta nelle 6 celle interne
+                currX < 4 && currX > 0 && currY < 4 && currY > 0                     &&
+                        ( nextX == 0 || nextX == 4 || nextY == 0 || nextY == 4 )             ||
     }
 
 }
