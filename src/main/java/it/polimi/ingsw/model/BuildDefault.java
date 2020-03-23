@@ -14,7 +14,7 @@ public class BuildDefault implements Build {
                 currX == space.getX() && currY == space.getY()                 ||     //si costruisce sotto di sé
                 space.getWorker() != null                                      ||     //la cella è occupata da un worker
                 space.getHeight() == 4                                         ||     //nella cella è già presente una cupola
-                newH != level                                                   )
+                newH != level                                                   )     //Controlla che l'altezza del livello da costruire sia giusto
 
             throw new IllegalSpaceException( "Space not accepted!" );
 
@@ -22,8 +22,10 @@ public class BuildDefault implements Build {
         switch ( newH ) {
 
             case 1 :
+                // level>0
                 if( worker.getPlayer().getModel().getLevel1() > 0 ){                       //controllo che il pezzo corrispondente sia disponibile
-                    worker.getPlayer().getModel().setLevel1( worker.getPlayer().getModel().getLevel1() - 1 );                           //decremento i pezzi del livello disponibili
+                    //decremento i pezzi del livello disponibili, level1 --
+                    worker.getPlayer().getModel().setLevel1( worker.getPlayer().getModel().getLevel1() - 1 );
                     space.setHeight( newH );                                          //setto la nuova altezza dello space
                 }
                 else throw new IllegalSpaceException( "Space not accepted!" );        // se il pezzo non è disponibile lancio l'eccezione per la costruzione in quella cella

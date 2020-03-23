@@ -9,7 +9,7 @@ public class MoveDefault implements Move {
         currH = worker.getSpace().getHeight();
         boolean result;
 
-        //reset di Athena
+        //reset del boolean Athena nella classe costraint
         if( worker.getPlayer().getGodName() == "Athena" ){
             worker.getPlayer().getModel().getConstraint().setAthena(false);
         }
@@ -21,12 +21,15 @@ public class MoveDefault implements Move {
                 currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
                 nextSpace.getWorker() != null                                         ||     //la prossima cella è occupata
                 nextSpace.getHeight() == 4                                            ||     //la prossima cella è una cupola
+                //se Athena è true controllo che non si possa salire
                 (worker.getPlayer().getModel().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
 
             throw new IllegalSpaceException( "Space not accepted!" );
 
+        //controllo condizione di vittoria prima di aggiornare le celle
         result = worker.getPlayer().isWinner(worker.getSpace(), nextSpace);
 
+        //se sono atena e sono salito setto il flag atena a true
         if( worker.getPlayer().getGodName() == "Athena" && ( nextSpace.getHeight() - currH == 1 ) ){
             worker.getPlayer().getModel().getConstraint().setAthena(true);
         }

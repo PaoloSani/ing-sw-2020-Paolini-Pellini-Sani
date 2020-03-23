@@ -128,8 +128,6 @@ public class Model {
         return false;
     }
 
-    //la chiamata è eseguita a seguito della chiamata di isFreeToMove dal controller, quindi worker si può muovere
-
 
 
 }

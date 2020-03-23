@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+
+
 public class Player {
     private final String nickname;
     private String godName;
@@ -51,7 +53,9 @@ public class Player {
 
     public void setGodName(String godName) {
         this.godName = godName;
-
+        /*
+            In base alla divinità scelgo le varie strategies da utilizzare
+        */
         switch ( godName ) {
             case "Apollo":
                 setMove( new MoveApollo() );
@@ -72,28 +76,37 @@ public class Player {
                 setMove( new MoveMinotaur() );
                 setBuild(new BuildDefault());
                 break;
+
             case "Zeus":
                 setMove( new MoveDefault() );
                 setBuild( new BuildZeus() );
                 break;
+
+            // Artemis, Tritone, Demetra, Pan, Caronte, Atena, Poseidone, Ipnos, Prometeo
             default :   setMove(new MoveDefault());
-                        setBuild(new BuildDefault());
+                setBuild(new BuildDefault());
 
         }
     }
 
+    /*
+        Il metodo isWinner viene invocato successivamente ad ogni move() e controlla se la mossa è vincente
+     */
+
     public boolean isWinner(Space oldSpace, Space currSpace) {
         if ( oldSpace.getHeight() == 2 && currSpace.getHeight() == 3 )
             return true;
+        //Condizione di vittoria Pan
         else return this.godName == "Pan" && (oldSpace.getHeight() - currSpace.getHeight() > 1 );
     }
-
-    public boolean moveWorker(Worker worker, Space space) throws IllegalSpaceException {
-        return this.move.execute(worker, space);
+    // Esegue la strategy che viene associata ad ogni player secondo la propria divinità
+    public boolean moveWorker(Worker worker, Space destination) throws IllegalSpaceException {
+        return this.move.execute(worker, destination);
     }
 
-    public void buildSpace(Worker worker, Space space, int level) throws IllegalSpaceException {
-        this.build.execute(worker, space, level);
+    // Esegue la strategy che viene associata ad ogni player secondo la propria divinità
+    public void buildSpace(Worker worker, Space spaceToBuild, int level) throws IllegalSpaceException {
+        this.build.execute(worker, spaceToBuild, level);
     }
 
 
