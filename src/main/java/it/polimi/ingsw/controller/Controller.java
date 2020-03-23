@@ -94,7 +94,7 @@ public class Controller {
 
         switch ( player.getGodName() ) {
 
-            /*case "Charon":        chiama il metodo che sposta nello spazio opposto un worker (se la cella opposta è libera)
+            /*case "Charon":        charonPower()
                                     move()
                                     build()
                                     break;*/
