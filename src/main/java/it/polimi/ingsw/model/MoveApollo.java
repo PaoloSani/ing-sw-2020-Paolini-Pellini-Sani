@@ -19,7 +19,7 @@ public class MoveApollo implements Move {
                 nextSpace.getHeight() - currH <= 1                                    ||     //sale più di un livello
                 currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
                 (nextSpace.getWorker() != null &&
-                        nextSpace.getWorker().getPlayer().equals(worker.getPlayer())  ||     //la prossima cella è occupata da un worker alleato
+                        nextSpace.getWorker().getPlayer().equals(worker.getPlayer()))  ||     //la prossima cella è occupata da un worker alleato
                 nextSpace.getHeight() == 4                                            ||     //la prossima cella è una cupola
 
                 //se Athena è true controllo che non si possa salire
@@ -47,7 +47,7 @@ public class MoveApollo implements Move {
             worker.setSpace(nextSpace);
             worker.getSpace().setWorker(worker);
         }
-        
+
         return result;
     }
 }
