@@ -15,7 +15,6 @@ public class Model {
     public String[] deck;
 
 
-
     public Model() {
         this.level1 = constLevel1;
         this.level2 = constLevel2;
@@ -27,6 +26,38 @@ public class Model {
 
     public Constraint getConstraint() {
         return constraint;
+    }
+
+    public int getLevel1() {
+        return level1;
+    }
+
+    public void setLevel1(int level1) {
+        this.level1 = level1;
+    }
+
+    public int getLevel2() {
+        return level2;
+    }
+
+    public void setLevel2(int level2) {
+        this.level2 = level2;
+    }
+
+    public int getLevel3() {
+        return level3;
+    }
+
+    public void setLevel3(int level3) {
+        this.level3 = level3;
+    }
+
+    public int getDome() {
+        return dome;
+    }
+
+    public void setDome(int dome) {
+        this.dome = dome;
     }
 
     public void setConstraint(Constraint constraint) {

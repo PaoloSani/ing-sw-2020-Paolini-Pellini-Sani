@@ -11,11 +11,11 @@ public class Player {
 
 
 
-    public void setMove() {
+    public void setMove(Move move) {
         this.move = move;
     }
 
-    public void setBuild() {
+    public void setBuild(Build build) {
         this.build = build;
     }
 
@@ -52,18 +52,47 @@ public class Player {
     public void setGodName(String godName) {
         this.godName = godName;
 
-       // switch (godName) ...
+        switch ( godName ) {
+            case "Apollo":
+                setMove( new MoveApollo() );
+                setBuild( new BuildDefault() );
+                break;
+
+            case "Atlas":
+                setMove( new MoveDefault() );
+                setBuild( new BuildAtlas() );
+                break;
+
+            case "Hephaestus":
+                setMove( new MoveDefault() );
+                setBuild( new BuildHephaestus() );
+                break;
+
+            case "Minotaur":
+                setMove( new MoveMinotaur() );
+                setBuild(new BuildDefault());
+                break;
+            case "Zeus":
+                setMove( new MoveDefault() );
+                setBuild( new BuildZeus() );
+                break;
+            default :   setMove(new MoveDefault());
+                        setBuild(new BuildDefault());
+
+        }
     }
 
     public boolean isWinner(Space oldSpace, Space currSpace) {
-
+        if ( oldSpace.getHeight() == 2 && currSpace.getHeight() == 3 )
+            return true;
+        else return this.godName == "Pan" && (oldSpace.getHeight() - currSpace.getHeight() > 1 );
     }
 
-    public boolean moveWorker(Worker worker, Space space){
-        this.move.execute(worker, space);
+    public boolean moveWorker(Worker worker, Space space) throws IllegalSpaceException {
+        return this.move.execute(worker, space);
     }
 
-    public void buildSpace(Worker worker, Space space, int level){
+    public void buildSpace(Worker worker, Space space, int level) throws IllegalSpaceException {
         this.build.execute(worker, space, level);
     }
 

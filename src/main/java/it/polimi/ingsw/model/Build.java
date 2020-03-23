@@ -1,5 +1,5 @@
 package it.polimi.ingsw.model;
 
 public interface Build {
-    void execute(Worker worker, Space space, int level);
+    public void execute( Worker worker, Space space, int level ) throws IllegalSpaceException;
 }

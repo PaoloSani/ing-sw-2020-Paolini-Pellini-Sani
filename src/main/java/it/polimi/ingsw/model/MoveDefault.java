@@ -9,6 +9,10 @@ public class MoveDefault implements Move {
         currH = worker.getSpace().getHeight();
         boolean result;
 
+        //reset di Athena
+        if( worker.getPlayer().getGodName() == "Athena" ){
+            worker.getPlayer().getModel().getConstraint().setAthena(false);
+        }
 
         // controllo il contenuto di nextSpace
         if ( ( currX - nextSpace.getX() ) > 1 || ( currX - nextSpace.getX() ) < -1    ||     //riga non valida
@@ -22,6 +26,10 @@ public class MoveDefault implements Move {
             throw new IllegalSpaceException( "Space not accepted!" );
 
         result = worker.getPlayer().isWinner(worker.getSpace(), nextSpace);
+
+        if( worker.getPlayer().getGodName() == "Athena" && ( nextSpace.getHeight() - currH == 1 ) ){
+            worker.getPlayer().getModel().getConstraint().setAthena(true);
+        }
 
         //aggiorno la posizione del worker e le space precedente e corrente nella table
         worker.getSpace().setWorker( null );      //setto il worker della space precedente a null (la svuoto)
