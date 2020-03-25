@@ -1,18 +1,11 @@
 package it.polimi.ingsw.model;
 
 public class MoveMinotaur implements Move {
-    public boolean execute(Worker worker, Space nextSpace) throws IllegalSpaceException{
-        int currX,currY,currH,nextX,nextY;
-        Player currP;
-        Model currM;
+    public boolean execute( Worker worker, Space nextSpace ) throws IllegalSpaceException {
+        int currX,currY,currH;
         currX = worker.getSpace().getX();
         currY = worker.getSpace().getY();
         currH = worker.getSpace().getHeight();
-        nextX = nextSpace.getX();
-        nextY = nextSpace.getY();
-        currP = worker.getPlayer();
-        currM = currP.getModel();
-
         boolean result;
 
         //reset del boolean Athena nella classe costraint
@@ -25,9 +18,8 @@ public class MoveMinotaur implements Move {
                 ( currY - nextSpace.getY() ) > 1 || ( currY - nextSpace.getY() ) < -1 ||     //colonna non valida
                 nextSpace.getHeight() - currH <= 1                                    ||     //sale più di un livello
                 currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
-                //Non posso spingere worker avversario indietro
-                //nextSpace.getWorker() != null                                         ||
-                //Controllo sull'altezza
+                //non mi interessa perché sposto muratore
+                //nextSpace.getWorker() != null                                         ||     //la prossima cella è occupata
                 nextSpace.getHeight() == 4                                            ||     //la prossima cella è una cupola
                 //se Athena è true controllo che non si possa salire
                 (worker.getPlayer().getModel().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
@@ -37,38 +29,27 @@ public class MoveMinotaur implements Move {
         //controllo condizione di vittoria prima di aggiornare le celle
         result = worker.getPlayer().isWinner(worker.getSpace(), nextSpace);
 
-        if ( nextSpace.getWorker() != null ){
-            //calcolo la nuova posizione -> calcoli...
-            //adesso eseguo lo spostamento sulla tabella, dopo aver controllato che newSpace sia valida
-            minotaurPower(worker, nextSpace.getWorker(), newSpace);
-            worker.getSpace().setWorker( null );      //setto il worker della space precedente a null (la svuoto)
-            worker.setSpace( nextSpace );             //setto attributo space del worker con la space successiva
-            worker.getSpace().setWorker( worker );
-
+        //se sono atena e sono salito setto il flag atena a true (CHIEDI SE SONO IL MINOTAURO NON POSSO ESSERE ATENA CODICE INUTILE?)
+        //IN CASO AFFERMATIVO ELIMINARRE FRAMMENTO CODICE ANCHE IN MOVEAPOLLO
+        if( worker.getPlayer().getGodName() == "Athena" && ( nextSpace.getHeight() - currH == 1 ) ){
+            worker.getPlayer().getModel().getConstraint().setAthena(true);
         }
-        else //eseguo mossa normale
-
-
-        //Ho eliminato il caso in cui sono atena
 
         //aggiorno la posizione del worker e le space precedente e corrente nella table
         if(nextSpace.getWorker() != null){
-            if( currX ==  nextX ){
-                if( nextX > currX){
-                        currP.moveWorker( nextSpace.getWorker(),currM.)
-                }
-            else{
-
-                }
+            //sintassi metodo statico, l'ho reso statico cosi posso chiamarlo senza avere un'istanza model qui dentro, se la
+            //cella in cui mi voglio spostare è occupata da un giocatore chiamo funzione minotaurPower che spinge il worker
+            try{
+                Model.minotaurPower(worker, nextSpace.getWorker(),worker.getPlayer().getModel());
+            }
+            catch (IllegalSpaceException i){
+                System.out.println("Input error!");
             }
         }
-
-
         worker.getSpace().setWorker( null );      //setto il worker della space precedente a null (la svuoto)
         worker.setSpace( nextSpace );             //setto attributo space del worker con la space successiva
         worker.getSpace().setWorker( worker );    //setto attributo worker nella nuova space con il valore del mio worker
 
         return result;
     }
-
 }
