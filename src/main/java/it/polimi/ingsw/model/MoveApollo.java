@@ -15,7 +15,9 @@ public class MoveApollo implements Move {
         }
 
         // controllo il contenuto di nextSpace
-        if ( ( currX - nextSpace.getX() ) > 1 || ( currX - nextSpace.getX() ) < -1    ||     //riga non valida
+        if (    nextSpace.getX() > 4 && nextSpace.getX() < 0                          ||
+                nextSpace.getY() > 4 && nextSpace.getY() < 0                          ||     //space non appartenente alla tabella
+                ( currX - nextSpace.getX() ) > 1 || ( currX - nextSpace.getX() ) < -1    ||     //riga non valida
                 ( currY - nextSpace.getY() ) > 1 || ( currY - nextSpace.getY() ) < -1 ||     //colonna non valida
                 nextSpace.getHeight() - currH <= 1                                    ||     //sale più di un livello
                 currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
@@ -30,11 +32,6 @@ public class MoveApollo implements Move {
 
         //controllo condizione di vittoria prima di aggiornare le celle
         result = worker.getPlayer().isWinner(worker.getSpace(), nextSpace);
-
-        //se sono atena e sono salito setto il flag atena a true
-        if( worker.getPlayer().getGodName() == "Athena" && ( nextSpace.getHeight() - currH == 1 ) ){
-            worker.getPlayer().getModel().getConstraint().setAthena(true);
-        }
 
         if( nextSpace.getWorker() == null ) {                     //aggiorno la posizione del worker e le space precedente e corrente nella table
             worker.getSpace().setWorker(null);                    //setto il worker della space precedente a null (la svuoto)

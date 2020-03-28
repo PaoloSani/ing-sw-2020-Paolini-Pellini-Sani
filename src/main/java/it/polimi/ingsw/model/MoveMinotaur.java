@@ -6,6 +6,7 @@ public class MoveMinotaur implements Move {
         currX = worker.getSpace().getX();
         currY = worker.getSpace().getY();
         currH = worker.getSpace().getHeight();
+        Model myModel = worker.getPlayer().getModel();
         boolean result;
 
         //reset del boolean Athena nella classe costraint
@@ -14,12 +15,12 @@ public class MoveMinotaur implements Move {
         }
 
         // controllo il contenuto di nextSpace
-        if ( ( currX - nextSpace.getX() ) > 1 || ( currX - nextSpace.getX() ) < -1    ||     //riga non valida
+        if (    nextSpace.getX() > 4 && nextSpace.getX() < 0                          ||
+                nextSpace.getY() > 4 && nextSpace.getY() < 0                          ||     //space non appartenente alla tabella
+                ( currX - nextSpace.getX() ) > 1 || ( currX - nextSpace.getX() ) < -1 ||     //riga non valida
                 ( currY - nextSpace.getY() ) > 1 || ( currY - nextSpace.getY() ) < -1 ||     //colonna non valida
                 nextSpace.getHeight() - currH <= 1                                    ||     //sale più di un livello
                 currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
-                //non mi interessa perché sposto muratore
-                //nextSpace.getWorker() != null                                         ||     //la prossima cella è occupata
                 nextSpace.getHeight() == 4                                            ||     //la prossima cella è una cupola
                 //se Athena è true controllo che non si possa salire
                 (worker.getPlayer().getModel().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
@@ -29,18 +30,13 @@ public class MoveMinotaur implements Move {
         //controllo condizione di vittoria prima di aggiornare le celle
         result = worker.getPlayer().isWinner(worker.getSpace(), nextSpace);
 
-        //se sono atena e sono salito setto il flag atena a true (CHIEDI SE SONO IL MINOTAURO NON POSSO ESSERE ATENA CODICE INUTILE?)
-        //IN CASO AFFERMATIVO ELIMINARRE FRAMMENTO CODICE ANCHE IN MOVEAPOLLO
-        if( worker.getPlayer().getGodName() == "Athena" && ( nextSpace.getHeight() - currH == 1 ) ){
-            worker.getPlayer().getModel().getConstraint().setAthena(true);
-        }
 
         //aggiorno la posizione del worker e le space precedente e corrente nella table
         if(nextSpace.getWorker() != null){
             //sintassi metodo statico, l'ho reso statico cosi posso chiamarlo senza avere un'istanza model qui dentro, se la
             //cella in cui mi voglio spostare è occupata da un giocatore chiamo funzione minotaurPower che spinge il worker
             try{
-                Model.minotaurPower(worker, nextSpace.getWorker(),worker.getPlayer().getModel());
+                myModel.minotaurPower(worker, nextSpace.getWorker());
             }
             catch (IllegalSpaceException i){
                 System.out.println("Input error!");

@@ -8,10 +8,10 @@ public class BuildHephaestus implements Build {
         newH = space.getHeight() + 1;
 
         //controllo se la space è valida
-        if ( ( currX - space.getX() ) > 1 || ( currX - space.getX() ) < -1     ||     //riga non valida
-                ( currY - space.getY() ) > 1 || ( currY - space.getY() ) < -1  ||     //colonna non valida
-                space.getX() > 4 && space.getX() < 0                           ||
+        if (    space.getX() > 4 && space.getX() < 0                           ||
                 space.getY() > 4 && space.getY() < 0                           ||     //space non appartenente alla tabella
+                ( currX - space.getX() ) > 1 || ( currX - space.getX() ) < -1  ||     //riga non valida
+                ( currY - space.getY() ) > 1 || ( currY - space.getY() ) < -1  ||     //colonna non valida
                 currX == space.getX() && currY == space.getY()                 ||     //si costruisce sotto di sé
                 space.getWorker() != null                                      ||     //la cella è occupata da un worker
                 space.getHeight() == 4                                         ||     //nella cella è già presente una cupola
