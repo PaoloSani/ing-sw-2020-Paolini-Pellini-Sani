@@ -118,7 +118,6 @@ public class MoveMinotaurTest {
     }
 
 
-
     @Test
     public void minotaurMoveCondition() throws IllegalSpaceException {
         currSpace = new Space(0,4);
@@ -127,11 +126,11 @@ public class MoveMinotaurTest {
         myWorker.setSpace(currSpace);
         nextSpace.setWorker(new Worker(new Player("test2", model)));
 
-        assertFalse( nextSpace.getWorker() == myWorker);
-        assertTrue( nextSpace.getWorker() != null );
+        assertNotSame(nextSpace.getWorker(), myWorker);
+        assertNotNull(nextSpace.getWorker());
         moveMinotaur.execute( myWorker, nextSpace );
-        assertTrue( nextSpace.getWorker() == myWorker );
-        assertTrue( myWorker.getSpace() == nextSpace );
+        assertSame(nextSpace.getWorker(), myWorker);
+        assertSame(myWorker.getSpace(), nextSpace);
     }
 
     @Test
@@ -141,9 +140,9 @@ public class MoveMinotaurTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
 
-        assertFalse( nextSpace.getWorker() == myWorker);
+        assertNotSame(nextSpace.getWorker(), myWorker);
         moveMinotaur.execute( myWorker, nextSpace );
-        assertTrue( nextSpace.getWorker() == myWorker );
-        assertTrue( myWorker.getSpace() == nextSpace );
+        assertSame(nextSpace.getWorker(), myWorker);
+        assertSame(myWorker.getSpace(), nextSpace);
     }
 }

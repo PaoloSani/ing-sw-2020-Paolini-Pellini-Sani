@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
 
 public class BuildAtlasTest {
 
@@ -133,7 +134,7 @@ public class BuildAtlasTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 2;
-        assertFalse(level == 4);
+        assertNotEquals(4, level);
         buildAtlas.execute( myWorker, space, level);
     }
 
@@ -144,9 +145,9 @@ public class BuildAtlasTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 4;
-        assertFalse(level == space.getHeight());
+        assertNotEquals(level, space.getHeight());
         buildAtlas.execute( myWorker, space, level);
-        assertTrue(space.isDomed());
+        Assert.assertTrue(space.isDomed());
     }
 
     @Test
@@ -157,9 +158,9 @@ public class BuildAtlasTest {
         myWorker.setSpace(currSpace);
         space.setHeight(1);
         level = 2;
-        assertFalse(level == space.getHeight());
+        assertNotEquals(level, space.getHeight());
         buildAtlas.execute( myWorker, space, level);
-        assertEquals(level, space.getHeight());
+        Assert.assertEquals(level, space.getHeight());
     }
 
 }

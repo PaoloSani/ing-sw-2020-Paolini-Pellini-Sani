@@ -113,7 +113,7 @@ public class MoveDefaultTest {
         myWorker.setSpace(currSpace);
         nextSpace.setWorker(new Worker(new Player("test2", model)));
 
-        assertTrue(nextSpace.getWorker() != null);
+        assertNotNull(nextSpace.getWorker());
         moveDefault.execute( myWorker, nextSpace );
     }
 
@@ -138,9 +138,9 @@ public class MoveDefaultTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
 
-        assertFalse( nextSpace.getWorker() == myWorker);
+        assertNotSame(nextSpace.getWorker(), myWorker);
         moveDefault.execute( myWorker, nextSpace );
-        assertTrue( nextSpace.getWorker() == myWorker );
-        assertTrue( myWorker.getSpace() == nextSpace );
+        assertSame(nextSpace.getWorker(), myWorker);
+        assertSame(myWorker.getSpace(), nextSpace);
     }
 }
