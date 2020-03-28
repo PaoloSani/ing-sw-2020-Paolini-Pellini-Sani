@@ -67,16 +67,16 @@ public class Model {
 
 
     public void setUpTable(){
+        this.table = new Space[5][5];
         for ( int i = 0; i < 5; i++ ){
-
             for ( int j = 0; j < 5; j++ ){
-
                 this.table[i][j] = new Space( i, j );
             }
         }
     }
 
     private void setUpDeck() {
+        this.deck = new String[14];
         this.deck[0] = "Apollo";
         this.deck[1] = "Artemis";
         this.deck[2] = "Athena";

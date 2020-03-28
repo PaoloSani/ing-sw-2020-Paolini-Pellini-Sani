@@ -52,7 +52,7 @@ public class Controller {
         */
     }
 
-    public void chooseCards(){
+ /*   public void chooseCards(){
         String chosenCards[];
 
         // il challenger sceglie le carte
@@ -85,7 +85,7 @@ public class Controller {
 
         /*while( !EndOfTheGame ){
             EndOfTheGame
-        }*/
+        }
 
     }
 
@@ -129,7 +129,7 @@ public class Controller {
             /*case "Default":       move()
                                     build()
                                     break;
-             */
+
 
         }
     }
@@ -150,4 +150,5 @@ public class Controller {
         }
 
     }
+    */
 }
