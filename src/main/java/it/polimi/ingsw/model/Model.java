@@ -22,6 +22,7 @@ public class Model {
         this.dome = constDome;
         this.setUpTable();
         this.setUpDeck();
+        this.constraint = new Constraint();
     }
 
     public Constraint getConstraint() {
@@ -93,7 +94,7 @@ public class Model {
 
     }
 
-    private boolean isFreeToMove( Worker worker ){
+    public boolean isFreeToMove( Worker worker ){
         int currX,currY,currH;
         currX = worker.getSpace().getX();
         currY = worker.getSpace().getY();
@@ -111,7 +112,7 @@ public class Model {
         return false;
     }
 
-    private boolean isFreeToBuild( Worker worker ){
+    /*public boolean isFreeToBuild( Worker worker ){
         int currX,currY;
         currX = worker.getSpace().getX();
         currY = worker.getSpace().getY();
@@ -126,7 +127,8 @@ public class Model {
             }
         }
         return false;
-    }
+       }
+     */
 
     //lascio al controller la gestione del caso in cui myWorker coincide con oppWorker e che la cella passata sia effetivamente nelle celle adiacenti
     //devo anche controllare di non scambiare un worker dello stesso player
@@ -171,7 +173,7 @@ public class Model {
 
     }
     //Gli ho dovuto passare il model perchè è un metodo statico sostiturei il tutto con un observer in futuro
-    public static void minotaurPower( Worker myWorker, Worker oppWorker, Model model ) throws IllegalSpaceException{
+    public void minotaurPower( Worker myWorker, Worker oppWorker ) throws IllegalSpaceException{
         int myX, myY, oppX, oppY, newX, newY;
 
         //salvo le coordinate per fare i calcoli
@@ -180,7 +182,7 @@ public class Model {
         oppX = myWorker.getSpace().getX();
         oppY = myWorker.getSpace().getY();
 
-        // Controllo che il worker da spostare non sia negli angoli
+        //Calcolo casella dove viene spinto il workers
         if ( myX == oppX  ){        //spostamento nella stessa riga
             newX = oppX;
             if ( myY > oppY ) newY = oppY - 1;
@@ -201,13 +203,13 @@ public class Model {
 
         //ora che ho le nuove coordinate, controllo eventuali anomalie
         if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
-                model.table[newX][newY].getHeight() == 4      ||        //la space non è occupate da una cupola
-                model.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
+                this.table[newX][newY].getHeight() == 4      ||        //la space non è occupate da una cupola
+                this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
             throw new IllegalSpaceException( "Error: Invalid Space!" );
 
         oppWorker.getSpace().setWorker(null);           //la cella che conteneva l'oppWorker è ora liberata
-        model.table[newX][newY].setWorker(oppWorker);    //la nuova cella contiene ora il worker spostato precedentemente
-        oppWorker.setSpace(model.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY
+        this.table[newX][newY].setWorker(oppWorker);    //la nuova cella contiene ora il worker spostato precedentemente
+        oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY
 
     }
 }
