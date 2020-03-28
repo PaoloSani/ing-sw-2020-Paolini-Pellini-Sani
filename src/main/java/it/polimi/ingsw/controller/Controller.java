@@ -25,9 +25,8 @@ public class Controller {
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
-}
 
-    /*public void setChallenger(Challenger challenger) {
+    public void setChallenger(Challenger challenger) {
         this.challenger = challenger;
     }
 
@@ -51,9 +50,9 @@ public class Controller {
             setPlayer2(new Player(name3));
         }
         */
-    //}
+    }
 
-    /*public void chooseCards(){
+ /*   public void chooseCards(){
         String chosenCards[];
 
         // il challenger sceglie le carte
@@ -76,7 +75,7 @@ public class Controller {
 
     }
 
-    /*public void game(){
+    public void game(){
         boolean EndOfTheGame = false;
         Player currPlayer;
         Worker currWorker;
@@ -86,13 +85,13 @@ public class Controller {
 
         /*while( !EndOfTheGame ){
             EndOfTheGame
-        }*/
+        }
 
-    //}
+    }
 
     //il metodo playTurn effettua il flusso di gioco del turno di un giocatore. In base alla divinità il flusso può essere diverso.
     //Il tipo ritornato è boolean, perché la move ritorna true nel caso sia stata effettuata una mossa vincente.
-    /*public boolean playTurn( Player player ){
+    public boolean playTurn( Player player ){
         //Scegli il worker
         Worker currWorker = chooseWorker(player);
 
@@ -130,10 +129,10 @@ public class Controller {
             /*case "Default":       move()
                                     build()
                                     break;
-             */
 
-       // }
-    /*}
+
+        }
+    }
 
     public Worker chooseWorker ( Player player ){
         Worker result;
@@ -150,5 +149,6 @@ public class Controller {
             else return player.getWorker1();
         }
 
-    }*/
-//}
+    }
+    */
+}

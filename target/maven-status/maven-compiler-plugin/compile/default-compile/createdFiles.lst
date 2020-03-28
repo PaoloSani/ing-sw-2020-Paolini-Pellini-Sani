@@ -1,0 +1,11 @@
+it/polimi/ingsw/model/Model.class
+it/polimi/ingsw/model/BuildHephaestus.class
+it/polimi/ingsw/model/Space.class
+it/polimi/ingsw/model/Build.class
+it/polimi/ingsw/model/BuildDefault.class
+it/polimi/ingsw/model/MoveMinotaur.class
+it/polimi/ingsw/model/Constraint.class
+it/polimi/ingsw/model/Worker.class
+it/polimi/ingsw/model/IllegalSpaceException.class
+it/polimi/ingsw/model/Move.class
+it/polimi/ingsw/model/Player.class
