@@ -14,7 +14,7 @@ public class BuildHephaestus implements Build {
                 ( currY - space.getY() ) > 1 || ( currY - space.getY() ) < -1  ||     //colonna non valida
                 currX == space.getX() && currY == space.getY()                 ||     //si costruisce sotto di sé
                 space.getWorker() != null                                      ||     //la cella è occupata da un worker
-                space.getHeight() == 4                                         ||     //nella cella è già presente una cupola
+                space.isDomed()                                                ||     //nella cella è già presente una cupola
                 ( level - newH == 1 && level == 4 )                            ||     //se costruisce due livelli, il secondo non può essere una cupola
                 level - newH > 1                                                )     //Non può costruire più di due livelli sulla stessa cella
 
@@ -53,6 +53,7 @@ public class BuildHephaestus implements Build {
                 if( worker.getPlayer().getModel().getDome() > 0 ){
                     worker.getPlayer().getModel().setDome( worker.getPlayer().getModel().getDome() - 1 );
                     space.setHeight( level );
+                    space.isDomed();
                 }
                 else throw new IllegalSpaceException( "Space not accepted!" );
                 break;

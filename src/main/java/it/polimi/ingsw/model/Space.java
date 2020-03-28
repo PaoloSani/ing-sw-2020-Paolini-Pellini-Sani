@@ -47,7 +47,6 @@ public class Space {
 
     public void setDome() {
         this.dome = true;
-        this.height++;
     }
 
 }
