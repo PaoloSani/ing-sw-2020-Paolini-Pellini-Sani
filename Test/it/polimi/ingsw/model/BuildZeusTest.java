@@ -1,29 +1,18 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
-public class BuildAtlasTest {
+public class BuildZeusTest {
 
     private Space currSpace, space;
     private Worker myWorker;
-    private BuildAtlas buildAtlas = new BuildAtlas();
+    private BuildZeus buildZeus = new BuildZeus();
     private Model model = new Model();
     private Player player = new Player("test", model);
     private int level;
 
-
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeXTest() throws IllegalSpaceException {
-        currSpace = new Space(0,4);
-        space = new Space(-1, 4);
-        myWorker = new Worker(player);
-        myWorker.setSpace(currSpace);
-        level = 1;
-        buildAtlas.execute( myWorker, space, level);
-    }
 
     @Test ( expected = IllegalSpaceException.class )
     public void unboundedX() throws IllegalSpaceException {
@@ -32,17 +21,17 @@ public class BuildAtlasTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildAtlas.execute( myWorker, space, level);
+        buildZeus.execute( myWorker, space, level);
     }
 
     @Test ( expected = IllegalSpaceException.class )
-    public void negativeY() throws IllegalSpaceException {
-        currSpace = new Space(0,0);
-        space = new Space(0, -1);
+    public void negativeX() throws IllegalSpaceException {
+        currSpace = new Space(0,4);
+        space = new Space(-1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildAtlas.execute( myWorker, space, level);
+        buildZeus.execute( myWorker, space, level);
     }
 
     @Test ( expected = IllegalSpaceException.class )
@@ -52,7 +41,17 @@ public class BuildAtlasTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildAtlas.execute( myWorker, space, level);
+        buildZeus.execute( myWorker, space, level);
+    }
+
+    @Test ( expected = IllegalSpaceException.class )
+    public void negativeY() throws IllegalSpaceException {
+        currSpace = new Space(0,0);
+        space = new Space(0, -1);
+        myWorker = new Worker(player);
+        myWorker.setSpace(currSpace);
+        level = 1;
+        buildZeus.execute( myWorker, space, level);
     }
 
     @Test ( expected = IllegalSpaceException.class )
@@ -62,7 +61,7 @@ public class BuildAtlasTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildAtlas.execute( myWorker, space, level);
+        buildZeus.execute( myWorker, space, level);
     }
 
     @Test ( expected = IllegalSpaceException.class )
@@ -72,7 +71,7 @@ public class BuildAtlasTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildAtlas.execute( myWorker, space, level);
+        buildZeus.execute( myWorker, space, level);
     }
 
     @Test ( expected = IllegalSpaceException.class )
@@ -82,7 +81,7 @@ public class BuildAtlasTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildAtlas.execute( myWorker, space, level);
+        buildZeus.execute( myWorker, space, level);
     }
 
     @Test ( expected = IllegalSpaceException.class)
@@ -92,17 +91,7 @@ public class BuildAtlasTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildAtlas.execute( myWorker, space, level);
-    }
-
-    @Test ( expected = IllegalSpaceException.class )
-    public void samePosition() throws IllegalSpaceException {
-        currSpace = new Space(0,0);
-        space = new Space(0, 0);
-        myWorker = new Worker(player);
-        myWorker.setSpace(currSpace);
-        level = 1;
-        buildAtlas.execute( myWorker, space, level);
+        buildZeus.execute( myWorker, space, level);
     }
 
     @Test ( expected = IllegalSpaceException.class )
@@ -113,7 +102,7 @@ public class BuildAtlasTest {
         space.setWorker(new Worker(new Player("test2", model)));
         myWorker.setSpace(currSpace);
         level = 1;
-        buildAtlas.execute( myWorker, space, level);
+        buildZeus.execute( myWorker, space, level);
     }
 
     @Test ( expected = IllegalSpaceException.class )
@@ -124,30 +113,18 @@ public class BuildAtlasTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildAtlas.execute( myWorker, space, level);
+        buildZeus.execute( myWorker, space, level);
     }
 
     @Test ( expected = IllegalSpaceException.class )
-    public void atlasExceptionCondition() throws IllegalSpaceException {
+    public void noMoreThanOneLevel() throws IllegalSpaceException {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 2;
-        assertNotEquals(4, level);
-        buildAtlas.execute( myWorker, space, level);
-    }
-
-    @Test
-    public void atlasBuildCondition() throws IllegalSpaceException {
-        currSpace = new Space(0,4);
-        space = new Space(1, 4);
-        myWorker = new Worker(player);
-        myWorker.setSpace(currSpace);
-        level = 4;
-        assertNotEquals(level, space.getHeight());
-        buildAtlas.execute( myWorker, space, level);
-        Assert.assertTrue(space.isDomed());
+        assertTrue( level > space.getHeight() + 1 );
+        buildZeus.execute( myWorker, space, level );
     }
 
     @Test
@@ -156,11 +133,22 @@ public class BuildAtlasTest {
         space = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        space.setHeight(1);
-        level = 2;
+        level = 1;
         assertNotEquals(level, space.getHeight());
-        buildAtlas.execute( myWorker, space, level);
-        Assert.assertEquals(level, space.getHeight());
+        buildZeus.execute( myWorker, space, level);
+        assertEquals(level, space.getHeight());
     }
 
+    @Test
+    public void buildInSamePosition() throws IllegalSpaceException {
+        currSpace = new Space(0,0);
+        space = currSpace;
+        myWorker = new Worker(player);
+        myWorker.setSpace(currSpace);
+        level = 1;
+        assertNotEquals(space.getHeight(), level);
+        buildZeus.execute( myWorker, space, level);
+        assertEquals(space.getHeight(), level);
+        assertEquals(currSpace.getHeight(), level);
+    }
 }

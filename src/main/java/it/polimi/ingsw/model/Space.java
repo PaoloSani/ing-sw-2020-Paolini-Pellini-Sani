@@ -35,6 +35,8 @@ public class Space {
 
     public void setHeight( int height ) {
         this.height = height;
+        if ( height == 4 )
+            setDome();
     }
 
     public void setWorker( Worker worker ) {
@@ -47,7 +49,6 @@ public class Space {
 
     public void setDome() {
         this.dome = true;
-        this.height++;
     }
 
 }

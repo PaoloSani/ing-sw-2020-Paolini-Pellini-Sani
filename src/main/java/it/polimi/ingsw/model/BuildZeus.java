@@ -14,7 +14,7 @@ public class BuildZeus implements Build {
                 ( currY - space.getY() ) > 1 || ( currY - space.getY() ) < -1  ||     //colonna non valida
                 //currX == space.getX() && currY == space.getY()               ||     può costruisce sotto di sé
                 space.getWorker() != null                                      ||     //la cella è occupata da un worker
-                space.getHeight() == 4                                         ||     //nella cella è già presente una cupola
+                space.isDomed()                                                ||     //nella cella è già presente una cupola
                 newH != level                                                   )     //Controlla che l'altezza del livello da costruire sia giusto
 
             throw new IllegalSpaceException( "Space not accepted!" );
