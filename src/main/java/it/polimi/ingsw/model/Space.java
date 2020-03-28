@@ -4,14 +4,17 @@ public class Space {
     private final int x;
     private final int y;
     private int height;
-    private Worker worker;
 
+    private boolean dome;
+
+    private Worker worker;
 
     public Space( int x, int y ) {
         this.x = x;
         this.y = y;
         this.height = 0;
         this.worker = null;
+        this.dome = false;
     }
 
     public int getHeight() {
@@ -36,6 +39,15 @@ public class Space {
 
     public void setWorker( Worker worker ) {
         this.worker = worker;
+    }
+
+    public boolean isDomed() {
+        return dome;
+    }
+
+    public void setDome() {
+        this.dome = true;
+        this.height++;
     }
 
 }

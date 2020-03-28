@@ -162,7 +162,7 @@ public class Model {
 
         //ora che ho le nuove coordinate, controllo eventuali anomalie
         if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
-             this.table[newX][newY].getHeight() == 4      ||        //la space non è occupate da una cupola
+             this.table[newX][newY].isDomed()             ||        //la space non è occupate da una cupola
              this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
              throw new IllegalSpaceException( "Error: Invalid Space!" );
 
@@ -172,6 +172,8 @@ public class Model {
         oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY
 
     }
+
+
     //Gli ho dovuto passare il model perchè è un metodo statico sostiturei il tutto con un observer in futuro
     public void minotaurPower( Worker myWorker, Worker oppWorker ) throws IllegalSpaceException{
         int myX, myY, oppX, oppY, newX, newY;
@@ -203,7 +205,7 @@ public class Model {
 
         //ora che ho le nuove coordinate, controllo eventuali anomalie
         if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
-                this.table[newX][newY].getHeight() == 4      ||        //la space non è occupate da una cupola
+                this.table[newX][newY].isDomed()          ||        //la space non è occupate da una cupola
                 this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
             throw new IllegalSpaceException( "Error: Invalid Space!" );
 
