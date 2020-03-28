@@ -75,6 +75,14 @@ public class Model {
         }
     }
 
+    public Space getSpace(int x, int y) throws IllegalSpaceException{
+        if( x >= 0 && x <= 4    &&
+            y >= 0 && y <= 4     ){
+            return table[x][y];
+        }
+        else throw (new IllegalSpaceException());
+    }
+
     private void setUpDeck() {
         this.deck = new String[14];
         this.deck[0] = "Apollo";
@@ -102,7 +110,7 @@ public class Model {
 
         if( ( 0 <= currX && currX <=4 ) && ( 0 <= currY && currY <= 4 )){
             for( int i = currX - 1; i < currX + 2; i++ ){
-                for( int j= currY - 1 ; j < currY + 2; j++ ){
+                for( int j = currY - 1 ; j < currY + 2; j++ ){
                     if( !( i == currX && j == currY ) && ( i >= 0 && i <= 4 && j >= 0 && j <= 4 ) && ( table[i][j].getHeight() < 4 && !table[i][j].isDomed() ) ){
                         if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 1 ) ) return true;
                     }
@@ -138,8 +146,8 @@ public class Model {
         //salvo le coordinate per fare i calcoli
         myX = myWorker.getSpace().getX();
         myY = myWorker.getSpace().getY();
-        oppX = myWorker.getSpace().getX();
-        oppY = myWorker.getSpace().getY();
+        oppX = oppWorker.getSpace().getX();
+        oppY = oppWorker.getSpace().getY();
 
         //calcolo le nuove coordinate
         if ( myX == oppX  ){        //spostamento nella stessa riga
@@ -181,8 +189,8 @@ public class Model {
         //salvo le coordinate per fare i calcoli
         myX = myWorker.getSpace().getX();
         myY = myWorker.getSpace().getY();
-        oppX = myWorker.getSpace().getX();
-        oppY = myWorker.getSpace().getY();
+        oppX = oppWorker.getSpace().getX();
+        oppY = oppWorker.getSpace().getY();
 
         //Calcolo casella dove viene spinto il workers
         if ( myX == oppX  ){        //spostamento nella stessa riga
