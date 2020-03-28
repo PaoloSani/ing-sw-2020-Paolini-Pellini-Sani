@@ -14,7 +14,7 @@ public class BuildAtlasTest {
     private int level;
 
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void negativeXTest() throws IllegalSpaceException {
         currSpace = new Space(0,4);
         space = new Space(-1, 4);
@@ -24,7 +24,7 @@ public class BuildAtlasTest {
         buildAtlas.execute( myWorker, space, level);
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void unboundedX() throws IllegalSpaceException {
         currSpace = new Space(4,0);
         space = new Space(5, 0);
@@ -34,7 +34,7 @@ public class BuildAtlasTest {
         buildAtlas.execute( myWorker, space, level);
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void negativeY() throws IllegalSpaceException {
         currSpace = new Space(0,0);
         space = new Space(0, -1);
@@ -44,7 +44,7 @@ public class BuildAtlasTest {
         buildAtlas.execute( myWorker, space, level);
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void unboundedY() throws IllegalSpaceException {
         currSpace = new Space(0,4);
         space = new Space(0, 5);
@@ -54,7 +54,7 @@ public class BuildAtlasTest {
         buildAtlas.execute( myWorker, space, level);
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void positiveNotNeighbouringX() throws IllegalSpaceException {
         currSpace = new Space(2,4);
         space = new Space(0, 4);
@@ -64,7 +64,7 @@ public class BuildAtlasTest {
         buildAtlas.execute( myWorker, space, level);
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void negativeNotNeighbouringX() throws IllegalSpaceException {
         currSpace = new Space(0,4);
         space = new Space(2, 4);
@@ -74,7 +74,7 @@ public class BuildAtlasTest {
         buildAtlas.execute( myWorker, space, level);
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void positiveNotNeighbouringY() throws IllegalSpaceException {
         currSpace = new Space(0,4);
         space = new Space(0, 2);
@@ -94,7 +94,7 @@ public class BuildAtlasTest {
         buildAtlas.execute( myWorker, space, level);
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void samePosition() throws IllegalSpaceException {
         currSpace = new Space(0,0);
         space = new Space(0, 0);
@@ -104,7 +104,7 @@ public class BuildAtlasTest {
         buildAtlas.execute( myWorker, space, level);
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void spaceOccupiedByOtherWorker() throws IllegalSpaceException {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
@@ -115,7 +115,7 @@ public class BuildAtlasTest {
         buildAtlas.execute( myWorker, space, level);
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void spaceOccupiedByDome() throws IllegalSpaceException {
         currSpace = new Space(0,4);
         space = new Space(2, 4);
@@ -126,7 +126,7 @@ public class BuildAtlasTest {
         buildAtlas.execute( myWorker, space, level);
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test ( expected = IllegalSpaceException.class )
     public void atlasExceptionCondition() throws IllegalSpaceException {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
