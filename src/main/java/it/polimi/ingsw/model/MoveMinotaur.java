@@ -21,7 +21,7 @@ public class MoveMinotaur implements Move {
                 ( currY - nextSpace.getY() ) > 1 || ( currY - nextSpace.getY() ) < -1 ||     //colonna non valida
                 nextSpace.getHeight() - currH <= 1                                    ||     //sale più di un livello
                 currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
-                nextSpace.getHeight() == 4                                            ||     //la prossima cella è una cupola
+                nextSpace.isDomed()                                                   ||     //la prossima cella è una cupola
                 //se Athena è true controllo che non si possa salire
                 (worker.getPlayer().getModel().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
 
