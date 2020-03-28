@@ -5,15 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/ModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/ModelTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/BuildAtlas.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/BuildAtlas.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/BuildDefault.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/BuildDefault.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/BuildHephaestus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/BuildHephaestus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/BuildZeus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/BuildZeus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/Model.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/MoveApollo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/MoveApollo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/MoveDefault.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/MoveDefault.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/MoveMinotaur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/MoveMinotaur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/Space.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/Space.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/ModelTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/ModelTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,15 +77,7 @@
       <recent name="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BuildAtlasTest">
-    <configuration name="All in GC39" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.ModelTest.notFreeToMoveTrue">
     <configuration name="BuildAtlasTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
@@ -126,7 +109,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BuildAtlasTest.executeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ModelTest.NotFreeToMoveTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -135,8 +118,40 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.BuildAtlasTest" />
-      <option name="METHOD_NAME" value="executeTest" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
+      <option name="METHOD_NAME" value="NotFreeToMoveTrue" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModelTest.freeToMoveTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
+      <option name="METHOD_NAME" value="freeToMoveTrue" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModelTest.notFreeToMoveTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
+      <option name="METHOD_NAME" value="notFreeToMoveTrue" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -144,10 +159,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ModelTest.notFreeToMoveTrue" />
+        <item itemvalue="JUnit.ModelTest.NotFreeToMoveTrue" />
+        <item itemvalue="JUnit.ModelTest.freeToMoveTrue" />
         <item itemvalue="JUnit.BuildAtlasTest" />
         <item itemvalue="JUnit.BuildAtlasTest.executeExceptionTest" />
-        <item itemvalue="JUnit.BuildAtlasTest.executeTest" />
-        <item itemvalue="JUnit.All in GC39" />
       </list>
     </recent_temporary>
   </component>
@@ -389,30 +405,54 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585392692649" />
-    <state width="1493" height="207" key="GridCell.Tab.0.bottom" timestamp="1585412290786">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="215" key="GridCell.Tab.0.bottom" timestamp="1585419752153">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585412290786" />
+    <state width="1398" height="267" key="GridCell.Tab.0.bottom/0.23.1440.832@0.23.1440.832" timestamp="1585419032498" />
+    <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.833@0.23.1440.833" timestamp="1585419752153" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585412239025" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1493" height="207" key="GridCell.Tab.0.center" timestamp="1585412290786">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="215" key="GridCell.Tab.0.center" timestamp="1585419752151">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585412290786" />
+    <state width="1398" height="267" key="GridCell.Tab.0.center/0.23.1440.832@0.23.1440.832" timestamp="1585419032498" />
+    <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.833@0.23.1440.833" timestamp="1585419752151" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1493" height="207" key="GridCell.Tab.0.left" timestamp="1585412290786">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="215" key="GridCell.Tab.0.left" timestamp="1585419752151">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585412290786" />
+    <state width="1398" height="267" key="GridCell.Tab.0.left/0.23.1440.832@0.23.1440.832" timestamp="1585419032497" />
+    <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.833@0.23.1440.833" timestamp="1585419752151" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1493" height="207" key="GridCell.Tab.0.right" timestamp="1585412290786">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="215" key="GridCell.Tab.0.right" timestamp="1585419752152">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585412290786" />
+    <state width="1398" height="267" key="GridCell.Tab.0.right/0.23.1440.832@0.23.1440.832" timestamp="1585419032498" />
+    <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.833@0.23.1440.833" timestamp="1585419752152" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
+    <state width="1398" height="267" key="GridCell.Tab.1.bottom" timestamp="1585419032499">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state width="1398" height="267" key="GridCell.Tab.1.bottom/0.23.1440.832@0.23.1440.832" timestamp="1585419032499" />
+    <state width="1398" height="267" key="GridCell.Tab.1.center" timestamp="1585419032499">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state width="1398" height="267" key="GridCell.Tab.1.center/0.23.1440.832@0.23.1440.832" timestamp="1585419032499" />
+    <state width="1398" height="267" key="GridCell.Tab.1.left" timestamp="1585419032499">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state width="1398" height="267" key="GridCell.Tab.1.left/0.23.1440.832@0.23.1440.832" timestamp="1585419032499" />
+    <state width="1398" height="267" key="GridCell.Tab.1.right" timestamp="1585419032499">
+      <screen x="0" y="23" width="1440" height="832" />
+    </state>
+    <state width="1398" height="267" key="GridCell.Tab.1.right/0.23.1440.832@0.23.1440.832" timestamp="1585419032499" />
     <state x="481" y="128" key="MultipleFileMergeDialog" timestamp="1585390827336">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -447,11 +487,12 @@
       <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state x="301" y="164" width="837" height="550" key="find.popup/0.23.1440.833@0.23.1440.833" timestamp="1585395096140" />
-    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585405795845">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="415" y="229" key="git4idea.merge.GitPullDialog" timestamp="1585417410499">
+      <screen x="0" y="23" width="1440" height="832" />
     </state>
     <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1585386186357" />
     <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585405795845" />
+    <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.832@0.23.1440.832" timestamp="1585417410499" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

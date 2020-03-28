@@ -11,6 +11,35 @@ public class ModelTest {
     private Worker myWorker = new Worker(player1);
     private Worker oppWorker = new Worker(player2);
 
+
+    //********************//
+    //Test su isFreeToMove//
+    //********************//
+
+    @Test
+    public void freeToMoveTrue() throws IllegalSpaceException {
+        myWorker.setSpace(model.getSpace(2,2));
+        model.getSpace(2,2).setWorker(myWorker);
+        assertTrue(model.isFreeToMove(myWorker));
+    }
+
+    @Test
+    public void notFreeToMoveTrue() throws IllegalSpaceException {
+        myWorker.setSpace(model.getSpace(2,2));
+        model.getSpace(2,2).setWorker(myWorker);
+
+        model.getSpace(1,1).setDome();
+        model.getSpace(1,2).setDome();
+        model.getSpace(1,3).setDome();
+        model.getSpace(2,1).setDome();
+        model.getSpace(2,3).setDome();
+        model.getSpace(3,1).setDome();
+        model.getSpace(3,2).setDome();
+        model.getSpace(3,3).setDome();
+        
+        assertFalse(model.isFreeToMove(myWorker));
+    }
+
     //*******************//
     //Test su charonPower//
     //*******************//
