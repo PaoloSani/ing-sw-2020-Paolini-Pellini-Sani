@@ -3,7 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/BuildAtlasTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/BuildAtlasTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildAtlas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildAtlas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildZeus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildZeus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveApollo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveApollo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveMinotaur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveMinotaur.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,9 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
-        <option value="JUnit4 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -49,22 +55,19 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/Test/it/polimi/ingsw" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../ese_Socket_Serialization" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="it.polimi.ingsw.model" />
-      <recent name="it.polimi.ingsw.Test" />
       <recent name="Test" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -79,110 +82,18 @@
       <recent name="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BuildAtlasTest.executeTest">
-    <configuration name="BuildAtlasTest.executeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="All in GC39" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.BuildAtlasTest" />
-      <option name="METHOD_NAME" value="executeTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ModelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ModelTest.setUpTableTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
-      <option name="METHOD_NAME" value="setUpTableTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SpaceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.Test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.Test" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Test.SpaceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SpaceTest.getHeightTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-      <module name="GC39" />
-      <useClassPathOnly />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.Test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.Test" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Test.SpaceTest" />
-      <option name="METHOD_NAME" value="getHeightTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SpaceTest.heightTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.Test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.Test" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Test.SpaceTest" />
-      <option name="METHOD_NAME" value="heightTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BuildAtlasTest.executeTest" />
-        <item itemvalue="JUnit.ModelTest.setUpTableTest" />
-        <item itemvalue="JUnit.ModelTest" />
-        <item itemvalue="JUnit.SpaceTest" />
-        <item itemvalue="JUnit.SpaceTest.heightTest" />
+        <item itemvalue="JUnit.All in GC39" />
       </list>
     </recent_temporary>
   </component>
@@ -215,7 +126,6 @@
       <workItem from="1585385651709" duration="25000" />
       <workItem from="1585385741286" duration="267000" />
       <workItem from="1585386378821" duration="2913000" />
-      <workItem from="1585402936511" duration="2183000" />
     </task>
     <task id="LOCAL-00001" summary="Formattato e rinominato alcune variabili">
       <created>1584810937165</created>
@@ -336,14 +246,7 @@
       <option name="project" value="LOCAL" />
       <updated>1585390892075</updated>
     </task>
-    <task id="LOCAL-00018" summary="Sistemata cartella UML">
-      <created>1585404087194</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1585404087194</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -358,35 +261,26 @@
     <option name="LAST_COMMIT_MESSAGE" value="Sistemata cartella UML" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="365" y="63" key="#BuildAtlasTest.executeTest" timestamp="1585404240320">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585396236820">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
-    <state x="365" y="63" key="#BuildAtlasTest.executeTest/0.0.1536.824@0.0.1536.824" timestamp="1585404240320" />
-    <state x="365" y="63" key="#SpaceTest.getHeightTest" timestamp="1585403237096">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="365" y="63" key="#SpaceTest.getHeightTest/0.0.1536.824@0.0.1536.824" timestamp="1585403237096" />
-    <state x="196" y="77" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585403438328">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="196" y="77" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1585403438328" />
     <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.833@0.23.1440.833" timestamp="1585396236820" />
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1584984159918">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1584984159918" />
-    <state x="883" y="187" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1585403021310">
+    <state x="883" y="187" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1585384559126">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="883" y="187" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1585403021310" />
+    <state x="883" y="187" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384559126" />
     <state x="410" y="338" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1585384629626">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="410" y="338" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384629626" />
-    <state x="566" y="272" width="403" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1585396748923">
+    <state x="566" y="272" width="403" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1585384638920">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="566" y="272" width="403" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1585396748923" />
+    <state x="566" y="272" width="403" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1585384638920" />
     <state x="566" y="293" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1585384631883">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -395,34 +289,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1584890990871" />
-    <state x="729" y="9" key="CommitChangelistDialog2" timestamp="1585405284450">
+    <state x="729" y="9" key="CommitChangelistDialog2" timestamp="1585393163023">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585405284450" />
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585405278391">
+    <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585393163023" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585386038851">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1585405278391" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1585386038851" />
     <state x="548" y="154" key="FileChooserDialogImpl" timestamp="1585392692649">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585392692649" />
-    <state width="1493" height="207" key="GridCell.Tab.0.bottom" timestamp="1585405230892">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585405230892" />
-    <state width="1493" height="207" key="GridCell.Tab.0.center" timestamp="1585405230892">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585405230892" />
-    <state width="1493" height="207" key="GridCell.Tab.0.left" timestamp="1585405230892">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585405230892" />
-    <state width="1493" height="207" key="GridCell.Tab.0.right" timestamp="1585405230892">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585405230892" />
     <state x="481" y="128" key="MultipleFileMergeDialog" timestamp="1585390827336">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -431,36 +309,36 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="439" y="111" width="957" height="601" key="NewModule_or_Project.wizard/0.0.1536.824@0.0.1536.824" timestamp="1585392715595" />
-    <state x="277" y="0" key="SettingsEditor" timestamp="1585403740777">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="260" y="23" key="SettingsEditor" timestamp="1585396281988">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
-    <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585403740777" />
+    <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585384620928" />
     <state x="260" y="23" key="SettingsEditor/0.23.1440.833@0.23.1440.833" timestamp="1585396281987" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585405308772">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585393123976">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585405308772" />
-    <state x="968" y="189" key="chooseDestDirectoryDialog" timestamp="1585403017180">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585393123976" />
+    <state x="968" y="189" key="chooseDestDirectoryDialog" timestamp="1585384562668">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="968" y="189" key="chooseDestDirectoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1585403017180" />
+    <state x="968" y="189" key="chooseDestDirectoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384562668" />
     <state x="379" y="193" key="com.intellij.ide.util.TipDialog" timestamp="1585386379407">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="379" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585386379407" />
-    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1585404678862">
+    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1585384562700">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1585404678862" />
+    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384562700" />
     <state x="301" y="164" width="837" height="550" key="find.popup" timestamp="1585395096140">
       <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state x="301" y="164" width="837" height="550" key="find.popup/0.23.1440.833@0.23.1440.833" timestamp="1585395096140" />
-    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585404150452">
+    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585391049942">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1585386186357" />
-    <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585404150452" />
+    <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585391049942" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
