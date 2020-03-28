@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7fd28a23-5ddb-45af-b827-89d44d5607d8" name="Default Changelist" comment="" />
+    <list default="true" id="7fd28a23-5ddb-45af-b827-89d44d5607d8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,7 +98,7 @@
       <workItem from="1585326721027" duration="1616000" />
       <workItem from="1585384138060" duration="912000" />
       <workItem from="1585385651709" duration="25000" />
-      <workItem from="1585385741286" duration="267000" />
+      <workItem from="1585385741286" duration="735000" />
     </task>
     <task id="LOCAL-00001" summary="Formattato e rinominato alcune variabili">
       <created>1584810937165</created>
@@ -189,7 +191,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585385840332</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="MoveHephaestus e charonPower">
+      <created>1585386045385</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1585386045385</updated>
+    </task>
+    <task id="LOCAL-00015" summary="MoveHephaestus e charonPower">
+      <created>1585386175617</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1585386175617</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -224,14 +240,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1584890990871" />
-    <state x="729" y="9" key="CommitChangelistDialog2" timestamp="1585386044878">
+    <state x="729" y="9" key="CommitChangelistDialog2" timestamp="1585389388275">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585386044878" />
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585386038851">
+    <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585389388274" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585389541337">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1585386038851" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1585389541337" />
     <state x="548" y="154" key="FileChooserDialogImpl" timestamp="1585328218415">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -244,22 +260,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585384620928" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585386056152">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585386203824">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585386056152" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585386203824" />
     <state x="968" y="189" key="chooseDestDirectoryDialog" timestamp="1585384562668">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="968" y="189" key="chooseDestDirectoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384562668" />
+    <state x="962" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585389547536">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="962" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1585389547536" />
     <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1585384562700">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384562700" />
-    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585326243803">
+    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585389397609">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585326243803" />
+    <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585389397609" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

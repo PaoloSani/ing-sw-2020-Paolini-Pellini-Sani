@@ -35,7 +35,4 @@ public class Constraint
         Hypnus = false;
     }
 
-
-
-
 }
