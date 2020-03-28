@@ -108,7 +108,7 @@ public class MoveMinotaurTest {
     @Test ( expected = IllegalSpaceException.class )
     public void nextSpaceOccupiedByDome() throws IllegalSpaceException {
         currSpace = new Space(0,4);
-        nextSpace = new Space(2, 4);
+        nextSpace = new Space(1, 4);
         nextSpace.setHeight(4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
@@ -116,8 +116,18 @@ public class MoveMinotaurTest {
         assertTrue(nextSpace.isDomed());
         moveMinotaur.execute( myWorker, nextSpace );
     }
+    @Test ( expected = IllegalSpaceException.class )
+    public void isBlockedByAthena() throws IllegalSpaceException {
+        currSpace = new Space(0,4);
+        nextSpace = new Space(1, 4);
+        myWorker = new Worker(player);
+        myWorker.setSpace(currSpace);
+        model.getConstraint().setAthena(true);
+        nextSpace.setHeight(1);
 
-
+        assertTrue(model.getConstraint().athenaBlocks());
+        moveMinotaur.execute( myWorker, nextSpace );
+    }
 
     @Test
     public void minotaurMoveCondition() throws IllegalSpaceException {
@@ -127,11 +137,11 @@ public class MoveMinotaurTest {
         myWorker.setSpace(currSpace);
         nextSpace.setWorker(new Worker(new Player("test2", model)));
 
-        assertFalse( nextSpace.getWorker() == myWorker);
-        assertTrue( nextSpace.getWorker() != null );
+        assertNotSame(nextSpace.getWorker(), myWorker);
+        assertNotNull(nextSpace.getWorker());
         moveMinotaur.execute( myWorker, nextSpace );
-        assertTrue( nextSpace.getWorker() == myWorker );
-        assertTrue( myWorker.getSpace() == nextSpace );
+        assertSame(nextSpace.getWorker(), myWorker);
+        assertSame(myWorker.getSpace(), nextSpace);
     }
 
     @Test
@@ -141,9 +151,9 @@ public class MoveMinotaurTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
 
-        assertFalse( nextSpace.getWorker() == myWorker);
+        assertNotSame(nextSpace.getWorker(), myWorker);
         moveMinotaur.execute( myWorker, nextSpace );
-        assertTrue( nextSpace.getWorker() == myWorker );
-        assertTrue( myWorker.getSpace() == nextSpace );
+        assertSame(nextSpace.getWorker(), myWorker);
+        assertSame(myWorker.getSpace(), nextSpace);
     }
 }

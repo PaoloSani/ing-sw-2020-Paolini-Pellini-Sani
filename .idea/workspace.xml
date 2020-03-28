@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="" />
+    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildAtlasTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildAtlasTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildZeus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildZeus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveApollo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveApollo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveMinotaur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveMinotaur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Space.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Space.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/BuildAtlasTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/BuildAtlasTest.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +23,7 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -45,7 +57,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java" />
@@ -58,6 +71,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="it.polimi.ingsw.model" />
       <recent name="Test" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -72,7 +86,7 @@
       <recent name="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ModelTest.notFreeToMoveTrue">
+  <component name="RunManager" selected="JUnit.MoveDefaultTest">
     <configuration name="BuildAtlasTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
@@ -88,7 +102,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BuildAtlasTest.executeExceptionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BuildZeusTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -97,14 +111,29 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.BuildAtlasTest" />
-      <option name="METHOD_NAME" value="executeExceptionTest" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.BuildZeusTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BuildZeusTest.buildInSamePosition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.BuildZeusTest" />
+      <option name="METHOD_NAME" value="buildInSamePosition" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ModelTest.NotFreeToMoveTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MoveDefaultTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -113,14 +142,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
-      <option name="METHOD_NAME" value="NotFreeToMoveTrue" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveDefaultTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ModelTest.freeToMoveTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MoveMinotaurTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -129,36 +157,19 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
-      <option name="METHOD_NAME" value="freeToMoveTrue" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ModelTest.notFreeToMoveTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
-      <option name="METHOD_NAME" value="notFreeToMoveTrue" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveMinotaurTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ModelTest.notFreeToMoveTrue" />
-        <item itemvalue="JUnit.ModelTest.NotFreeToMoveTrue" />
-        <item itemvalue="JUnit.ModelTest.freeToMoveTrue" />
+        <item itemvalue="JUnit.MoveDefaultTest" />
+        <item itemvalue="JUnit.MoveMinotaurTest" />
+        <item itemvalue="JUnit.BuildZeusTest.buildInSamePosition" />
+        <item itemvalue="JUnit.BuildZeusTest" />
         <item itemvalue="JUnit.BuildAtlasTest" />
-        <item itemvalue="JUnit.BuildAtlasTest.executeExceptionTest" />
       </list>
     </recent_temporary>
   </component>
@@ -191,7 +202,7 @@
       <workItem from="1585385651709" duration="25000" />
       <workItem from="1585385741286" duration="267000" />
       <workItem from="1585386378821" duration="2913000" />
-      <workItem from="1585412752779" duration="847000" />
+      <workItem from="1585412752779" duration="4344000" />
     </task>
     <task id="LOCAL-00001" summary="Formattato e rinominato alcune variabili">
       <created>1584810937165</created>
@@ -340,21 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585411913853</updated>
     </task>
-    <task id="LOCAL-00022" summary="Correzioni test isFreeToMove">
-      <created>1585419814836</created>
+    <task id="LOCAL-00022" summary="Correzioni isDomed()">
+      <created>1585413622039</created>
       <option name="number" value="00022" />
       <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1585419814836</updated>
+      <updated>1585413622039</updated>
     </task>
-    <task id="LOCAL-00023" summary="Correzioni test isFreeToMove">
-      <created>1585419899154</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1585419899154</updated>
-    </task>
-    <option name="localTasksCounter" value="24" />
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -369,8 +373,8 @@
     <MESSAGE value="Sistemato model" />
     <MESSAGE value="Test per BuildAtlas" />
     <MESSAGE value="Correzioni dome" />
-    <MESSAGE value="Correzioni test isFreeToMove" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correzioni test isFreeToMove" />
+    <MESSAGE value="Correzioni isDomed()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correzioni isDomed()" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585396236820">
@@ -402,11 +406,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1584890990871" />
-    <state x="569" y="32" key="CommitChangelistDialog2" timestamp="1585420017205">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state x="729" y="9" key="CommitChangelistDialog2" timestamp="1585417167441">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585393163023" />
-    <state x="569" y="32" key="CommitChangelistDialog2/0.23.1440.834@0.23.1440.834" timestamp="1585420017205" />
+    <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585417167441" />
+    <state x="569" y="32" key="CommitChangelistDialog2/0.23.1440.834@0.23.1440.834" timestamp="1585412233144" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585386038851">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -415,54 +419,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585392692649" />
-    <state width="1398" height="215" key="GridCell.Tab.0.bottom" timestamp="1585419930514">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state width="1492" height="229" key="GridCell.Tab.0.bottom" timestamp="1585416849238">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585412290786" />
-    <state width="1398" height="267" key="GridCell.Tab.0.bottom/0.23.1440.832@0.23.1440.832" timestamp="1585419032498" />
-    <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.833@0.23.1440.833" timestamp="1585419752153" />
-    <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585419930514" />
+    <state width="1492" height="229" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585416849238" />
+    <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585412239025" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1398" height="215" key="GridCell.Tab.0.center" timestamp="1585419930513">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state width="1492" height="229" key="GridCell.Tab.0.center" timestamp="1585416849238">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585412290786" />
-    <state width="1398" height="267" key="GridCell.Tab.0.center/0.23.1440.832@0.23.1440.832" timestamp="1585419032498" />
-    <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.833@0.23.1440.833" timestamp="1585419752151" />
-    <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585419930513" />
+    <state width="1492" height="229" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585416849238" />
+    <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1398" height="215" key="GridCell.Tab.0.left" timestamp="1585419930512">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state width="1492" height="229" key="GridCell.Tab.0.left" timestamp="1585416849238">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585412290786" />
-    <state width="1398" height="267" key="GridCell.Tab.0.left/0.23.1440.832@0.23.1440.832" timestamp="1585419032497" />
-    <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.833@0.23.1440.833" timestamp="1585419752151" />
-    <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585419930512" />
+    <state width="1492" height="229" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585416849238" />
+    <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1398" height="215" key="GridCell.Tab.0.right" timestamp="1585419930513">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state width="1492" height="229" key="GridCell.Tab.0.right" timestamp="1585416849238">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585412290786" />
-    <state width="1398" height="267" key="GridCell.Tab.0.right/0.23.1440.832@0.23.1440.832" timestamp="1585419032498" />
-    <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.833@0.23.1440.833" timestamp="1585419752152" />
-    <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.834@0.23.1440.834" timestamp="1585419930513" />
+    <state width="1492" height="229" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585416849238" />
+    <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1398" height="267" key="GridCell.Tab.1.bottom" timestamp="1585419032499">
-      <screen x="0" y="23" width="1440" height="832" />
-    </state>
-    <state width="1398" height="267" key="GridCell.Tab.1.bottom/0.23.1440.832@0.23.1440.832" timestamp="1585419032499" />
-    <state width="1398" height="267" key="GridCell.Tab.1.center" timestamp="1585419032499">
-      <screen x="0" y="23" width="1440" height="832" />
-    </state>
-    <state width="1398" height="267" key="GridCell.Tab.1.center/0.23.1440.832@0.23.1440.832" timestamp="1585419032499" />
-    <state width="1398" height="267" key="GridCell.Tab.1.left" timestamp="1585419032499">
-      <screen x="0" y="23" width="1440" height="832" />
-    </state>
-    <state width="1398" height="267" key="GridCell.Tab.1.left/0.23.1440.832@0.23.1440.832" timestamp="1585419032499" />
-    <state width="1398" height="267" key="GridCell.Tab.1.right" timestamp="1585419032499">
-      <screen x="0" y="23" width="1440" height="832" />
-    </state>
-    <state width="1398" height="267" key="GridCell.Tab.1.right/0.23.1440.832@0.23.1440.832" timestamp="1585419032499" />
     <state x="481" y="128" key="MultipleFileMergeDialog" timestamp="1585390827336">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -476,11 +456,11 @@
     </state>
     <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585412891426" />
     <state x="260" y="23" key="SettingsEditor/0.23.1440.833@0.23.1440.833" timestamp="1585396281987" />
-    <state x="338" y="170" key="Vcs.Push.Dialog.v2" timestamp="1585420033213">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585413627783">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585393123976" />
-    <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.834@0.23.1440.834" timestamp="1585420033213" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585413627783" />
+    <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.834@0.23.1440.834" timestamp="1585411916104" />
     <state x="968" y="189" key="chooseDestDirectoryDialog" timestamp="1585384562668">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -489,21 +469,19 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="379" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585386379407" />
-    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1585384562700">
+    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1585416587866">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384562700" />
+    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1585416587866" />
     <state x="301" y="164" width="837" height="550" key="find.popup" timestamp="1585395096140">
       <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state x="301" y="164" width="837" height="550" key="find.popup/0.23.1440.833@0.23.1440.833" timestamp="1585395096140" />
-    <state x="415" y="229" key="git4idea.merge.GitPullDialog" timestamp="1585419885788">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585405795845">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1585386186357" />
     <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585405795845" />
-    <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.832@0.23.1440.832" timestamp="1585417410499" />
-    <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.834@0.23.1440.834" timestamp="1585419885788" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

@@ -134,7 +134,7 @@ public class BuildZeusTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        assertFalse(level == space.getHeight());
+        assertNotEquals(level, space.getHeight());
         buildZeus.execute( myWorker, space, level);
         assertEquals(level, space.getHeight());
     }
@@ -146,9 +146,9 @@ public class BuildZeusTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        assertFalse(space.getHeight() == level);
+        assertNotEquals(space.getHeight(), level);
         buildZeus.execute( myWorker, space, level);
-        assertTrue(space.getHeight() == level);
-        assertTrue( currSpace.getHeight() == level);
+        assertEquals(space.getHeight(), level);
+        assertEquals(currSpace.getHeight(), level);
     }
 }

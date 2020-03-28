@@ -26,7 +26,7 @@ public class MoveApollo implements Move {
                 nextSpace.isDomed()                                                    ||      //la prossima cella è una cupola
 
                 //se Athena è true controllo che non si possa salire
-                (worker.getPlayer().getModel().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
+                ( worker.getPlayer().getModel().getConstraint().athenaBlocks() && ( nextSpace.getHeight() - currH == 1 )))
 
             throw new IllegalSpaceException( "Space not accepted!" );
 
