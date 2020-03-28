@@ -38,5 +38,4 @@ public class Space {
         this.worker = worker;
     }
 
-
 }

@@ -22,6 +22,7 @@ public class Model {
         this.dome = constDome;
         this.setUpTable();
         this.setUpDeck();
+        this.constraint = new Constraint();
     }
 
     public Constraint getConstraint() {
