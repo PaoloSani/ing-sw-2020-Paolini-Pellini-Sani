@@ -138,8 +138,8 @@ public class Model {
         //salvo le coordinate per fare i calcoli
         myX = myWorker.getSpace().getX();
         myY = myWorker.getSpace().getY();
-        oppX = myWorker.getSpace().getX();
-        oppY = myWorker.getSpace().getY();
+        oppX = oppWorker.getSpace().getX();
+        oppY = oppWorker.getSpace().getY();
 
         //calcolo le nuove coordinate
         if ( myX == oppX  ){        //spostamento nella stessa riga
@@ -181,8 +181,8 @@ public class Model {
         //salvo le coordinate per fare i calcoli
         myX = myWorker.getSpace().getX();
         myY = myWorker.getSpace().getY();
-        oppX = myWorker.getSpace().getX();
-        oppY = myWorker.getSpace().getY();
+        oppX = oppWorker.getSpace().getX();
+        oppY = oppWorker.getSpace().getY();
 
         //Calcolo casella dove viene spinto il workers
         if ( myX == oppX  ){        //spostamento nella stessa riga
