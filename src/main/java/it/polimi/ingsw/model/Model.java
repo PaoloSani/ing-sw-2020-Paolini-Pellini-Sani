@@ -75,6 +75,14 @@ public class Model {
         }
     }
 
+    public Space getSpace(int x, int y) throws IllegalSpaceException{
+        if( x >= 0 && x <= 4    &&
+            y >= 0 && y <= 4     ){
+            return table[x][y];
+        }
+        else throw (new IllegalSpaceException());
+    }
+
     private void setUpDeck() {
         this.deck = new String[14];
         this.deck[0] = "Apollo";
