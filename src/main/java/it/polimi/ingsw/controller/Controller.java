@@ -83,9 +83,9 @@ public class Controller {
         chooseCards();
         //placeWorkers();
 
-        while( !EndOfTheGame ){
+        /*while( !EndOfTheGame ){
             EndOfTheGame
-        }
+        }*/
 
     }
 
