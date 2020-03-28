@@ -81,10 +81,11 @@ public class Controller {
         Worker currWorker;
         //setPlayers(name1, name2, name3);
         chooseCards();
+        //placeWorkers();
 
-        while( !EndOfTheGame ){
+        /*while( !EndOfTheGame ){
             EndOfTheGame
-        }
+        }*/
 
     }
 
