@@ -257,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585390892075</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Classi di test">
+      <created>1585405997264</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1585405997264</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,7 +277,8 @@
     <MESSAGE value="MoveHephaestus e charonPower" />
     <MESSAGE value="Sistemata cartella UML" />
     <MESSAGE value="Sistemato model" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sistemato model" />
+    <MESSAGE value="Classi di test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Classi di test" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585396236820">
@@ -301,10 +309,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1584890990871" />
-    <state x="729" y="9" key="CommitChangelistDialog2" timestamp="1585393163023">
+    <state x="729" y="9" key="CommitChangelistDialog2" timestamp="1585405996651">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585393163023" />
+    <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585405996651" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585386038851">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -313,22 +321,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585392692649" />
-    <state width="1493" height="207" key="GridCell.Tab.0.bottom" timestamp="1585405937131">
+    <state width="1493" height="207" key="GridCell.Tab.0.bottom" timestamp="1585406172552">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
-    <state width="1493" height="207" key="GridCell.Tab.0.center" timestamp="1585405937131">
+    <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585406172552" />
+    <state width="1493" height="207" key="GridCell.Tab.0.center" timestamp="1585406172552">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
-    <state width="1493" height="207" key="GridCell.Tab.0.left" timestamp="1585405937131">
+    <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585406172552" />
+    <state width="1493" height="207" key="GridCell.Tab.0.left" timestamp="1585406172552">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
-    <state width="1493" height="207" key="GridCell.Tab.0.right" timestamp="1585405937131">
+    <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585406172552" />
+    <state width="1493" height="207" key="GridCell.Tab.0.right" timestamp="1585406172552">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
+    <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585406172552" />
     <state x="481" y="128" key="MultipleFileMergeDialog" timestamp="1585390827336">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -342,10 +350,10 @@
     </state>
     <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585384620928" />
     <state x="260" y="23" key="SettingsEditor/0.23.1440.833@0.23.1440.833" timestamp="1585396281987" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585393123976">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585406008256">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585393123976" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585406008256" />
     <state x="968" y="189" key="chooseDestDirectoryDialog" timestamp="1585384562668">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -362,11 +370,11 @@
       <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state x="301" y="164" width="837" height="550" key="find.popup/0.23.1440.833@0.23.1440.833" timestamp="1585395096140" />
-    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585405795845">
+    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585412206338">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1585386186357" />
-    <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585405795845" />
+    <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585412206338" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

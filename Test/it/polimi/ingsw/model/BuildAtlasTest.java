@@ -16,7 +16,7 @@ public class BuildAtlasTest {
 
     @Test ( expected = IllegalSpaceException.class)
     public void executeTest() throws IllegalSpaceException {
-        currSpace = new Space(1,4);
+        currSpace = new Space(4,1);
         space = new Space(5, 1);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
