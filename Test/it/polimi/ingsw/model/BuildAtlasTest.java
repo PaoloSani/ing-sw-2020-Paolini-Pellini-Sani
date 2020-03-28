@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class BuildAtlasTest {
 
     private Space currSpace, space;
-    private Worker myWorker, otherWorker;
+    private Worker myWorker;
     private BuildAtlas buildAtlas = new BuildAtlas();
     private Model model = new Model();
     private Player player = new Player("test", model);
@@ -145,7 +145,7 @@ public class BuildAtlasTest {
         level = 4;
         assertFalse(level == space.getHeight());
         buildAtlas.execute( myWorker, space, level);
-        assertEquals(level, space.getHeight());
+        assertTrue(space.isDomed());
     }
 
     @Test
@@ -154,7 +154,8 @@ public class BuildAtlasTest {
         space = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        level = 1;
+        space.setHeight(1);
+        level = 2;
         assertFalse(level == space.getHeight());
         buildAtlas.execute( myWorker, space, level);
         assertEquals(level, space.getHeight());
