@@ -107,7 +107,7 @@ public class MoveDefaultTest {
     @Test ( expected = IllegalSpaceException.class )
     public void nextSpaceOccupiedByWorker() throws IllegalSpaceException {
         currSpace = new Space(0,4);
-        nextSpace = new Space(2, 4);
+        nextSpace = new Space(1, 4);
         nextSpace.setHeight(4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
@@ -116,8 +116,6 @@ public class MoveDefaultTest {
         assertNotNull(nextSpace.getWorker());
         moveDefault.execute( myWorker, nextSpace );
     }
-
-
 
     @Test ( expected = IllegalSpaceException.class )
     public void nextSpaceOccupiedByDome() throws IllegalSpaceException {
@@ -128,6 +126,19 @@ public class MoveDefaultTest {
         myWorker.setSpace(currSpace);
 
         assertTrue(nextSpace.isDomed());
+        moveDefault.execute( myWorker, nextSpace );
+    }
+
+    @Test ( expected = IllegalSpaceException.class )
+    public void isBlockedByAthena() throws IllegalSpaceException {
+        currSpace = new Space(0,4);
+        nextSpace = new Space(1, 4);
+        myWorker = new Worker(player);
+        myWorker.setSpace(currSpace);
+        model.getConstraint().setAthena(true);
+        nextSpace.setHeight(1);
+
+        assertTrue(model.getConstraint().athenaBlocks());
         moveDefault.execute( myWorker, nextSpace );
     }
 
