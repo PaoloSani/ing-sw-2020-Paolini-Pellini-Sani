@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2bozzaUML.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UML/2bozzaUML.mdj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2bozzaUML.png" beforeDir="false" afterPath="$PROJECT_DIR$/UML/2bozzaUML.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3bozzaUML.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UML/3bozzaUML.mdj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3bozzaUML.png" beforeDir="false" afterPath="$PROJECT_DIR$/UML/3bozzaUML.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BozzaUML.png" beforeDir="false" afterPath="$PROJECT_DIR$/UML/BozzaUML.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bozzaUML.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/UML/bozzaUML.mdj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GC39.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GC39.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +220,8 @@
     <MESSAGE value="Prime righe di Controller" />
     <MESSAGE value="Set delle Strategy per Move e Build" />
     <MESSAGE value="MoveHephaestus e charonPower" />
-    <option name="LAST_COMMIT_MESSAGE" value="MoveHephaestus e charonPower" />
+    <MESSAGE value="Commit before pull" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit before pull" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1584984159918">
@@ -291,11 +288,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384562700" />
-    <state x="394" y="183" key="git4idea.merge.GitPullDialog" timestamp="1585386186357">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state x="415" y="230" key="git4idea.merge.GitPullDialog" timestamp="1585393248263">
+      <screen x="0" y="23" width="1440" height="832" />
     </state>
     <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1585386186357" />
     <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585326243803" />
+    <state x="415" y="230" key="git4idea.merge.GitPullDialog/0.23.1440.832@0.23.1440.832" timestamp="1585393248263" />
+    <state x="415" y="230" key="git4idea.merge.GitPullDialog/0.23.1440.834@0.23.1440.834" timestamp="1585393207389" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
