@@ -52,7 +52,7 @@ public class BuildDefault implements Build {
             case 4 :
                 if( worker.getPlayer().getModel().getDome() > 0 ){
                     worker.getPlayer().getModel().setDome( worker.getPlayer().getModel().getDome() - 1 );
-                    space.setHeight( newH );
+                    space.setDome();
                 }
                 else throw new IllegalSpaceException( "Space not accepted!" );
                 break;
