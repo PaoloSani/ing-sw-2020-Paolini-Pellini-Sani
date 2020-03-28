@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="" />
+    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GC39.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GC39.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Build.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Build.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildAtlas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildAtlas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildZeus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildZeus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveApollo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveApollo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveMinotaur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveMinotaur.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,6 +56,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -74,7 +88,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7fd28a23-5ddb-45af-b827-89d44d5607d8" name="Default Changelist" comment="" />
+      <changelist id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="" />
       <created>1584809308140</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -97,6 +111,7 @@
       <workItem from="1585384138060" duration="912000" />
       <workItem from="1585385651709" duration="25000" />
       <workItem from="1585385741286" duration="267000" />
+      <workItem from="1585386378821" duration="2913000" />
     </task>
     <task id="LOCAL-00001" summary="Formattato e rinominato alcune variabili">
       <created>1584810937165</created>
@@ -189,8 +204,18 @@
       <option name="project" value="LOCAL" />
       <updated>1585385840332</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="MoveHephaestus e charonPower">
+      <created>1585386254580</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1585386254580</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Formattato e rinominato alcune variabili" />
@@ -252,6 +277,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="968" y="189" key="chooseDestDirectoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384562668" />
+    <state x="379" y="193" key="com.intellij.ide.util.TipDialog" timestamp="1585386379407">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="379" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585386379407" />
     <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1585384562700">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -265,9 +294,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="418" y="14" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1585384448255" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1584899820481">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="383" y="130" width="672" height="608" key="search.everywhere.popup" timestamp="1585389210401">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state x="383" y="130" width="672" height="608" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1585389210401" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1584899820481" />
   </component>
 </project>

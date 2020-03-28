@@ -90,7 +90,7 @@ public class Controller {
 
     public boolean playTurn( Player player ){
         //Scegli il worker
-        //currWorker = ...;
+        Worker currWorker = chooseWorker(player);
 
         switch ( player.getGodName() ) {
 
@@ -129,5 +129,22 @@ public class Controller {
              */
 
         }
+    }
+
+    public Worker chooseWorker ( Player player ){
+        Worker result;
+
+        //result = getChoiceFromView(player.getWorker1(),player.getWorker2());
+
+        if ( model.isFreeToMove(result) ){
+            return result;
+        }
+        else {
+            if( result.equals(player.getWorker1())){
+                return player1.getWorker2();
+            }
+            else return player.getWorker1();
+        }
+
     }
 }

@@ -15,7 +15,9 @@ public class MoveDefault implements Move {
         }
 
         // controllo il contenuto di nextSpace
-        if ( ( currX - nextSpace.getX() ) > 1 || ( currX - nextSpace.getX() ) < -1    ||     //riga non valida
+        if (    nextSpace.getX() > 4 && nextSpace.getX() < 0                          ||
+                nextSpace.getY() > 4 && nextSpace.getY() < 0                          ||     //space non appartenente alla tabella
+                ( currX - nextSpace.getX() ) > 1 || ( currX - nextSpace.getX() ) < -1 ||     //riga non valida
                 ( currY - nextSpace.getY() ) > 1 || ( currY - nextSpace.getY() ) < -1 ||     //colonna non valida
                 nextSpace.getHeight() - currH <= 1                                    ||     //sale più di un livello
                 currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
