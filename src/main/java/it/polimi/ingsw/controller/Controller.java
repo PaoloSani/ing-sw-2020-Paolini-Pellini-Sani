@@ -88,6 +88,8 @@ public class Controller {
 
     }
 
+    //il metodo playTurn effettua il flusso di gioco del turno di un giocatore. In base alla divinità il flusso può essere diverso.
+    //Il tipo ritornato è boolean, perché la move ritorna true nel caso sia stata effettuata una mossa vincente.
     public boolean playTurn( Player player ){
         //Scegli il worker
         Worker currWorker = chooseWorker(player);

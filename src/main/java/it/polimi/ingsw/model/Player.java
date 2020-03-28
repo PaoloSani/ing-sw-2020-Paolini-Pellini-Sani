@@ -11,16 +11,6 @@ public class Player {
     private Build build;
     private Model model;
 
-
-
-    public void setMove(Move move) {
-        this.move = move;
-    }
-
-    public void setBuild(Build build) {
-        this.build = build;
-    }
-
     public Player( String nickname, Model model ) {
         this.nickname = nickname;
         this.godName = null;
@@ -51,6 +41,15 @@ public class Player {
         return model;
     }
 
+    public void setMove(Move move) {
+        this.move = move;
+    }
+
+    public void setBuild(Build build) {
+        this.build = build;
+    }
+
+    //setta la divinità e in base a quella sceglie le varie strategy associate al player
     public void setGodName(String godName) {
         this.godName = godName;
         /*
@@ -87,18 +86,21 @@ public class Player {
                 setBuild(new BuildDefault());
 
         }
+
+        //l'altro caso che posso aver è che la divinità sia Hypnus, quindi vado a settare la classe costraint se è presente
+        if( godName == "Hypnus" ){
+            this.model.getConstraint().setHypnus(true);
+        }
     }
 
-    /*
-        Il metodo isWinner viene invocato successivamente ad ogni move() e controlla se la mossa è vincente
-     */
-
+    //Il metodo isWinner viene invocato successivamente ad ogni move() e controlla se la mossa è vincente
     public boolean isWinner(Space oldSpace, Space currSpace) {
         if ( oldSpace.getHeight() == 2 && currSpace.getHeight() == 3 )
             return true;
         //Condizione di vittoria Pan
         else return this.godName == "Pan" && (oldSpace.getHeight() - currSpace.getHeight() > 1 );
     }
+
     // Esegue la strategy che viene associata ad ogni player secondo la propria divinità
     public boolean moveWorker(Worker worker, Space destination) throws IllegalSpaceException {
         return this.move.execute(worker, destination);
