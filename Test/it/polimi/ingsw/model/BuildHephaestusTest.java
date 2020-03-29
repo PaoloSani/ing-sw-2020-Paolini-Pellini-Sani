@@ -130,7 +130,7 @@ public class BuildHephaestusTest {
         currSpace = new Space(0,4);
         currSpace.setHeight(2);
         space = new Space(2, 4);
-        space.setHeight(4);
+        space.setHeight(2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 4;
@@ -150,11 +150,16 @@ public class BuildHephaestusTest {
         assertEquals(level, space.getHeight());
     }
 
-
-
-
-
-
-
-
+    @Test
+    public void hephaestusBuildCondition() throws IllegalSpaceException {
+        currSpace = new Space(0,4);
+        space = new Space(1, 4);
+        myWorker = new Worker(player);
+        myWorker.setSpace(currSpace);
+        space.setHeight(1);
+        level = 3;
+        assertFalse(level == space.getHeight());
+        buildHephaestus.execute( myWorker, space, level);
+        assertEquals(level, space.getHeight());
+    }
 }
