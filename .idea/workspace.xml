@@ -3,19 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildAtlasTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildAtlasTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildDefaultTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildDefaultTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildHephaestusTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildHephaestusTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildZeusTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildZeusTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveApolloTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveApolloTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveDefaultTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveDefaultTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveMinotaurTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveMinotaurTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveApollo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveApollo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/BuildDefaultTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/BuildDefaultTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/BuildHephaestusTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/BuildHephaestusTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveApolloTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveApolloTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveDefaultTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveDefaultTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/ModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/ModelTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,8 +75,8 @@
       <recent name="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MoveApolloTest">
-    <configuration name="BuildHephaestusTest.hephaestusBuildCondition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ModelTest">
+    <configuration name="ModelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -97,29 +85,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.BuildHephaestusTest" />
-      <option name="METHOD_NAME" value="hephaestusBuildCondition" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MoveApolloTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveApolloTest" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveApolloTest.athenaPower" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ModelTest.charonHasWorked" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -128,14 +100,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveApolloTest" />
-      <option name="METHOD_NAME" value="athenaPower" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
+      <option name="METHOD_NAME" value="charonHasWorked" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveApolloTest.moreThanOneLevel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ModelTest.minotaurHasWorked" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -144,14 +116,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveApolloTest" />
-      <option name="METHOD_NAME" value="moreThanOneLevel" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
+      <option name="METHOD_NAME" value="minotaurHasWorked" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveApolloTest.normalMoveCondition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ModelTest.negativeXCharon" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -160,8 +132,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveApolloTest" />
-      <option name="METHOD_NAME" value="normalMoveCondition" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
+      <option name="METHOD_NAME" value="negativeXCharon" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModelTest.occupiedByWorkerSpaceCharon" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
+      <option name="METHOD_NAME" value="occupiedByWorkerSpaceCharon" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -169,11 +157,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MoveApolloTest" />
-        <item itemvalue="JUnit.MoveApolloTest.normalMoveCondition" />
-        <item itemvalue="JUnit.MoveApolloTest.athenaPower" />
-        <item itemvalue="JUnit.MoveApolloTest.moreThanOneLevel" />
-        <item itemvalue="JUnit.BuildHephaestusTest.hephaestusBuildCondition" />
+        <item itemvalue="JUnit.ModelTest" />
+        <item itemvalue="JUnit.ModelTest.minotaurHasWorked" />
+        <item itemvalue="JUnit.ModelTest.charonHasWorked" />
+        <item itemvalue="JUnit.ModelTest.occupiedByWorkerSpaceCharon" />
+        <item itemvalue="JUnit.ModelTest.negativeXCharon" />
       </list>
     </recent_temporary>
   </component>
@@ -400,7 +388,8 @@
     <MESSAGE value="Correzioni dome" />
     <MESSAGE value="Creazione test BuildDefault, BuildHefesto, MoveApollo" />
     <MESSAGE value="Correzione test BuildDefault, BuildHefesto, MoveApollo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correzione test BuildDefault, BuildHefesto, MoveApollo" />
+    <MESSAGE value="Merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585396236820">
@@ -451,33 +440,33 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585392692649" />
-    <state width="1323" height="180" key="GridCell.Tab.0.bottom" timestamp="1585495010911">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1398" height="215" key="GridCell.Tab.0.bottom" timestamp="1585496007883">
+      <screen x="0" y="23" width="1440" height="834" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585495010911" />
     <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
-    <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585412239025" />
+    <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585496007883" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1323" height="180" key="GridCell.Tab.0.center" timestamp="1585495010911">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1398" height="215" key="GridCell.Tab.0.center" timestamp="1585496007882">
+      <screen x="0" y="23" width="1440" height="834" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1585495010911" />
     <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
-    <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
+    <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1323" height="180" key="GridCell.Tab.0.left" timestamp="1585495010910">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1398" height="215" key="GridCell.Tab.0.left" timestamp="1585496007881">
+      <screen x="0" y="23" width="1440" height="834" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1585495010910" />
     <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
-    <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
+    <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585496007881" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1323" height="180" key="GridCell.Tab.0.right" timestamp="1585495010911">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1398" height="215" key="GridCell.Tab.0.right" timestamp="1585496007882">
+      <screen x="0" y="23" width="1440" height="834" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1585495010911" />
     <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
-    <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
+    <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
     <state width="1323" height="227" key="GridCell.Tab.1.bottom" timestamp="1585421168035">
       <screen x="0" y="0" width="1366" height="738" />
