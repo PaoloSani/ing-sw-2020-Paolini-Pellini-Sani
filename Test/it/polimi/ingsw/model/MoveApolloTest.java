@@ -80,7 +80,7 @@ public class MoveApolloTest {
     @Test ( expected = IllegalSpaceException.class)
     public void negativeNotNeighbouringY() throws IllegalSpaceException {
         currSpace = new Space(0,2);
-        nextSpace = new Space(2, 4);
+        nextSpace = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         moveApollo.execute( myWorker, nextSpace );
@@ -121,7 +121,7 @@ public class MoveApolloTest {
         nextSpace = new Space(1, 2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        nextSpace.setHeight(4);
+        nextSpace.setDome();
         moveApollo.execute( myWorker, nextSpace );
     }
 
@@ -144,8 +144,10 @@ public class MoveApolloTest {
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-
+        //Servono ?
         assertNotSame(nextSpace.getWorker(), myWorker);
+        assertEquals(null, nextSpace.getWorker());
+        //
         moveApollo.execute( myWorker, nextSpace );
         assertSame(nextSpace.getWorker(), myWorker);
         assertSame(myWorker.getSpace(), nextSpace);
@@ -168,10 +170,11 @@ public class MoveApolloTest {
         assertNotNull(nextSpace.getWorker());
         assertNotNull(currSpace.getWorker());
         moveApollo.execute( myWorker, nextSpace );
-        assertSame(nextSpace.getWorker(), myWorker);
-        assertEquals(currSpace.getWorker(), oppWorker);
-        assertSame(oppWorker.getSpace(), currSpace);
+
         assertEquals(nextSpace.getWorker(), myWorker);
+        assertEquals(currSpace.getWorker(), oppWorker);
+        assertEquals(oppWorker.getSpace(), currSpace);
+        assertEquals(myWorker.getSpace(), nextSpace);
 
     }
 }

@@ -3,6 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildAtlasTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildAtlasTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildDefaultTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildDefaultTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildHephaestusTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildHephaestusTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildZeusTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/BuildZeusTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveApolloTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveApolloTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveDefaultTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveDefaultTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveMinotaurTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveMinotaurTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveApollo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/MoveApollo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/BuildDefaultTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/BuildDefaultTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/BuildHephaestusTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/BuildHephaestusTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveApolloTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveApolloTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveDefaultTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveDefaultTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,38 +87,7 @@
       <recent name="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MoveApolloTest.apolloMoveCondition">
-    <configuration name="BuildAtlasTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.BuildAtlasTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BuildHephaestusTest.SecondLevelDome" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.BuildHephaestusTest" />
-      <option name="METHOD_NAME" value="SecondLevelDome" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.MoveApolloTest">
     <configuration name="BuildHephaestusTest.hephaestusBuildCondition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
@@ -137,7 +119,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveApolloTest.apolloMoveCondition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MoveApolloTest.athenaPower" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -147,7 +129,39 @@
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveApolloTest" />
-      <option name="METHOD_NAME" value="apolloMoveCondition" />
+      <option name="METHOD_NAME" value="athenaPower" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MoveApolloTest.moreThanOneLevel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveApolloTest" />
+      <option name="METHOD_NAME" value="moreThanOneLevel" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MoveApolloTest.normalMoveCondition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveApolloTest" />
+      <option name="METHOD_NAME" value="normalMoveCondition" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -155,11 +169,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MoveApolloTest.apolloMoveCondition" />
         <item itemvalue="JUnit.MoveApolloTest" />
-        <item itemvalue="JUnit.BuildHephaestusTest.SecondLevelDome" />
+        <item itemvalue="JUnit.MoveApolloTest.normalMoveCondition" />
+        <item itemvalue="JUnit.MoveApolloTest.athenaPower" />
+        <item itemvalue="JUnit.MoveApolloTest.moreThanOneLevel" />
         <item itemvalue="JUnit.BuildHephaestusTest.hephaestusBuildCondition" />
-        <item itemvalue="JUnit.BuildAtlasTest" />
       </list>
     </recent_temporary>
   </component>
@@ -192,7 +206,7 @@
       <workItem from="1585385651709" duration="25000" />
       <workItem from="1585385741286" duration="267000" />
       <workItem from="1585386378821" duration="2913000" />
-      <workItem from="1585488431478" duration="3271000" />
+      <workItem from="1585488431478" duration="6534000" />
     </task>
     <task id="LOCAL-00001" summary="Formattato e rinominato alcune variabili">
       <created>1584810937165</created>
@@ -362,7 +376,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585491434425</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Correzione test BuildDefault, BuildHefesto, MoveApollo">
+      <created>1585491836233</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1585491836233</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -390,9 +411,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="92" y="92" width="1182" height="554" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.738@0.0.1366.738" timestamp="1585489412988" />
-    <state x="538" y="153" key="#com.intellij.ide.util.MemberChooser" timestamp="1585410646622">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state x="510" y="115" key="#com.intellij.ide.util.MemberChooser" timestamp="1585493473104">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state x="510" y="115" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1585493473104" />
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1584984159918" />
     <state x="538" y="153" key="#com.intellij.ide.util.MemberChooser/0.23.1440.834@0.23.1440.834" timestamp="1585410646622" />
     <state x="883" y="187" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1585384559126">
@@ -415,10 +437,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1584890990871" />
-    <state x="540" y="0" key="CommitChangelistDialog2" timestamp="1585491606167">
+    <state x="540" y="0" key="CommitChangelistDialog2" timestamp="1585491834898">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="540" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585491606167" />
+    <state x="540" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585491834898" />
     <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585393163023" />
     <state x="569" y="32" key="CommitChangelistDialog2/0.23.1440.834@0.23.1440.834" timestamp="1585412233144" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585386038851">
@@ -429,31 +451,31 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585392692649" />
-    <state width="1323" height="180" key="GridCell.Tab.0.bottom" timestamp="1585491799599">
+    <state width="1323" height="180" key="GridCell.Tab.0.bottom" timestamp="1585495010911">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585491799599" />
+    <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585495010911" />
     <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585412239025" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1323" height="180" key="GridCell.Tab.0.center" timestamp="1585491799599">
+    <state width="1323" height="180" key="GridCell.Tab.0.center" timestamp="1585495010911">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1585491799599" />
+    <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1585495010911" />
     <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1323" height="180" key="GridCell.Tab.0.left" timestamp="1585491799597">
+    <state width="1323" height="180" key="GridCell.Tab.0.left" timestamp="1585495010910">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1585491799597" />
+    <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1585495010910" />
     <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1323" height="180" key="GridCell.Tab.0.right" timestamp="1585491799599">
+    <state width="1323" height="180" key="GridCell.Tab.0.right" timestamp="1585495010911">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1585491799599" />
+    <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1585495010911" />
     <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.834@0.23.1440.834" timestamp="1585412239024" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
@@ -473,6 +495,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
+    <state x="263" y="112" key="IDE.errors.dialog" timestamp="1585491874540">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="263" y="112" key="IDE.errors.dialog/0.0.1366.738@0.0.1366.738" timestamp="1585491874540" />
     <state x="481" y="128" key="MultipleFileMergeDialog" timestamp="1585390827336">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -486,10 +512,10 @@
     </state>
     <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585384620928" />
     <state x="260" y="23" key="SettingsEditor/0.23.1440.833@0.23.1440.833" timestamp="1585396281987" />
-    <state x="321" y="130" key="Vcs.Push.Dialog.v2" timestamp="1585491621063">
+    <state x="321" y="130" key="Vcs.Push.Dialog.v2" timestamp="1585491848327">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="321" y="130" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585491621063" />
+    <state x="321" y="130" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585491848327" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585393123976" />
     <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.834@0.23.1440.834" timestamp="1585411916104" />
     <state x="968" y="189" key="chooseDestDirectoryDialog" timestamp="1585384562668">
@@ -508,12 +534,11 @@
       <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state x="301" y="164" width="837" height="550" key="find.popup/0.23.1440.833@0.23.1440.833" timestamp="1585395096140" />
-    <state x="415" y="229" key="git4idea.merge.GitPullDialog" timestamp="1585495075967">
-      <screen x="0" y="23" width="1440" height="832" />
+    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585405795845">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1585386186357" />
     <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585405795845" />
-    <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.832@0.23.1440.832" timestamp="1585495075967" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
