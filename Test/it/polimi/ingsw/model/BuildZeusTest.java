@@ -87,7 +87,7 @@ public class BuildZeusTest {
     @Test ( expected = IllegalSpaceException.class)
     public void negativeNotNeighbouringY() throws IllegalSpaceException {
         currSpace = new Space(0,2);
-        space = new Space(2, 4);
+        space = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;

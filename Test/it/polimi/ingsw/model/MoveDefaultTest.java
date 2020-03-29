@@ -78,7 +78,7 @@ public class MoveDefaultTest {
     @Test ( expected = IllegalSpaceException.class)
     public void negativeNotNeighbouringY() throws IllegalSpaceException {
         currSpace = new Space(0,2);
-        nextSpace = new Space(2, 4);
+        nextSpace = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         moveDefault.execute( myWorker, nextSpace );
