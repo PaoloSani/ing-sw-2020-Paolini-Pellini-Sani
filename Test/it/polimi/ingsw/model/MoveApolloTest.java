@@ -171,5 +171,7 @@ public class MoveApolloTest {
         assertSame(nextSpace.getWorker(), myWorker);
         assertEquals(currSpace.getWorker(), oppWorker);
         assertSame(oppWorker.getSpace(), currSpace);
+        assertEquals(nextSpace.getWorker(), myWorker);
+
     }
 }
