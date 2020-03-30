@@ -170,7 +170,6 @@ public class MoveApolloTest {
         assertNotNull(nextSpace.getWorker());
         assertNotNull(currSpace.getWorker());
         moveApollo.execute( myWorker, nextSpace );
-
         assertEquals(nextSpace.getWorker(), myWorker);
         assertEquals(currSpace.getWorker(), oppWorker);
         assertEquals(oppWorker.getSpace(), currSpace);
