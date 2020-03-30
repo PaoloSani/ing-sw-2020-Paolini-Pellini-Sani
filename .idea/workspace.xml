@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveApolloTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveApolloTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildDefault.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/BuildDefault.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/BuildDefault.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/ModelTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/ModelTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveApolloTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveApolloTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,7 +197,7 @@
       <workItem from="1585385741286" duration="267000" />
       <workItem from="1585386378821" duration="2913000" />
       <workItem from="1585488431478" duration="6534000" />
-      <workItem from="1585582870032" duration="810000" />
+      <workItem from="1585582870032" duration="2134000" />
     </task>
     <task id="LOCAL-00001" summary="Formattato e rinominato alcune variabili">
       <created>1584810937165</created>
@@ -381,7 +381,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585582900369</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Correzioni">
+      <created>1585583758987</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1585583758987</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,7 +407,8 @@
     <MESSAGE value="Correzione test BuildDefault, BuildHefesto, MoveApollo" />
     <MESSAGE value="Merge" />
     <MESSAGE value="Schema UML" />
-    <option name="LAST_COMMIT_MESSAGE" value="Schema UML" />
+    <MESSAGE value="Correzioni" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correzioni" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585396236820">
@@ -437,10 +445,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1584890990871" />
-    <state x="540" y="0" key="CommitChangelistDialog2" timestamp="1585582899245">
+    <state x="540" y="0" key="CommitChangelistDialog2" timestamp="1585583758416">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="540" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585582899245" />
+    <state x="540" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585583758416" />
     <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585393163023" />
     <state x="569" y="32" key="CommitChangelistDialog2/0.23.1440.834@0.23.1440.834" timestamp="1585412233144" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585386038851">
@@ -512,10 +520,10 @@
     </state>
     <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585384620928" />
     <state x="260" y="23" key="SettingsEditor/0.23.1440.833@0.23.1440.833" timestamp="1585396281987" />
-    <state x="321" y="130" key="Vcs.Push.Dialog.v2" timestamp="1585491848327">
+    <state x="321" y="130" key="Vcs.Push.Dialog.v2" timestamp="1585583769552">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="321" y="130" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585491848327" />
+    <state x="321" y="130" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585583769552" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585393123976" />
     <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.834@0.23.1440.834" timestamp="1585411916104" />
     <state x="968" y="189" key="chooseDestDirectoryDialog" timestamp="1585384562668">
