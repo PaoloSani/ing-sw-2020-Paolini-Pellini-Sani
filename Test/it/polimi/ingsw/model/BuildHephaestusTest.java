@@ -118,7 +118,7 @@ public class BuildHephaestusTest {
     public void spaceOccupiedByDome() throws IllegalSpaceException {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
-        space.setDome();
+        space.setHeight(4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;

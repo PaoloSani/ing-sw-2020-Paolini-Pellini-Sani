@@ -98,7 +98,7 @@ public class MoveMinotaurTest {
     @Test ( expected = IllegalSpaceException.class )
     public void samePosition() throws IllegalSpaceException {
         currSpace = new Space(0,0);
-        nextSpace = new Space(0, 0);
+        nextSpace = currSpace;
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         moveMinotaur.execute( myWorker, nextSpace );
@@ -135,11 +135,16 @@ public class MoveMinotaurTest {
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        nextSpace.setWorker(new Worker(new Player("test2", model)));
+        Worker oppWorker = new Worker(new Player("test2", model));
+        oppWorker.setSpace(nextSpace);
+        nextSpace.setWorker(oppWorker);
+
+        currSpace.setWorker(myWorker);
 
         assertNotSame(nextSpace.getWorker(), myWorker);
         assertNotNull(nextSpace.getWorker());
         moveMinotaur.execute( myWorker, nextSpace );
+        assertNull(currSpace.getWorker());
         assertSame(nextSpace.getWorker(), myWorker);
         assertSame(myWorker.getSpace(), nextSpace);
     }
@@ -150,9 +155,11 @@ public class MoveMinotaurTest {
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
+        currSpace.setWorker(myWorker);
 
         assertNotSame(nextSpace.getWorker(), myWorker);
         moveMinotaur.execute( myWorker, nextSpace );
+        assertNull(currSpace.getWorker());
         assertSame(nextSpace.getWorker(), myWorker);
         assertSame(myWorker.getSpace(), nextSpace);
     }
