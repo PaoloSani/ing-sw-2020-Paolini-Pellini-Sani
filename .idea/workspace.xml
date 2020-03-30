@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/ModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/ModelTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveApolloTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/model/MoveApolloTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/BuildHephaestus.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +77,7 @@
       <recent name="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ModelTest">
+  <component name="RunManager" selected="JUnit.MoveApolloTest.apolloMoveCondition">
     <configuration name="ModelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
@@ -123,22 +125,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ModelTest.negativeXCharon" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.ModelTest" />
-      <option name="METHOD_NAME" value="negativeXCharon" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ModelTest.occupiedByWorkerSpaceCharon" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
@@ -155,13 +141,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MoveApolloTest.apolloMoveCondition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveApolloTest" />
+      <option name="METHOD_NAME" value="apolloMoveCondition" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MoveApolloTest.apolloMoveCondition" />
         <item itemvalue="JUnit.ModelTest" />
         <item itemvalue="JUnit.ModelTest.minotaurHasWorked" />
         <item itemvalue="JUnit.ModelTest.charonHasWorked" />
         <item itemvalue="JUnit.ModelTest.occupiedByWorkerSpaceCharon" />
-        <item itemvalue="JUnit.ModelTest.negativeXCharon" />
       </list>
     </recent_temporary>
   </component>
@@ -195,6 +197,7 @@
       <workItem from="1585385741286" duration="267000" />
       <workItem from="1585386378821" duration="2913000" />
       <workItem from="1585488431478" duration="6534000" />
+      <workItem from="1585582870032" duration="810000" />
     </task>
     <task id="LOCAL-00001" summary="Formattato e rinominato alcune variabili">
       <created>1584810937165</created>
@@ -371,7 +374,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585491836233</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Schema UML">
+      <created>1585582900369</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1585582900369</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -389,7 +399,8 @@
     <MESSAGE value="Creazione test BuildDefault, BuildHefesto, MoveApollo" />
     <MESSAGE value="Correzione test BuildDefault, BuildHefesto, MoveApollo" />
     <MESSAGE value="Merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge" />
+    <MESSAGE value="Schema UML" />
+    <option name="LAST_COMMIT_MESSAGE" value="Schema UML" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585396236820">
@@ -426,10 +437,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1584890990871" />
-    <state x="540" y="0" key="CommitChangelistDialog2" timestamp="1585491834898">
+    <state x="540" y="0" key="CommitChangelistDialog2" timestamp="1585582899245">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="540" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585491834898" />
+    <state x="540" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585582899245" />
     <state x="729" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585393163023" />
     <state x="569" y="32" key="CommitChangelistDialog2/0.23.1440.834@0.23.1440.834" timestamp="1585412233144" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585386038851">
@@ -440,31 +451,31 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585392692649" />
-    <state width="1398" height="215" key="GridCell.Tab.0.bottom" timestamp="1585496007883">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state width="1323" height="180" key="GridCell.Tab.0.bottom" timestamp="1585583696197">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585495010911" />
+    <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585583696197" />
     <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585496007883" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1398" height="215" key="GridCell.Tab.0.center" timestamp="1585496007882">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state width="1323" height="180" key="GridCell.Tab.0.center" timestamp="1585583696196">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1585495010911" />
+    <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
     <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1398" height="215" key="GridCell.Tab.0.left" timestamp="1585496007881">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state width="1323" height="180" key="GridCell.Tab.0.left" timestamp="1585583696196">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1585495010910" />
+    <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
     <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585496007881" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1398" height="215" key="GridCell.Tab.0.right" timestamp="1585496007882">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state width="1323" height="180" key="GridCell.Tab.0.right" timestamp="1585583696196">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1585495010911" />
+    <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
     <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585405937131" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
@@ -511,10 +522,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="968" y="189" key="chooseDestDirectoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384562668" />
-    <state x="379" y="193" key="com.intellij.ide.util.TipDialog" timestamp="1585488438153">
+    <state x="379" y="193" key="com.intellij.ide.util.TipDialog" timestamp="1585582871222">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="379" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585488438153" />
+    <state x="379" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585582871222" />
     <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1585384562700">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -523,10 +534,10 @@
       <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state x="301" y="164" width="837" height="550" key="find.popup/0.23.1440.833@0.23.1440.833" timestamp="1585395096140" />
-    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1585405795845">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="394" y="183" key="git4idea.merge.GitPullDialog" timestamp="1585582910388">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1585386186357" />
+    <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1585582910388" />
     <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585405795845" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />
