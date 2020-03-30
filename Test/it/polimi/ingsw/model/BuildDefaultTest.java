@@ -86,7 +86,7 @@ public class BuildDefaultTest {
     @Test ( expected = IllegalSpaceException.class)
     public void negativeNotNeighbouringY() throws IllegalSpaceException {
         currSpace = new Space(0,2);
-        space = new Space(2, 4);
+        space = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
@@ -117,8 +117,8 @@ public class BuildDefaultTest {
     @Test ( expected = IllegalSpaceException.class )
     public void spaceOccupiedByDome() throws IllegalSpaceException {
         currSpace = new Space(0,4);
-        space = new Space(2, 4);
-        space.setHeight(4);
+        space = new Space(1, 4);
+        space.setDome();
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
@@ -143,7 +143,7 @@ public class BuildDefaultTest {
         myWorker.setSpace(currSpace);
         space.setHeight(1);
         level = 2;
-        assertFalse(level == space.getHeight());
+        assertNotEquals(level, space.getHeight());
         buildDefault.execute( myWorker, space, level);
         assertEquals(level, space.getHeight());
     }

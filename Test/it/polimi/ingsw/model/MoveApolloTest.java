@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class MoveApolloTest {
     private Space currSpace, nextSpace;
-    private Worker myWorker;
+    private Worker myWorker, oppWorker;
     private MoveApollo moveApollo = new MoveApollo();
     private Model model = new Model();
     private Player player = new Player("test", model);
@@ -80,7 +80,7 @@ public class MoveApolloTest {
     @Test ( expected = IllegalSpaceException.class)
     public void negativeNotNeighbouringY() throws IllegalSpaceException {
         currSpace = new Space(0,2);
-        nextSpace = new Space(2, 4);
+        nextSpace = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         moveApollo.execute( myWorker, nextSpace );
@@ -121,7 +121,7 @@ public class MoveApolloTest {
         nextSpace = new Space(1, 2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        nextSpace.setHeight(4);
+        nextSpace.setDome();
         moveApollo.execute( myWorker, nextSpace );
     }
 
@@ -138,27 +138,43 @@ public class MoveApolloTest {
         moveApollo.execute( myWorker, nextSpace );
     }
 
-    public void verifyEnemyPositionX() throws IllegalSpaceException {
-
-        currSpace = new Space(3,1);
-        nextSpace = new Space(2, 2);
+    @Test
+    public void normalMoveCondition() throws IllegalSpaceException {
+        currSpace = new Space(0,4);
+        nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        Worker opWorker = new Worker(new Player("Test2", model));
-        nextSpace.setWorker(opWorker);
+        //Servono ?
+        assertNotSame(nextSpace.getWorker(), myWorker);
+        assertEquals(null, nextSpace.getWorker());
+        //
         moveApollo.execute( myWorker, nextSpace );
-        assertEquals(4, myWorker.getSpace().getX());
+        assertSame(nextSpace.getWorker(), myWorker);
+        assertSame(myWorker.getSpace(), nextSpace);
     }
 
-    public void verifyEnemyPositionY() throws IllegalSpaceException {
-
-        currSpace = new Space(3,1);
-        nextSpace = new Space(2, 2);
+    @Test
+    public void apolloMoveCondition() throws IllegalSpaceException {
+        currSpace = new Space(0,4);
+        nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        Worker opWorker = new Worker(new Player("Test2", model));
-        nextSpace.setWorker(opWorker);
+        //ATTENZIONE devo mettere anche questo per il controllo sennò currSpace.getWorker() == null
+        currSpace.setWorker(myWorker);
+        oppWorker = new Worker(new Player("Test 2", model));
+        oppWorker.setSpace(nextSpace);
+        //ATTENZIONE devo mettere anche questo per il controllo sennò nextSpace.getWorker() == null
+        nextSpace.setWorker(oppWorker);
+        assertNotSame(nextSpace.getWorker(), myWorker);
+        assertNotSame(currSpace.getWorker(), oppWorker);
+        assertNotNull(nextSpace.getWorker());
+        assertNotNull(currSpace.getWorker());
         moveApollo.execute( myWorker, nextSpace );
-        assertEquals(0, myWorker.getSpace().getY());
+
+        assertEquals(nextSpace.getWorker(), myWorker);
+        assertEquals(currSpace.getWorker(), oppWorker);
+        assertEquals(oppWorker.getSpace(), currSpace);
+        assertEquals(myWorker.getSpace(), nextSpace);
+
     }
 }

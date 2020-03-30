@@ -87,7 +87,6 @@ public class ModelTest {
         Worker otherWorker = new Worker(new Player("test3", model));
         otherWorker.setSpace(model.getSpace(1,2));
         model.getSpace(1,2).setWorker(otherWorker);
-        model.getSpace(1,2).setDome();
         model.charonPower(myWorker, oppWorker);
     }
 
@@ -98,6 +97,7 @@ public class ModelTest {
         assertNotEquals(oppWorker.getSpace(), model.getSpace(1, 2));
         model.charonPower(myWorker, oppWorker);
         assertEquals(oppWorker.getSpace(), model.getSpace(1,2));
+        assertEquals(myWorker.getSpace(), model.getSpace(1,1));
     }
 
 
@@ -158,5 +158,6 @@ public class ModelTest {
         assertNotEquals(oppWorker.getSpace(), model.getSpace(0,2));
         model.minotaurPower(myWorker, oppWorker);
         assertEquals(oppWorker.getSpace(), model.getSpace(0,2));
+        assertEquals(myWorker.getSpace(), model.getSpace(0,0));
     }
 }
