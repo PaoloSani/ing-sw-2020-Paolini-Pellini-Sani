@@ -98,7 +98,7 @@ public class MoveDefaultTest {
     @Test ( expected = IllegalSpaceException.class )
     public void samePosition() throws IllegalSpaceException {
         currSpace = new Space(0,0);
-        nextSpace = new Space(0, 0);
+        nextSpace = currSpace;
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         moveDefault.execute( myWorker, nextSpace );
@@ -120,7 +120,7 @@ public class MoveDefaultTest {
     @Test ( expected = IllegalSpaceException.class )
     public void nextSpaceOccupiedByDome() throws IllegalSpaceException {
         currSpace = new Space(0,4);
-        nextSpace = new Space(2, 4);
+        nextSpace = new Space(1, 4);
         nextSpace.setHeight(4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
@@ -137,9 +137,27 @@ public class MoveDefaultTest {
         myWorker.setSpace(currSpace);
         model.getConstraint().setAthena(true);
         nextSpace.setHeight(1);
+        player.setGodName("Zeus");
 
         assertTrue(model.getConstraint().athenaBlocks());
         moveDefault.execute( myWorker, nextSpace );
+    }
+
+    @Test
+    public void isBlockedByAthenaIsAthena() throws IllegalSpaceException {
+        currSpace = new Space(0,4);
+        nextSpace = new Space(1, 4);
+        myWorker = new Worker(player);
+        myWorker.setSpace(currSpace);
+        model.getConstraint().setAthena(true);
+        nextSpace.setHeight(1);
+        currSpace.setWorker(myWorker);
+        player.setGodName("Athena");
+
+        assertTrue(model.getConstraint().athenaBlocks());
+        moveDefault.execute( myWorker, nextSpace );
+        assertSame(myWorker.getSpace(), nextSpace);
+        assertNull(currSpace.getWorker());
     }
 
     @Test
@@ -148,10 +166,12 @@ public class MoveDefaultTest {
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
+        currSpace.setWorker(myWorker);
 
         assertNotSame(nextSpace.getWorker(), myWorker);
         moveDefault.execute( myWorker, nextSpace );
         assertSame(nextSpace.getWorker(), myWorker);
         assertSame(myWorker.getSpace(), nextSpace);
+        assertNull(currSpace.getWorker());
     }
 }
