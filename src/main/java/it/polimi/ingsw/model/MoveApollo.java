@@ -15,15 +15,17 @@ public class MoveApollo implements Move {
         }
 
         // controllo il contenuto di nextSpace
-        if (    nextSpace.getX() > 4 || nextSpace.getX() < 0                          ||
-                nextSpace.getY() > 4 || nextSpace.getY() < 0                          ||     //space non appartenente alla tabella
-                ( currX - nextSpace.getX() ) > 1 || ( currX - nextSpace.getX() ) < -1 ||     //riga non valida
-                ( currY - nextSpace.getY() ) > 1 || ( currY - nextSpace.getY() ) < -1 ||     //colonna non valida
-                nextSpace.getHeight() - currH > 1                                     ||     //sale più di un livello
-                currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
-                (nextSpace.getWorker() != null &&
-                nextSpace.getWorker().getPlayer().equals(worker.getPlayer()))         ||     //la prossima cella è occupata da un worker alleato
-                nextSpace.isDomed()                                                   ||     //la prossima cella è una cupola
+        if (    nextSpace.getX() > 4 || nextSpace.getX() < 0                                    ||
+                nextSpace.getY() > 4 || nextSpace.getY() < 0                                    ||     //space non appartenente alla tabella
+                ( currX - nextSpace.getX() ) > 1 || ( currX - nextSpace.getX() ) < -1           ||     //riga non valida
+                ( currY - nextSpace.getY() ) > 1 || ( currY - nextSpace.getY() ) < -1           ||     //colonna non valida
+                nextSpace.getHeight() - currH > 1                                               ||     //sale più di un livello
+                currX == nextSpace.getX() && currY == nextSpace.getY()                          ||     //la prossima cella è quella corrente
+                ( nextSpace.getWorker() != null &&
+                        nextSpace.getWorker().getPlayer().equals(worker.getPlayer()))           ||     //la prossima cella è occupata da un worker alleato
+                ( nextSpace.getWorker() != null &&
+                        !worker.getPlayer().getModel().isFreeToMove(nextSpace.getWorker()))     ||     //il worker in nextSpace non può costruire
+                nextSpace.isDomed()                                                             ||     //la prossima cella è una cupola
 
                 //se Athena è true controllo che non si possa salire
                 (worker.getPlayer().getModel().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))

@@ -120,7 +120,7 @@ public class Model {
         return false;
     }
 
-    /*public boolean isFreeToBuild( Worker worker ){
+    public boolean isFreeToBuild( Worker worker ){
         int currX,currY;
         currX = worker.getSpace().getX();
         currY = worker.getSpace().getY();
@@ -136,7 +136,7 @@ public class Model {
         }
         return false;
        }
-     */
+
 
     //lascio al controller la gestione del caso in cui myWorker coincide con oppWorker e che la cella passata sia effetivamente nelle celle adiacenti
     //devo anche controllare di non scambiare un worker dello stesso player
