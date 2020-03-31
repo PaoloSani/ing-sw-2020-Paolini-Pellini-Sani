@@ -108,7 +108,7 @@ public class BuildZeusTest {
     @Test ( expected = IllegalSpaceException.class )
     public void spaceOccupiedByDome() throws IllegalSpaceException {
         currSpace = new Space(0,4);
-        space = new Space(2, 4);
+        space = new Space(1, 4);
         space.setHeight(4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
@@ -136,6 +136,7 @@ public class BuildZeusTest {
         level = 1;
         assertNotEquals(level, space.getHeight());
         buildZeus.execute( myWorker, space, level);
+        assertSame(myWorker.getSpace(), currSpace);
         assertEquals(level, space.getHeight());
     }
 
@@ -145,10 +146,12 @@ public class BuildZeusTest {
         space = currSpace;
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
+        currSpace.setWorker(myWorker);
         level = 1;
         assertNotEquals(space.getHeight(), level);
         buildZeus.execute( myWorker, space, level);
         assertEquals(space.getHeight(), level);
+        assertSame(myWorker.getSpace(), currSpace);
         assertEquals(currSpace.getHeight(), level);
     }
 }

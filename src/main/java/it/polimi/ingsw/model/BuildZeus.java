@@ -13,7 +13,7 @@ public class BuildZeus implements Build {
                 ( currX - space.getX() ) > 1 || ( currX - space.getX() ) < -1  ||     //riga non valida
                 ( currY - space.getY() ) > 1 || ( currY - space.getY() ) < -1  ||     //colonna non valida
                 //currX == space.getX() && currY == space.getY()               ||     può costruisce sotto di sé
-                space.getWorker() != null                                      ||     //la cella è occupata da un worker
+                (space.getWorker() != null  && space.getWorker() != worker)    ||     //la cella è occupata da un worker
                 space.isDomed()                                                ||     //nella cella è già presente una cupola
                 newH != level                                                   )     //Controlla che l'altezza del livello da costruire sia giusto
 
