@@ -116,12 +116,32 @@ public class MoveApolloTest {
     }
 
     @Test ( expected = IllegalSpaceException.class)
-    public void spaceIsOccupiedByDome() throws IllegalSpaceException {
+    public void noSpaceToBuild() throws IllegalSpaceException {
+        currSpace = new Space(1,2);
+        nextSpace = new Space(2, 2);
+        myWorker = new Worker(player);
+        myWorker.setSpace(currSpace);
+        currSpace.setWorker(myWorker);
+        nextSpace.setWorker(new Worker(player));
+
+        model.getSpace(1,1).setHeight(4);
+        model.getSpace(1,3).setHeight(4);
+        model.getSpace(2,1).setHeight(4);
+        model.getSpace(2,3).setHeight(4);
+        model.getSpace(3,1).setHeight(4);
+        model.getSpace(3,2).setHeight(4);
+        model.getSpace(3,3).setHeight(4);
+
+        moveApollo.execute( myWorker, nextSpace );
+    }
+
+    @Test ( expected = IllegalSpaceException.class)
+    public void spaceDome() throws IllegalSpaceException {
         currSpace = new Space(0,2);
         nextSpace = new Space(1, 2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        nextSpace.setHeight(4);
+        nextSpace.setDome();
         moveApollo.execute( myWorker, nextSpace );
     }
 
