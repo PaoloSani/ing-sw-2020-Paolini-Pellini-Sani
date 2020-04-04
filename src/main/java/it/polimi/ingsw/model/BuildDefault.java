@@ -25,33 +25,33 @@ public class BuildDefault implements Build {
 
             case 1 :
                 // level>0
-                if( worker.getPlayer().getModel().getLevel1() > 0 ){                       //controllo che il pezzo corrispondente sia disponibile
+                if( worker.getPlayer().getGame().getLevel1() > 0 ){                       //controllo che il pezzo corrispondente sia disponibile
                     //decremento i pezzi del livello disponibili, level1 --
-                    worker.getPlayer().getModel().setLevel1( worker.getPlayer().getModel().getLevel1() - 1 );
+                    worker.getPlayer().getGame().setLevel1( worker.getPlayer().getGame().getLevel1() - 1 );
                     space.setHeight( newH );                                          //setto la nuova altezza dello space
                 }
                 else throw new IllegalSpaceException( "Space not accepted!" );        // se il pezzo non è disponibile lancio l'eccezione per la costruzione in quella cella
                 break;
 
             case 2 :
-                if( worker.getPlayer().getModel().getLevel2() > 0 ){
-                    worker.getPlayer().getModel().setLevel2( worker.getPlayer().getModel().getLevel2() - 1 );
+                if( worker.getPlayer().getGame().getLevel2() > 0 ){
+                    worker.getPlayer().getGame().setLevel2( worker.getPlayer().getGame().getLevel2() - 1 );
                     space.setHeight( newH );
                 }
                 else throw new IllegalSpaceException( "Space not accepted!" );
                 break;
 
             case 3 :
-                if( worker.getPlayer().getModel().getLevel3() > 0 ){
-                    worker.getPlayer().getModel().setLevel3( worker.getPlayer().getModel().getLevel3() - 1 );
+                if( worker.getPlayer().getGame().getLevel3() > 0 ){
+                    worker.getPlayer().getGame().setLevel3( worker.getPlayer().getGame().getLevel3() - 1 );
                     space.setHeight( newH );
                 }
                 else throw new IllegalSpaceException( "Space not accepted!" );
                 break;
 
             case 4 :
-                if( worker.getPlayer().getModel().getDome() > 0 ){
-                    worker.getPlayer().getModel().setDome( worker.getPlayer().getModel().getDome() - 1 );
+                if( worker.getPlayer().getGame().getDome() > 0 ){
+                    worker.getPlayer().getGame().setDome( worker.getPlayer().getGame().getDome() - 1 );
                     space.setHeight( newH );
                 }
                 else throw new IllegalSpaceException( "Space not accepted!" );

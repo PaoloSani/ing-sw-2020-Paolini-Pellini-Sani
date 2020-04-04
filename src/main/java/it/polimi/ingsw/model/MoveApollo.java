@@ -11,7 +11,7 @@ public class MoveApollo implements Move {
 
         //reset del boolean Athena nella classe costraint
         if( worker.getPlayer().getGodName() == "Athena" ){
-            worker.getPlayer().getModel().getConstraint().setAthena(false);
+            worker.getPlayer().getGame().getConstraint().setAthena(false);
         }
 
         // controllo il contenuto di nextSpace
@@ -24,11 +24,11 @@ public class MoveApollo implements Move {
                 ( nextSpace.getWorker() != null &&
                         nextSpace.getWorker().getPlayer().equals(worker.getPlayer()))           ||     //la prossima cella è occupata da un worker alleato
                 ( nextSpace.getWorker() != null &&
-                        !worker.getPlayer().getModel().isFreeToBuild(nextSpace.getWorker()))     ||     //il worker in nextSpace non può costruire
+                        !worker.getPlayer().getGame().isFreeToBuild(nextSpace.getWorker()))     ||     //il worker in nextSpace non può costruire
                 nextSpace.isDomed()                                                             ||     //la prossima cella è una cupola
 
                 //se Athena è true controllo che non si possa salire
-                (worker.getPlayer().getModel().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
+                (worker.getPlayer().getGame().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
 
             throw new IllegalSpaceException( "Space not accepted!" );
 

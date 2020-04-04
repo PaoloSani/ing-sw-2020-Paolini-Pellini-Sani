@@ -11,7 +11,7 @@ public class MoveDefault implements Move {
 
         //reset del boolean Athena nella classe costraint
         if( worker.getPlayer().getGodName() == "Athena" ){
-            worker.getPlayer().getModel().getConstraint().setAthena(false);
+            worker.getPlayer().getGame().getConstraint().setAthena(false);
         }
 
         // controllo il contenuto di nextSpace
@@ -24,7 +24,7 @@ public class MoveDefault implements Move {
                 nextSpace.getWorker() != null                                         ||     //la prossima cella è occupata
                 nextSpace.isDomed()                                                   ||     //la prossima cella è una cupola
                 //se Athena è true controllo che non si possa salire
-                (worker.getPlayer().getModel().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
+                (worker.getPlayer().getGame().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
 
             throw new IllegalSpaceException( "Space not accepted!" );
 
@@ -33,7 +33,7 @@ public class MoveDefault implements Move {
 
         //se sono atena e sono salito setto il flag atena a true
         if( worker.getPlayer().getGodName() == "Athena" && ( nextSpace.getHeight() - currH == 1 ) ){
-            worker.getPlayer().getModel().getConstraint().setAthena(true);
+            worker.getPlayer().getGame().getConstraint().setAthena(true);
         }
 
         //aggiorno la posizione del worker e le space precedente e corrente nella table

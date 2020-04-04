@@ -8,8 +8,8 @@ public class MoveDefaultTest {
     private Space currSpace, nextSpace;
     private Worker myWorker;
     private MoveDefault moveDefault = new MoveDefault();
-    private Model model = new Model();
-    private Player player = new Player("test", model);
+    private Game game = new Game();
+    private Player player = new Player("test", game);
 
 
     @Test ( expected = IllegalSpaceException.class )
@@ -111,7 +111,7 @@ public class MoveDefaultTest {
         nextSpace.setHeight(4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        nextSpace.setWorker(new Worker(new Player("test2", model)));
+        nextSpace.setWorker(new Worker(new Player("test2", game)));
 
         assertNotNull(nextSpace.getWorker());
         moveDefault.execute( myWorker, nextSpace );
@@ -135,11 +135,11 @@ public class MoveDefaultTest {
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        model.getConstraint().setAthena(true);
+        game.getConstraint().setAthena(true);
         nextSpace.setHeight(1);
         player.setGodName("Zeus");
 
-        assertTrue(model.getConstraint().athenaBlocks());
+        assertTrue(game.getConstraint().athenaBlocks());
         moveDefault.execute( myWorker, nextSpace );
     }
 
@@ -149,12 +149,12 @@ public class MoveDefaultTest {
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        model.getConstraint().setAthena(true);
+        game.getConstraint().setAthena(true);
         nextSpace.setHeight(1);
         currSpace.setWorker(myWorker);
         player.setGodName("Athena");
 
-        assertTrue(model.getConstraint().athenaBlocks());
+        assertTrue(game.getConstraint().athenaBlocks());
         moveDefault.execute( myWorker, nextSpace );
         assertSame(myWorker.getSpace(), nextSpace);
         assertNull(currSpace.getWorker());

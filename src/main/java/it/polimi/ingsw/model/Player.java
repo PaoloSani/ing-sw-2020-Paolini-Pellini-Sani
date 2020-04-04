@@ -9,16 +9,16 @@ public class Player {
     private Worker worker2;
     private Move move;
     private Build build;
-    private Model model;
+    private Game game;
 
-    public Player( String nickname, Model model ) {
+    public Player( String nickname, Game game) {
         this.nickname = nickname;
         this.godName = null;
         this.worker1 = new Worker(this );
         this.worker2 = new Worker(this  );
         this.move = null;
         this.build = null;
-        this.model = model;
+        this.game = game;
     }
 
     public String getNickname() {
@@ -37,8 +37,8 @@ public class Player {
         return godName;
     }
 
-    public Model getModel() {
-        return model;
+    public Game getGame() {
+        return game;
     }
 
     public void setMove(Move move) {
@@ -89,7 +89,7 @@ public class Player {
 
         //l'altro caso che posso aver è che la divinità sia Hypnus, quindi vado a settare la classe costraint se è presente
         if( godName == "Hypnus" ){
-            this.model.getConstraint().setHypnus(true);
+            this.game.getConstraint().setHypnus(true);
         }
     }
 

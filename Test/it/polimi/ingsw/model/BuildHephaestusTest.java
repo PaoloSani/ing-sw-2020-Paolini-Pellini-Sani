@@ -9,8 +9,8 @@ public class BuildHephaestusTest {
     private Space currSpace, space;
     private Worker myWorker;
     private BuildHephaestus buildHephaestus = new BuildHephaestus();
-    private Model model = new Model();
-    private Player player = new Player("test", model);
+    private Game game = new Game();
+    private Player player = new Player("test", game);
     private int level;
 
     @Test ( expected = IllegalSpaceException.class )
@@ -108,7 +108,7 @@ public class BuildHephaestusTest {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
-        space.setWorker(new Worker(new Player("test2", model)));
+        space.setWorker(new Worker(new Player("test2", game)));
         myWorker.setSpace(currSpace);
         level = 1;
         buildHephaestus.execute( myWorker, space, level);

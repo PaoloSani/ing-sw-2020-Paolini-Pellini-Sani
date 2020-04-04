@@ -6,12 +6,12 @@ public class MoveMinotaur implements Move {
         currX = worker.getSpace().getX();
         currY = worker.getSpace().getY();
         currH = worker.getSpace().getHeight();
-        Model myModel = worker.getPlayer().getModel();
+        Game myGame = worker.getPlayer().getGame();
         boolean result;
 
         //reset del boolean Athena nella classe costraint
         if( worker.getPlayer().getGodName() == "Athena" ){
-            worker.getPlayer().getModel().getConstraint().setAthena(false);
+            worker.getPlayer().getGame().getConstraint().setAthena(false);
         }
 
         // controllo il contenuto di nextSpace
@@ -23,7 +23,7 @@ public class MoveMinotaur implements Move {
                 currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
                 nextSpace.isDomed()                                                   ||     //la prossima cella è una cupola
                 //se Athena è true controllo che non si possa salire
-                (worker.getPlayer().getModel().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
+                (worker.getPlayer().getGame().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
 
             throw new IllegalSpaceException( "Space not accepted!" );
 
@@ -36,7 +36,7 @@ public class MoveMinotaur implements Move {
             //sintassi metodo statico, l'ho reso statico cosi posso chiamarlo senza avere un'istanza model qui dentro, se la
             //cella in cui mi voglio spostare è occupata da un giocatore chiamo funzione minotaurPower che spinge il worker
             try{
-                myModel.minotaurPower(worker, nextSpace.getWorker());
+                myGame.minotaurPower(worker, nextSpace.getWorker());
             }
             catch (IllegalSpaceException i){
                 System.out.println("Input error!");
