@@ -8,8 +8,8 @@ public class MoveMinotaurTest {
     private Space currSpace, nextSpace;
     private Worker myWorker;
     private MoveMinotaur moveMinotaur = new MoveMinotaur();
-    private Model model = new Model();
-    private Player player = new Player("test", model);
+    private Game game = new Game();
+    private Player player = new Player("test", game);
 
 
     @Test ( expected = IllegalSpaceException.class )
@@ -122,10 +122,10 @@ public class MoveMinotaurTest {
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        model.getConstraint().setAthena(true);
+        game.getConstraint().setAthena(true);
         nextSpace.setHeight(1);
 
-        assertTrue(model.getConstraint().athenaBlocks());
+        assertTrue(game.getConstraint().athenaBlocks());
         moveMinotaur.execute( myWorker, nextSpace );
     }
 
@@ -135,7 +135,7 @@ public class MoveMinotaurTest {
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        Worker oppWorker = new Worker(new Player("test2", model));
+        Worker oppWorker = new Worker(new Player("test2", game));
         oppWorker.setSpace(nextSpace);
         nextSpace.setWorker(oppWorker);
 

@@ -2,20 +2,19 @@ package it.polimi.ingsw.controller;
 
 
 import it.polimi.ingsw.model.Challenger;
-import it.polimi.ingsw.model.Model;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Worker;
 
 
-public class Controller {
-    private Model model;
+public class Server {
+    private Game game;
     private Player player1;
     private Player player2;
     private Challenger challenger;
 
 
-    public Controller(Model model) {
-        this.model = model;
+    public Server(Game game) {
+        this.game = game;
     }
 
     public void setPlayer1(Player player1) {

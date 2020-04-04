@@ -10,8 +10,8 @@ public class BuildAtlasTest {
     private Space currSpace, space;
     private Worker myWorker;
     private BuildAtlas buildAtlas = new BuildAtlas();
-    private Model model = new Model();
-    private Player player = new Player("test", model);
+    private Game game = new Game();
+    private Player player = new Player("test", game);
     private int level;
 
 
@@ -110,7 +110,7 @@ public class BuildAtlasTest {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
-        space.setWorker(new Worker(new Player("test2", model)));
+        space.setWorker(new Worker(new Player("test2", game)));
         myWorker.setSpace(currSpace);
         level = 1;
         buildAtlas.execute( myWorker, space, level);
