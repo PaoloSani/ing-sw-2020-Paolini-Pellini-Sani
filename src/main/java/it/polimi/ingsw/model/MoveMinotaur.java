@@ -10,7 +10,7 @@ public class MoveMinotaur implements Move {
         boolean result;
 
         //reset del boolean Athena nella classe costraint
-        if( worker.getPlayer().getGodName() == "Athena" ){
+        if( worker.getPlayer().getGod() == God.ATHENA ){
             worker.getPlayer().getGame().getConstraint().setAthena(false);
         }
 

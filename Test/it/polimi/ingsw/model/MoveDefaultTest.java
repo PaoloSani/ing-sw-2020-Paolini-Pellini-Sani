@@ -137,7 +137,7 @@ public class MoveDefaultTest {
         myWorker.setSpace(currSpace);
         game.getConstraint().setAthena(true);
         nextSpace.setHeight(1);
-        player.setGodName("Zeus");
+        player.setGod(God.ZEUS);
 
         assertTrue(game.getConstraint().athenaBlocks());
         moveDefault.execute( myWorker, nextSpace );
@@ -152,7 +152,7 @@ public class MoveDefaultTest {
         game.getConstraint().setAthena(true);
         nextSpace.setHeight(1);
         currSpace.setWorker(myWorker);
-        player.setGodName("Athena");
+        player.setGod(God.ATHENA);
 
         assertTrue(game.getConstraint().athenaBlocks());
         moveDefault.execute( myWorker, nextSpace );

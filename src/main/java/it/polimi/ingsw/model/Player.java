@@ -4,7 +4,7 @@ package it.polimi.ingsw.model;
 
 public class Player {
     private final String nickname;
-    private String godName;
+    private God god;
     private Worker worker1;
     private Worker worker2;
     private Move move;
@@ -13,7 +13,7 @@ public class Player {
 
     public Player( String nickname, Game game) {
         this.nickname = nickname;
-        this.godName = null;
+        this.god = null;
         this.worker1 = new Worker(this );
         this.worker2 = new Worker(this  );
         this.move = null;
@@ -33,8 +33,8 @@ public class Player {
         return worker2;
     }
 
-    public String getGodName() {
-        return godName;
+    public God getGod() {
+        return god;
     }
 
     public Game getGame() {
@@ -50,33 +50,33 @@ public class Player {
     }
 
     //setta la divinità e in base a quella sceglie le varie strategy associate al player
-    public void setGodName(String godName) {
-        this.godName = godName;
+    public void setGod(God god) {
+        this.god = god;
         /*
             In base alla divinità scelgo le varie strategies da utilizzare
         */
-        switch ( godName ) {
-            case "Apollo":
+        switch ( god ) {
+            case APOLLO:
                 setMove( new MoveApollo() );
                 setBuild( new BuildDefault() );
                 break;
 
-            case "Atlas":
+            case ATLAS:
                 setMove( new MoveDefault() );
                 setBuild( new BuildAtlas() );
                 break;
 
-            case "Hephaestus":
+            case HEPHAESTUS:
                 setMove( new MoveDefault() );
                 setBuild( new BuildHephaestus() );
                 break;
 
-            case "Minotaur":
+            case MINOTAUR:
                 setMove( new MoveMinotaur() );
                 setBuild(new BuildDefault());
                 break;
 
-            case "Zeus":
+            case ZEUS:
                 setMove( new MoveDefault() );
                 setBuild( new BuildZeus() );
                 break;
@@ -88,7 +88,7 @@ public class Player {
         }
 
         //l'altro caso che posso aver è che la divinità sia Hypnus, quindi vado a settare la classe costraint se è presente
-        if( godName == "Hypnus" ){
+        if( god == God.HYPNUS ){
             this.game.getConstraint().setHypnus(true);
         }
     }
@@ -98,7 +98,7 @@ public class Player {
         if ( oldSpace.getHeight() == 2 && currSpace.getHeight() == 3 )
             return true;
         //Condizione di vittoria Pan
-        else return this.godName == "Pan" && (oldSpace.getHeight() - currSpace.getHeight() > 1 );
+        else return this.god == God.PAN && (oldSpace.getHeight() - currSpace.getHeight() > 1 );
     }
 
     // Esegue la strategy che viene associata ad ogni player secondo la propria divinità

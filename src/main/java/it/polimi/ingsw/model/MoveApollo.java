@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+
 public class MoveApollo implements Move {
     public boolean execute(Worker worker, Space nextSpace) throws IllegalSpaceException{
         int currX,currY,currH;
@@ -10,7 +11,7 @@ public class MoveApollo implements Move {
         Worker oppWorker;
 
         //reset del boolean Athena nella classe costraint
-        if( worker.getPlayer().getGodName() == "Athena" ){
+        if( worker.getPlayer().getGod() == God.ATHENA ){
             worker.getPlayer().getGame().getConstraint().setAthena(false);
         }
 

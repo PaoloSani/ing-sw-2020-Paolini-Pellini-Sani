@@ -10,7 +10,7 @@ public class MoveDefault implements Move {
         boolean result;
 
         //reset del boolean Athena nella classe costraint
-        if( worker.getPlayer().getGodName() == "Athena" ){
+        if( worker.getPlayer().getGod() == God.ATHENA ){
             worker.getPlayer().getGame().getConstraint().setAthena(false);
         }
 
@@ -32,7 +32,7 @@ public class MoveDefault implements Move {
         result = worker.getPlayer().isWinner(worker.getSpace(), nextSpace);
 
         //se sono atena e sono salito setto il flag atena a true
-        if( worker.getPlayer().getGodName() == "Athena" && ( nextSpace.getHeight() - currH == 1 ) ){
+        if( worker.getPlayer().getGod() == God.ATHENA && ( nextSpace.getHeight() - currH == 1 ) ){
             worker.getPlayer().getGame().getConstraint().setAthena(true);
         }
 
