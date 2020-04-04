@@ -8,8 +8,8 @@ public class MoveApolloTest {
     private Space currSpace, nextSpace;
     private Worker myWorker, oppWorker;
     private MoveApollo moveApollo = new MoveApollo();
-    private Model model = new Model();
-    private Player player = new Player("test", model);
+    private Game game = new Game();
+    private Player player = new Player("test", game);
     private int level;
 
     @Test ( expected = IllegalSpaceException.class )
@@ -124,13 +124,13 @@ public class MoveApolloTest {
         currSpace.setWorker(myWorker);
         nextSpace.setWorker(new Worker(player));
 
-        model.getSpace(1,1).setHeight(4);
-        model.getSpace(1,3).setHeight(4);
-        model.getSpace(2,1).setHeight(4);
-        model.getSpace(2,3).setHeight(4);
-        model.getSpace(3,1).setHeight(4);
-        model.getSpace(3,2).setHeight(4);
-        model.getSpace(3,3).setHeight(4);
+        game.getSpace(1,1).setHeight(4);
+        game.getSpace(1,3).setHeight(4);
+        game.getSpace(2,1).setHeight(4);
+        game.getSpace(2,3).setHeight(4);
+        game.getSpace(3,1).setHeight(4);
+        game.getSpace(3,2).setHeight(4);
+        game.getSpace(3,3).setHeight(4);
 
         moveApollo.execute( myWorker, nextSpace );
     }
@@ -149,7 +149,7 @@ public class MoveApolloTest {
     public void athenaPower() throws IllegalSpaceException {
         Constraint constraint = new Constraint();
         constraint.setAthena(true);
-        model.setConstraint(constraint);
+        game.setConstraint(constraint);
         currSpace = new Space(0,2);
         nextSpace = new Space(1, 2);
         myWorker = new Worker(player);
@@ -181,7 +181,7 @@ public class MoveApolloTest {
         myWorker.setSpace(currSpace);
         //ATTENZIONE devo mettere anche questo per il controllo sennò currSpace.getWorker() == null
         currSpace.setWorker(myWorker);
-        oppWorker = new Worker(new Player("Test 2", model));
+        oppWorker = new Worker(new Player("Test 2", game));
         oppWorker.setSpace(nextSpace);
         //ATTENZIONE devo mettere anche questo per il controllo sennò nextSpace.getWorker() == null
         nextSpace.setWorker(oppWorker);
