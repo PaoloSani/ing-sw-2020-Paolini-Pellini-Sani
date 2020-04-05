@@ -4,52 +4,23 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Challenger;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.util.Observer;
+import it.polimi.ingsw.virtualView.FrontEnd;
+import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 
-public class Server {
+public class Server implements Observer<PlayersInTheGame>, Observer<FrontEnd> {
     private Game game;
-    private Player player1;
+    /*private Player player1;
     private Player player2;
-    private Challenger challenger;
+    private Challenger challenger;*/
 
 
     public Server(Game game) {
         this.game = game;
     }
 
-    public void setPlayer1(Player player1) {
-        this.player1 = player1;
-    }
 
-    public void setPlayer2(Player player2) {
-        this.player2 = player2;
-    }
-
-    public void setChallenger(Challenger challenger) {
-        this.challenger = challenger;
-    }
-
-    public void setPlayers( String name1, String name2, String name3 ){
-        /*
-        String chosen = "";
-        int number;
-
-        //codice che sceglie random il challenger
-        // chosen = ...;
-        // number = ;
-
-        if ( name1 == null  || name2 == null || name3 == null  ){
-            setChallenger( new Challenger( chosen ));
-            setPlayer1( new Player( name1 ));
-
-        }
-        else {
-            setChallenger(new Challenger(chosen));
-            setPlayer1(new Player(name1));
-            setPlayer2(new Player(name3));
-        }
-        */
-    }
 
  /*   public void chooseCards(){
         String chosenCards[];
@@ -101,7 +72,7 @@ public class Server {
                                     build()
                                     break;*/
 
-            //case "Prometheus":    2 flussi distinti
+    //case "Prometheus":    2 flussi distinti
 
             /*case "Artemis":       move()
                                     control()
@@ -150,4 +121,10 @@ public class Server {
 
     }
     */
+            @Override
+            public void update(PlayersInTheGame message) {
+                game.setPlayers(message.getNickname1(),message.getNickname2(),message.getNickname3());
+            }
+
+
 }
