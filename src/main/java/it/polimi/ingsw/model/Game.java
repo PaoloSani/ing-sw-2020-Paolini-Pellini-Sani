@@ -1,6 +1,10 @@
 package it.polimi.ingsw.model;
 
-public class Game {
+import it.polimi.ingsw.util.Observable;
+import it.polimi.ingsw.virtualView.FrontEnd;
+import it.polimi.ingsw.virtualView.PlayersInTheGame;
+
+public class Game extends Observable<FrontEnd> {
     private int level1;
     private int level2;
     private int level3;
@@ -10,8 +14,10 @@ public class Game {
     private final static int constLevel3 = 14;
     private final static int constDome = 18;
     private Space[][] table;
-    private final static int numMaxPlayers = 3;
     private Constraint constraint;
+    private Player player1;
+    private Player player2;
+    private Challenger challenger;
 
     public Game() {
         this.level1 = constLevel1;
@@ -115,6 +121,28 @@ public class Game {
         }
         return false;
        }
+
+    public void setPlayers( String name1, String name2, String name3 ){
+        /*
+        String chosen = "";
+        int number;
+
+        //codice che sceglie random il challenger
+        // chosen = ...;
+        // number = ;
+
+        if ( name1 == null  || name2 == null || name3 == null  ){
+            this.challenger( new Challenger( chosen ));
+            this.player1 = new Player( name1 );
+
+        }
+        else {
+            setChallenger(new Challenger(chosen));
+            setPlayer1(new Player(name1));
+            setPlayer2(new Player(name3));
+        }
+        */
+    }
 
 
     //lascio al controller la gestione del caso in cui myWorker coincide con oppWorker e che la cella passata sia effetivamente nelle celle adiacenti
