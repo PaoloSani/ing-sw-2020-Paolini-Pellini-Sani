@@ -1,14 +1,89 @@
 package it.polimi.ingsw.controller;
 
 
+import it.polimi.ingsw.model.Challenger;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.util.GameState;
 
 
 public class Server {
     private Game game;
-    /*private Player player1;
+    private GameState currState;
     private Player player2;
-    private Challenger challenger;*/
+    private Player player3;
+    private Challenger challenger;
+    Player currPlayer;
+
+    public Player getPlayer2() {
+        return player3;
+    }
+
+    public Player getPlayer3() {
+        return player3;
+    }
+
+    public Challenger getChallenger() {
+        return challenger;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
+    }
+
+    public void setPlayer3(Player player3) {
+        this.player3 = player3;
+    }
+
+    public void setChallenger(Challenger challenger) {
+        this.challenger = challenger;
+    }
+
+    public void setCurrState(GameState currState) {
+        this.currState = currState;
+    }
+
+    //metodi per la connessione
+    public void setConnection() {
+    }
+
+    public void runGame() {
+        currState = new SettingPlayers(this);
+
+        while ( !(currState instanceof ChoosingWorker) ) ;
+
+        currPlayer = player2;
+
+        while ( !(currState instanceof Winning) ) {
+            currState.execute();
+            currState.changeState();
+
+            //TODO : gestire rimozione giocatore e caso due giocatori
+            if ( currState instanceof Building ) {  //alla fine del turno del giocatore cambio il giocatore corrente
+                if ( player2.equals(currPlayer) && player3 != null ) {
+                    currPlayer = player3;
+                } else if ( player3.equals(currPlayer) || player3 == null ) {
+                    currPlayer = challenger;
+                } else if (challenger.equals(currPlayer)) {
+                    currPlayer = player2;
+                }
+            }
+        }
+    }
+
+}
+
+
+}
+
+
+ /*private Player player1;
+    private Player player2;
+    private Challenger challenger;
 
 
     public Server(Game game) {
@@ -17,7 +92,7 @@ public class Server {
 
 
 
- /*   public void chooseCards(){
+    public void chooseCards(){
         String chosenCards[];
 
         // il challenger sceglie le carte
@@ -48,7 +123,7 @@ public class Server {
         chooseCards();
         //placeWorkers();
 
-        /*while( !EndOfTheGame ){
+        while( !EndOfTheGame ){
             EndOfTheGame
         }
 
@@ -62,36 +137,36 @@ public class Server {
 
         switch ( player.getGodName() ) {
 
-            /*case "Charon":        charonPower()
+            case "Charon":        charonPower()
                                     move()
                                     build()
-                                    break;*/
+                                    break;
 
-    //case "Prometheus":    2 flussi distinti
+//case "Prometheus":    2 flussi distinti
 
-            /*case "Artemis":       move()
+            case "Artemis":       move()
                                     control()
                                     move()
                                     build()
-                                    break;*/
+                                    break;
 
-            /*case "Triton":        move()
+            case "Triton":        move()
                                     while (casella sul perimetro) move()
                                     build()
-                                    break;*/
+                                    break;
 
-            /*case "Demeter":       move()
+            case "Demeter":       move()
                                     build()
                                     control()
                                     build()
-                                    break;*/
+                                    break;
 
-            /*case "Poseidon":      move()
+            case "Poseidon":      move()
                                     build()
                                     3 build() dell'altro worker a terra (facoltativo)
-                                    break;*/
+                                    break;
 
-    /*case "Default":       move()
+    case "Default":       move()
                             build()
                             break;
 
@@ -116,4 +191,3 @@ else {
 
 }
 */
-}
