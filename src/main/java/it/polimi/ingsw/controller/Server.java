@@ -1,15 +1,10 @@
 package it.polimi.ingsw.controller;
 
 
-import it.polimi.ingsw.model.Challenger;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.util.Observer;
-import it.polimi.ingsw.virtualView.FrontEnd;
-import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 
-public class Server implements Observer<PlayersInTheGame>, Observer<FrontEnd> {
+public class Server {
     private Game game;
     /*private Player player1;
     private Player player2;
@@ -96,35 +91,29 @@ public class Server implements Observer<PlayersInTheGame>, Observer<FrontEnd> {
                                     3 build() dell'altro worker a terra (facoltativo)
                                     break;*/
 
-            /*case "Default":       move()
-                                    build()
-                                    break;
+    /*case "Default":       move()
+                            build()
+                            break;
 
 
-        }
+}
+}
+
+public Worker chooseWorker ( Player player ){
+Worker result;
+
+//result = getChoiceFromView(player.getWorker1(),player.getWorker2());
+
+if ( model.isFreeToMove(result) ){
+    return result;
+}
+else {
+    if( result.equals(player.getWorker1())){
+        return player1.getWorker2();
     }
+    else return player.getWorker1();
+}
 
-    public Worker chooseWorker ( Player player ){
-        Worker result;
-
-        //result = getChoiceFromView(player.getWorker1(),player.getWorker2());
-
-        if ( model.isFreeToMove(result) ){
-            return result;
-        }
-        else {
-            if( result.equals(player.getWorker1())){
-                return player1.getWorker2();
-            }
-            else return player.getWorker1();
-        }
-
-    }
-    */
-            @Override
-            public void update(PlayersInTheGame message) {
-                game.setPlayers(message.getNickname1(),message.getNickname2(),message.getNickname3());
-            }
-
-
+}
+*/
 }
