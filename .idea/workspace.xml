@@ -4,10 +4,50 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
+    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="Enum God">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/element-list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index-files/index-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index-files/index-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index-files/index-3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index-files/index-4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index-files/index-5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/it/polimi/ingsw/model/Game.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/it/polimi/ingsw/model/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/it/polimi/ingsw/model/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/glass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/external/jquery/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-bg_glass_55_fbf9ee_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-bg_glass_65_dadada_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-bg_glass_75_dadada_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-bg_glass_75_e6e6e6_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-bg_glass_95_fef1ec_1x400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-bg_highlight-soft_75_cccccc_1x100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-icons_222222_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-icons_2e83ff_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-icons_454545_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-icons_888888_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/images/ui-icons_cd0a0a_256x240.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jquery-3.4.1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jquery-ui.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jquery-ui.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jquery-ui.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jquery-ui.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jquery-ui.structure.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jquery-ui.structure.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jszip-utils/dist/jszip-utils-ie.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jszip-utils/dist/jszip-utils-ie.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jszip-utils/dist/jszip-utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jszip-utils/dist/jszip-utils.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jszip/dist/jszip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script-dir/jszip/dist/jszip.min.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/util/Observable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/util/Observable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/FrontEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/FrontEnd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/PlayersInTheGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/PlayersInTheGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,6 +241,9 @@
       <workItem from="1586015784322" duration="4667000" />
       <workItem from="1586020584594" duration="4000" />
       <workItem from="1586020630029" duration="494000" />
+      <workItem from="1586186746491" duration="230000" />
+      <workItem from="1586250059830" duration="43000" />
+      <workItem from="1586505309642" duration="1355000" />
     </task>
     <task id="LOCAL-00001" summary="Formattato e rinominato alcune variabili">
       <created>1584810937165</created>
@@ -411,6 +454,17 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Formattato e rinominato alcune variabili" />
     <MESSAGE value="Prime righe di Controller" />
@@ -474,11 +528,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1585990678752" />
-    <state x="728" y="9" key="CommitChangelistDialog2" timestamp="1585993166677">
+    <state x="728" y="9" key="CommitChangelistDialog2" timestamp="1586186870779">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="540" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585582899245" />
-    <state x="728" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585993166677" />
+    <state x="728" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586186870779" />
     <state x="568" y="23" key="CommitChangelistDialog2/0.23.1440.833@0.23.1440.833" timestamp="1585653184893" />
     <state x="569" y="32" key="CommitChangelistDialog2/0.23.1440.834@0.23.1440.834" timestamp="1585412233144" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585993156041">
@@ -584,11 +638,11 @@
       <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state x="301" y="164" width="837" height="550" key="find.popup/0.23.1440.833@0.23.1440.833" timestamp="1585395096140" />
-    <state x="415" y="229" key="git4idea.merge.GitPullDialog" timestamp="1585583867820">
-      <screen x="0" y="23" width="1440" height="831" />
+    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1586507200997">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1585582910388" />
-    <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1585405795845" />
+    <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1586507200997" />
     <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.831@0.23.1440.831" timestamp="1585583867820" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />

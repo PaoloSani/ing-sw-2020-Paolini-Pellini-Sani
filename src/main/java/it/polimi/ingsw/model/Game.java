@@ -4,7 +4,7 @@ import it.polimi.ingsw.util.Observable;
 import it.polimi.ingsw.virtualView.FrontEnd;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
-public class Game extends Observable<FrontEnd> {
+public class Game extends Observable<T> {
     private int level1;
     private int level2;
     private int level3;

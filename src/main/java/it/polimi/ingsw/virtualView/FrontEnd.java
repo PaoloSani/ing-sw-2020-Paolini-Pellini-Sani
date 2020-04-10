@@ -6,7 +6,7 @@ import it.polimi.ingsw.util.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FrontEnd implements Observable<FrontEnd> {
+public class FrontEnd extends Observable<FrontEnd> {
 
     private final List<Observer<FrontEnd>> observers = new ArrayList<>();
 
@@ -19,6 +19,13 @@ public class FrontEnd implements Observable<FrontEnd> {
     public void notify(FrontEnd message) {
         for(Observer<FrontEnd> observer : observers) {
             observer.update(message);
+        }
+    }
+
+    @Override
+    public void notify(PlayersInTheGame playerToSet) {
+        for(Observer<FrontEnd> observer : observers) {
+            observer.update(playerToSet);
         }
     }
 }

@@ -9,7 +9,7 @@ import it.polimi.ingsw.virtualView.FrontEnd;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 
-public class Server implements Observer<PlayersInTheGame>, Observer<FrontEnd> {
+public class Server {
     private Game game;
     /*private Player player1;
     private Player player2;
@@ -72,7 +72,7 @@ public class Server implements Observer<PlayersInTheGame>, Observer<FrontEnd> {
                                     build()
                                     break;*/
 
-    //case "Prometheus":    2 flussi distinti
+            //case "Prometheus":    2 flussi distinti
 
             /*case "Artemis":       move()
                                     control()
@@ -125,6 +125,5 @@ public class Server implements Observer<PlayersInTheGame>, Observer<FrontEnd> {
             public void update(PlayersInTheGame message) {
                 game.setPlayers(message.getNickname1(),message.getNickname2(),message.getNickname3());
             }
-
 
 }

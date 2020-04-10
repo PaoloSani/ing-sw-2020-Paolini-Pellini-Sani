@@ -9,7 +9,7 @@ import it.polimi.ingsw.util.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayersInTheGame implements Observable<PlayersInTheGame>/*, Observer<Game>*/ {
+public class PlayersInTheGame extends Observable<PlayersInTheGame>/*, Observer<Game>*/ {
 
     private final List<Observer<PlayersInTheGame>> observers = new ArrayList<>();
 
