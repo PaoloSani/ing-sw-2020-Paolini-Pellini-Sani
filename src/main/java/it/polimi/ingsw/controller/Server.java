@@ -4,6 +4,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Challenger;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.util.GameState;
 
 
@@ -13,7 +14,24 @@ public class Server {
     private Player player2;
     private Player player3;
     private Challenger challenger;
-    Player currPlayer;
+    private Player currPlayer;
+    private Worker currWorker;
+    public final GameState settingPlayers = new SettingPlayers(this);
+    public final GameState placingWorkers = new PlacingWorkers(this);
+    public final GameState choosingWorkers = new ChoosingWorker(this);
+    public final GameState moving = new Moving(this);
+    public final GameState building = new Building(this);
+    public final GameState removingPlayer = new RemovingPlayer(this);
+    public final GameState charonSwitching = new CharonSwitching(this);
+    public final GameState prometheusBuilding = new PrometheusBuilding(this);
+    public final GameState prometheusMoving = new PrometheusMoving(this);
+    public final GameState winning = new Winning(this);
+
+
+
+    public Player getCurrPlayer() {
+        return currPlayer;
+    }
 
     public Player getPlayer2() {
         return player3;
@@ -29,6 +47,14 @@ public class Server {
 
     public Game getGame() {
         return game;
+    }
+
+    public Worker getCurrWorker() {
+        return currWorker;
+    }
+
+    public void setCurrWorker(Worker currWorker) {
+        this.currWorker = currWorker;
     }
 
     public void setPlayer2(Player player2) {
@@ -54,28 +80,23 @@ public class Server {
     public void runGame() {
         currState = new SettingPlayers(this);
 
-        while ( !(currState instanceof PlacingWorkers) ) ;
-
         currPlayer = player2;
 
         while ( !(currState instanceof Winning) ) {
-            currState.execute(currPlayer);
-            currState.changeState();
 
-            //TODO : gestire rimozione giocatore e caso due giocatori
-            if ( currState instanceof Building ) {  //alla fine del turno del giocatore cambio il giocatore corrente
-                if ( ( player2.equals(currPlayer) && player3 != null ) || ( challenger.equals(currPlayer) && player2 == null ) ) {
-                    currPlayer = player3;
-                } else if ( ( player3.equals(currPlayer) && challenger != null ) || ( player2.equals(currPlayer) && player3 == null ) ) {
-                    currPlayer = challenger;
-                } else if ( ( challenger.equals(currPlayer) && player2 != null ) || ( player3.equals(currPlayer) && challenger == null ) ) {
-                    currPlayer = player2;
-                }
-            }
         }
     }
 
-}
+    public void updateCurrPlayer(){
+        if ( ( player2.equals(currPlayer) && player3 != null ) || ( challenger.equals(currPlayer) && player2 == null ) ) {
+            currPlayer = player3;
+        } else if ( ( player3.equals(currPlayer) && challenger != null ) || ( player2.equals(currPlayer) && player3 == null ) ) {
+            currPlayer = challenger;
+        } else if ( ( challenger.equals(currPlayer) && player2 != null ) || ( player3.equals(currPlayer) && challenger == null ) ) {
+            currPlayer = player2;
+        }
+    }
+
 
 
 }
