@@ -26,7 +26,7 @@ public class Server {
     public final GameState prometheusBuilding = new PrometheusBuilding(this);
     public final GameState prometheusMoving = new PrometheusMoving(this);
     public final GameState winning = new Winning(this);
-
+    public final GameState usingPower = new UsingPower(this);
 
 
     public Player getCurrPlayer() {
