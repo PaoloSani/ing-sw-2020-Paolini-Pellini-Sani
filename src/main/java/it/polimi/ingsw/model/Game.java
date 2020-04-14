@@ -82,7 +82,7 @@ public class Game{ //extends Observable<> {
         else throw (new IllegalSpaceException());
     }
 
-
+    //TODO: modifica il codice per Athena!
     public boolean isFreeToMove( Worker worker ){
         int currX,currY,currH;
         currX = worker.getSpace().getX();

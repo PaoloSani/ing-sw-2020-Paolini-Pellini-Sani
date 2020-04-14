@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/PlacingWorkers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/PlacingWorkers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/SettingPlayers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/SettingPlayers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/util/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/util/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/PlayersInTheGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/PlayersInTheGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +22,8 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -200,8 +205,6 @@
       <workItem from="1586020584594" duration="4000" />
       <workItem from="1586020630029" duration="494000" />
       <workItem from="1586504249192" duration="5843000" />
-      <workItem from="1586871135075" duration="638000" />
-      <workItem from="1586875157778" duration="617000" />
     </task>
     <task id="LOCAL-00001" summary="Formattato e rinominato alcune variabili">
       <created>1584810937165</created>
@@ -406,12 +409,12 @@
       <option name="project" value="LOCAL" />
       <updated>1585993167698</updated>
     </task>
-    <task id="LOCAL-00030" summary="Macchina a Stati controller">
-      <created>1586517517318</created>
+    <task id="LOCAL-00030" summary="Correzioni Server">
+      <created>1586873434882</created>
       <option name="number" value="00030" />
       <option name="presentableId" value="LOCAL-00030" />
       <option name="project" value="LOCAL" />
-      <updated>1586517517318</updated>
+      <updated>1586873434882</updated>
     </task>
     <option name="localTasksCounter" value="31" />
     <servers />
@@ -471,8 +474,8 @@
     <MESSAGE value="Correzione MoveApollo e relativo test (noSpaceToBuild)" />
     <MESSAGE value="Enum God" />
     <MESSAGE value="sd" />
-    <MESSAGE value="Macchina a Stati controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="Macchina a Stati controller" />
+    <MESSAGE value="Correzioni Server" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correzioni Server" />
   </component>
   <component name="WindowStateProjectService">
     <state x="458" y="211" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1586020311431">
@@ -488,11 +491,12 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="92" y="92" width="1182" height="554" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.738@0.0.1366.738" timestamp="1585489412988" />
-    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1586516111621">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="538" y="152" key="#com.intellij.ide.util.MemberChooser" timestamp="1586876382322">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state x="510" y="115" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1586079928913" />
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1586516111621" />
+    <state x="538" y="152" key="#com.intellij.ide.util.MemberChooser/0.23.1440.831@0.23.1440.831" timestamp="1586876382322" />
     <state x="538" y="153" key="#com.intellij.ide.util.MemberChooser/0.23.1440.832@0.23.1440.832" timestamp="1586016279261" />
     <state x="538" y="153" key="#com.intellij.ide.util.MemberChooser/0.23.1440.833@0.23.1440.833" timestamp="1586016859608" />
     <state x="538" y="153" key="#com.intellij.ide.util.MemberChooser/0.23.1440.834@0.23.1440.834" timestamp="1586020276010" />
@@ -504,11 +508,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="410" y="338" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384629626" />
-    <state x="566" y="272" width="408" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1586871145687">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="503" y="244" width="408" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1586508603224">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="503" y="244" width="408" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.738@0.0.1366.738" timestamp="1586508603224" />
-    <state x="566" y="272" width="403" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1586871145687" />
+    <state x="566" y="272" width="403" height="287" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1585384638920" />
     <state x="566" y="293" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1585384631883">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -517,19 +521,21 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="285" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1585989293590" />
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586515725195">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="468" y="183" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586876069829">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1586515725195" />
+    <state x="468" y="183" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.831@0.23.1440.831" timestamp="1586876069829" />
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1585990678752">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1585990678752" />
-    <state x="728" y="9" key="CommitChangelistDialog2" timestamp="1586517516468">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="569" y="23" key="CommitChangelistDialog2" timestamp="1586873434192">
+      <screen x="0" y="23" width="1440" height="830" />
     </state>
     <state x="540" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1586511535371" />
-    <state x="728" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586517516468" />
+    <state x="728" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585993166677" />
+    <state x="569" y="23" key="CommitChangelistDialog2/0.23.1440.830@0.23.1440.830" timestamp="1586873434192" />
     <state x="568" y="23" key="CommitChangelistDialog2/0.23.1440.833@0.23.1440.833" timestamp="1585653184893" />
     <state x="569" y="32" key="CommitChangelistDialog2/0.23.1440.834@0.23.1440.834" timestamp="1585412233144" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585993156041">
@@ -610,11 +616,11 @@
     </state>
     <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1586514205991" />
     <state x="260" y="23" key="SettingsEditor/0.23.1440.833@0.23.1440.833" timestamp="1585396281987" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1586517527832">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585993173189">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="321" y="130" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585491848327" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1586517527832" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585993173189" />
     <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.833@0.23.1440.833" timestamp="1585653230554" />
     <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.834@0.23.1440.834" timestamp="1585411916104" />
     <state x="968" y="189" key="chooseDestDirectoryDialog" timestamp="1585384562668">
@@ -631,6 +637,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384562700" />
+    <state x="458" y="198" key="extract.method.dialog" timestamp="1586876579933">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state x="458" y="198" key="extract.method.dialog/0.23.1440.831@0.23.1440.831" timestamp="1586876579933" />
     <state x="301" y="164" width="837" height="550" key="find.popup" timestamp="1585395096140">
       <screen x="0" y="23" width="1440" height="833" />
     </state>
