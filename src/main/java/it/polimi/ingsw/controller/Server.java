@@ -54,12 +54,12 @@ public class Server {
     public void runGame() {
         currState = new SettingPlayers(this);
 
-        while ( !(currState instanceof ChoosingWorker) ) ;
+        while ( !(currState instanceof PlacingWorkers) ) ;
 
         currPlayer = player2;
 
         while ( !(currState instanceof Winning) ) {
-            currState.execute();
+            currState.execute(currPlayer);
             currState.changeState();
 
             //TODO : gestire rimozione giocatore e caso due giocatori

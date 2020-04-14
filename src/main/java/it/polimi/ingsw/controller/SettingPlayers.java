@@ -24,17 +24,17 @@ public class SettingPlayers implements GameState {
         this.god3 = null;
     }
 
-    @Override
-    public void execute() {
-        server.setPlayer1( new Player( this.name, god1, server.getGame()));
-        server.setPlayer2( new Player( this.name1, god2, server.getGame()));
+    private void execute() {
+        server.setPlayer2( new Player( this.name, god1, server.getGame()));
+        server.setPlayer3( new Player( this.name1, god2, server.getGame()));
         server.setChallenger( new Challenger( this.name2, god3, server.getGame()));
         changeState();
     }
 
+
     @Override
     public void changeState() {
-        server.setCurrState(new ChoosingWorker());
+        server.setCurrState(new PlacingWorkers());
     }
 
 
