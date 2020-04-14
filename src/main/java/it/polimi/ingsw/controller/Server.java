@@ -64,11 +64,11 @@ public class Server {
 
             //TODO : gestire rimozione giocatore e caso due giocatori
             if ( currState instanceof Building ) {  //alla fine del turno del giocatore cambio il giocatore corrente
-                if ( player2.equals(currPlayer) && player3 != null ) {
+                if ( ( player2.equals(currPlayer) && player3 != null ) || ( challenger.equals(currPlayer) && player2 == null ) ) {
                     currPlayer = player3;
-                } else if ( player3.equals(currPlayer) || player3 == null ) {
+                } else if ( ( player3.equals(currPlayer) && challenger != null ) || ( player2.equals(currPlayer) && player3 == null ) ) {
                     currPlayer = challenger;
-                } else if (challenger.equals(currPlayer)) {
+                } else if ( ( challenger.equals(currPlayer) && player2 != null ) || ( player3.equals(currPlayer) && challenger == null ) ) {
                     currPlayer = player2;
                 }
             }
