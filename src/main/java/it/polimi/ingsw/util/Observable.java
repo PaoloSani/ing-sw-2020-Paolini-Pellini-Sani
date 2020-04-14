@@ -1,12 +1,22 @@
 package it.polimi.ingsw.util;
 
+import it.polimi.ingsw.util.Observer;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Observable<T> {
+public class Observable<T> {
 
-    public void addObservers(Observer<T> observer);
+    private List<Observer<T>> observers = new ArrayList<>();
 
-    public void notify(T message);
+    public void addObservers(Observer<T> observer){
+        observers.add(observer);
+    }
+
+    public void notify(T message){
+        for(Observer<T> observer: observers){
+            observer.update(message);
+        }
+    }
 
 }

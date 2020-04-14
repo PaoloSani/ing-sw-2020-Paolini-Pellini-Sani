@@ -11,13 +11,11 @@ public class Player {
     private Build build;
     private Game game;
 
-    public Player( String nickname, Game game) {
+    public Player( String nickname, God god, Game game) {
         this.nickname = nickname;
-        this.god = null;
+        setGod(god);
         this.worker1 = new Worker(this );
-        this.worker2 = new Worker(this  );
-        this.move = null;
-        this.build = null;
+        this.worker2 = new Worker(this );
         this.game = game;
     }
 

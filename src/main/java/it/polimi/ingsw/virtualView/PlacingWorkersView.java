@@ -1,4 +1,4 @@
 package it.polimi.ingsw.virtualView;
 
-public class FrontEnd {
+public class PlacingWorkersView {
 }

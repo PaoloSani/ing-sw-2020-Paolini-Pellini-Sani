@@ -4,16 +4,86 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Challenger;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.util.Observer;
-import it.polimi.ingsw.virtualView.FrontEnd;
-import it.polimi.ingsw.virtualView.PlayersInTheGame;
+import it.polimi.ingsw.util.GameState;
 
 
-public class Server implements Observer<PlayersInTheGame>, Observer<FrontEnd> {
+public class Server {
     private Game game;
-    /*private Player player1;
+    private GameState currState;
     private Player player2;
-    private Challenger challenger;*/
+    private Player player3;
+    private Challenger challenger;
+    Player currPlayer;
+
+    public Player getPlayer2() {
+        return player3;
+    }
+
+    public Player getPlayer3() {
+        return player3;
+    }
+
+    public Challenger getChallenger() {
+        return challenger;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
+    }
+
+    public void setPlayer3(Player player3) {
+        this.player3 = player3;
+    }
+
+    public void setChallenger(Challenger challenger) {
+        this.challenger = challenger;
+    }
+
+    public void setCurrState(GameState currState) {
+        this.currState = currState;
+    }
+
+    //metodi per la connessione
+    public void setConnection() {
+    }
+
+    public void runGame() {
+        currState = new SettingPlayers(this);
+
+        while ( !(currState instanceof ChoosingWorker) ) ;
+
+        currPlayer = player2;
+
+        while ( !(currState instanceof Winning) ) {
+            currState.execute();
+            currState.changeState();
+
+            //TODO : gestire rimozione giocatore e caso due giocatori
+            if ( currState instanceof Building ) {  //alla fine del turno del giocatore cambio il giocatore corrente
+                if ( player2.equals(currPlayer) && player3 != null ) {
+                    currPlayer = player3;
+                } else if ( player3.equals(currPlayer) || player3 == null ) {
+                    currPlayer = challenger;
+                } else if (challenger.equals(currPlayer)) {
+                    currPlayer = player2;
+                }
+            }
+        }
+    }
+
+}
+
+
+}
+
+
+ /*private Player player1;
+    private Player player2;
+    private Challenger challenger;
 
 
     public Server(Game game) {
@@ -22,7 +92,7 @@ public class Server implements Observer<PlayersInTheGame>, Observer<FrontEnd> {
 
 
 
- /*   public void chooseCards(){
+    public void chooseCards(){
         String chosenCards[];
 
         // il challenger sceglie le carte
@@ -53,7 +123,7 @@ public class Server implements Observer<PlayersInTheGame>, Observer<FrontEnd> {
         chooseCards();
         //placeWorkers();
 
-        /*while( !EndOfTheGame ){
+        while( !EndOfTheGame ){
             EndOfTheGame
         }
 
@@ -67,64 +137,57 @@ public class Server implements Observer<PlayersInTheGame>, Observer<FrontEnd> {
 
         switch ( player.getGodName() ) {
 
-            /*case "Charon":        charonPower()
+            case "Charon":        charonPower()
                                     move()
-                                    build()
-                                    break;*/
-
-    //case "Prometheus":    2 flussi distinti
-
-            /*case "Artemis":       move()
-                                    control()
-                                    move()
-                                    build()
-                                    break;*/
-
-            /*case "Triton":        move()
-                                    while (casella sul perimetro) move()
-                                    build()
-                                    break;*/
-
-            /*case "Demeter":       move()
-                                    build()
-                                    control()
-                                    build()
-                                    break;*/
-
-            /*case "Poseidon":      move()
-                                    build()
-                                    3 build() dell'altro worker a terra (facoltativo)
-                                    break;*/
-
-            /*case "Default":       move()
                                     build()
                                     break;
 
+//case "Prometheus":    2 flussi distinti
 
-        }
-    }
+            case "Artemis":       move()
+                                    control()
+                                    move()
+                                    build()
+                                    break;
 
-    public Worker chooseWorker ( Player player ){
-        Worker result;
+            case "Triton":        move()
+                                    while (casella sul perimetro) move()
+                                    build()
+                                    break;
 
-        //result = getChoiceFromView(player.getWorker1(),player.getWorker2());
+            case "Demeter":       move()
+                                    build()
+                                    control()
+                                    build()
+                                    break;
 
-        if ( model.isFreeToMove(result) ){
-            return result;
-        }
-        else {
-            if( result.equals(player.getWorker1())){
-                return player1.getWorker2();
-            }
-            else return player.getWorker1();
-        }
+            case "Poseidon":      move()
+                                    build()
+                                    3 build() dell'altro worker a terra (facoltativo)
+                                    break;
 
-    }
-    */
-            @Override
-            public void update(PlayersInTheGame message) {
-                game.setPlayers(message.getNickname1(),message.getNickname2(),message.getNickname3());
-            }
+    case "Default":       move()
+                            build()
+                            break;
 
 
 }
+}
+
+public Worker chooseWorker ( Player player ){
+Worker result;
+
+//result = getChoiceFromView(player.getWorker1(),player.getWorker2());
+
+if ( model.isFreeToMove(result) ){
+    return result;
+}
+else {
+    if( result.equals(player.getWorker1())){
+        return player1.getWorker2();
+    }
+    else return player.getWorker1();
+}
+
+}
+*/

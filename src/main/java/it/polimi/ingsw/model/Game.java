@@ -1,10 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.util.Observable;
-import it.polimi.ingsw.virtualView.FrontEnd;
-import it.polimi.ingsw.virtualView.PlayersInTheGame;
-
-public class Game extends Observable<FrontEnd> {
+public class Game{ //extends Observable<> {
     private int level1;
     private int level2;
     private int level3;
