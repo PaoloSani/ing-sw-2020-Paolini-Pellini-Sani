@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.util.GameState;
+import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 public class ChoosingWorker implements GameState {
     private Server server;
@@ -20,13 +21,18 @@ public class ChoosingWorker implements GameState {
             changeState(nextState());
         }
         else {
-            otherWorker = server.getCurrPlayer().getOtherWorker(chosenWorker));
+            otherWorker = server.getCurrPlayer().getOtherWorker(chosenWorker);
             if ( server.getGame().isFreeToMove( otherWorker ) ){
                 server.setCurrWorker(otherWorker);
                 changeState(nextState());
             }
             else changeState(server.removingPlayer);
         }
+
+    }
+
+    @Override
+    public void update(PlayersInTheGame message) {
 
     }
 

@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
+import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 public class PlacingWorkers implements GameState {
     Server server;
@@ -29,6 +30,11 @@ public class PlacingWorkers implements GameState {
         server.getCurrPlayer().getWorker1().setSpace(space1);
         server.getCurrPlayer().getWorker2().setSpace(space2);
         changeState(server.choosingWorkers);
+    }
+
+    @Override
+    public void update(PlayersInTheGame message) {
+
     }
 
     //update: il currPlayer del Server ha scelto dove piazzare i suoi giocatori

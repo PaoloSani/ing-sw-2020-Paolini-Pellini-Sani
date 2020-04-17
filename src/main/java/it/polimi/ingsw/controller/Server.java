@@ -28,6 +28,10 @@ public class Server {
     public final GameState winning = new Winning(this);
     public final GameState usingPower = new UsingPower(this);
 
+    public Server() {
+        this.game = new Game();
+        this.currState = settingPlayers;
+}
 
     public Player getCurrPlayer() {
         return currPlayer;
@@ -49,6 +53,9 @@ public class Server {
         return game;
     }
 
+    public GameState getCurrState() {
+        return currState;
+    }
     public Worker getCurrWorker() {
         return currWorker;
     }
@@ -78,7 +85,6 @@ public class Server {
     }
 
     public void runGame() {
-        currState = new SettingPlayers(this);
 
         currPlayer = player2;
 

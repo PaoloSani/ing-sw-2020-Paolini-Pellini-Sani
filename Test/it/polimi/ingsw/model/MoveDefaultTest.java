@@ -9,7 +9,7 @@ public class MoveDefaultTest {
     private Worker myWorker;
     private MoveDefault moveDefault = new MoveDefault();
     private Game game = new Game();
-    private Player player = new Player("test", game);
+    private Player player = new Player("test", God.DEMETER, game);
 
 
     @Test ( expected = IllegalSpaceException.class )
@@ -111,7 +111,7 @@ public class MoveDefaultTest {
         nextSpace.setHeight(4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        nextSpace.setWorker(new Worker(new Player("test2", game)));
+        nextSpace.setWorker(new Worker(new Player("test2", God.ATHENA, game)));
 
         assertNotNull(nextSpace.getWorker());
         moveDefault.execute( myWorker, nextSpace );
