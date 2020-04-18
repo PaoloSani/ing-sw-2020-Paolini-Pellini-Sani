@@ -6,15 +6,15 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
-public class Moving implements GameState {
-    private Server server;
+public class MoveState implements GameState {
+    private BackEnd backEnd;
     private Space nextSpace;
     private int counterArtemis;
     private Space lastSpaceArtemis;
     private boolean returnBack;
 
-    public Moving(Server server) {
-        this.server = server;
+    public MoveState(BackEnd backEnd) {
+        this.backEnd = backEnd;
         counterArtemis = 0;
         lastSpaceArtemis = null;
         returnBack = false;
@@ -23,17 +23,17 @@ public class Moving implements GameState {
 
     @Override
     public void changeState(GameState nextState) {
-        server.setCurrState(nextState);
+        backEnd.setCurrState(nextState);
     }
 
     @Override
     public void execute() {
-        if (server.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 0) {
-            lastSpaceArtemis = server.getCurrWorker().getSpace();
+        if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 0) {
+            lastSpaceArtemis = backEnd.getCurrWorker().getSpace();
             counterArtemis++;
         }
 
-        if (server.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 1) {
+        if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 1) {
             if (lastSpaceArtemis == nextSpace   )
                 returnBack = true;
             else counterArtemis++;
@@ -42,7 +42,7 @@ public class Moving implements GameState {
         if (!returnBack)
         {
             try {
-                server.getCurrPlayer().moveWorker(server.getCurrWorker(), nextSpace);
+                backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace);
             } catch (IllegalSpaceException e) {
                 e.printStackTrace();
             }
@@ -50,18 +50,18 @@ public class Moving implements GameState {
 
         //TODO: devo andare in building solo se non ha lanciato l'eccezione -> ritorno true se il metodo ha effettuato la mossa, gestisco la vittoria con un messaggio model->view
         //TODO: come dico che tritone ha smesso di muoversi?
-        if (    (server.getCurrPlayer().getGod() != God.TRITON && server.getCurrPlayer().getGod() != God.ARTEMIS) ||
-                (server.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2)                           ){
+        if (    (backEnd.getCurrPlayer().getGod() != God.TRITON && backEnd.getCurrPlayer().getGod() != God.ARTEMIS) ||
+                (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2)                           ){
             resetMoving();
-            changeState(server.building);
+            changeState(backEnd.building);
         }
 
         //caso in cui Tritone esce dal perimetro
-        if ( server.getCurrPlayer().getGod() == God.TRITON &&   //cella fuori dal perimetro
+        if ( backEnd.getCurrPlayer().getGod() == God.TRITON &&   //cella fuori dal perimetro
             nextSpace.getX() > 0 && nextSpace.getX() < 4 &&
             nextSpace.getY() > 0 && nextSpace.getY() < 4 ){
             resetMoving();
-            changeState(server.building);
+            changeState(backEnd.building);
         }
 
         returnBack = false;

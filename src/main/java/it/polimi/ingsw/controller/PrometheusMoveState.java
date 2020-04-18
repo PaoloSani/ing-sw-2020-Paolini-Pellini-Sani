@@ -6,33 +6,33 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
-public class PrometheusMoving implements GameState {
-    private Server server;
+public class PrometheusMoveState implements GameState {
+    private BackEnd backEnd;
     private Space nextSpace;
     private boolean MoveUp;
 
-    public PrometheusMoving(Server server) {
-        this.server = server;
+    public PrometheusMoveState(BackEnd backEnd) {
+        this.backEnd = backEnd;
         MoveUp = false;
     }
 
     @Override
     public void changeState(GameState nextState) {
-        server.setCurrState(nextState);
+        backEnd.setCurrState(nextState);
     }
 
     @Override
     public void execute() {
-        if ( nextSpace.getHeight() - server.getCurrWorker().getSpace().getHeight() > 0 )
+        if ( nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() > 0 )
             MoveUp = true;
 
         if ( !MoveUp ) {
             try {
-                server.getCurrPlayer().moveWorker(server.getCurrWorker(), nextSpace);
+                backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace);
             } catch (IllegalSpaceException e) {
                 e.printStackTrace();
             }
-            changeState(server.building);
+            changeState(backEnd.building);
         }
 
         MoveUp = false;

@@ -17,6 +17,7 @@ public class Player {
         this.worker1 = new Worker(this );
         this.worker2 = new Worker(this );
         this.game = game;
+        //scrive i suoi dati nel messaggio Game.message
     }
 
     public String getNickname() {

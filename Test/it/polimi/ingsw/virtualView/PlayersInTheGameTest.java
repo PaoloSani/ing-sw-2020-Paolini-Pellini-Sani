@@ -1,7 +1,7 @@
 package it.polimi.ingsw.virtualView;
 
 
-import it.polimi.ingsw.controller.Server;
+import it.polimi.ingsw.controller.BackEnd;
 import it.polimi.ingsw.model.God;
 
 
@@ -11,8 +11,8 @@ import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayersInTheGameTest {
-    Server server = new Server();
-    PlayersInTheGame test = new PlayersInTheGame(server);
+    BackEnd backEnd = new BackEnd();
+    PlayersInTheGame test = new PlayersInTheGame(backEnd);
 
     @Test
     public void observerTest() {
@@ -25,7 +25,7 @@ public class PlayersInTheGameTest {
 
         //al termine del set di tutti e tre i nomi il metodo setName3 chiama checkNotifyThis che a sua volta invoca la notify agli osservatori
         //TODO: gestire il caso in cui ci sono solo due giocatori
-        assertSame(server.getCurrState(), server.placingWorkers);
+        assertSame(backEnd.getCurrState(), backEnd.placingWorkers);
     }
 
 
