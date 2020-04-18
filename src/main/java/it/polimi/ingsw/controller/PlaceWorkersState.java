@@ -32,7 +32,7 @@ public class PlaceWorkersState implements GameState, Observer<SpaceMessage> {
         backEnd.getCurrPlayer().getWorker2().setSpace(space2);
         //A questo punto il model modifica il liteGame
         //notify del LiteGame
-        changeState(backEnd.choosingWorkers);
+        changeState(backEnd.chooseWorkerState);
 
     }
 

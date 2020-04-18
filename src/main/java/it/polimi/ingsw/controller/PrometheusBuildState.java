@@ -27,7 +27,7 @@ public class PrometheusBuildState implements GameState {
             e.printStackTrace();
         }
 
-        changeState(backEnd.prometheusMoving);
+        changeState(backEnd.prometheusMoveState);
 
     }
 

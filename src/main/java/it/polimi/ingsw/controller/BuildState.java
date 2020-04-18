@@ -62,7 +62,7 @@ public class BuildState implements GameState {
 
             resetBuilding();
             backEnd.updateCurrPlayer();
-            changeState(backEnd.choosingWorkers);
+            changeState(backEnd.chooseWorkerState);
         }
 
         if ( backEnd.getCurrPlayer().getGod() == God.POSEIDON ){
@@ -71,7 +71,7 @@ public class BuildState implements GameState {
                 if ( backEnd.getCurrWorker().getSpace().getHeight() != 0 ) {      //se non è a terra il suo potere non vale
                     resetBuilding();
                     backEnd.updateCurrPlayer();
-                    changeState(backEnd.choosingWorkers);
+                    changeState(backEnd.chooseWorkerState);
                 }
                 counterPoseidon++;      //lo aggiorno già a 1 così mi accorgo che ho attivato il suo potere e sto costruendo col secondo worker
             }

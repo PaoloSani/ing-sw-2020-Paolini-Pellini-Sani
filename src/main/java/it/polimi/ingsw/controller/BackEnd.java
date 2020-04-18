@@ -16,22 +16,21 @@ public class BackEnd {
     private Challenger challenger;
     private Player currPlayer;
     private Worker currWorker;
-    //TODO Cambia i nomi
-    public final GameState settingPlayers = new SetPlayersState(this);
-    public final GameState placingWorkers = new PlaceWorkersState(this);
-    public final GameState choosingWorkers = new ChooseWorkerState(this);
-    public final GameState moving = new MoveState(this);
-    public final GameState building = new BuildState(this);
-    public final GameState removingPlayer = new RemovePlayerState(this);
-    public final GameState charonSwitching = new CharonSwitchState(this);
-    public final GameState prometheusBuilding = new PrometheusBuildState(this);
-    public final GameState prometheusMoving = new PrometheusMoveState(this);
-    public final GameState winning = new WinState(this);
-    public final GameState usingPower = new UsePowerState(this);
+    public final GameState setPlayersState = new SetPlayersState(this);
+    public final GameState placeWorkersState = new PlaceWorkersState(this);
+    public final GameState chooseWorkerState = new ChooseWorkerState(this);
+    public final GameState moveState = new MoveState(this);
+    public final GameState buildState = new BuildState(this);
+    public final GameState removePlayerState = new RemovePlayerState(this);
+    public final GameState charonSwitchState = new CharonSwitchState(this);
+    public final GameState prometheusBuildState = new PrometheusBuildState(this);
+    public final GameState prometheusMoveState = new PrometheusMoveState(this);
+    public final GameState winState = new WinState(this);
+    public final GameState usePowerState = new UsePowerState(this);
 
     public BackEnd() {
         this.game = new Game();
-        this.currState = settingPlayers;
+        this.currState = setPlayersState;
 }
 
     public Player getCurrPlayer() {
@@ -90,8 +89,8 @@ public class BackEnd {
 
         while ( !(currState instanceof WinState) ) {
 
-            if( currState == this.removingPlayer )
-                removingPlayer.execute();
+            if( currState == this.removePlayerState )
+                removePlayerState.execute();
 
         }
 

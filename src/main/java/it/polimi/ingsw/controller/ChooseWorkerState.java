@@ -31,16 +31,16 @@ public class ChooseWorkerState implements GameState, Observer<SpaceMessage> {
                 changeState(nextState());//Modifico attributo currentworker nel litegame con l'altro worker
 
             }
-            else changeState(backEnd.removingPlayer);
+            else changeState(backEnd.removePlayerState);
         }
 
     }
 
     private GameState nextState(){
         if ( backEnd.getCurrPlayer().getGod() == God.CHARON || backEnd.getCurrPlayer().getGod() == God.PROMETHEUS ){
-            return backEnd.usingPower;
+            return backEnd.usePowerState;
         }
-        return backEnd.moving;
+        return backEnd.moveState;
     }
 
     @Override

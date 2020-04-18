@@ -23,13 +23,13 @@ public class UsePowerState implements GameState {
     public void execute() {
         if ( backEnd.getCurrPlayer().getGod() == God.CHARON ){
             if ( space.getWorker() != null ){
-                changeState(backEnd.charonSwitching);
+                changeState(backEnd.charonSwitchState);
             }
-            else changeState(backEnd.moving);
+            else changeState(backEnd.moveState);
         }
         else {  //altrimenti è Prometeo
-            if ( level == 0 ) changeState(backEnd.moving);
-            else changeState(backEnd.prometheusBuilding);
+            if ( level == 0 ) changeState(backEnd.moveState);
+            else changeState(backEnd.prometheusBuildState);
         }
 
     }

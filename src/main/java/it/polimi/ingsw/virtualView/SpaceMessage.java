@@ -22,8 +22,8 @@ public class SpaceMessage extends Observable <SpaceMessage> {
 
     public SpaceMessage(FrontEnd frontend) {
         this.frontEnd = frontend;
-        addObservers((Observer<SpaceMessage>) frontend.getBackEnd().placingWorkers);
-        addObservers((Observer<SpaceMessage>) frontend.getBackEnd().choosingWorkers);
+        addObservers((Observer<SpaceMessage>) frontend.getBackEnd().placeWorkersState);
+        addObservers((Observer<SpaceMessage>) frontend.getBackEnd().chooseWorkerState);
     }
 
     public void notify(SpaceMessage message){

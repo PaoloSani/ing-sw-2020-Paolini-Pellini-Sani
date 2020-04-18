@@ -34,7 +34,7 @@ public class SetPlayersState implements Observer<PlayersInTheGame>, GameState {
         backEnd.setChallenger( new Challenger( this.name2, god3, backEnd.getGame()) );
         //invio la classe litegame message dal model alla view
         //server.getGame().message.notify()
-        changeState(backEnd.placingWorkers);
+        changeState(backEnd.placeWorkersState);
     }
 
 

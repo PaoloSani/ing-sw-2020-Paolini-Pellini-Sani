@@ -27,7 +27,7 @@ public class PlayersInTheGame extends Observable<PlayersInTheGame> {
 
     public PlayersInTheGame(FrontEnd frontend) {
         this.frontEnd = frontend;
-        addObservers((Observer<PlayersInTheGame>) frontend.getBackEnd().settingPlayers);
+        addObservers((Observer<PlayersInTheGame>) frontend.getBackEnd().setPlayersState);
     }
 
     public void notify(PlayersInTheGame message){

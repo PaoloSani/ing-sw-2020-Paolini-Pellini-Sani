@@ -53,7 +53,7 @@ public class MoveState implements GameState {
         if (    (backEnd.getCurrPlayer().getGod() != God.TRITON && backEnd.getCurrPlayer().getGod() != God.ARTEMIS) ||
                 (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2)                           ){
             resetMoving();
-            changeState(backEnd.building);
+            changeState(backEnd.buildState);
         }
 
         //caso in cui Tritone esce dal perimetro
@@ -61,7 +61,7 @@ public class MoveState implements GameState {
             nextSpace.getX() > 0 && nextSpace.getX() < 4 &&
             nextSpace.getY() > 0 && nextSpace.getY() < 4 ){
             resetMoving();
-            changeState(backEnd.building);
+            changeState(backEnd.buildState);
         }
 
         returnBack = false;

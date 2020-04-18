@@ -32,7 +32,7 @@ public class PrometheusMoveState implements GameState {
             } catch (IllegalSpaceException e) {
                 e.printStackTrace();
             }
-            changeState(backEnd.building);
+            changeState(backEnd.buildState);
         }
 
         MoveUp = false;
