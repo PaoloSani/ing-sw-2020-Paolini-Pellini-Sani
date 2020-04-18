@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.util.GameState;
 
 
-public class Server {
+public class BackEnd {
     private Game game;
     private GameState currState;
     private Player player2;
@@ -16,19 +16,20 @@ public class Server {
     private Challenger challenger;
     private Player currPlayer;
     private Worker currWorker;
-    public final GameState settingPlayers = new SettingPlayers(this);
-    public final GameState placingWorkers = new PlacingWorkers(this);
-    public final GameState choosingWorkers = new ChoosingWorker(this);
-    public final GameState moving = new Moving(this);
-    public final GameState building = new Building(this);
-    public final GameState removingPlayer = new RemovingPlayer(this);
-    public final GameState charonSwitching = new CharonSwitching(this);
-    public final GameState prometheusBuilding = new PrometheusBuilding(this);
-    public final GameState prometheusMoving = new PrometheusMoving(this);
-    public final GameState winning = new Winning(this);
-    public final GameState usingPower = new UsingPower(this);
+    //TODO Cambia i nomi
+    public final GameState settingPlayers = new SetPlayersState(this);
+    public final GameState placingWorkers = new PlaceWorkersState(this);
+    public final GameState choosingWorkers = new ChooseWorkerState(this);
+    public final GameState moving = new MoveState(this);
+    public final GameState building = new BuildState(this);
+    public final GameState removingPlayer = new RemovePlayerState(this);
+    public final GameState charonSwitching = new CharonSwitchState(this);
+    public final GameState prometheusBuilding = new PrometheusBuildState(this);
+    public final GameState prometheusMoving = new PrometheusMoveState(this);
+    public final GameState winning = new WinState(this);
+    public final GameState usingPower = new UsePowerState(this);
 
-    public Server() {
+    public BackEnd() {
         this.game = new Game();
         this.currState = settingPlayers;
 }
@@ -83,15 +84,11 @@ public class Server {
         this.currState = currState;
     }
 
-    //metodi per la connessione
-    public void setConnection() {
-    }
-
     public void runGame() {
 
         currPlayer = player2;
 
-        while ( !(currState instanceof Winning) ) {
+        while ( !(currState instanceof WinState) ) {
 
             if( currState == this.removingPlayer )
                 removingPlayer.execute();

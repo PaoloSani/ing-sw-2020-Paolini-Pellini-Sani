@@ -5,31 +5,31 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
-public class UsingPower implements GameState {
-    private Server server;
+public class UsePowerState implements GameState {
+    private BackEnd backEnd;
     private Space space;
     private int level;
 
-    public UsingPower(Server server) {
-        this.server = server;
+    public UsePowerState(BackEnd backEnd) {
+        this.backEnd = backEnd;
     }
 
     @Override
     public void changeState(GameState nextState) {
-        server.setCurrState(nextState);
+        backEnd.setCurrState(nextState);
     }
 
     @Override
     public void execute() {
-        if ( server.getCurrPlayer().getGod() == God.CHARON ){
+        if ( backEnd.getCurrPlayer().getGod() == God.CHARON ){
             if ( space.getWorker() != null ){
-                changeState(server.charonSwitching);
+                changeState(backEnd.charonSwitching);
             }
-            else changeState(server.moving);
+            else changeState(backEnd.moving);
         }
         else {  //altrimenti è Prometeo
-            if ( level == 0 ) changeState(server.moving);
-            else changeState(server.prometheusBuilding);
+            if ( level == 0 ) changeState(backEnd.moving);
+            else changeState(backEnd.prometheusBuilding);
         }
 
     }

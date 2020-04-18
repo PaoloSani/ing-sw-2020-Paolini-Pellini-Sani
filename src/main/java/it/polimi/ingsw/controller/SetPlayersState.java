@@ -8,8 +8,8 @@ import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 
-public class SettingPlayers implements Observer<PlayersInTheGame>, GameState {
-    private Server server;
+public class SetPlayersState implements Observer<PlayersInTheGame>, GameState {
+    private BackEnd backEnd;
     private String name;
     private String name1;
     private String name2;
@@ -17,8 +17,8 @@ public class SettingPlayers implements Observer<PlayersInTheGame>, GameState {
     private God god2;
     private God god3;
 
-    public SettingPlayers(Server server) {
-        this.server = server;
+    public SetPlayersState(BackEnd backEnd) {
+        this.backEnd = backEnd;
         this.name = null;
         this.name1 = null;
         this.name2 = null;
@@ -29,16 +29,18 @@ public class SettingPlayers implements Observer<PlayersInTheGame>, GameState {
 
     @Override
     public void execute() {
-        server.setPlayer2( new Player( this.name, god1, server.getGame()));
-        server.setPlayer3( new Player( this.name1, god2, server.getGame()));
-        server.setChallenger( new Challenger( this.name2, god3, server.getGame()));
-        changeState(server.placingWorkers);
+        backEnd.setPlayer2( new Player( this.name, god1, backEnd.getGame()) );
+        backEnd.setPlayer3( new Player( this.name1, god2, backEnd.getGame()) );
+        backEnd.setChallenger( new Challenger( this.name2, god3, backEnd.getGame()) );
+        //invio la classe litegame message dal model alla view
+        //server.getGame().message.notify()
+        changeState(backEnd.placingWorkers);
     }
 
 
     @Override
     public void changeState(GameState nextState) {
-        server.setCurrState(nextState);
+        backEnd.setCurrState(nextState);
     }
 
 

@@ -5,29 +5,29 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
-public class CharonSwitching implements GameState {
-    private Server server;
+public class CharonSwitchState implements GameState {
+    private BackEnd backEnd;
     private Space spaceToSwitch;
 
-    public CharonSwitching(Server server) {
-        this.server = server;
+    public CharonSwitchState(BackEnd backEnd) {
+        this.backEnd = backEnd;
     }
 
     @Override
     public void changeState(GameState nextState) {
-        server.setCurrState(nextState);
+        backEnd.setCurrState(nextState);
     }
 
     //chiamata a charonPower in game
     @Override
     public void execute() {
         try {
-            server.getGame().charonPower( server.getCurrWorker(), spaceToSwitch.getWorker() );
+            backEnd.getGame().charonPower( backEnd.getCurrWorker(), spaceToSwitch.getWorker() );
         } catch (IllegalSpaceException e) {
             e.printStackTrace();
         }
         //TODO: devo andare in moving solo se la mossa fatta non ha lanciato l'eccezione
-        changeState(server.moving);
+        changeState(backEnd.moving);
     }
 
     //update: riceve una cella in cui è contenuto il worker da switchare

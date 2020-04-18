@@ -1,6 +1,5 @@
 package it.polimi.ingsw.virtualView;
 
-import it.polimi.ingsw.controller.Server;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.util.Observable;
 import it.polimi.ingsw.util.Observer;
@@ -10,7 +9,7 @@ import java.util.List;
 
 
 public class PlayersInTheGame extends Observable<PlayersInTheGame> {
-    Server server;
+    FrontEnd frontEnd;
     String name1;       // Challenger: sceglie le carte e gioca per ultimo
     String name2;       // Start Player: giocatore che gioca per primo il turno e pesca per primo la carta
     String name3;
@@ -18,15 +17,17 @@ public class PlayersInTheGame extends Observable<PlayersInTheGame> {
     God god1;
     God god2;
     God god3;
+
+
     private List<Observer<PlayersInTheGame>> observers = new ArrayList<>();
 
     public void addObservers(Observer<PlayersInTheGame> observer){
         observers.add(observer);
     }
 
-    public PlayersInTheGame(Server server) {
-        this.server = server;
-        addObservers((Observer<PlayersInTheGame>) server.settingPlayers);
+    public PlayersInTheGame(FrontEnd frontend) {
+        this.frontEnd = frontend;
+        addObservers((Observer<PlayersInTheGame>) frontend.getBackEnd().settingPlayers);
     }
 
     public void notify(PlayersInTheGame message){
