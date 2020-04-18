@@ -16,8 +16,10 @@ public class Worker {
         return player;
     }
 
+    //TODO: sistema le mosse che spostano un giocatore
     public void setSpace( Space space ) {
         this.space = space;
+        this.space.setWorker(this);
     }
 
 }

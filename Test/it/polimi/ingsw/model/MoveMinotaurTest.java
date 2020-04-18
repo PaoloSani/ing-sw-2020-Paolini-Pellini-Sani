@@ -9,7 +9,7 @@ public class MoveMinotaurTest {
     private Worker myWorker;
     private MoveMinotaur moveMinotaur = new MoveMinotaur();
     private Game game = new Game();
-    private Player player = new Player("test", game);
+    private Player player = new Player("test", God.MINOTAUR, game);
 
 
     @Test ( expected = IllegalSpaceException.class )
@@ -135,7 +135,7 @@ public class MoveMinotaurTest {
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        Worker oppWorker = new Worker(new Player("test2", game));
+        Worker oppWorker = new Worker(new Player("test2", God.DEMETER, game));
         oppWorker.setSpace(nextSpace);
         nextSpace.setWorker(oppWorker);
 

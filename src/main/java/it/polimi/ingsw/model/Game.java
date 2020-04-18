@@ -82,7 +82,6 @@ public class Game{ //extends Observable<> {
         else throw (new IllegalSpaceException());
     }
 
-
     public boolean isFreeToMove( Worker worker ){
         int currX,currY,currH;
         currX = worker.getSpace().getX();
@@ -93,7 +92,12 @@ public class Game{ //extends Observable<> {
             for( int i = currX - 1; i < currX + 2; i++ ){
                 for( int j = currY - 1 ; j < currY + 2; j++ ){
                     if( !( i == currX && j == currY ) && ( i >= 0 && i <= 4 && j >= 0 && j <= 4 ) && ( table[i][j].getHeight() < 4 && !table[i][j].isDomed() ) ){
-                        if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 1 ) ) return true;
+
+                        //caso senza il blocco, deve esistere una posizione la cui differenza di altezza è al massimo +1
+                        if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 1 ) && !constraint.athenaBlocks() ) return true;
+
+                        //caso con il blocco, deve esistere una posizione la cui differenza di altezza è al massimo 0
+                        else if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH < 1 ) && constraint.athenaBlocks() ) return true;
                     }
                 }
             }

@@ -4,8 +4,10 @@ import it.polimi.ingsw.model.Challenger;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.util.GameState;
+import it.polimi.ingsw.util.Observer;
+import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
-public class SettingPlayers implements GameState {
+public class SettingPlayers implements GameState, Observer<PlayersInTheGame> {
     Server server;
     String name;
     String name1;
@@ -26,19 +28,30 @@ public class SettingPlayers implements GameState {
 
     @Override
     public void execute() {
-        server.setPlayer1( new Player( this.name, god1, server.getGame()));
-        server.setPlayer2( new Player( this.name1, god2, server.getGame()));
+        server.setPlayer2( new Player( this.name, god1, server.getGame()));
+        server.setPlayer3( new Player( this.name1, god2, server.getGame()));
         server.setChallenger( new Challenger( this.name2, god3, server.getGame()));
-        changeState();
+        changeState(server.placingWorkers);
     }
 
+
     @Override
-    public void changeState() {
-        server.setCurrState(new ChoosingWorker());
+    public void changeState(GameState nextState) {
+        server.setCurrState(nextState);
     }
 
 
     //update: riceve tramite notifica i tre nickname dalla virtual view e le tre divinità e lancia execute
-    //
 
+    @Override
+    public void update(PlayersInTheGame message) {
+        god1 = message.getGod1();
+        god2 = message.getGod2();
+        god3 = message.getGod3();
+
+        name = message.getName1();
+        name1 = message.getName2();
+        name2 = message.getName3();
+        execute();
+    }
 }
