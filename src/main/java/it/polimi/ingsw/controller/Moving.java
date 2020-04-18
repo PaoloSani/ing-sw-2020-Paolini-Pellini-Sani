@@ -15,6 +15,7 @@ public class Moving implements GameState {
     public Moving(Server server) {
         this.server = server;
         counterArtemis = 0;
+        lastSpaceArtemis = null;
     }
 
 
@@ -26,12 +27,11 @@ public class Moving implements GameState {
     @Override
     public void execute() {
         if (server.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 0) {
-            lastSpaceArtemis = nextSpace;
+            lastSpaceArtemis = server.getCurrWorker().getSpace();
             counterArtemis++;
-            lastSpaceArtemis = null;
         }
-        try {
 
+        try {
             server.getCurrPlayer().moveWorker(server.getCurrWorker(), nextSpace);
         } catch (IllegalSpaceException e) {
             e.printStackTrace();
@@ -39,10 +39,19 @@ public class Moving implements GameState {
 
         //TODO: devo andare in building solo se non ha lanciato l'eccezione -> ritorno true se il metodo ha effettuato la mossa, gestisco la vittoria con un messaggio model->view
         //TODO: come dico che tritone ha smesso di muoversi?
-        if (server.getCurrPlayer().getGod() != God.TRITON || (server.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2)){
+        if ( server.getCurrPlayer().getGod() != God.TRITON || (server.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2) ){
             resetMoving();
             changeState(server.building);
         }
+
+        //caso in cui Tritone esce dal perimetro
+        if ( server.getCurrPlayer().getGod() == God.TRITON &&   //cella fuori dal perimetro
+            nextSpace.getX() > 0 && nextSpace.getX() < 4 &&
+            nextSpace.getY() > 0 && nextSpace.getY() < 4 ){
+            resetMoving();
+            changeState(server.building);
+        }
+
 
         //continuo a potermi muovere perché o sono artemide o sono tritone
     }
