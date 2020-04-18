@@ -7,7 +7,6 @@ public class Winning implements GameState {
     Server server;
 
 
-
     public Winning(Server server) {
         this.server = server;
     }
@@ -17,16 +16,5 @@ public class Winning implements GameState {
     public void execute() {
 
     }
-
-    @Override
-    public void update(PlayersInTheGame message) {
-
-    }
-
-    @Override
-    public void changeState(GameState nextState) {
-        server.setCurrState(nextState);
-    }
-
 
 }

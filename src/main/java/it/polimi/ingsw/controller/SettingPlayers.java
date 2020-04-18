@@ -7,14 +7,15 @@ import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
-public class SettingPlayers implements GameState, Observer<PlayersInTheGame> {
-    Server server;
-    String name;
-    String name1;
-    String name2;
-    God god1;
-    God god2;
-    God god3;
+
+public class SettingPlayers implements Observer<PlayersInTheGame>, GameState {
+    private Server server;
+    private String name;
+    private String name1;
+    private String name2;
+    private God god1;
+    private God god2;
+    private God god3;
 
     public SettingPlayers(Server server) {
         this.server = server;

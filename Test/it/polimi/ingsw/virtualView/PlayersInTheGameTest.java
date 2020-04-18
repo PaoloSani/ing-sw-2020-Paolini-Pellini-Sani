@@ -3,7 +3,7 @@ package it.polimi.ingsw.virtualView;
 
 import it.polimi.ingsw.controller.Server;
 import it.polimi.ingsw.model.God;
-import it.polimi.ingsw.model.IllegalSpaceException;
+
 
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class PlayersInTheGameTest {
     PlayersInTheGame test = new PlayersInTheGame(server);
 
     @Test
-    public void observerTest() throws IllegalSpaceException {
+    public void observerTest() {
         test.setGod1(God.APOLLO);
         test.setGod2(God.ATHENA);
         test.setGod3(God.MORTAl);
