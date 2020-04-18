@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/virtualView/PlayersInTheGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/virtualView/PlayersInTheGameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GC39.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GC39.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -696,12 +696,13 @@
       <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state x="301" y="164" width="837" height="550" key="find.popup/0.23.1440.833@0.23.1440.833" timestamp="1585395096140" />
-    <state x="443" y="204" key="git4idea.merge.GitPullDialog" timestamp="1586882775328">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="415" y="229" key="git4idea.merge.GitPullDialog" timestamp="1587215320744">
+      <screen x="0" y="23" width="1440" height="830" />
     </state>
     <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1586505325490" />
     <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1586882775328" />
-    <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.831@0.23.1440.831" timestamp="1585583867820" />
+    <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.830@0.23.1440.830" timestamp="1587215320744" />
+    <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.831@0.23.1440.831" timestamp="1587200886610" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
