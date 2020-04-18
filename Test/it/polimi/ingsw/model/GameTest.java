@@ -6,8 +6,8 @@ import static org.junit.Assert.*;
 
 public class GameTest {
     private Game game = new Game();
-    private Player player1 = new Player("test1", game);
-    private Player player2 = new Player("test2", game);
+    private Player player1 = new Player("test1", God.CHARON, game);
+    private Player player2 = new Player("test2", God.APOLLO, game);
     private Worker myWorker = new Worker(player1);
     private Worker oppWorker = new Worker(player2);
 
@@ -84,7 +84,7 @@ public class GameTest {
     public void occupiedByWorkerSpaceCharon() throws IllegalSpaceException {
         myWorker.setSpace(game.getSpace(1,1));
         oppWorker.setSpace(game.getSpace(1,0));
-        Worker otherWorker = new Worker(new Player("test3", game));
+        Worker otherWorker = new Worker(new Player("test3", God.DEMETER, game));
         otherWorker.setSpace(game.getSpace(1,2));
         game.getSpace(1,2).setWorker(otherWorker);
         game.charonPower(myWorker, oppWorker);
@@ -145,7 +145,7 @@ public class GameTest {
     public void occupiedSpaceByWorkerMinotaur() throws IllegalSpaceException {
         myWorker.setSpace(game.getSpace(0,0));
         oppWorker.setSpace(game.getSpace(0,1));
-        Worker otherWorker = new Worker(new Player("test3", game));
+        Worker otherWorker = new Worker(new Player("test3", God.DEMETER, game));
         otherWorker.setSpace(game.getSpace(0,2));
         game.getSpace(0,2).setWorker(otherWorker);
         game.minotaurPower(myWorker, oppWorker);

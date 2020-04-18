@@ -11,7 +11,7 @@ public class BuildAtlasTest {
     private Worker myWorker;
     private BuildAtlas buildAtlas = new BuildAtlas();
     private Game game = new Game();
-    private Player player = new Player("test", game);
+    private Player player = new Player("test", God.ATLAS, game );
     private int level;
 
 
@@ -110,7 +110,7 @@ public class BuildAtlasTest {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
-        space.setWorker(new Worker(new Player("test2", game)));
+        space.setWorker(new Worker(new Player("test2", God.ATHENA, game)));
         myWorker.setSpace(currSpace);
         level = 1;
         buildAtlas.execute( myWorker, space, level);

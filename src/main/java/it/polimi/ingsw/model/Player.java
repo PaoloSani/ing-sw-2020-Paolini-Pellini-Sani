@@ -47,6 +47,16 @@ public class Player {
         this.build = build;
     }
 
+    //utile per choosingWorker nel controller e per il potere di Poseidone
+    public Worker getOtherWorker( Worker worker ){
+        if ( worker == this.worker1 ){
+            return this.worker2;
+        }
+        else return this.worker1;
+    }
+
+
+
     //setta la divinità e in base a quella sceglie le varie strategy associate al player
     public void setGod(God god) {
         this.god = god;

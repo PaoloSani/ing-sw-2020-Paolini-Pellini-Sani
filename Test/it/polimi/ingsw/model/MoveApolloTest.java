@@ -9,7 +9,7 @@ public class MoveApolloTest {
     private Worker myWorker, oppWorker;
     private MoveApollo moveApollo = new MoveApollo();
     private Game game = new Game();
-    private Player player = new Player("test", game);
+    private Player player = new Player("test", God.APOLLO, game);
     private int level;
 
     @Test ( expected = IllegalSpaceException.class )
@@ -181,7 +181,7 @@ public class MoveApolloTest {
         myWorker.setSpace(currSpace);
         //ATTENZIONE devo mettere anche questo per il controllo sennò currSpace.getWorker() == null
         currSpace.setWorker(myWorker);
-        oppWorker = new Worker(new Player("Test 2", game));
+        oppWorker = new Worker(new Player("Test 2", God.DEMETER, game));
         oppWorker.setSpace(nextSpace);
         //ATTENZIONE devo mettere anche questo per il controllo sennò nextSpace.getWorker() == null
         nextSpace.setWorker(oppWorker);

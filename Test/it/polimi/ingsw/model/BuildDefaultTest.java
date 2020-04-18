@@ -10,7 +10,7 @@ public class BuildDefaultTest {
     private Worker myWorker;
     private BuildDefault buildDefault = new BuildDefault();
     private Game game = new Game();
-    private Player player = new Player("test", game);
+    private Player player = new Player("test", God.PAN, game);
     private int level;
 
     @Test ( expected = IllegalSpaceException.class )
@@ -108,7 +108,7 @@ public class BuildDefaultTest {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
-        space.setWorker(new Worker(new Player("test2", game)));
+        space.setWorker(new Worker(new Player("test2", God.ZEUS, game)));
         myWorker.setSpace(currSpace);
         level = 1;
         buildDefault.execute( myWorker, space, level);
