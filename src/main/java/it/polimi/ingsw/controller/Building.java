@@ -14,6 +14,7 @@ public class Building implements GameState {
     private int counterDemeter;
     private int counterPoseidon;
     private int counterHephaestus;
+    private boolean hephaestusConstraint;
 
 
     public Building(Server server) {
@@ -24,29 +25,38 @@ public class Building implements GameState {
 
     @Override
     public void execute() {
-        if (server.getCurrPlayer().getGod() == God.DEMETER && counterDemeter == 0){
+        if (server.getCurrPlayer().getGod() == God.DEMETER && counterDemeter >= 0){
             lastSpace = toBuild;
             counterDemeter++;
         }
 
+        //TODO: correggere il pattern strategy per BuildHephaestus --> portarlo a BuildDefault
         if (server.getCurrPlayer().getGod() == God.HEPHAESTUS && counterHephaestus == 0){
             lastSpace = toBuild;
             counterHephaestus++;
+        }
+
+        if (server.getCurrPlayer().getGod() == God.HEPHAESTUS && counterHephaestus == 1){
+            if (level == 4 || toBuild != lastSpace) hephaestusConstraint = true;
+            else counterHephaestus++;
         }
 
         if ( counterPoseidon >= 1 ){
             counterPoseidon++;
         }
 
-        try {
-            server.getCurrPlayer().buildSpace(server.getCurrWorker(), toBuild, level);
-        } catch (IllegalSpaceException e) {
-            e.printStackTrace();
+        if (!hephaestusConstraint) {
+            try {
+                server.getCurrPlayer().buildSpace(server.getCurrWorker(), toBuild, level);
+            } catch (IllegalSpaceException e) {
+                e.printStackTrace();
+            }
         }
 
-
-        if (      server.getCurrPlayer().getGod() != God.POSEIDON                               ||
-                ( server.getCurrPlayer().getGod() == God.POSEIDON && counterPoseidon == 3 )     ||
+        if (    ( server.getCurrPlayer().getGod() != God.POSEIDON                               &&
+                  server.getCurrPlayer().getGod() != God.DEMETER                                &&
+                  server.getCurrPlayer().getGod() != God.HEPHAESTUS )                           ||
+                ( server.getCurrPlayer().getGod() == God.POSEIDON && counterPoseidon == 4 )     ||      //Significa che ho costruito già 3 volte
                 ( server.getCurrPlayer().getGod() == God.DEMETER && counterDemeter == 2 )       ||
                 ( server.getCurrPlayer().getGod() == God.HEPHAESTUS && counterHephaestus == 1 )  ) {
 
@@ -67,6 +77,9 @@ public class Building implements GameState {
             }
 
         }
+
+        hephaestusConstraint = false;
+
     }
 
     @Override
@@ -78,6 +91,7 @@ public class Building implements GameState {
         counterDemeter = 0;
         counterPoseidon = 0;
         counterHephaestus = 0;
+        hephaestusConstraint = false;
         lastSpace = null;
     }
 
