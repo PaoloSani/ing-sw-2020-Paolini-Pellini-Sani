@@ -5,9 +5,9 @@ import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 public class PlacingWorkers implements GameState {
-    Server server;
-    Space space1;
-    Space space2;
+    private Server server;
+    private Space space1;
+    private Space space2;
 
     public PlacingWorkers(Server server) {
         this.server = server;
@@ -32,12 +32,13 @@ public class PlacingWorkers implements GameState {
         changeState(server.choosingWorkers);
     }
 
+    //update: il currPlayer del Server ha scelto dove piazzare i suoi giocatori
+    // lancio execute che agisce sul model
+    // lancio changeState()
     @Override
     public void update(PlayersInTheGame message) {
 
     }
 
-    //update: il currPlayer del Server ha scelto dove piazzare i suoi giocatori
-    // lancio execute che agisce sul model
-    // lancio changeState()
+
 }

@@ -66,14 +66,17 @@ public class Server {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+        //se player2 == null devo noticare il giocatore della sconfitta
     }
 
     public void setPlayer3(Player player3) {
         this.player3 = player3;
+        //se player3 == null devo noticare il giocatore della sconfitta (sempre che ci fosse collegamento e quindi tre giocatori)
     }
 
     public void setChallenger(Challenger challenger) {
         this.challenger = challenger;
+        //se challenger == null devo noticare il giocatore della sconfitta
     }
 
     public void setCurrState(GameState currState) {
@@ -90,7 +93,13 @@ public class Server {
 
         while ( !(currState instanceof Winning) ) {
 
+            if( currState == this.removingPlayer )
+                removingPlayer.execute();
+
         }
+
+        //notifico il giocatore che ha vinto
+
     }
 
     public void updateCurrPlayer(){
@@ -101,6 +110,8 @@ public class Server {
         } else if ( ( challenger.equals(currPlayer) && player2 != null ) || ( player3.equals(currPlayer) && challenger == null ) ) {
             currPlayer = player2;
         }
+
+
     }
 
 

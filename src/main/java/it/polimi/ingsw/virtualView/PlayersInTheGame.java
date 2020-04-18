@@ -26,7 +26,7 @@ public class PlayersInTheGame extends Observable<PlayersInTheGame> {
 
     public PlayersInTheGame(Server server) {
         this.server = server;
-        addObservers(server.settingPlayers);
+        addObservers((Observer<PlayersInTheGame>) server.settingPlayers);
     }
 
     public void notify(PlayersInTheGame message){
@@ -35,10 +35,6 @@ public class PlayersInTheGame extends Observable<PlayersInTheGame> {
         }
     }
 
-    public void checkNotifyThis(){
-        if ( god1 != null && god2 != null && god3 != null && name1 != null && name2 != null && name3 != null )
-            notify(this);
-    }
 
     public String getName1() {
         return name1;
@@ -62,7 +58,6 @@ public class PlayersInTheGame extends Observable<PlayersInTheGame> {
 
     public void setName3(String name3) {
         this.name3 = name3;
-        checkNotifyThis();
     }
 
     public God getGod1() {
