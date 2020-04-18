@@ -11,11 +11,13 @@ public class Moving implements GameState {
     private Space nextSpace;
     private int counterArtemis;
     private Space lastSpaceArtemis;
+    private boolean returnBack;
 
     public Moving(Server server) {
         this.server = server;
         counterArtemis = 0;
         lastSpaceArtemis = null;
+        returnBack = false;
     }
 
 
@@ -31,15 +33,25 @@ public class Moving implements GameState {
             counterArtemis++;
         }
 
-        try {
-            server.getCurrPlayer().moveWorker(server.getCurrWorker(), nextSpace);
-        } catch (IllegalSpaceException e) {
-            e.printStackTrace();
+        if (server.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 1) {
+            if (lastSpaceArtemis == nextSpace   )
+                returnBack = true;
+            else counterArtemis++;
+        }
+
+        if (!returnBack)
+        {
+            try {
+                server.getCurrPlayer().moveWorker(server.getCurrWorker(), nextSpace);
+            } catch (IllegalSpaceException e) {
+                e.printStackTrace();
+            }
         }
 
         //TODO: devo andare in building solo se non ha lanciato l'eccezione -> ritorno true se il metodo ha effettuato la mossa, gestisco la vittoria con un messaggio model->view
         //TODO: come dico che tritone ha smesso di muoversi?
-        if ( server.getCurrPlayer().getGod() != God.TRITON || (server.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2) ){
+        if (    (server.getCurrPlayer().getGod() != God.TRITON && server.getCurrPlayer().getGod() != God.ARTEMIS) ||
+                (server.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2)                           ){
             resetMoving();
             changeState(server.building);
         }
@@ -52,6 +64,7 @@ public class Moving implements GameState {
             changeState(server.building);
         }
 
+        returnBack = false;
 
         //continuo a potermi muovere perché o sono artemide o sono tritone
     }
@@ -59,6 +72,7 @@ public class Moving implements GameState {
     public void resetMoving(){
         counterArtemis = 0;
         lastSpaceArtemis = null;
+        returnBack = false;
     }
 
     //update: riceve una cella in cui è contenuto la cella dove andare
