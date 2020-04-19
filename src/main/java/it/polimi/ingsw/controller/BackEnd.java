@@ -27,7 +27,6 @@ public class BackEnd implements Observer<GameMessage> {
     public final GameState prometheusBuildState = new PrometheusBuildState(this);
     public final GameState prometheusMoveState = new PrometheusMoveState(this);
     public final GameState winState = new WinState(this);
-    public final GameState usePowerState = new UsePowerState(this);
 
     public BackEnd() {
         this.game = new Game();
@@ -112,7 +111,7 @@ public class BackEnd implements Observer<GameMessage> {
 
     public void changeState(){
         if (setPlayersState == currState) {
-            if (gameMessage.getX1() != -1)
+            if (gameMessage.getSpace1()[0] != -1)
                 currState = placeWorkersState; //Cambio lo stato solo se x1 non è negativo (come di default all'inizio del gioco)
         }
 

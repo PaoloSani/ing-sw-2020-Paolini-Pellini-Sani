@@ -10,10 +10,9 @@ import java.util.List;
 public class GameMessage extends Observable <GameMessage> {
     private FrontEnd frontEnd;
     //Utilizzati per settare i due workers di ogni players
-    int x1;
-    int x2;
-    int y1;
-    int y2;
+    private int[] space1 = new int[2]{-1,0};
+    private int[] space2 = new int[2]{0,0};
+
     // Lo uso per differenziare il caso della Build
     int level;
 
@@ -33,21 +32,14 @@ public class GameMessage extends Observable <GameMessage> {
         observers.add(observer);
     }
 
-    public int getX1() {
-        return x1;
+    public int[] getSpace1() {
+        return space1;
     }
 
-    public int getX2() {
-        return x2;
+    public int[] getSpace2() {
+        return space2;
     }
 
-    public int getY1() {
-        return y1;
-    }
-
-    public int getY2() {
-        return y2;
-    }
 
     public int getLevel() {
         return level;
@@ -58,7 +50,6 @@ public class GameMessage extends Observable <GameMessage> {
     }
 
     public GameMessage(FrontEnd frontend) {
-        this.x1 = -1;
         this.charonSwitching = false;       //Viene settato a true dal frontend, dopo viene resettato a false nella move
         this.frontEnd = frontend;
         addObservers( frontend.getBackEnd() );

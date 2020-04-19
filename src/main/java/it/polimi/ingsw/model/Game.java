@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-public class Game{ //extends Observable<> {
+public class Game {
     private int level1;
     private int level2;
     private int level3;
@@ -19,7 +19,7 @@ public class Game{ //extends Observable<> {
         this.level3 = constLevel3;
         this.dome = constDome;
         this.setUpTable();
-        message = new LiteGame();
+        this.message = new LiteGame();
         this.constraint = new Constraint();
     }
 
