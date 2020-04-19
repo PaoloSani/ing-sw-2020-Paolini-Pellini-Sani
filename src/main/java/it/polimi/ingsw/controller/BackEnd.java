@@ -33,6 +33,10 @@ public class BackEnd implements Observer<GameMessage> {
         this.currState = setPlayersState;
 }
 
+    public GameMessage getGameMessage() {
+        return gameMessage;
+    }
+
     public Player getCurrPlayer() {
         return currPlayer;
     }
@@ -111,7 +115,7 @@ public class BackEnd implements Observer<GameMessage> {
 
     public void changeState(){
         if (setPlayersState == currState) {
-            if (gameMessage.getSpace1()[0] != -1)
+            if (gameMessage.getSpaceArray1()[0] != -1)
                 currState = placeWorkersState; //Cambio lo stato solo se x1 non è negativo (come di default all'inizio del gioco)
         }
 
@@ -179,6 +183,9 @@ public class BackEnd implements Observer<GameMessage> {
     }
 
 
+    public void setToRemove(Player player) {
+        toRemove = player;
+    }
 }
 
 
