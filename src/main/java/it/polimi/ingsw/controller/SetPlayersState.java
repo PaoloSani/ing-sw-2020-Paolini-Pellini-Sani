@@ -27,24 +27,32 @@ public class SetPlayersState implements  GameState {
 
     @Override
     public boolean execute() {
-        god1 = backEnd.getGameMessage.getGod1();
-        god2 = backEnd.getGameMessage.getGod2();
-        god3 = backEnd.getGameMessage.getGod3();
+        god1 = backEnd.getGameMessage().getGod1();
+        god2 = backEnd.getGameMessage().getGod2();
+        god3 = backEnd.getGameMessage().getGod3();
 
-        name = backEnd.getGameMessage.getName1();
-        name1 = backEnd.getGameMessage.getName2();
-        name2 = backEnd.getGameMessage.getName3();
-        backEnd.setPlayer2( new Player( this.name, god1, backEnd.getGame()) );
-        backEnd.setPlayer3( new Player( this.name1, god2, backEnd.getGame()) );
-        backEnd.setChallenger( new Player( this.name2, god3, backEnd.getGame()) );
+        name = backEnd.getGameMessage().getName1();
+        name1 = backEnd.getGameMessage().getName2();
+        name2 = backEnd.getGameMessage().getName3();
+        backEnd.setPlayer2(new Player(this.name, god1, backEnd.getGame()));
+        backEnd.setPlayer3(new Player(this.name1, god2, backEnd.getGame()));
+        backEnd.setChallenger(new Player(this.name2, god3, backEnd.getGame()));
 
         //invio la classe litegame backEnd.getGameMessage dal model alla view
         //server.getGame().backEnd.getGameMessage.notify()
-
+        return true;
     }
 
-
-
-    //update: riceve tramite notifica i tre nickname dalla virtual view e le tre divinità e lancia execute
+    @Override
+    public void reset() {
+        this.name = null;
+        this.name1 = null;
+        this.name2 = null;
+        this.god1 = null;
+        this.god2 = null;
+        this.god3 = null;
     }
 }
+
+    //update: riceve tramite notifica i tre nickname dalla virtual view e le tre divinità e lancia execute
+

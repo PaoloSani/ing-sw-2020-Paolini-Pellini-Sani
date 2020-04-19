@@ -8,7 +8,7 @@ import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 public class PrometheusMoveState implements GameState {
     private BackEnd backEnd;
-    private int[] toMove;
+    private int[] toMove = new int[]{0,-1};
 
     public PrometheusMoveState(BackEnd backEnd) {
         this.backEnd = backEnd;
@@ -18,21 +18,32 @@ public class PrometheusMoveState implements GameState {
     public boolean execute() {
         boolean result = false;
         toMove = backEnd.getGameMessage().getSpace1();
-        Space nextSpace = backEnd.getGame().getSpace(toMove[0], toMove[1]);
+        Space nextSpace = null;
+        try {
+            nextSpace = backEnd.getGame().getSpace(toMove[0], toMove[1]);
+        } catch (IllegalSpaceException e) {
+            e.printStackTrace();
+            return false;
+        }
         if ( nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() <= 0 ) { //non sto salendo posso muovermi
             try {
                 backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace);
             } catch (IllegalSpaceException e) {
                 e.printStackTrace();
+                return false;
             }
             result = true;
         }
-        //TODO notify e modifica del Lite game nel model
-        //backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        //backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
         return result;
     }
-    //TODO reset
+
+    @Override
+    public void reset() {
+        toMove[0] = -1;
+    }
+
 
     //update: riceve una cella in cui è contenuta la posizione in cui muoversi
     //execute: esegue la mossa

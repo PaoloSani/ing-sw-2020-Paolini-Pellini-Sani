@@ -29,5 +29,10 @@ public class RemovePlayerState implements GameState {
         return true;
     }
 
+    @Override
+    public void reset() {
+        backEnd.setToRemove(null);
+    }
+
     //questo stato non funziona tramite update!
 }

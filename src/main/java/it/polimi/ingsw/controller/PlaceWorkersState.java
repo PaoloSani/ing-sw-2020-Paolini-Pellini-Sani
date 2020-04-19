@@ -17,17 +17,19 @@ public class PlaceWorkersState implements GameState {
 
 
     @Override
-    public void execute() {
+    public boolean execute() {
         try {
             space1 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
         } catch (IllegalSpaceException e) {
             e.printStackTrace();
+            return false;
         }
 
         try {
             space2 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace2()[0], backEnd.getGameMessage().getSpace2()[1]);
         } catch (IllegalSpaceException e) {
             e.printStackTrace();
+            return false;
         }
 
         backEnd.getCurrPlayer().getWorker1().setSpace(space1);
@@ -38,7 +40,7 @@ public class PlaceWorkersState implements GameState {
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify();   //Notifico la VView
-
+        return true;
     }
 
 

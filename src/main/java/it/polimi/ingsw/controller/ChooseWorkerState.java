@@ -3,7 +3,6 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.util.GameState;
-import it.polimi.ingsw.virtualView.SpaceMessage;
 
 public class ChooseWorkerState implements GameState {
     private BackEnd backEnd;
@@ -17,7 +16,7 @@ public class ChooseWorkerState implements GameState {
     }
 
     @Override
-    public void execute() {
+    public boolean execute() {
         //all'inizio: riceve la cella che contiene il worker scelto
         //execute: controlla che il worker si posso muovere, altrimenti ritorna l'altro worker
         //Nel litegame c'è un attributo currentworker
@@ -25,6 +24,7 @@ public class ChooseWorkerState implements GameState {
             chosenWorker = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]).getWorker();
         } catch (IllegalSpaceException e) {
             e.printStackTrace();
+            return false;
         }
 
         if ( backEnd.getGame().isFreeToMove(chosenWorker) ){
@@ -45,7 +45,7 @@ public class ChooseWorkerState implements GameState {
         }
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify();   //Notifico la VView
-
+        return true;
     }
 
     @Override

@@ -23,13 +23,15 @@ public class MoveState implements GameState {
     }
 
     @Override
-    public void execute() {
+    public boolean execute() {
+        boolean result = true;
         if(!toReset) {
 
             try {
                 nextSpace = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
             } catch (IllegalSpaceException e) {
                 e.printStackTrace();
+                return false;
             }
 
             if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 1) {
@@ -49,8 +51,11 @@ public class MoveState implements GameState {
                     backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace);
                 } catch (IllegalSpaceException e) {
                     e.printStackTrace();
+                    return false;
                 }
             }
+            else result = false;
+
 
             if ((backEnd.getCurrPlayer().getGod() != God.TRITON && backEnd.getCurrPlayer().getGod() != God.ARTEMIS) ||
                     (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2)) {
@@ -70,7 +75,7 @@ public class MoveState implements GameState {
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify();   //Notifico la VView
-
+        return result;
     }
 
     public void setToReset(boolean toReset) {
