@@ -26,33 +26,25 @@ public class SetPlayersState implements  GameState {
     }
 
     @Override
-    public void execute() {
+    public boolean execute() {
+        god1 = backEnd.getGameMessage.getGod1();
+        god2 = backEnd.getGameMessage.getGod2();
+        god3 = backEnd.getGameMessage.getGod3();
+
+        name = backEnd.getGameMessage.getName1();
+        name1 = backEnd.getGameMessage.getName2();
+        name2 = backEnd.getGameMessage.getName3();
         backEnd.setPlayer2( new Player( this.name, god1, backEnd.getGame()) );
         backEnd.setPlayer3( new Player( this.name1, god2, backEnd.getGame()) );
         backEnd.setChallenger( new Player( this.name2, god3, backEnd.getGame()) );
-        //invio la classe litegame message dal model alla view
-        //server.getGame().message.notify()
-        changeState(backEnd.placeWorkersState);
+
+        //invio la classe litegame backEnd.getGameMessage dal model alla view
+        //server.getGame().backEnd.getGameMessage.notify()
+
     }
 
-
-    @Override
-    public void changeState(GameState nextState) {
-        backEnd.setCurrState(nextState);
-    }
 
 
     //update: riceve tramite notifica i tre nickname dalla virtual view e le tre divinità e lancia execute
-
-    @Override
-    public void update(PlayersInTheGame message) {
-        god1 = message.getGod1();
-        god2 = message.getGod2();
-        god3 = message.getGod3();
-
-        name = message.getName1();
-        name1 = message.getName2();
-        name2 = message.getName3();
-        execute();
     }
 }

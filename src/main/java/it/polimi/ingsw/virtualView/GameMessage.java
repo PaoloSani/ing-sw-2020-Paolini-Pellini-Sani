@@ -27,6 +27,7 @@ public class GameMessage extends Observable <GameMessage> {
 
     private boolean charonSwitching;
 
+
     private List<Observer<GameMessage>> observers = new ArrayList<>();
 
     public void addObservers(Observer<GameMessage> observer) {

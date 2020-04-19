@@ -17,6 +17,7 @@ public class BackEnd implements Observer<GameMessage> {
     private Player currPlayer;
     private Player toRemove;
     private Worker currWorker;
+    private boolean lastExecute;
     public final GameState setPlayersState = new SetPlayersState(this);
     public final GameState placeWorkersState = new PlaceWorkersState(this);
     public final GameState chooseWorkerState = new ChooseWorkerState(this);
@@ -83,6 +84,10 @@ public class BackEnd implements Observer<GameMessage> {
         this.currState = currState;
     }
 
+    public void setToRemove(Player toRemove) {
+        this.toRemove = toRemove;
+    }
+
     public void runGame() {
 
         currPlayer = player2;
@@ -130,7 +135,10 @@ public class BackEnd implements Observer<GameMessage> {
                     currState = prometheusBuildState;
                 else currState = moveState;
             }
-            else currState = removePlayerState;
+            else {
+                updateCurrPlayer();
+                currState = removePlayerState;
+            }
         }
 
         else if (charonSwitchState == currState) {
@@ -158,11 +166,18 @@ public class BackEnd implements Observer<GameMessage> {
         }
 
         else if (removePlayerState == currState) {
-            updateCurrPlayer();
+
             if (lastPlayerInTheGame(currPlayer)) {
                 currState = winState;
             } else currState = chooseWorkerState;
         }
+
+        else if (removePlayerState == winState){
+
+        }
+
+
+
     }
 
     public boolean lastPlayerInTheGame(Player lastPlayer){
@@ -174,11 +189,17 @@ public class BackEnd implements Observer<GameMessage> {
     @Override
     public void update(GameMessage gameMessage){
         this.gameMessage = gameMessage;
-        this.changeState();
-        currState.execute();
+        if( this.lastExecute ) this.changeState(); // Se la scorsa esecuzione è sata negativa non posso cambiare stato
+        lastExecute = currState.execute();
     }
 
+    public GameMessage getGameMessage() {
+        return gameMessage;
+    }
 
+    public Player getToRemove() {
+        return toRemove;
+    }
 }
 
 
