@@ -16,8 +16,15 @@ public class PrometheusBuildState implements GameState {
 
     @Override
     public void execute() {
-        toBuild = backEnd.getGameMessage().getSpace1();
+
+        try {
+            toBuild = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
+        } catch (IllegalSpaceException e) {
+            e.printStackTrace();
+        }
+
         level = backEnd.getGameMessage().getLevel();
+
         try {
             backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level);
         } catch (IllegalSpaceException e) {
@@ -27,18 +34,16 @@ public class PrometheusBuildState implements GameState {
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify();   //Notifico la VView
 
-        //reset();
-
     }
 
 
-    /*
+
     @Override
     public void reset(){
         toBuild = null;
         level = 0;
     }
-    */
+
 
     //update: riceve una cella in cui è contenuta la posizione in cui costruire
     //execute: esegue la costruzione

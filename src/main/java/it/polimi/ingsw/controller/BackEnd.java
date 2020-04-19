@@ -115,12 +115,15 @@ public class BackEnd implements Observer<GameMessage> {
 
     public void changeState(){
         if (setPlayersState == currState) {
-            if (gameMessage.getSpaceArray1()[0] != -1)
+            if (gameMessage.getSpace1()[0] != -1) {
+                currState.reset();
                 currState = placeWorkersState; //Cambio lo stato solo se x1 non è negativo (come di default all'inizio del gioco)
+            }
         }
 
         else if (placeWorkersState == currState) {
             if (currPlayer == challenger) {
+                currState.reset();
                 currState = chooseWorkerState; //Il challenger è l'ultimo giocatore che sceglie
             }
             this.updateCurrPlayer();
@@ -128,44 +131,67 @@ public class BackEnd implements Observer<GameMessage> {
 
         else if (chooseWorkerState == currState) {
             if (toRemove == null) {
-                if (currPlayer.getGod() == God.CHARON && gameMessage.isCharonSwitching())
+                if (currPlayer.getGod() == God.CHARON && gameMessage.isCharonSwitching()){
+                    currState.reset();
                     currState = charonSwitchState;
-                else if (currPlayer.getGod() == God.PROMETHEUS && gameMessage.getLevel() != 0)
+                }
+                else if (currPlayer.getGod() == God.PROMETHEUS && gameMessage.getLevel() != 0){
+                    currState.reset();
                     currState = prometheusBuildState;
-                else currState = moveState;
+                }
+                else {
+                    currState.reset();
+                    currState = moveState;
+                }
             }
-            else currState = removePlayerState;
+            else {
+                currState.reset();
+                currState = removePlayerState;
+            }
         }
 
         else if (charonSwitchState == currState) {
+            currState.reset();
             currState = moveState;
         }
 
         else if (prometheusBuildState == currState) {
+            currState.reset();
             currState = prometheusMoveState;
         }
 
         else if (prometheusMoveState == currState) {
+            currState.reset();
             currState = buildState;
         }
 
         else if (moveState == currState) {
             if (!((currPlayer.getGod() == God.ARTEMIS || currPlayer.getGod() == God.TRITON) && gameMessage.getLevel() == 0))
+            {
+                currState.reset();
                 currState = buildState;      // Nel client controlleremo quando è il momento di costruire con una build
+            }
         }
 
         else if (buildState == currState) {
             if (!((currPlayer.getGod() == God.HEPHAESTUS || currPlayer.getGod() == God.POSEIDON || currPlayer.getGod() == God.DEMETER) && gameMessage.getLevel() != 0)) {
-                updateCurrPlayer();
-                currState = chooseWorkerState;
+                {
+                    currState.reset();
+                    updateCurrPlayer();
+                    currState = chooseWorkerState;
+                }
             }
         }
 
         else if (removePlayerState == currState) {
             updateCurrPlayer();
             if (lastPlayerInTheGame(currPlayer)) {
+                currState.reset();
                 currState = winState;
-            } else currState = chooseWorkerState;
+            } else {
+                currState.reset();
+                currState = chooseWorkerState;
+            }
         }
     }
 

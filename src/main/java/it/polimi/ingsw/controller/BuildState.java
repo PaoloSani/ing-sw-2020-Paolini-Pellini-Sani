@@ -14,6 +14,7 @@ public class BuildState implements GameState {
     private int counterPoseidon;
     private int counterHephaestus;
     private boolean hephaestusConstraint;
+    private boolean toReset;
 
 
     public BuildState(BackEnd backEnd) {
@@ -41,12 +42,13 @@ public class BuildState implements GameState {
             //caso Demetra: può costruire due volte ma non sulla stessa cella, la prima volta salvo la cella
             if (backEnd.getCurrPlayer().getGod() == God.DEMETER && counterDemeter >= 0) {
 
-                if (counterDemeter == 0)
-                    lastSpace = toBuild;
-
-                counterDemeter++;
-                if ( counterDemeter == 2 && lastSpace != toBuild )
+                if ( counterDemeter == 1 && lastSpace != toBuild )
                     setToReset(true);
+
+                if (counterDemeter == 0){
+                    lastSpace = toBuild;
+                }
+
             }
 
             //caso Efesto: può costruire al massimo due volte sulla stessa cella, ma la seconda non una cupola
@@ -66,8 +68,7 @@ public class BuildState implements GameState {
                 if ( counterPoseidon == 3 ) setToReset(true);
             }
 
-            if ( !hephaestusConstraint && counterPoseidon < 4 && counterHephaestus < 3 &&
-                    counterDemeter < 3 && (counterDemeter == 2 && toBuild != lastSpace)) {       //può costruire al massimo due volte e non sulla stessa cella
+            if ( !hephaestusConstraint && !(counterDemeter == 1 && toBuild == lastSpace)) {       //può costruire al massimo due volte e non sulla stessa cella
                 try {
                     backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level);
                 } catch (IllegalSpaceException e) {
@@ -89,6 +90,9 @@ public class BuildState implements GameState {
             }
 
             hephaestusConstraint = false;
+
+            if (counterDemeter == 0) counterDemeter++;
+
         }
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
@@ -104,7 +108,8 @@ public class BuildState implements GameState {
         counterDemeter = 0;
         counterPoseidon = -1;
         counterHephaestus = 0;
-        setToReset(false);
+        toReset = false;
+        level = 0;
         hephaestusConstraint = false;
         lastSpace = null;
     }
