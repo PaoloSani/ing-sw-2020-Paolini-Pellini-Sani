@@ -8,34 +8,40 @@ import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 public class PrometheusMoveState implements GameState {
     private BackEnd backEnd;
-    private Space nextSpace;
-    private boolean MoveUp;
+    private int[] toMove = new int[]{0,-1};
 
     public PrometheusMoveState(BackEnd backEnd) {
         this.backEnd = backEnd;
-        MoveUp = false;
     }
 
     @Override
-    public void changeState(GameState nextState) {
-        backEnd.setCurrState(nextState);
-    }
-
-    @Override
-    public void execute() {
-        if ( nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() > 0 )
-            MoveUp = true;
-
-        if ( !MoveUp ) {
+    public boolean execute() {
+        boolean result = false;
+        toMove = backEnd.getGameMessage().getSpace1();
+        Space nextSpace = null;
+        try {
+            nextSpace = backEnd.getGame().getSpace(toMove[0], toMove[1]);
+        } catch (IllegalSpaceException e) {
+            e.printStackTrace();
+            return false;
+        }
+        if ( nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() <= 0 ) { //non sto salendo posso muovermi
             try {
                 backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace);
             } catch (IllegalSpaceException e) {
                 e.printStackTrace();
+                return false;
             }
-            changeState(backEnd.buildState);
+            result = true;
         }
+        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+        return result;
+    }
 
-        MoveUp = false;
+    @Override
+    public void reset() {
+        toMove[0] = -1;
     }
 
 

@@ -9,33 +9,29 @@ public class RemovePlayerState implements GameState {
         this.backEnd = backEnd;
     }
 
-    @Override
-    public void changeState(GameState nextState) {
-        backEnd.setCurrState(nextState);
-    }
-
     //chiamato dal server: rimuove i worker del giocatore corrente.
     @Override
-    public void execute() {
-        backEnd.getCurrPlayer().getWorker1().getSpace().setWorker(null);     //svuoto la cella dalla pedina del worker1
-        backEnd.getCurrPlayer().getWorker1().setSpace(null);                 //il worker non è più associato a nessuna cella
-        backEnd.getCurrPlayer().getWorker2().getSpace().setWorker(null);     //stesso per il worker2
-        backEnd.getCurrPlayer().getWorker2().setSpace(null);
+    public boolean execute() {
+        backEnd.getToRemove().getWorker1().getSpace().setWorker(null);     //svuoto la cella dalla pedina del worker1
+        backEnd.getToRemove().getWorker1().setSpace(null);                 //il worker non è più associato a nessuna cella
+        backEnd.getToRemove().getWorker2().getSpace().setWorker(null);     //stesso per il worker2
+        backEnd.getToRemove().getWorker2().setSpace(null);
+        //setto a null il giocatore che ha perso, nel Server mi occuperò di notificare tale giocatore
+        if ( backEnd.getChallenger() == backEnd.getToRemove() )
+            backEnd.setChallenger(null);
+        else if ( backEnd.getPlayer2() == backEnd.getToRemove() )
+            backEnd.setPlayer2(null);
+        else backEnd.setPlayer3(null);
 
-        if ( backEnd.getPlayer3() == null || backEnd.getPlayer2() == null || backEnd.getChallenger() == null ){
-            backEnd.updateCurrPlayer();
-            changeState(backEnd.winState);
-        }
-        else{
-            //setto a null il giocatore che ha perso, nel Server mi occuperò di notificare tale giocatore
-            if ( backEnd.getChallenger() == backEnd.getCurrPlayer() )
-                backEnd.setChallenger(null);
-            else if ( backEnd.getPlayer2() == backEnd.getCurrPlayer() )
-                backEnd.setPlayer2(null);
-            else backEnd.setPlayer3(null);
+        //backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        //backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+        //TODO come notifico alla virtual view che rimuovo il giocatore ?
+        return true;
+    }
 
-        }
-        // Tolgo giocatore che ha perso dal litegame e poi chiamo la notify dal model per la virtual view
+    @Override
+    public void reset() {
+        backEnd.setToRemove(null);
     }
 
     //questo stato non funziona tramite update!

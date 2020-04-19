@@ -24,7 +24,8 @@ public class BuildState implements GameState {
 
 
     @Override
-    public void execute() {
+    public boolean execute() {
+        boolean result = true;
         //update: riceve una cella in cui costruire
         //execute: esegue la costruzione
         //changeState: porta in choosingWorker se non ha poteri speciali
@@ -35,6 +36,7 @@ public class BuildState implements GameState {
                 toBuild = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
             } catch (IllegalSpaceException e) {
                 e.printStackTrace();
+                return false;
             }
 
             level = backEnd.getGameMessage().getLevel();
@@ -56,14 +58,15 @@ public class BuildState implements GameState {
                 if (counterHephaestus == 0) {
                     lastSpace = toBuild;
                     counterHephaestus++;
-                } else if (level == 4 || toBuild != lastSpace) hephaestusConstraint = true;
+                } else if (level == 4 || toBuild != lastSpace)
+                    hephaestusConstraint = true;
                 else counterHephaestus++;
 
                 if ( counterHephaestus == 2 && !hephaestusConstraint ) setToReset(true);
             }
 
             //alla fine del suo turno può costruire al massimo tre volte con il worker che non ha usato a patto che questo sia a terra
-            if (counterPoseidon >= 0) {
+            if (counterPoseidon >= 0 && backEnd.getCurrPlayer().getGod() == God.POSEIDON) {
                 counterPoseidon++;
                 if ( counterPoseidon == 3 ) setToReset(true);
             }
@@ -73,9 +76,11 @@ public class BuildState implements GameState {
                     backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level);
                 } catch (IllegalSpaceException e) {
                     e.printStackTrace();
+                    return false;
                 }
-            }
 
+            }
+            else result = false;
 
             if (backEnd.getCurrPlayer().getGod() == God.POSEIDON) {
                 if (counterPoseidon == -1) {    //se il counter è -1 significa che ho costruito con il worker di partenza senza usare il suo potere
@@ -91,13 +96,13 @@ public class BuildState implements GameState {
 
             hephaestusConstraint = false;
 
-            if (counterDemeter == 0) counterDemeter++;
+            if (counterDemeter == 0 && backEnd.getCurrPlayer().getGod() == God.DEMETER) counterDemeter++;
 
         }
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify();   //Notifico la VView
-
+        return result;
     }
     public void setToReset(boolean toReset) {
         this.toReset = toReset;
