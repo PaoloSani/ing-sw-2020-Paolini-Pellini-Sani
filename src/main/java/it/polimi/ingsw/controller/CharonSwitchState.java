@@ -27,14 +27,10 @@ public class CharonSwitchState implements GameState {
             e.printStackTrace();
         }
         //TODO: devo andare in moving solo se la mossa fatta non ha lanciato l'eccezione
-        changeState(backEnd.moving);
+        changeState(backEnd.moveState);
     }
 
     //update: riceve una cella in cui è contenuto il worker da switchare
     //execute: esegue lo switch
     //changeState: porta in moving
-    @Override
-    public void update(PlayersInTheGame message) {
-
-    }
 }

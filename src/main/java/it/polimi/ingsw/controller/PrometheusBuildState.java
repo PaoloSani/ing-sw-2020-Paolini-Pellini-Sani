@@ -27,7 +27,7 @@ public class PrometheusBuildState implements GameState {
             e.printStackTrace();
         }
 
-        changeState(backEnd.prometheusMoving);
+        changeState(backEnd.prometheusMoveState);
 
     }
 
@@ -35,8 +35,5 @@ public class PrometheusBuildState implements GameState {
     //update: riceve una cella in cui è contenuta la posizione in cui costruire
     //execute: esegue la costruzione
     //changeState: porta in prometheusMoving
-    @Override
-    public void update(PlayersInTheGame message) {
 
-    }
 }

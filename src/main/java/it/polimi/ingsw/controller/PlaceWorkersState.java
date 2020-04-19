@@ -5,7 +5,7 @@ import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.SpaceMessage;
 
-public class PlaceWorkersState implements GameState, Observer<SpaceMessage> {
+public class PlaceWorkersState implements GameState {
     private BackEnd backEnd;
     private Space space1;
     private Space space2;
@@ -32,15 +32,12 @@ public class PlaceWorkersState implements GameState, Observer<SpaceMessage> {
         backEnd.getCurrPlayer().getWorker2().setSpace(space2);
         //A questo punto il model modifica il liteGame
         //notify del LiteGame
-        changeState(backEnd.choosingWorkers);
+        changeState(backEnd.chooseWorkerState);
 
     }
 
     //update: il currPlayer del Server ha scelto dove piazzare i suoi giocatori
     // lancio execute che agisce sul model
     // lancio changeState()
-    @Override
-    public void update(SpaceMessage message) {
-        //Copio celle passatemi dalla Workers positions e le converto in celle del model
-    }
+
 }

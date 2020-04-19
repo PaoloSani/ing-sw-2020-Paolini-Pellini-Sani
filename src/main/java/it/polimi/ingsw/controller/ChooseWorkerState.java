@@ -6,7 +6,7 @@ import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.SpaceMessage;
 
-public class ChooseWorkerState implements GameState, Observer<SpaceMessage> {
+public class ChooseWorkerState implements GameState {
     private BackEnd backEnd;
     private Worker chosenWorker;
     private Worker otherWorker;
@@ -31,16 +31,16 @@ public class ChooseWorkerState implements GameState, Observer<SpaceMessage> {
                 changeState(nextState());//Modifico attributo currentworker nel litegame con l'altro worker
 
             }
-            else changeState(backEnd.removingPlayer);
+            else changeState(backEnd.removePlayerState);
         }
 
     }
 
     private GameState nextState(){
         if ( backEnd.getCurrPlayer().getGod() == God.CHARON || backEnd.getCurrPlayer().getGod() == God.PROMETHEUS ){
-            return backEnd.usingPower;
+            return backEnd.usePowerState;
         }
-        return backEnd.moving;
+        return backEnd.moveState;
     }
 
     @Override
@@ -48,9 +48,6 @@ public class ChooseWorkerState implements GameState, Observer<SpaceMessage> {
         backEnd.setCurrState(nextState);
     }
 
-    @Override
-    public void update(SpaceMessage message) {
-        //Gli viene passata la cella dove si trova il worker da selezionare
 
     }
 

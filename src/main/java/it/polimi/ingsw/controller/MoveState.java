@@ -6,10 +6,11 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
+//TODO: sistemare le condizioni per counterArtemis e per l
 public class MoveState implements GameState {
     private BackEnd backEnd;
     private Space nextSpace;
-    private int counterArtemis;
+    int counterArtemis;
     private Space lastSpaceArtemis;
     private boolean returnBack;
 
@@ -53,7 +54,7 @@ public class MoveState implements GameState {
         if (    (backEnd.getCurrPlayer().getGod() != God.TRITON && backEnd.getCurrPlayer().getGod() != God.ARTEMIS) ||
                 (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2)                           ){
             resetMoving();
-            changeState(backEnd.building);
+            changeState(backEnd.buildState);
         }
 
         //caso in cui Tritone esce dal perimetro
@@ -61,7 +62,7 @@ public class MoveState implements GameState {
             nextSpace.getX() > 0 && nextSpace.getX() < 4 &&
             nextSpace.getY() > 0 && nextSpace.getY() < 4 ){
             resetMoving();
-            changeState(backEnd.building);
+            changeState(backEnd.buildState);
         }
 
         returnBack = false;
@@ -78,10 +79,7 @@ public class MoveState implements GameState {
     //update: riceve una cella in cui è contenuto la cella dove andare
     //execute: esegue la move
     //changeState: porta in building
-    @Override
-    public void update(PlayersInTheGame message) {
 
-    }
 
 
 
