@@ -14,27 +14,32 @@ public class PlaceWorkersState implements GameState {
         this.backEnd = backEnd;
     }
 
-    @Override
-    public void changeState(GameState nextState) {
-        if ( backEnd.getCurrPlayer() == backEnd.getChallenger() ){
-            backEnd.updateCurrPlayer();
-            backEnd.setCurrState(nextState);
-        }
-        else{
-            backEnd.updateCurrPlayer();
-        }
-
-    }
 
     @Override
     public void execute() {
+        space1 = backEnd.getGameMessage().getSpace1();
+        space2 = backEnd.getGameMessage().getSpace2();
+
         backEnd.getCurrPlayer().getWorker1().setSpace(space1);
-        backEnd.getCurrPlayer().getWorker2().setSpace(space2);
+        backEnd.getCurrPlayer().getWorker2().setSpace(space2);ù
+
         //A questo punto il model modifica il liteGame
         //notify del LiteGame
-        changeState(backEnd.chooseWorkerState);
+
+        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+
+        //reset();
 
     }
+
+    /*
+    @Override
+    public void reset(){
+        space1 = null;
+        space2 = null;
+    }
+    */
 
     //update: il currPlayer del Server ha scelto dove piazzare i suoi giocatori
     // lancio execute che agisce sul model

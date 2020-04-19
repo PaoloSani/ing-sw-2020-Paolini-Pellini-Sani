@@ -15,22 +15,30 @@ public class PrometheusBuildState implements GameState {
     }
 
     @Override
-    public void changeState(GameState nextState) {
-        backEnd.setCurrState(nextState);
-    }
-
-    @Override
     public void execute() {
+        toBuild = backEnd.getGameMessage().getSpace1();
+        level = backEnd.getGameMessage().getLevel();
         try {
             backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level);
         } catch (IllegalSpaceException e) {
             e.printStackTrace();
         }
 
-        changeState(backEnd.prometheusMoveState);
+        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+
+        //reset();
 
     }
 
+
+    /*
+    @Override
+    public void reset(){
+        toBuild = null;
+        level = 0;
+    }
+    */
 
     //update: riceve una cella in cui è contenuta la posizione in cui costruire
     //execute: esegue la costruzione
