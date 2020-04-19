@@ -7,6 +7,7 @@ import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 public class PrometheusBuildState implements GameState {
     private BackEnd backEnd;
+    private Space toBuild;
     private int level;
 
     public PrometheusBuildState(BackEnd backEnd) {
@@ -14,40 +15,38 @@ public class PrometheusBuildState implements GameState {
     }
 
     @Override
-    public boolean execute(){
-        int[] toBuild;
-        toBuild = backEnd.getGameMessage().getSpace1(); //Prendo la cella dove devo costruire(cordinate)
-        level = backEnd.getGameMessage().getLevel(); //Prendo il pezzo che devo costruire
-        Space space = null; //Converto to build in una space
+    public void execute() {
+
         try {
-            space = backEnd.getGame().getSpace(toBuild[0], toBuild[1]);
+            toBuild = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
         } catch (IllegalSpaceException e) {
             e.printStackTrace();
         }
-        backEnd.getGameMessage().setPrometheusMoving(false); //Non devo salire di livello nel prossimo turno
+
+        level = backEnd.getGameMessage().getLevel();
+
         try {
-            backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), space, level);
+            backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level);
         } catch (IllegalSpaceException e) {
             e.printStackTrace();
-            //TODO notify e modifica del Lite game nel model
-            //backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-            //backEnd.getGame().getLiteGame().notify();   //Notifico la VView
-
-            //reset();
-
         }
+
+        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+
     }
-}
-    /*
+
+
+
     @Override
     public void reset(){
         toBuild = null;
         level = 0;
     }
-    */
+
 
     //update: riceve una cella in cui è contenuta la posizione in cui costruire
     //execute: esegue la costruzione
     //changeState: porta in prometheusMoving
 
-
+}

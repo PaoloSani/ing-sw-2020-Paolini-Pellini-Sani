@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
-//TODO: sistemare le condizioni per counterArtemis e per Triton
 public class MoveState implements GameState {
     private BackEnd backEnd;
     private Space nextSpace;
@@ -27,11 +26,10 @@ public class MoveState implements GameState {
     public void execute() {
         if(!toReset) {
 
-            nextSpace = backEnd.getGameMessage().getSpace1();
-
-            if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 0) {
-                lastSpaceArtemis = backEnd.getCurrWorker().getSpace();
-                counterArtemis++;
+            try {
+                nextSpace = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
+            } catch (IllegalSpaceException e) {
+                e.printStackTrace();
             }
 
             if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 1) {
@@ -39,6 +37,12 @@ public class MoveState implements GameState {
                     returnBack = true;
                 else counterArtemis++;
             }
+
+            if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 0) {
+                lastSpaceArtemis = backEnd.getCurrWorker().getSpace();
+                counterArtemis++;
+            }
+
 
             if (!returnBack) {
                 try {
@@ -48,12 +52,9 @@ public class MoveState implements GameState {
                 }
             }
 
-            //TODO: devo andare in building solo se non ha lanciato l'eccezione -> ritorno true se il metodo ha effettuato la mossa, gestisco la vittoria con un messaggio model->view
-            //TODO: come dico che tritone ha smesso di muoversi?
             if ((backEnd.getCurrPlayer().getGod() != God.TRITON && backEnd.getCurrPlayer().getGod() != God.ARTEMIS) ||
                     (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2)) {
                 setToReset(true);
-                //resetMoving();
             }
 
             //caso in cui Tritone esce dal perimetro
@@ -61,22 +62,22 @@ public class MoveState implements GameState {
                     nextSpace.getX() > 0 && nextSpace.getX() < 4 &&
                     nextSpace.getY() > 0 && nextSpace.getY() < 4) {
                 setToReset(true);
-                //resetMoving();
-            }
 
-            backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-            backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+            }
 
             returnBack = false;
         }
-        //continuo a potermi muovere perché o sono artemide o sono tritone
+
+        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+
     }
 
     public void setToReset(boolean toReset) {
         this.toReset = toReset;
     }
 
-    //TODO: ereditare il metodo da GameState e resettare tutti gli stati prima di cambiare stato!
+
 
     @Override
     public void reset(){
@@ -88,7 +89,7 @@ public class MoveState implements GameState {
 
     //update: riceve una cella in cui è contenuto la cella dove andare
     //execute: esegue la move
-    //changeState: porta in building
+
 
 
 

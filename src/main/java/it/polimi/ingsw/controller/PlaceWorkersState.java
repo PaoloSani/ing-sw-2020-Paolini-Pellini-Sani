@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.util.Observer;
@@ -17,11 +18,20 @@ public class PlaceWorkersState implements GameState {
 
     @Override
     public void execute() {
-        space1 = backEnd.getGameMessage().getSpace1();
-        space2 = backEnd.getGameMessage().getSpace2();
+        try {
+            space1 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
+        } catch (IllegalSpaceException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            space2 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace2()[0], backEnd.getGameMessage().getSpace2()[1]);
+        } catch (IllegalSpaceException e) {
+            e.printStackTrace();
+        }
 
         backEnd.getCurrPlayer().getWorker1().setSpace(space1);
-        backEnd.getCurrPlayer().getWorker2().setSpace(space2);ù
+        backEnd.getCurrPlayer().getWorker2().setSpace(space2);
 
         //A questo punto il model modifica il liteGame
         //notify del LiteGame
@@ -29,20 +39,18 @@ public class PlaceWorkersState implements GameState {
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify();   //Notifico la VView
 
-        //reset();
-
     }
 
-    /*
+
     @Override
     public void reset(){
         space1 = null;
         space2 = null;
     }
-    */
+
 
     //update: il currPlayer del Server ha scelto dove piazzare i suoi giocatori
     // lancio execute che agisce sul model
-    // lancio changeState()
+
 
 }
