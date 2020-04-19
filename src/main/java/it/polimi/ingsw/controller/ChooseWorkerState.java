@@ -1,9 +1,8 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.God;
+import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.util.GameState;
-import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.SpaceMessage;
 
 public class ChooseWorkerState implements GameState {
@@ -22,22 +21,37 @@ public class ChooseWorkerState implements GameState {
         //all'inizio: riceve la cella che contiene il worker scelto
         //execute: controlla che il worker si posso muovere, altrimenti ritorna l'altro worker
         //Nel litegame c'è un attributo currentworker
-        chosenWorker = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]).getWorker();
+        try {
+            chosenWorker = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]).getWorker();
+        } catch (IllegalSpaceException e) {
+            e.printStackTrace();
+        }
 
         if ( backEnd.getGame().isFreeToMove(chosenWorker) ){
-            //Modifico attributo currentworker nel litegame con l'attuale
-
+            //Modifico attributo currentworker nel backend e nel litegame con l'attuale
+            backEnd.setCurrWorker(chosenWorker);
+            //lo scrivo nel litegame
         }
         else {
             otherWorker = backEnd.getCurrPlayer().getOtherWorker(chosenWorker);
             if ( backEnd.getGame().isFreeToMove( otherWorker ) ){
                 backEnd.setCurrWorker(otherWorker);
                 //Modifico attributo currentworker nel litegame con l'altro worker
-
             }
-
+            else {
+                //nel litegame scrivo che il currWorker è nullo, cioè il currPlayer è null
+                backEnd.setToRemove(backEnd.getCurrPlayer());
+            }
         }
+        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
 
+    }
+
+    @Override
+    public void reset() {
+        otherWorker = null;
+        chosenWorker = null;
     }
 
 }
