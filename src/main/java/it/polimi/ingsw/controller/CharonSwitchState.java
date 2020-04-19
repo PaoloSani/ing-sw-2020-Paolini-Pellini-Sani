@@ -11,23 +11,22 @@ public class CharonSwitchState implements GameState {
 
     public CharonSwitchState(BackEnd backEnd) {
         this.backEnd = backEnd;
+        spaceToSwitch = null;
     }
 
-    @Override
-    public void changeState(GameState nextState) {
-        backEnd.setCurrState(nextState);
-    }
+
 
     //chiamata a charonPower in game
     @Override
     public void execute() {
+        spaceToSwitch = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
+
         try {
             backEnd.getGame().charonPower( backEnd.getCurrWorker(), spaceToSwitch.getWorker() );
         } catch (IllegalSpaceException e) {
             e.printStackTrace();
         }
-        //TODO: devo andare in moving solo se la mossa fatta non ha lanciato l'eccezione
-        changeState(backEnd.moveState);
+
     }
 
     //update: riceve una cella in cui è contenuto il worker da switchare
