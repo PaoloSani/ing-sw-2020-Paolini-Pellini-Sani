@@ -1,14 +1,12 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.Challenger;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.util.GameState;
-import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 
-public class SetPlayersState implements Observer<PlayersInTheGame>, GameState {
+public class SetPlayersState implements  GameState {
     private BackEnd backEnd;
     private String name;
     private String name1;
@@ -31,7 +29,7 @@ public class SetPlayersState implements Observer<PlayersInTheGame>, GameState {
     public void execute() {
         backEnd.setPlayer2( new Player( this.name, god1, backEnd.getGame()) );
         backEnd.setPlayer3( new Player( this.name1, god2, backEnd.getGame()) );
-        backEnd.setChallenger( new Challenger( this.name2, god3, backEnd.getGame()) );
+        backEnd.setChallenger( new Player( this.name2, god3, backEnd.getGame()) );
         //invio la classe litegame message dal model alla view
         //server.getGame().message.notify()
         changeState(backEnd.placeWorkersState);

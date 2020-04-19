@@ -1,20 +1,21 @@
 package it.polimi.ingsw.controller;
 
 
-import it.polimi.ingsw.model.Challenger;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Worker;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.util.GameState;
+import it.polimi.ingsw.util.Observer;
+import it.polimi.ingsw.virtualView.GameMessage;
 
 
-public class BackEnd {
+public class BackEnd implements Observer<GameMessage> {
     private Game game;
+    private GameMessage gameMessage;
     private GameState currState;
     private Player player2;
     private Player player3;
-    private Challenger challenger;
+    private Player challenger;
     private Player currPlayer;
+    private Player toRemove;
     private Worker currWorker;
     public final GameState setPlayersState = new SetPlayersState(this);
     public final GameState placeWorkersState = new PlaceWorkersState(this);
@@ -45,7 +46,7 @@ public class BackEnd {
         return player3;
     }
 
-    public Challenger getChallenger() {
+    public Player getChallenger() {
         return challenger;
     }
 
@@ -74,7 +75,7 @@ public class BackEnd {
         //se player3 == null devo noticare il giocatore della sconfitta (sempre che ci fosse collegamento e quindi tre giocatori)
     }
 
-    public void setChallenger(Challenger challenger) {
+    public void setChallenger(Player challenger) {
         this.challenger = challenger;
         //se challenger == null devo noticare il giocatore della sconfitta
     }
@@ -107,9 +108,76 @@ public class BackEnd {
             currPlayer = player2;
         }
 
-
     }
 
+    public void changeState(){
+        if (setPlayersState == currState) {
+            if (gameMessage.getX1() != -1)
+                currState = placeWorkersState; //Cambio lo stato solo se x1 non è negativo (come di default all'inizio del gioco)
+        }
+
+        else if (placeWorkersState == currState) {
+            if (currPlayer == challenger) {
+                currState = chooseWorkerState; //Il challenger è l'ultimo giocatore che sceglie
+            }
+            this.updateCurrPlayer();
+        }
+
+        else if (chooseWorkerState == currState) {
+            if (toRemove == null) {
+                if (currPlayer.getGod() == God.CHARON && gameMessage.isCharonSwitching())
+                    currState = charonSwitchState;
+                else if (currPlayer.getGod() == God.PROMETHEUS && gameMessage.getLevel() != 0)
+                    currState = prometheusBuildState;
+                else currState = moveState;
+            }
+            else currState = removePlayerState;
+        }
+
+        else if (charonSwitchState == currState) {
+            currState = moveState;
+        }
+
+        else if (prometheusBuildState == currState) {
+            currState = prometheusMoveState;
+        }
+
+        else if (prometheusMoveState == currState) {
+            currState = buildState;
+        }
+
+        else if (moveState == currState) {
+            if (!((currPlayer.getGod() == God.ARTEMIS || currPlayer.getGod() == God.TRITON) && gameMessage.getLevel() == 0))
+                currState = buildState;      // Nel client controlleremo quando è il momento di costruire con una build
+        }
+
+        else if (buildState == currState) {
+            if (!((currPlayer.getGod() == God.HEPHAESTUS || currPlayer.getGod() == God.POSEIDON || currPlayer.getGod() == God.DEMETER) && gameMessage.getLevel() != 0)) {
+                updateCurrPlayer();
+                currState = chooseWorkerState;
+            }
+        }
+
+        else if (removePlayerState == currState) {
+            updateCurrPlayer();
+            if (lastPlayerInTheGame(currPlayer)) {
+                currState = winState;
+            } else currState = chooseWorkerState;
+        }
+    }
+
+    public boolean lastPlayerInTheGame(Player lastPlayer){
+        if (lastPlayer == challenger && player2 == null && player3 == null) return true;
+        else if (lastPlayer == player2 &&  challenger == null && player3 == null) return true;
+        else return (lastPlayer == player3 && challenger == null && player2 == null); //False se la valutazione è falsa
+    }
+
+    @Override
+    public void update(GameMessage gameMessage){
+        this.gameMessage = gameMessage;
+        this.changeState();
+        currState.execute();
+    }
 
 
 }

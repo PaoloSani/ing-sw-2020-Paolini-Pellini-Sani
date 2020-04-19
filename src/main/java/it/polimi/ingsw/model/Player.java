@@ -75,10 +75,6 @@ public class Player {
                 setBuild( new BuildAtlas() );
                 break;
 
-            case HEPHAESTUS:
-                setMove( new MoveDefault() );
-                setBuild( new BuildHephaestus() );
-                break;
 
             case MINOTAUR:
                 setMove( new MoveMinotaur() );
@@ -90,7 +86,7 @@ public class Player {
                 setBuild( new BuildZeus() );
                 break;
 
-            // Artemis, Tritone, Demetra, Pan, Caronte, Atena, Poseidone, Ipnos, Prometeo
+            // Artemis, Tritone, Demetra, Pan, Caronte, Atena, Poseidone, Ipnos, Prometeo, Efesto
             default :   setMove(new MoveDefault());
                 setBuild(new BuildDefault());
 

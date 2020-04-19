@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model;
+@Deprecated
 
 public class BuildHephaestus implements Build {
     public void execute( Worker worker, Space space, int level ) throws IllegalSpaceException {

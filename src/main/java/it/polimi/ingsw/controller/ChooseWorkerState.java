@@ -6,7 +6,7 @@ import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.SpaceMessage;
 
-public class ChooseWorkerState implements GameState, Observer<SpaceMessage> {
+public class ChooseWorkerState implements GameState {
     private BackEnd backEnd;
     private Worker chosenWorker;
     private Worker otherWorker;
@@ -48,9 +48,6 @@ public class ChooseWorkerState implements GameState, Observer<SpaceMessage> {
         backEnd.setCurrState(nextState);
     }
 
-    @Override
-    public void update(SpaceMessage message) {
-        //Gli viene passata la cella dove si trova il worker da selezionare
 
     }
 

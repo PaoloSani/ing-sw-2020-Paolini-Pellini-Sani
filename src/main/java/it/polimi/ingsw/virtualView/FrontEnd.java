@@ -10,7 +10,8 @@ public class FrontEnd implements Observer<LiteGame> {
     }
 
     BackEnd backEnd;
-    private PlayersInTheGame players;
+    private GameMessage gameMessage;
+    private LiteGame liteGame;
 
 
 

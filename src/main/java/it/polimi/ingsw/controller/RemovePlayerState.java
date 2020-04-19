@@ -24,7 +24,7 @@ public class RemovePlayerState implements GameState {
 
         if ( backEnd.getPlayer3() == null || backEnd.getPlayer2() == null || backEnd.getChallenger() == null ){
             backEnd.updateCurrPlayer();
-            changeState(backEnd.winning);
+            changeState(backEnd.winState);
         }
         else{
             //setto a null il giocatore che ha perso, nel Server mi occuperò di notificare tale giocatore
@@ -34,8 +34,6 @@ public class RemovePlayerState implements GameState {
                 backEnd.setPlayer2(null);
             else backEnd.setPlayer3(null);
 
-            backEnd.updateCurrPlayer();
-            changeState(backEnd.choosingWorkers);
         }
         // Tolgo giocatore che ha perso dal litegame e poi chiamo la notify dal model per la virtual view
     }

@@ -98,8 +98,5 @@ public class BuildState implements GameState {
     //update: riceve una cella in cui costruire
     //execute: esegue la costruzione
     //changeState: porta in choosingWorker se non ha poteri speciali
-    @Override
-    public void update(PlayersInTheGame message) {
 
-    }
 }

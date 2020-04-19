@@ -37,8 +37,5 @@ public class UsePowerState implements GameState {
     //update: ricevo una cella
     //se il giocatore è caronte o la cella contiene un worker e quindi change state setta charonSwitching altrimenti moving
     //se il giocatore è prometeo o chiama una build e quindi change state porta in PrometheusBuilding altrimenti Moving
-    @Override
-    public void update(PlayersInTheGame message) {
 
-    }
 }

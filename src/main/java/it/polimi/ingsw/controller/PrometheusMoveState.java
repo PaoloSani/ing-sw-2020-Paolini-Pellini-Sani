@@ -42,8 +42,5 @@ public class PrometheusMoveState implements GameState {
     //update: riceve una cella in cui è contenuta la posizione in cui muoversi
     //execute: esegue la mossa
     //changeState: porta in building
-    @Override
-    public void update(PlayersInTheGame message) {
 
-    }
 }

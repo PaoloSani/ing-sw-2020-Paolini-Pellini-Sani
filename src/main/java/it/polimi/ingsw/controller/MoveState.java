@@ -6,10 +6,11 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
+//TODO: sistemare le condizioni per counterArtemis e per l
 public class MoveState implements GameState {
     private BackEnd backEnd;
     private Space nextSpace;
-    private int counterArtemis;
+    int counterArtemis;
     private Space lastSpaceArtemis;
     private boolean returnBack;
 
@@ -78,10 +79,7 @@ public class MoveState implements GameState {
     //update: riceve una cella in cui è contenuto la cella dove andare
     //execute: esegue la move
     //changeState: porta in building
-    @Override
-    public void update(PlayersInTheGame message) {
 
-    }
 
 
 
