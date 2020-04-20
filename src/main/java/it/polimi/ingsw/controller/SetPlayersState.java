@@ -3,7 +3,6 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.util.GameState;
-import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 
 public class SetPlayersState implements  GameState {
@@ -34,10 +33,12 @@ public class SetPlayersState implements  GameState {
         name = backEnd.getGameMessage().getName1();
         name1 = backEnd.getGameMessage().getName2();
         name2 = backEnd.getGameMessage().getName3();
+
         backEnd.setPlayer2(new Player(this.name, god1, backEnd.getGame()));
         backEnd.setPlayer3(new Player(this.name1, god2, backEnd.getGame()));
         backEnd.setChallenger(new Player(this.name2, god3, backEnd.getGame()));
 
+        backEnd.getGame().setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
         //invio la classe litegame backEnd.getGameMessage dal model alla view
         //server.getGame().backEnd.getGameMessage.notify()
         return true;

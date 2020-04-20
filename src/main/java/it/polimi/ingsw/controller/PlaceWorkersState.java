@@ -1,10 +1,8 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
-import it.polimi.ingsw.util.Observer;
-import it.polimi.ingsw.virtualView.SpaceMessage;
+
 
 public class PlaceWorkersState implements GameState {
     private BackEnd backEnd;
@@ -18,19 +16,11 @@ public class PlaceWorkersState implements GameState {
 
     @Override
     public boolean execute() {
-        try {
-            space1 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
-        } catch (IllegalSpaceException e) {
-            e.printStackTrace();
-            return false;
-        }
+        space1 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
+        if( space1 == null ) return false;
 
-        try {
-            space2 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace2()[0], backEnd.getGameMessage().getSpace2()[1]);
-        } catch (IllegalSpaceException e) {
-            e.printStackTrace();
-            return false;
-        }
+        space2 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
+        if( space2 == null ) return false;
 
         backEnd.getCurrPlayer().getWorker1().setSpace(space1);
         backEnd.getCurrPlayer().getWorker2().setSpace(space2);

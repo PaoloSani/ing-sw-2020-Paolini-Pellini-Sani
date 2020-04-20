@@ -1,10 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.God;
-import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
-import it.polimi.ingsw.virtualView.PlayersInTheGame;
 
 public class MoveState implements GameState {
     private BackEnd backEnd;
@@ -27,12 +25,8 @@ public class MoveState implements GameState {
         boolean result = true;
         if(!toReset) {
 
-            try {
-                nextSpace = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
-            } catch (IllegalSpaceException e) {
-                e.printStackTrace();
-                return false;
-            }
+            nextSpace = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
+            if( nextSpace == null ) return false;
 
             if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 1) {
                 if (lastSpaceArtemis == nextSpace)
@@ -47,12 +41,10 @@ public class MoveState implements GameState {
 
 
             if (!returnBack) {
-                try {
-                    backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace);
-                } catch (IllegalSpaceException e) {
-                    e.printStackTrace();
-                    return false;
-                }
+
+                    if ( !backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace) )
+                        return false;
+
             }
             else result = false;
 

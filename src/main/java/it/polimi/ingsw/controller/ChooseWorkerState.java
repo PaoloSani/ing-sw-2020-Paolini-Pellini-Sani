@@ -20,26 +20,28 @@ public class ChooseWorkerState implements GameState {
         //all'inizio: riceve la cella che contiene il worker scelto
         //execute: controlla che il worker si posso muovere, altrimenti ritorna l'altro worker
         //Nel litegame c'è un attributo currentworker
-        try {
+
             chosenWorker = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]).getWorker();
-        } catch (IllegalSpaceException e) {
-            e.printStackTrace();
-            return false;
-        }
+            if ( chosenWorker == null ) return false;
+
 
         if ( backEnd.getGame().isFreeToMove(chosenWorker) ){
-            //Modifico attributo currentworker nel backend e nel litegame con l'attuale
+            //Modifico attributo currentworker nel backend
             backEnd.setCurrWorker(chosenWorker);
             //lo scrivo nel litegame
+            backEnd.getGame().setCurrWorker(chosenWorker);
         }
         else {
             otherWorker = backEnd.getCurrPlayer().getOtherWorker(chosenWorker);
             if ( backEnd.getGame().isFreeToMove( otherWorker ) ){
+                //lo scrivo nel backend
                 backEnd.setCurrWorker(otherWorker);
-                //Modifico attributo currentworker nel litegame con l'altro worker
+                //Modifico attributo currentworker nel litegame
+                backEnd.getGame().setCurrWorker(otherWorker);
             }
             else {
-                //nel litegame scrivo che il currWorker è nullo, cioè il currPlayer è null
+                //nel litegame scrivo che il currWorker è nullo, cioè il currPlayer ha perso
+                backEnd.getGame().setCurrWorker(null);
                 backEnd.setToRemove(backEnd.getCurrPlayer());
             }
         }
