@@ -34,7 +34,6 @@ public class MoveApollo implements Move {
             result = false;
 
         //controllo condizione di vittoria prima di aggiornare le celle
-        //TODO: sistemare l'aggiornamento di LiteGame
         worker.getPlayer().isWinner(worker.getSpace(), nextSpace);
 
         if ( result ) {

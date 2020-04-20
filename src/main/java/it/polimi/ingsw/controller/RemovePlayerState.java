@@ -26,7 +26,6 @@ public class RemovePlayerState implements GameState {
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         //backEnd.getGame().getLiteGame().notify();   //Notifico la VView
-        //TODO come notifico alla virtual view che rimuovo il giocatore ?
         return true;
     }
 
