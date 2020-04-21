@@ -44,7 +44,7 @@ public class BackEnd implements Observer<GameMessage> {
     }
 
     public Player getPlayer2() {
-        return player3;
+        return player2;
     }
 
     public Player getPlayer3() {
@@ -72,6 +72,7 @@ public class BackEnd implements Observer<GameMessage> {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+        currPlayer = this.player2;
         //se player2 == null devo noticare il giocatore della sconfitta
     }
 
@@ -202,6 +203,15 @@ public class BackEnd implements Observer<GameMessage> {
 
     public Player getToRemove() {
         return toRemove;
+    }
+
+    //inutile, solo per i test
+    public void setState(GameState state) {
+        currState = state;
+    }
+    //sempre per i test
+    public boolean getLastExecute() {
+        return lastExecute;
     }
 }
 

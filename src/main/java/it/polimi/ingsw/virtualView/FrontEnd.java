@@ -61,7 +61,15 @@ public class FrontEnd implements Observer<LiteGame> {
     @Override
     public void update(LiteGame message) {
         //update riceve litegame
+        liteGame = message;
         update = true;
     }
 
+    public void setBackEnd(BackEnd backEnd) {
+        this.backEnd = backEnd;
+    }
+
+    public boolean getUpdate() {
+        return update;
+    }
 }

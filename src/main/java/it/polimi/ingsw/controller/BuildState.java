@@ -10,7 +10,6 @@ import it.polimi.ingsw.util.GameState;
 public class BuildState implements GameState {
     private BackEnd backEnd;
     private int level;
-    private Space toBuild;
     private Space lastSpace;
     private int counterDemeter;
     private int counterPoseidon;
@@ -35,7 +34,7 @@ public class BuildState implements GameState {
 
         // prendo le coordinate della cella dove costruire:
         if ( !toReset ) {
-            toBuild = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
+            Space toBuild = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
             if( toBuild == null ) return false;
 
             level = backEnd.getGameMessage().getLevel();
@@ -43,7 +42,7 @@ public class BuildState implements GameState {
             //caso Demetra: può costruire due volte ma non sulla stessa cella, la prima volta salvo la cella
             if (backEnd.getCurrPlayer().getGod() == God.DEMETER && counterDemeter >= 0) {
 
-                if ( counterDemeter == 1 && lastSpace != toBuild )
+                if ( counterDemeter == 1 && lastSpace != toBuild)
                     setToReset(true);
 
                 if (counterDemeter == 0){
@@ -75,15 +74,14 @@ public class BuildState implements GameState {
             }
             else result = false;
 
-            if (backEnd.getCurrPlayer().getGod() == God.POSEIDON) {
-                if (counterPoseidon == -1) {    //se il counter è -1 significa che ho costruito con il worker di partenza senza usare il suo potere
+            if (backEnd.getCurrPlayer().getGod() == God.POSEIDON && counterPoseidon == -1) {    //se il counter è -1 significa che ho costruito con il worker di partenza senza usare il suo potere
                     backEnd.setCurrWorker(backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrWorker()));        //cambio lavoratore
                     if (backEnd.getCurrWorker().getSpace().getHeight() == 0) {
                         counterPoseidon++;      //lo aggiorno già a 0 così mi accorgo che ho attivato il suo potere e sto costruendo col secondo worker
                     } else {                      //se non è a terra il suo potere non vale
                         setToReset(true);
                     }
-                }
+
 
             }
 
@@ -94,7 +92,7 @@ public class BuildState implements GameState {
         }
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la View
         return result;
     }
     public void setToReset(boolean toReset) {

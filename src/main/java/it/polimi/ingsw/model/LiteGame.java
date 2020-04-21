@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.util.Observable;
 import it.polimi.ingsw.util.Observer;
+import it.polimi.ingsw.virtualView.FrontEnd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,18 +35,23 @@ public class LiteGame extends Observable<LiteGame> {
 
     //crea la tabella semplificata da mandare ai client
     protected void convertTable( Space[][] gameTable){
-        String player = "V", dome = "N";
+        String player, dome;
         for( int i = 0; i < 5; i++ )
             for(int j = 0; j < 5; j++ ){
 
-                if( gameTable[i][j].getWorker().getPlayer().getNickname().equals(name1) ) player = "A";
-                else if ( gameTable[i][j].getWorker().getPlayer().getNickname().equals(name2) ) player = "B";
-                else if ( gameTable[i][j].getWorker().getPlayer().getNickname().equals(name3) ) player = "C";
-                else player = "V";
-                if ( gameTable[i][j].isDomed() ) dome = "D";
-                else dome = "N";
-
-                table[i][j] = player + gameTable[i][j].getHeight() + dome;
+                //caso iniziale in cui non ho i nickname dei player
+                if ( name1 == null && name2 == null && name3 == null ){
+                    table[i][j] = "V" + gameTable[i][j].getHeight() + "N";
+                }
+                else {
+                    if ( gameTable[i][j].getWorker() == null ) player = "V";
+                    else if (gameTable[i][j].getWorker().getPlayer().getNickname().equals(name1)) player = "A";
+                    else if (gameTable[i][j].getWorker().getPlayer().getNickname().equals(name2)) player = "B";
+                    else player = "C";
+                    if (gameTable[i][j].isDomed()) dome = "D";
+                    else dome = "N";
+                    table[i][j] = player + gameTable[i][j].getHeight() + dome;
+                }
             }
 
         // cella è una String
@@ -73,6 +79,7 @@ public class LiteGame extends Observable<LiteGame> {
     }
 
     //notify alla virtual view
+    @Override
     public void notify(LiteGame message){
         for(Observer<LiteGame> observer: observers){
             observer.update(message);
