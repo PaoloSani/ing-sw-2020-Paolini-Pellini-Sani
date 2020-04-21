@@ -7,7 +7,7 @@ import it.polimi.ingsw.util.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameMessage extends Observable <GameMessage> {
+public class --GameMessage extends Observable <GameMessage> {
     private FrontEnd frontEnd;
 
     //Utilizzati per settare i due workers di ogni players
