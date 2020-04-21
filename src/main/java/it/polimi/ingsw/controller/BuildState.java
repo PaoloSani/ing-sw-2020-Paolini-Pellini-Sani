@@ -32,12 +32,8 @@ public class BuildState implements GameState {
 
         // prendo le coordinate della cella dove costruire:
         if ( !toReset ) {
-            try {
-                toBuild = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
-            } catch (IllegalSpaceException e) {
-                e.printStackTrace();
-                return false;
-            }
+            toBuild = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
+            if( toBuild == null ) return false;
 
             level = backEnd.getGameMessage().getLevel();
 
@@ -72,13 +68,7 @@ public class BuildState implements GameState {
             }
 
             if ( !hephaestusConstraint && !(counterDemeter == 1 && toBuild == lastSpace)) {       //può costruire al massimo due volte e non sulla stessa cella
-                try {
-                    backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level);
-                } catch (IllegalSpaceException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-
+                    if ( !backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level) ) return false;
             }
             else result = false;
 

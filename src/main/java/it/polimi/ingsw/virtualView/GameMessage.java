@@ -11,8 +11,8 @@ public class --GameMessage extends Observable <GameMessage> {
     private FrontEnd frontEnd;
 
     //Utilizzati per settare i due workers di ogni players
-    private int[] space1 = new int[2]{-1,0};
-    private int[] space2 = new int[2]{0,0};
+    private int[] space1 = new int[]{-1,0};
+    private int[] space2 = new int[]{0,0};
 
     // Lo uso per differenziare il caso della Build
     int level;

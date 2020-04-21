@@ -32,7 +32,8 @@ public class BackEnd implements Observer<GameMessage> {
     public BackEnd() {
         this.game = new Game();
         this.currState = setPlayersState;
-}
+        lastExecute = true;
+    }
 
     public GameMessage getGameMessage() {
         return gameMessage;
@@ -84,28 +85,10 @@ public class BackEnd implements Observer<GameMessage> {
         //se challenger == null devo noticare il giocatore della sconfitta
     }
 
-    public void setCurrState(GameState currState) {
-        this.currState = currState;
-    }
-
     public void setToRemove(Player toRemove) {
         this.toRemove = toRemove;
     }
 
-    public void runGame() {
-
-        currPlayer = player2;
-
-        while ( !(currState instanceof WinState) ) {
-
-            if( currState == this.removePlayerState )
-                removePlayerState.execute();
-
-        }
-
-        //notifico il giocatore che ha vinto
-
-    }
 
     public void updateCurrPlayer(){
         if ( ( player2.equals(currPlayer) && player3 != null ) || ( challenger.equals(currPlayer) && player2 == null ) ) {
@@ -115,12 +98,13 @@ public class BackEnd implements Observer<GameMessage> {
         } else if ( ( challenger.equals(currPlayer) && player2 != null ) || ( player3.equals(currPlayer) && challenger == null ) ) {
             currPlayer = player2;
         }
-
+        game.setCurrPlayer(currPlayer);
     }
 
     public void changeState(){
         if (setPlayersState == currState) {
-            if (gameMessage.getSpace1()[0] != -1) {
+            if ( gameMessage.getSpace1()[0] != -1 ) {
+                updateCurrPlayer();
                 currState.reset();
                 currState = placeWorkersState; //Cambio lo stato solo se x1 non è negativo (come di default all'inizio del gioco)
             }
@@ -181,7 +165,7 @@ public class BackEnd implements Observer<GameMessage> {
             }
         }
 
-        else if (buildState == currState) {
+        else if ( buildState == currState ) {
             if (!((currPlayer.getGod() == God.HEPHAESTUS || currPlayer.getGod() == God.POSEIDON || currPlayer.getGod() == God.DEMETER) && gameMessage.getLevel() != 0)) {
                 {
                     currState.reset();
@@ -215,7 +199,6 @@ public class BackEnd implements Observer<GameMessage> {
         if( this.lastExecute ) this.changeState(); // Se la scorsa esecuzione è sata negativa non posso cambiare stato
         lastExecute = currState.execute();
     }
-
 
     public Player getToRemove() {
         return toRemove;
