@@ -72,7 +72,6 @@ public class BackEnd implements Observer<GameMessage> {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
-        currPlayer = this.player2;
         //se player2 == null devo noticare il giocatore della sconfitta
     }
 
@@ -107,6 +106,7 @@ public class BackEnd implements Observer<GameMessage> {
             if ( gameMessage.getSpace1()[0] != -1 ) {
                 updateCurrPlayer();
                 currState.reset();
+                currPlayer = this.player2;      //perché il primo è il challenger
                 currState = placeWorkersState; //Cambio lo stato solo se x1 non è negativo (come di default all'inizio del gioco)
             }
         }

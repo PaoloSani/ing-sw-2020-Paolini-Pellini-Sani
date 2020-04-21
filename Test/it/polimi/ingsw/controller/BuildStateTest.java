@@ -18,6 +18,7 @@ public class BuildStateTest {
 
     private GameMessage gameMessage;
 
+    
     @Before
     public void setUp() throws Exception {
 
