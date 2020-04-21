@@ -3,8 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
-import it.polimi.ingsw.util.Observer;
-import it.polimi.ingsw.virtualView.SpaceMessage;
+
 
 public class PlaceWorkersState implements GameState {
     private BackEnd backEnd;
