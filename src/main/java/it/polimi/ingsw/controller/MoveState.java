@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
+
+//TODO: Riccardo
 public class MoveState implements GameState {
     private BackEnd backEnd;
     private Space nextSpace;

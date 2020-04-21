@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+//TODO: Paolo
 public class GameTest {
     private Game game = new Game();
     private Player player1 = new Player("test1", God.CHARON, game);

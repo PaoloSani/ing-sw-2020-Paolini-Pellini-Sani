@@ -42,6 +42,14 @@ public class GameMessage extends Observable <GameMessage> {
         return space2;
     }
 
+    public void setSpace1(int[] space1) {
+        this.space1 = space1;
+    }
+
+    public void setSpace2(int[] space2) {
+        this.space2 = space2;
+    }
+
 
     public int getLevel() {
         return level;

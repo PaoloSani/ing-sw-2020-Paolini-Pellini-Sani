@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.util.GameState;
 
+
+//TODO: Paolo
 public class ChooseWorkerState implements GameState {
     private BackEnd backEnd;
     private Worker chosenWorker;

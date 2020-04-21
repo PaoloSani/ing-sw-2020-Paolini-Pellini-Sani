@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
+//TODO: Paolo
 public class CharonSwitchState implements GameState {
     private BackEnd backEnd;
     private Space spaceToSwitch;

@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.util.GameState;
 
+//TODO: Giuseppe
 public class RemovePlayerState implements GameState {
     private BackEnd backEnd;
 
