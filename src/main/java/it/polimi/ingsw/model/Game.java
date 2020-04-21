@@ -11,7 +11,7 @@ public class Game {
     private final static int constDome = 18;
     private Space[][] table;
     private Constraint constraint;
-    private LiteGame message;
+    private LiteGame liteGame;
 
     public Game() {
         this.level1 = constLevel1;
@@ -19,7 +19,8 @@ public class Game {
         this.level3 = constLevel3;
         this.dome = constDome;
         this.setUpTable();
-        this.message = new LiteGame();
+        refreshLiteGame(); //per copiare la tabella e i pezzi disponibili nel liteGame
+        this.liteGame = new LiteGame();
         this.constraint = new Constraint();
     }
 
@@ -63,6 +64,9 @@ public class Game {
         this.constraint = constraint;
     }
 
+    public LiteGame getLiteGame() {
+        return liteGame;
+    }
 
     public void setUpTable(){
         this.table = new Space[5][5];
@@ -73,12 +77,41 @@ public class Game {
         }
     }
 
-    public Space getSpace(int x, int y) throws IllegalSpaceException{
+    public Space getSpace(int x, int y) {
         if( x >= 0 && x <= 4    &&
             y >= 0 && y <= 4     ){
             return table[x][y];
         }
-        else throw (new IllegalSpaceException());
+        else return null;
+    }
+
+    //Scrive i nickname e le divinità dei giocatori nella classe liteGame
+    //Non è nel liteGame, per far sì che i setter non siano visibili alla virtualView
+    public void setPlayers( Player player1, Player player2, Player player3 ){
+        liteGame.setName1(player1.getNickname());
+        liteGame.setGod1(player1.getGod());
+        liteGame.setName2(player2.getNickname());
+        liteGame.setGod2(player2.getGod());
+        liteGame.setName3(player3.getNickname());
+        liteGame.setGod3(player3.getGod());
+    }
+
+    public void refreshLiteGame(){
+        liteGame.setLevel1(this.level1);
+        liteGame.setLevel2(this.level2);
+        liteGame.setLevel3(this.level3);
+        liteGame.setDome(this.dome);
+        //converte la tabella di Spaces in una tabella a tre dimensioni di caratteri in LiteGame
+        liteGame.convertTable(table);
+    }
+
+    public void setCurrWorker( Worker worker ){
+        if ( worker == null ){          //il giocatore ha perso
+            liteGame.setCurrWorker(-1, 0);
+        }
+        else {
+            liteGame.setCurrWorker(worker.getSpace().getX(), worker.getSpace().getY());
+        }
     }
 
     public boolean isFreeToMove( Worker worker ){
@@ -122,11 +155,9 @@ public class Game {
        }
 
 
-
-
     //lascio al controller la gestione del caso in cui myWorker coincide con oppWorker e che la cella passata sia effetivamente nelle celle adiacenti
     //devo anche controllare di non scambiare un worker dello stesso player
-    public void charonPower( Worker myWorker, Worker oppWorker ) throws IllegalSpaceException{
+    public boolean charonPower( Worker myWorker, Worker oppWorker ) {
         int myX, myY, oppX, oppY, newX, newY;
 
         //salvo le coordinate per fare i calcoli
@@ -158,18 +189,18 @@ public class Game {
         if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
              this.table[newX][newY].isDomed()             ||        //la space non è occupate da una cupola
              this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
-             throw new IllegalSpaceException( "Error: Invalid Space!" );
+             return false;
 
         //se i controlli sono stati superati allora effettuo lo scambio
         oppWorker.getSpace().setWorker(null);           //la cella che conteneva l'oppWorker è ora liberata
         this.table[newX][newY].setWorker(oppWorker);    //la nuova cella contiene ora il worker
         oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY
-
+        return true;
     }
 
 
     //Gli ho dovuto passare il model perchè è un metodo statico sostiturei il tutto con un observer in futuro
-    public void minotaurPower( Worker myWorker, Worker oppWorker ) throws IllegalSpaceException{
+    public boolean minotaurPower( Worker myWorker, Worker oppWorker ) {
         int myX, myY, oppX, oppY, newX, newY;
 
         //salvo le coordinate per fare i calcoli
@@ -201,11 +232,17 @@ public class Game {
         if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
                 this.table[newX][newY].isDomed()          ||        //la space non è occupate da una cupola
                 this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
-            throw new IllegalSpaceException( "Error: Invalid Space!" );
+            return false;
 
         oppWorker.getSpace().setWorker(null);           //la cella che conteneva l'oppWorker è ora liberata
         this.table[newX][newY].setWorker(oppWorker);    //la nuova cella contiene ora il worker spostato precedentemente
         oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY
+        return true;
 
+    }
+
+
+    public void setCurrPlayer(Player currPlayer) {
+        liteGame.setCurrPlayer(currPlayer.getNickname());
     }
 }

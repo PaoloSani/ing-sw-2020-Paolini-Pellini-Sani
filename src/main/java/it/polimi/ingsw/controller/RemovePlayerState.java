@@ -16,6 +16,7 @@ public class RemovePlayerState implements GameState {
         backEnd.getToRemove().getWorker1().setSpace(null);                 //il worker non è più associato a nessuna cella
         backEnd.getToRemove().getWorker2().getSpace().setWorker(null);     //stesso per il worker2
         backEnd.getToRemove().getWorker2().setSpace(null);
+
         //setto a null il giocatore che ha perso, nel Server mi occuperò di notificare tale giocatore
         if ( backEnd.getChallenger() == backEnd.getToRemove() )
             backEnd.setChallenger(null);
@@ -23,9 +24,8 @@ public class RemovePlayerState implements GameState {
             backEnd.setPlayer2(null);
         else backEnd.setPlayer3(null);
 
-        //backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         //backEnd.getGame().getLiteGame().notify();   //Notifico la VView
-        //TODO come notifico alla virtual view che rimuovo il giocatore ?
         return true;
     }
 

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.virtualView;
 
 import it.polimi.ingsw.controller.BackEnd;
+import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.util.Observer;
 
@@ -9,7 +10,7 @@ public class FrontEnd implements Observer<LiteGame> {
 
     private GameMessage gameMessage;
     private LiteGame liteGame;
-
+    private boolean update = false;
 
 
     public BackEnd getBackEnd() {
@@ -17,9 +18,23 @@ public class FrontEnd implements Observer<LiteGame> {
     }
 
     //metodo che inizializza players
-    public void settingPlayers(){
+    public void settingPlayers(String name1, String name2, String name3, God god1, God god2, God god3 ){
         //caso due o tre giocatori
         //players.notify
+        gameMessage.setName1(name1);
+        gameMessage.setName2(name2);
+        gameMessage.setName3(name3);
+        gameMessage.setGod1(god1);
+        gameMessage.setGod2(god2);
+        gameMessage.setGod3(god3);
+
+        gameMessage.notify();
+
+        while ( !update ){
+
+        }
+
+        //scrivo ai 2-3 client
     }
 
     //metodo che posiziona i workers
@@ -46,7 +61,7 @@ public class FrontEnd implements Observer<LiteGame> {
     @Override
     public void update(LiteGame message) {
         //update riceve litegame
-
+        update = true;
     }
 
 }

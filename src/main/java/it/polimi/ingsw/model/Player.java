@@ -17,7 +17,6 @@ public class Player {
         this.worker1 = new Worker(this );
         this.worker2 = new Worker(this );
         this.game = game;
-        //scrive i suoi dati nel messaggio Game.message
     }
 
     public String getNickname() {
@@ -98,22 +97,25 @@ public class Player {
         }
     }
 
+
     //Il metodo isWinner viene invocato successivamente ad ogni move() e controlla se la mossa è vincente
-    public boolean isWinner(Space oldSpace, Space currSpace) {
+    //Al suo interno chiama la scrittura nel liteGame per segnalare se il giocatore corrente ha vinto
+    public void isWinner(Space oldSpace, Space currSpace) {
         if ( oldSpace.getHeight() == 2 && currSpace.getHeight() == 3 )
-            return true;
+            game.getLiteGame().setWinner(true);
+
         //Condizione di vittoria Pan
-        else return this.god == God.PAN && (oldSpace.getHeight() - currSpace.getHeight() > 1 );
+        game.getLiteGame().setWinner(this.god == God.PAN && (oldSpace.getHeight() - currSpace.getHeight() > 1 ));
     }
 
     // Esegue la strategy che viene associata ad ogni player secondo la propria divinità
-    public boolean moveWorker(Worker worker, Space destination) throws IllegalSpaceException {
+    public boolean moveWorker(Worker worker, Space destination) {
         return this.move.execute(worker, destination);
     }
 
     // Esegue la strategy che viene associata ad ogni player secondo la propria divinità
-    public void buildSpace(Worker worker, Space spaceToBuild, int level) throws IllegalSpaceException {
-        this.build.execute(worker, spaceToBuild, level);
+    public boolean buildSpace(Worker worker, Space spaceToBuild, int level) {
+        return this.build.execute(worker, spaceToBuild, level);
     }
 
 
