@@ -20,12 +20,11 @@ public class PrometheusMoveState implements GameState {
         Space nextSpace = null;
 
         nextSpace = backEnd.getGame().getSpace(toMove[0], toMove[1]);
-        if ( nextSpace == null ) return false;
 
-        if ( nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() <= 0 ) { //non sto salendo posso muovermi
-            if( !backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace)) return false;
+        if ( nextSpace == null ) result = false;
 
-            result = true;
+        if ( result && (nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() ) <= 0) { //non sto salendo posso muovermi
+                result = backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace);
         }
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite

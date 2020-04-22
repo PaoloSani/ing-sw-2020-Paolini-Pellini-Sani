@@ -19,19 +19,20 @@ public class CharonSwitchState implements GameState {
     //chiamata a charonPower in game
     @Override
     public boolean execute() {
+        boolean result = true;
         //update: riceve una cella in cui è contenuto il worker da switchare
         //execute: esegue lo switch
         spaceToSwitch = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
-        if( spaceToSwitch == null ) return false;
+        if( spaceToSwitch == null ) result = false;
 
 
-           if( !backEnd.getGame().charonPower(backEnd.getCurrWorker(), spaceToSwitch.getWorker()) )
-            return false;
+           if( !backEnd.getGame().charonPower(backEnd.getCurrWorker(), spaceToSwitch.getWorker()) && result )
+            result = false;
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
 
-        return true;
+        return result;
     }
 
     @Override
