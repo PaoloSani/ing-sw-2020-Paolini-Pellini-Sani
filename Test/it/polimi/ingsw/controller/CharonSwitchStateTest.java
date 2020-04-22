@@ -65,7 +65,7 @@ public class CharonSwitchStateTest {
         //setto le posizioni del mio worker
         backEnd.getCurrPlayer().getWorker1().setSpace(game.getSpace(1,1));
 
-        // lo setto come worker corrente perché non sono passato da ChooseWorkerState
+        // setto il worker corrente perché non sono passato da ChooseWorkerState
         backEnd.setCurrWorker(backEnd.getCurrPlayer().getWorker1());
 
         //scrivo la posizione del worker che voglio switchare
@@ -81,6 +81,8 @@ public class CharonSwitchStateTest {
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
+
+
 
         //il programma esegue la build e infine manda la notifica al frontEnd
 
