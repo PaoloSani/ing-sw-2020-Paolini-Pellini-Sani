@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 
 public class BuildStateTest {
     private BackEnd backEnd;
-    BuildState buildState;
     private Game game;
     private FrontEnd frontEnd;
 

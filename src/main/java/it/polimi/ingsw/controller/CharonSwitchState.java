@@ -29,7 +29,7 @@ public class CharonSwitchState implements GameState {
             return false;
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
 
         return true;
     }
