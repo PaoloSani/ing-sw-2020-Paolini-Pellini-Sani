@@ -205,13 +205,20 @@ public class BackEnd implements Observer<GameMessage> {
         return toRemove;
     }
 
-    //inutile, solo per i test
+    //////////////////////////////////////////////////////////////
+    /////////////////// Metodi per i Test ////////////////////////
+    //////////////////////////////////////////////////////////////
+
     public void setState(GameState state) {
         currState = state;
     }
-    //sempre per i test
+
     public boolean getLastExecute() {
         return lastExecute;
+    }
+
+    public void setCurrPlayer(Player player) {
+        currPlayer = player;
     }
 }
 
