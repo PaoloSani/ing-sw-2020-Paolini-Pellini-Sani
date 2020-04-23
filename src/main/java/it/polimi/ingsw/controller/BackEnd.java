@@ -186,6 +186,7 @@ public class BackEnd implements Observer<GameMessage> {
                 currState = chooseWorkerState;
             }
         }
+
     }
 
     public boolean lastPlayerInTheGame(Player lastPlayer){

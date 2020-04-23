@@ -1,0 +1,180 @@
+package it.polimi.ingsw.controller;
+
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.God;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.virtualView.FrontEnd;
+import it.polimi.ingsw.virtualView.GameMessage;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class MoveStateTest {
+
+    private BackEnd backEnd;
+    private FrontEnd frontEnd;
+    private Game game;
+
+    private GameMessage gameMessage;
+
+
+    @Before
+    public void setUp() throws Exception {
+
+        backEnd = new BackEnd();
+        frontEnd = new FrontEnd();
+
+        //setto il frontEnd perché faccia riferimento al mio backEnd
+        frontEnd.setBackEnd(backEnd);
+        game = backEnd.getGame();
+
+        //il game message deve essere del frontEnd
+        gameMessage = new GameMessage(frontEnd);
+
+    }
+
+    @Test
+    public void testExecute()
+    {
+        //esegue la execute dello stato BuildState con un giocatore che esegue la execute di default
+        //currPlayer's God -> Tritone
+        //inizializzo i player
+        backEnd.setPlayer2(new Player("riccardo", God.MORTAL, game) );
+        backEnd.setPlayer3(new Player("paolo", God.POSEIDON, game) );
+        backEnd.setChallenger(new Player("giuseppe", God.APOLLO, game) );
+
+        //inizializzo il contenuto di GameMessage perché non sono passato dallo stato setPlayersState ma sono andato direttamente nel BuildState
+        gameMessage.setName2("riccardo");
+        gameMessage.setName3("paolo");
+        gameMessage.setName1("giuseppe");
+        gameMessage.setGod2(God.MORTAL);
+        gameMessage.setGod3(God.POSEIDON);
+        gameMessage.setGod1(God.APOLLO);
+
+        gameMessage.setCharonSwitching(false);
+
+        backEnd.setState(backEnd.chooseWorkerState);
+
+        //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
+        game.getLiteGame().addObservers(frontEnd);
+
+        //setto i giocatori nella classe LiteGame passando per il Game
+        game.setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
+
+        //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
+        backEnd.setCurrPlayer(backEnd.getPlayer2());
+
+        //setto la posizione del giocatore con cui voglio muovermi
+        backEnd.getCurrPlayer().getWorker1().setSpace(game.getSpace(1,1));
+
+        // lo setto come worker corrente perché non sono passato da ChooseWorkerState
+        backEnd.setCurrWorker(backEnd.getCurrPlayer().getWorker1());
+
+        //scrivo nel game message la posizione in cui voglio muovermi e setto il level a 0
+        int[] toBeOccupied = {1,2};
+        gameMessage.setSpace1(toBeOccupied);
+        gameMessage.setLevel(0);
+
+        //all'inizio il frontEnd non ha ricevuto nessuna notifica
+        assertFalse(frontEnd.getUpdate());
+
+        //Mando la notify al controller
+        gameMessage.notify(gameMessage);
+
+        //il programma esegue la move e infine manda la notifica al frontEnd
+
+        //Il frontEnd è stato notificato
+        //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
+        assertTrue(frontEnd.getUpdate());
+
+    }
+
+    @Test
+    public void artemisExecute(){
+        //esegue la execute dello stato BuildState con un giocatore che esegue la execute di default
+        //currPlayer's God -> Tritone
+        //inizializzo i player
+        backEnd.setPlayer2(new Player("riccardo", God.ARTEMIS, game) );
+        backEnd.setPlayer3(new Player("paolo", God.POSEIDON, game) );
+        backEnd.setChallenger(new Player("giuseppe", God.APOLLO, game) );
+
+        //inizializzo il contenuto di GameMessage perché non sono passato dallo stato setPlayersState ma sono andato direttamente nel BuildState
+        gameMessage.setName2("riccardo");
+        gameMessage.setName3("paolo");
+        gameMessage.setName1("giuseppe");
+        gameMessage.setGod2(God.ARTEMIS);
+        gameMessage.setGod3(God.POSEIDON);
+        gameMessage.setGod1(God.APOLLO);
+
+        backEnd.setState(backEnd.chooseWorkerState);
+
+        //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
+        game.getLiteGame().addObservers(frontEnd);
+
+        //setto i giocatori nella classe LiteGame passando per il Game
+        game.setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
+
+        //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
+        backEnd.setCurrPlayer(backEnd.getPlayer2());
+
+        //setto la posizione del giocatore con cui voglio muovermi
+        backEnd.getCurrPlayer().getWorker1().setSpace(game.getSpace(1,1));
+
+        // lo setto come worker corrente perché non sono passato da ChooseWorkerState
+        backEnd.setCurrWorker(backEnd.getCurrPlayer().getWorker1());
+
+        //scrivo nel game message la posizione in cui voglio muovermi e setto il level a 0
+        int[] toBeOccupied = {1,2};
+        gameMessage.setSpace1(toBeOccupied);
+        gameMessage.setLevel(0);
+
+        //all'inizio il frontEnd non ha ricevuto nessuna notifica
+        assertFalse(frontEnd.getUpdate());
+
+        //Mando la notify al controller
+        gameMessage.notify(gameMessage);
+
+        //il programma esegue la move e infine manda la notifica al frontEnd
+
+        //Il frontEnd è stato notificato
+        //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
+        assertTrue(frontEnd.getUpdate());
+
+        //Devo inizializzarlo a false! Altrimenti mi falsa i risultati
+        frontEnd.resetUpdate();
+
+
+        //Faccio sì che Artemide provi a tornare indietro
+        toBeOccupied = new int[]{1,1};
+        gameMessage.setSpace1(toBeOccupied);
+        gameMessage.setLevel(0);
+
+        //all'inizio il frontEnd non ha ricevuto nessuna notifica
+        assertFalse(frontEnd.getUpdate());
+
+        //Mando la notify al controller
+        gameMessage.notify(gameMessage);
+
+        //Controllo che Artemide non sia tornata indietro
+        assertFalse(frontEnd.getUpdate());
+
+        //Faccio sì che Artemide faccia un'altra mossa (valida)
+        toBeOccupied = new int[]{1,3};
+        gameMessage.setSpace1(toBeOccupied);
+        gameMessage.setLevel(0);
+
+        //Controllo che Artemide non sia tornata indietro
+        assertFalse(frontEnd.getUpdate());
+
+        //Mando la notify al controller
+        gameMessage.notify(gameMessage);
+
+        assertTrue(frontEnd.getUpdate());
+
+
+    }
+
+
+
+}

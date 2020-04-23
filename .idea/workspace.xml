@@ -3,12 +3,31 @@
   <component name="AnalysisUIOptions">
     <option name="SCOPE_TYPE" value="3" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="Correzione notify e correzione result negli stati">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/CharonSwitchStateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/CharonSwitchStateTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/BuildState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/BuildState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/CharonSwitchStateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/CharonSwitchStateTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BackEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BackEnd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/God.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/God.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/FrontEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/FrontEnd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/BackEnd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/BackEnd.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,27 +48,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IgnoredFileRootStore">
-    <option name="generatedRoots">
-      <set>
-        <option value="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\.idea" />
-      </set>
-    </option>
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="1ZRkUIEDcGAmJMOUQUABA1kEW1H" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -87,8 +91,8 @@
       <recent name="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ChooseWorkerStateTest.executeFailTest">
-    <configuration name="CharonSwitchStateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.MoveStateTest.artemisExecute">
+    <configuration name="BuildStateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -97,24 +101,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.CharonSwitchStateTest" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.BuildStateTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CharonSwitchStateTest.executeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.CharonSwitchStateTest" />
-      <option name="METHOD_NAME" value="executeTest" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -150,7 +138,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ChooseWorkerStateTest.executeOtherWorkerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MoveStateTest.artemisExecute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -159,8 +147,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.ChooseWorkerStateTest" />
-      <option name="METHOD_NAME" value="executeOtherWorkerTest" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.MoveStateTest" />
+      <option name="METHOD_NAME" value="artemisExecute" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MoveStateTest.testExecute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.MoveStateTest" />
+      <option name="METHOD_NAME" value="testExecute" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -168,11 +172,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MoveStateTest.artemisExecute" />
+        <item itemvalue="JUnit.MoveStateTest.testExecute" />
+        <item itemvalue="JUnit.BuildStateTest" />
         <item itemvalue="JUnit.ChooseWorkerStateTest.executeFailTest" />
         <item itemvalue="JUnit.ChooseWorkerStateTest" />
-        <item itemvalue="JUnit.ChooseWorkerStateTest.executeOtherWorkerTest" />
-        <item itemvalue="JUnit.CharonSwitchStateTest.executeTest" />
-        <item itemvalue="JUnit.CharonSwitchStateTest" />
       </list>
     </recent_temporary>
   </component>
@@ -594,11 +598,12 @@
         </entry>
       </map>
     </option>
-    <option name="OPEN_TABS">
-      <set>
-        <option value="1" />
-      </set>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Sistemata cartella UML" />
@@ -637,9 +642,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="365" y="79" key="#PlayersInTheGameTest/0.0.1536.824@0.0.1536.824" timestamp="1587125175261" />
-    <state x="458" y="211" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1586020311431">
-      <screen x="0" y="23" width="1440" height="834" />
+    <state x="458" y="211" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1587667247616">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
+    <state x="458" y="211" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.23.1440.833@0.23.1440.833" timestamp="1587667247616" />
     <state x="458" y="211" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.23.1440.834@0.23.1440.834" timestamp="1586020311431" />
     <state x="196" y="77" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587125128503">
       <screen x="0" y="0" width="1536" height="824" />
@@ -712,62 +718,66 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587302642041" />
-    <state width="1493" height="286" key="GridCell.Tab.0.bottom" timestamp="1587573288571">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="213" key="GridCell.Tab.0.bottom" timestamp="1587671058095">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585583696197" />
     <state width="1493" height="286" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1585660701259" />
-    <state width="1398" height="214" key="GridCell.Tab.0.bottom/0.23.1440.833@0.23.1440.833" timestamp="1585653242599" />
+    <state width="1398" height="213" key="GridCell.Tab.0.bottom/0.23.1440.833@0.23.1440.833" timestamp="1587671058095" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585496007883" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1493" height="286" key="GridCell.Tab.0.center" timestamp="1587573288571">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="213" key="GridCell.Tab.0.center" timestamp="1587671058094">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
     <state width="1493" height="286" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1585660701258" />
-    <state width="1398" height="214" key="GridCell.Tab.0.center/0.23.1440.833@0.23.1440.833" timestamp="1585653242598" />
+    <state width="1398" height="213" key="GridCell.Tab.0.center/0.23.1440.833@0.23.1440.833" timestamp="1587671058094" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1493" height="286" key="GridCell.Tab.0.left" timestamp="1587573288571">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="213" key="GridCell.Tab.0.left" timestamp="1587671058094">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
     <state width="1493" height="286" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1585660701258" />
-    <state width="1398" height="214" key="GridCell.Tab.0.left/0.23.1440.833@0.23.1440.833" timestamp="1585653242598" />
+    <state width="1398" height="213" key="GridCell.Tab.0.left/0.23.1440.833@0.23.1440.833" timestamp="1587671058094" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585496007881" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1493" height="286" key="GridCell.Tab.0.right" timestamp="1587573288571">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="213" key="GridCell.Tab.0.right" timestamp="1587671058095">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
     <state width="1493" height="286" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1585660701259" />
-    <state width="1398" height="214" key="GridCell.Tab.0.right/0.23.1440.833@0.23.1440.833" timestamp="1585653242599" />
+    <state width="1398" height="213" key="GridCell.Tab.0.right/0.23.1440.833@0.23.1440.833" timestamp="1587671058095" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1493" height="286" key="GridCell.Tab.1.bottom" timestamp="1587573288571">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="267" key="GridCell.Tab.1.bottom" timestamp="1587669206194">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
     <state width="1493" height="286" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1493" height="286" key="GridCell.Tab.1.center" timestamp="1587573288571">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="267" key="GridCell.Tab.1.bottom/0.23.1440.833@0.23.1440.833" timestamp="1587669206194" />
+    <state width="1398" height="267" key="GridCell.Tab.1.center" timestamp="1587669206193">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
     <state width="1493" height="286" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1493" height="286" key="GridCell.Tab.1.left" timestamp="1587573288571">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="267" key="GridCell.Tab.1.center/0.23.1440.833@0.23.1440.833" timestamp="1587669206193" />
+    <state width="1398" height="267" key="GridCell.Tab.1.left" timestamp="1587669206193">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
     <state width="1493" height="286" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1493" height="286" key="GridCell.Tab.1.right" timestamp="1587573288571">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1398" height="267" key="GridCell.Tab.1.left/0.23.1440.833@0.23.1440.833" timestamp="1587669206193" />
+    <state width="1398" height="267" key="GridCell.Tab.1.right" timestamp="1587669206194">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
     <state width="1493" height="286" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
+    <state width="1398" height="267" key="GridCell.Tab.1.right/0.23.1440.833@0.23.1440.833" timestamp="1587669206194" />
     <state x="263" y="112" key="IDE.errors.dialog" timestamp="1585491874540">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -811,10 +821,11 @@
     <state x="400" y="240" key="com.intellij.ide.util.TipDialog/0.23.1440.830@0.23.1440.830" timestamp="1587297469960" />
     <state x="400" y="240" key="com.intellij.ide.util.TipDialog/0.23.1440.831@0.23.1440.831" timestamp="1585660632288" />
     <state x="400" y="241" key="com.intellij.ide.util.TipDialog/0.23.1440.834@0.23.1440.834" timestamp="1586020632000" />
-    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1587570571387">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="866" y="139" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1587667019618">
+      <screen x="0" y="23" width="1440" height="834" />
     </state>
     <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1587570571387" />
+    <state x="866" y="139" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.23.1440.834@0.23.1440.834" timestamp="1587667019618" />
     <state x="301" y="148" width="934" height="564" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1587486354260">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -837,11 +848,12 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="418" y="14" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1585384448255" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1587550702245">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="404" y="170" width="670" height="686" key="search.everywhere.popup" timestamp="1587666841149">
+      <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state x="383" y="130" width="672" height="608" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1585389210401" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1587550702245" />
+    <state x="404" y="170" width="670" height="686" key="search.everywhere.popup/0.23.1440.833@0.23.1440.833" timestamp="1587666841149" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

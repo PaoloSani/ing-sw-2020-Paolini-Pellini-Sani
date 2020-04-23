@@ -61,8 +61,13 @@ public class FrontEnd implements Observer<LiteGame> {
     @Override
     public void update(LiteGame message) {
         //update riceve litegame
+        // TODO: se il messaggio è uguale al precedente o se liteGame è vuoto, ok
+
+        //if ((liteGame == null ) || liteGame.equals(message)) {
+        
         liteGame = message;
         update = true;
+    }
     }
 
     public void setBackEnd(BackEnd backEnd) {
@@ -72,4 +77,7 @@ public class FrontEnd implements Observer<LiteGame> {
     public boolean getUpdate() {
         return update;
     }
+
+    //TODO: serve perché altrimenti update resta sempre a true! Ma dove metterlo??
+    public void resetUpdate() { this.update = false; }
 }
