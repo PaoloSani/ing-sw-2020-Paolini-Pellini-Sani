@@ -15,19 +15,21 @@ public class PrometheusBuildState implements GameState {
 
     @Override
     public boolean execute() {
-
+        boolean result = true;
         toBuild = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
-        if( toBuild == null ) return false;
+        if( toBuild == null ) result = false;
 
-        level = backEnd.getGameMessage().getLevel();
+        if ( result ) {
+            level = backEnd.getGameMessage().getLevel();
 
 
-        if (! backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level))
-           return false;
+            if (!backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level))
+                return false;
 
+        }
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return true;
     }
 

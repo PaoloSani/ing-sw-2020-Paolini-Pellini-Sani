@@ -19,8 +19,8 @@ public class Game {
         this.level3 = constLevel3;
         this.dome = constDome;
         this.setUpTable();
-        refreshLiteGame(); //per copiare la tabella e i pezzi disponibili nel liteGame
         this.liteGame = new LiteGame();
+        refreshLiteGame(); //per copiare la tabella e i pezzi disponibili nel liteGame
         this.constraint = new Constraint();
     }
 
@@ -105,6 +105,11 @@ public class Game {
         liteGame.convertTable(table);
     }
 
+    public void setWinner(boolean result){
+        liteGame.setWinner(result);
+    }
+
+
     public void setCurrWorker( Worker worker ){
         if ( worker == null ){          //il giocatore ha perso
             liteGame.setCurrWorker(-1, 0);
@@ -115,7 +120,7 @@ public class Game {
     }
 
     public boolean isFreeToMove( Worker worker ){
-        int currX,currY,currH;
+        int currX, currY, currH;
         currX = worker.getSpace().getX();
         currY = worker.getSpace().getY();
         currH = worker.getSpace().getHeight();

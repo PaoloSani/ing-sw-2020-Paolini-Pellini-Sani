@@ -12,7 +12,15 @@ public class WinState implements GameState {
 
 
     @Override
-    public void execute() {
+    public boolean execute() {
+        backEnd.getGame().setWinner(true);
+        backEnd.getGame().refreshLiteGame();
+        backEnd.getGame().getLiteGame().notify();
+        return true;
+    }
+
+    @Override
+    public void reset() {
 
     }
 

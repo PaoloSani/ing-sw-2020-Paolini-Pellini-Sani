@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-//TODO: Paolo
 public class MoveApolloTest {
     private Space currSpace, nextSpace;
     private Worker myWorker, oppWorker;
@@ -13,111 +12,111 @@ public class MoveApolloTest {
     private Player player = new Player("test", God.APOLLO, game);
     private int level;
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeXTest() throws IllegalSpaceException {
+    @Test
+    public void negativeXTest() {
         currSpace = new Space(0,4);
         nextSpace = new Space(-1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void unboundedX() throws IllegalSpaceException {
+    @Test
+    public void unboundedX() {
         currSpace = new Space(4,0);
         nextSpace = new Space(5, 0);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeY() throws IllegalSpaceException {
+    @Test
+    public void negativeY() {
         currSpace = new Space(0,0);
         nextSpace = new Space(0, -1);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void unboundedY() throws IllegalSpaceException {
+    @Test
+    public void unboundedY() {
         currSpace = new Space(0,4);
         nextSpace = new Space(0, 5);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void positiveNotNeighbouringX() throws IllegalSpaceException {
+    @Test
+    public void positiveNotNeighbouringX() {
         currSpace = new Space(2,4);
         nextSpace = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeNotNeighbouringX() throws IllegalSpaceException {
+    @Test
+    public void negativeNotNeighbouringX() {
         currSpace = new Space(0,4);
         nextSpace = new Space(2, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void positiveNotNeighbouringY() throws IllegalSpaceException {
+    @Test
+    public void positiveNotNeighbouringY() {
         currSpace = new Space(0,4);
         nextSpace = new Space(0, 2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class)
-    public void negativeNotNeighbouringY() throws IllegalSpaceException {
+    @Test
+    public void negativeNotNeighbouringY() {
         currSpace = new Space(0,2);
         nextSpace = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class)
-    public void moreThanOneLevel() throws IllegalSpaceException {
+    @Test
+    public void moreThanOneLevel() {
         currSpace = new Space(0,2);
         nextSpace = new Space(1, 4);
         nextSpace.setHeight(2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class)
-    public void sameSpace() throws IllegalSpaceException {
+    @Test
+    public void sameSpace() {
         currSpace = new Space(0,2);
         nextSpace = new Space(0, 2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class)
-    public void alliedWorker() throws IllegalSpaceException {
+    @Test
+    public void alliedWorker() {
         currSpace = new Space(0,2);
         nextSpace = new Space(1, 2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         nextSpace.setWorker(new Worker(player));
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class)
-    public void noSpaceToBuild() throws IllegalSpaceException {
+    @Test
+    public void noSpaceToBuild() {
         currSpace = new Space(1,2);
         nextSpace = new Space(2, 2);
         myWorker = new Worker(player);
@@ -133,21 +132,21 @@ public class MoveApolloTest {
         game.getSpace(3,2).setHeight(4);
         game.getSpace(3,3).setHeight(4);
 
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class)
-    public void spaceDome() throws IllegalSpaceException {
+    @Test
+    public void spaceDome(){
         currSpace = new Space(0,2);
         nextSpace = new Space(1, 2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         nextSpace.setDome();
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
-    @Test ( expected = IllegalSpaceException.class)
-    public void athenaPower() throws IllegalSpaceException {
+    @Test
+    public void athenaPower() {
         Constraint constraint = new Constraint();
         constraint.setAthena(true);
         game.setConstraint(constraint);
@@ -156,26 +155,27 @@ public class MoveApolloTest {
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         nextSpace.setHeight(1);
-        moveApollo.execute( myWorker, nextSpace );
+        assertFalse(moveApollo.execute( myWorker, nextSpace ));
     }
 
     @Test
-    public void normalMoveCondition() throws IllegalSpaceException {
+    public void normalMoveCondition() {
         currSpace = new Space(0,4);
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         //Servono ?
         assertNotSame(nextSpace.getWorker(), myWorker);
-        assertEquals(null, nextSpace.getWorker());
-        //
-        moveApollo.execute( myWorker, nextSpace );
+        assertNull(nextSpace.getWorker());
+        //mossa
+        assertTrue(moveApollo.execute( myWorker, nextSpace ));
+
         assertSame(nextSpace.getWorker(), myWorker);
         assertSame(myWorker.getSpace(), nextSpace);
     }
 
     @Test
-    public void apolloMoveCondition() throws IllegalSpaceException {
+    public void apolloMoveCondition() {
         currSpace = new Space(0,4);
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
@@ -190,7 +190,7 @@ public class MoveApolloTest {
         assertNotSame(currSpace.getWorker(), oppWorker);
         assertNotNull(nextSpace.getWorker());
         assertNotNull(currSpace.getWorker());
-        moveApollo.execute( myWorker, nextSpace );
+        assertTrue(moveApollo.execute( myWorker, nextSpace ));
         assertEquals(nextSpace.getWorker(), myWorker);
         assertEquals(currSpace.getWorker(), oppWorker);
         assertEquals(oppWorker.getSpace(), currSpace);

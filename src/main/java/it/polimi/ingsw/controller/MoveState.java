@@ -28,47 +28,48 @@ public class MoveState implements GameState {
         if(!toReset) {
 
             nextSpace = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
-            if( nextSpace == null ) return false;
+            if (nextSpace == null) result = false;
 
-            if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 1) {
-                if (lastSpaceArtemis == nextSpace)
-                    returnBack = true;
-                else counterArtemis++;
+            if (result) {
+                if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 1) {
+                    if (lastSpaceArtemis == nextSpace)
+                        returnBack = true;
+                    else counterArtemis++;
+                }
+
+                if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 0) {
+                    lastSpaceArtemis = backEnd.getCurrWorker().getSpace();
+                    counterArtemis++;
+                }
+
+
+                if (!returnBack) {
+
+                    if (!backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace))
+                        result = false;
+
+                } else result = false;
+
+
+                if ((backEnd.getCurrPlayer().getGod() != God.TRITON && backEnd.getCurrPlayer().getGod() != God.ARTEMIS) ||
+                        (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2) && result) {
+                    setToReset(true);
+                }
+
+                //caso in cui Tritone esce dal perimetro
+                if (backEnd.getCurrPlayer().getGod() == God.TRITON &&   //cella fuori dal perimetro
+                        nextSpace.getX() > 0 && nextSpace.getX() < 4 &&
+                        nextSpace.getY() > 0 && nextSpace.getY() < 4 && result) {
+                    setToReset(true);
+
+                }
+
+                returnBack = false;
             }
-
-            if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 0) {
-                lastSpaceArtemis = backEnd.getCurrWorker().getSpace();
-                counterArtemis++;
-            }
-
-
-            if (!returnBack) {
-
-                    if ( !backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace) )
-                        return false;
-
-            }
-            else result = false;
-
-
-            if ((backEnd.getCurrPlayer().getGod() != God.TRITON && backEnd.getCurrPlayer().getGod() != God.ARTEMIS) ||
-                    (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2)) {
-                setToReset(true);
-            }
-
-            //caso in cui Tritone esce dal perimetro
-            if (backEnd.getCurrPlayer().getGod() == God.TRITON &&   //cella fuori dal perimetro
-                    nextSpace.getX() > 0 && nextSpace.getX() < 4 &&
-                    nextSpace.getY() > 0 && nextSpace.getY() < 4) {
-                setToReset(true);
-
-            }
-
-            returnBack = false;
         }
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return result;
     }
 
