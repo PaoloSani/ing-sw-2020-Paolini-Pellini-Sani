@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotEquals;
 
+//TODO: Giuseppe
 public class BuildAtlasTest {
 
     private Space currSpace, space;

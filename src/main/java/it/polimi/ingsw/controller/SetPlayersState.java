@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.util.GameState;
 
-
+//TODO: Giuseppe
 public class SetPlayersState implements  GameState {
     private BackEnd backEnd;
     private String name;
@@ -40,7 +40,8 @@ public class SetPlayersState implements  GameState {
 
         backEnd.getGame().setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
         //invio la classe litegame backEnd.getGameMessage dal model alla view
-        //server.getGame().backEnd.getGameMessage.notify()
+        backEnd.getGame().getLiteGame().addObservers(backEnd.getGameMessage().getFrontEnd());
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());
         return true;
     }
 

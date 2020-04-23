@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+@Deprecated
 public class BuildHephaestusTest {
 
     private Space currSpace, space;

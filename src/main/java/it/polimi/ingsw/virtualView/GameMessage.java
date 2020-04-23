@@ -1,6 +1,7 @@
 package it.polimi.ingsw.virtualView;
 
 import it.polimi.ingsw.model.God;
+import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.util.Observable;
 import it.polimi.ingsw.util.Observer;
 
@@ -42,6 +43,17 @@ public class --GameMessage extends Observable <GameMessage> {
         return space2;
     }
 
+    public void setSpace1(int[] space1) {
+        this.space1 = space1;
+    }
+
+    public void setSpace2(int[] space2) {
+        this.space2 = space2;
+    }
+
+    public void setCharonSwitching(boolean charonSwitching) {
+        this.charonSwitching = charonSwitching;
+    }
 
     public int getLevel() {
         return level;
@@ -106,9 +118,17 @@ public class --GameMessage extends Observable <GameMessage> {
         this.god3 = god3;
     }
 
+    public Observer<LiteGame> getFrontEnd() {
+        return frontEnd;
+    }
+
     public void notify(GameMessage message) {
         for (Observer<GameMessage> observer : observers) {
             observer.update(message);
         }
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

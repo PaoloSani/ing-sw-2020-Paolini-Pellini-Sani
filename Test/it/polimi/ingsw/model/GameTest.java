@@ -17,14 +17,14 @@ public class GameTest {
     //********************//
 
     @Test
-    public void freeToMoveTrue() throws IllegalSpaceException {
+    public void freeToMoveTrue() {
         myWorker.setSpace(game.getSpace(2,2));
         game.getSpace(2,2).setWorker(myWorker);
         assertTrue(game.isFreeToMove(myWorker));
     }
 
     @Test
-    public void notFreeToMoveTrue() throws IllegalSpaceException {
+    public void notFreeToMoveTrue() {
         myWorker.setSpace(game.getSpace(2,2));
         game.getSpace(2,2).setWorker(myWorker);
 
@@ -44,58 +44,58 @@ public class GameTest {
     //Test su charonPower//
     //*******************//
 
-    @Test (expected = IllegalSpaceException.class)
-    public void negativeXCharon() throws IllegalSpaceException {
+    @Test
+    public void negativeXCharon() {
         myWorker.setSpace(game.getSpace(0,0));
         oppWorker.setSpace(game.getSpace(1,0));
-        game.charonPower(myWorker, oppWorker);
+        assertFalse(game.charonPower(myWorker, oppWorker));
     }
 
-    @Test (expected = IllegalSpaceException.class)
-    public void unboundedXCharon() throws IllegalSpaceException {
+    @Test
+    public void unboundedXCharon() {
         myWorker.setSpace(game.getSpace(4,0));
         oppWorker.setSpace(game.getSpace(3,0));
-        game.charonPower(myWorker, oppWorker);
+        assertFalse(game.charonPower(myWorker, oppWorker));
     }
 
-    @Test (expected = IllegalSpaceException.class)
-    public void negativeYCharon() throws IllegalSpaceException {
+    @Test
+    public void negativeYCharon() {
         myWorker.setSpace(game.getSpace(0,0));
         oppWorker.setSpace(game.getSpace(0,1));
-        game.charonPower(myWorker, oppWorker);
+        assertFalse(game.charonPower(myWorker, oppWorker));
     }
 
-    @Test (expected = IllegalSpaceException.class)
-    public void unboundedYCharon() throws IllegalSpaceException {
+    @Test
+    public void unboundedYCharon() {
         myWorker.setSpace(game.getSpace(0,4));
         oppWorker.setSpace(game.getSpace(0,3));
-        game.charonPower(myWorker, oppWorker);
+        assertFalse(game.charonPower(myWorker, oppWorker));
     }
 
-    @Test (expected = IllegalSpaceException.class)
-    public void domedSpaceCharon() throws IllegalSpaceException {
+    @Test
+    public void domedSpaceCharon() {
         myWorker.setSpace(game.getSpace(1,1));
         oppWorker.setSpace(game.getSpace(1,0));
         game.getSpace(1,2).setDome();
         game.charonPower(myWorker, oppWorker);
     }
 
-    @Test (expected = IllegalSpaceException.class)
-    public void occupiedByWorkerSpaceCharon() throws IllegalSpaceException {
+    @Test
+    public void occupiedByWorkerSpaceCharon() {
         myWorker.setSpace(game.getSpace(1,1));
         oppWorker.setSpace(game.getSpace(1,0));
         Worker otherWorker = new Worker(new Player("test3", God.DEMETER, game));
         otherWorker.setSpace(game.getSpace(1,2));
         game.getSpace(1,2).setWorker(otherWorker);
-        game.charonPower(myWorker, oppWorker);
+        assertFalse(game.charonPower(myWorker, oppWorker));
     }
 
     @Test
-    public void charonHasWorked() throws IllegalSpaceException {
+    public void charonHasWorked() {
         myWorker.setSpace(game.getSpace(1,1));
         oppWorker.setSpace(game.getSpace(1,0));
         assertNotEquals(oppWorker.getSpace(), game.getSpace(1, 2));
-        game.charonPower(myWorker, oppWorker);
+        assertTrue(game.charonPower(myWorker, oppWorker));
         assertEquals(oppWorker.getSpace(), game.getSpace(1,2));
         assertEquals(myWorker.getSpace(), game.getSpace(1,1));
     }
@@ -105,50 +105,50 @@ public class GameTest {
     //Test su minotaurPower//
     //*********************//
 
-    @Test (expected = IllegalSpaceException.class)
-    public void negativeXMinotaur() throws IllegalSpaceException {
+    @Test
+    public void negativeXMinotaur() {
         myWorker.setSpace(game.getSpace(1,0));
         oppWorker.setSpace(game.getSpace(0,0));
-        game.minotaurPower(myWorker, oppWorker);
+        assertFalse(game.minotaurPower(myWorker, oppWorker));
     }
 
-    @Test (expected = IllegalSpaceException.class)
-    public void unboundedXMinotaur() throws IllegalSpaceException {
+    @Test
+    public void unboundedXMinotaur() {
         myWorker.setSpace(game.getSpace(3,0));
         oppWorker.setSpace(game.getSpace(4,0));
-        game.minotaurPower(myWorker, oppWorker);
+       assertFalse(game.minotaurPower(myWorker, oppWorker));
     }
 
-    @Test (expected = IllegalSpaceException.class)
-    public void negativeYMinotaur() throws IllegalSpaceException {
+    @Test
+    public void negativeYMinotaur() {
         myWorker.setSpace(game.getSpace(0,1));
         oppWorker.setSpace(game.getSpace(0,0));
-        game.minotaurPower(myWorker, oppWorker);
+        assertFalse(game.minotaurPower(myWorker, oppWorker));
     }
 
-    @Test (expected = IllegalSpaceException.class)
-    public void unboundedYMinotaur() throws IllegalSpaceException {
+    @Test
+    public void unboundedYMinotaur() {
         myWorker.setSpace(game.getSpace(0,3));
         oppWorker.setSpace(game.getSpace(0,4));
-        game.minotaurPower(myWorker, oppWorker);
+        assertFalse(game.minotaurPower(myWorker, oppWorker));
     }
 
-    @Test (expected = IllegalSpaceException.class)
-    public void domedSpaceMinotaur() throws IllegalSpaceException {
+    @Test
+    public void domedSpaceMinotaur() {
         myWorker.setSpace(game.getSpace(0,0));
         oppWorker.setSpace(game.getSpace(0,1));
         game.getSpace(0,2).setDome();
-        game.minotaurPower(myWorker, oppWorker);
+        assertFalse(game.minotaurPower(myWorker, oppWorker));
     }
 
-    @Test (expected = IllegalSpaceException.class)
-    public void occupiedSpaceByWorkerMinotaur() throws IllegalSpaceException {
+    @Test
+    public void occupiedSpaceByWorkerMinotaur() {
         myWorker.setSpace(game.getSpace(0,0));
         oppWorker.setSpace(game.getSpace(0,1));
         Worker otherWorker = new Worker(new Player("test3", God.DEMETER, game));
         otherWorker.setSpace(game.getSpace(0,2));
         game.getSpace(0,2).setWorker(otherWorker);
-        game.minotaurPower(myWorker, oppWorker);
+        assertFalse(game.minotaurPower(myWorker, oppWorker));
     }
 
     @Test
@@ -156,7 +156,7 @@ public class GameTest {
         myWorker.setSpace(game.getSpace(0,0));
         oppWorker.setSpace(game.getSpace(0,1));
         assertNotEquals(oppWorker.getSpace(), game.getSpace(0,2));
-        game.minotaurPower(myWorker, oppWorker);
+        assertTrue(game.minotaurPower(myWorker, oppWorker));
         assertEquals(oppWorker.getSpace(), game.getSpace(0,2));
         assertEquals(myWorker.getSpace(), game.getSpace(0,0));
     }

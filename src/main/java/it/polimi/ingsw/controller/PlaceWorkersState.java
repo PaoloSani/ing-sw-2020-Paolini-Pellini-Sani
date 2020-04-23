@@ -3,7 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
-
+//TODO: Riccardo
 public class PlaceWorkersState implements GameState {
     private BackEnd backEnd;
     private Space space1;
@@ -16,21 +16,24 @@ public class PlaceWorkersState implements GameState {
 
     @Override
     public boolean execute() {
+        boolean result = true;
         space1 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
-        if( space1 == null ) return false;
+        if( space1 == null ) result = false;
 
-        space2 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
-        if( space2 == null ) return false;
+        if ( result ) {
+            space2 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
+            if (space2 == null) result = false;
 
-        backEnd.getCurrPlayer().getWorker1().setSpace(space1);
-        backEnd.getCurrPlayer().getWorker2().setSpace(space2);
-
-        //A questo punto il model modifica il liteGame
-        //notify del LiteGame
-
+            if ( result ) {
+                backEnd.getCurrPlayer().getWorker1().setSpace(space1);
+                backEnd.getCurrPlayer().getWorker2().setSpace(space2);
+            }
+            //A questo punto il model modifica il liteGame
+            //notify del LiteGame
+        }
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        backEnd.getGame().getLiteGame().notify();   //Notifico la VView
-        return true;
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
+        return result;
     }
 
 

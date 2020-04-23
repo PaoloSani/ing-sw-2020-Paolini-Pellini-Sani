@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.util.GameState;
 
+//TODO: Giuseppe
 public class RemovePlayerState implements GameState {
     private BackEnd backEnd;
 
@@ -25,7 +26,7 @@ public class RemovePlayerState implements GameState {
         else backEnd.setPlayer3(null);
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        //backEnd.getGame().getLiteGame().notify();   //Notifico la VView
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return true;
     }
 

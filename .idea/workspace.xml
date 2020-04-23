@@ -4,8 +4,11 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
+    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="Correzione notify e correzione result negli stati">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/CharonSwitchStateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/CharonSwitchStateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/BuildState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/BuildState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/CharonSwitchStateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/CharonSwitchStateTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +21,8 @@
         <option value="Enum" />
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
-        <option value="JUnit4 Test Class" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -51,6 +54,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
@@ -67,6 +71,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="it.polimi.ingsw.controller" />
       <recent name="it.polimi.ingsw.virtualView" />
       <recent name="Test" />
     </key>
@@ -82,73 +87,80 @@
       <recent name="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PlayersInTheGameTest">
-    <configuration name="All in GC39" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MoveApolloTest.apolloMoveCondition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ChooseWorkerStateTest.executeFailTest">
+    <configuration name="CharonSwitchStateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveApolloTest" />
-      <option name="METHOD_NAME" value="apolloMoveCondition" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MoveApolloTest.noSpaceToBuild" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.model" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.model.MoveApolloTest" />
-      <option name="METHOD_NAME" value="noSpaceToBuild" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayersInTheGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.virtualView.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.virtualView" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.virtualView.PlayersInTheGameTest" />
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.CharonSwitchStateTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayersInTheGameTest.listenerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CharonSwitchStateTest.executeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.virtualView.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.virtualView" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.virtualView.PlayersInTheGameTest" />
-      <option name="METHOD_NAME" value="listenerTest" />
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.CharonSwitchStateTest" />
+      <option name="METHOD_NAME" value="executeTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChooseWorkerStateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.ChooseWorkerStateTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChooseWorkerStateTest.executeFailTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.ChooseWorkerStateTest" />
+      <option name="METHOD_NAME" value="executeFailTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChooseWorkerStateTest.executeOtherWorkerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.ChooseWorkerStateTest" />
+      <option name="METHOD_NAME" value="executeOtherWorkerTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -156,11 +168,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PlayersInTheGameTest" />
-        <item itemvalue="JUnit.PlayersInTheGameTest.listenerTest" />
-        <item itemvalue="JUnit.All in GC39" />
-        <item itemvalue="JUnit.MoveApolloTest.noSpaceToBuild" />
-        <item itemvalue="JUnit.MoveApolloTest.apolloMoveCondition" />
+        <item itemvalue="JUnit.ChooseWorkerStateTest.executeFailTest" />
+        <item itemvalue="JUnit.ChooseWorkerStateTest" />
+        <item itemvalue="JUnit.ChooseWorkerStateTest.executeOtherWorkerTest" />
+        <item itemvalue="JUnit.CharonSwitchStateTest.executeTest" />
+        <item itemvalue="JUnit.CharonSwitchStateTest" />
       </list>
     </recent_temporary>
   </component>
@@ -213,7 +225,9 @@
       <workItem from="1587282929586" duration="10470000" />
       <workItem from="1587297462676" duration="2889000" />
       <workItem from="1587389538011" duration="9824000" />
-      <workItem from="1587674306580" duration="45000" />
+      <workItem from="1587488428193" duration="128000" />
+      <workItem from="1587549714718" duration="2967000" />
+      <workItem from="1587568185579" duration="5011000" />
     </task>
     <task id="LOCAL-00001" summary="Formattato e rinominato alcune variabili">
       <created>1584810937165</created>
@@ -502,7 +516,49 @@
       <option name="project" value="LOCAL" />
       <updated>1587304091824</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Correzioni per i Test e BuildStateTest">
+      <created>1587487821280</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1587487821280</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Correzioni per i Test e BuildStateTest">
+      <created>1587487915097</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1587487915097</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Correzioni per i Test e BuildStateTest">
+      <created>1587488548005</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1587488548005</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Completamento BuildStateTest">
+      <created>1587552731458</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1587552731458</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Correzione notify">
+      <created>1587569367995</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1587569367995</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Correzione notify e correzione result negli stati">
+      <created>1587570547131</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1587570547131</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -545,10 +601,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Formattato e rinominato alcune variabili" />
-    <MESSAGE value="Prime righe di Controller" />
-    <MESSAGE value="Set delle Strategy per Move e Build" />
-    <MESSAGE value="MoveHephaestus e charonPower" />
     <MESSAGE value="Sistemata cartella UML" />
     <MESSAGE value="Sistemato model" />
     <MESSAGE value="Test per BuildAtlas" />
@@ -569,7 +621,12 @@
     <MESSAGE value="Modifica FSM nel BackEnd, pattern Observer e modifiche alla VirtualView" />
     <MESSAGE value="Scrittura del LiteGame" />
     <MESSAGE value="Riscrittura BuildState, CharonSwitchState, ChooseWorkerState" />
-    <option name="LAST_COMMIT_MESSAGE" value="Riscrittura BuildState, CharonSwitchState, ChooseWorkerState" />
+    <MESSAGE value="commit per aggiornare" />
+    <MESSAGE value="Correzioni per i Test e BuildStateTest" />
+    <MESSAGE value="Completamento BuildStateTest" />
+    <MESSAGE value="Correzione notify" />
+    <MESSAGE value="Correzione notify e correzione result negli stati" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correzione notify e correzione result negli stati" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="71" key="#Inspections" timestamp="1587396388008">
@@ -589,20 +646,20 @@
     </state>
     <state x="196" y="77" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1587125128503" />
     <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.833@0.23.1440.833" timestamp="1585396236820" />
-    <state x="103" y="103" width="1330" height="619" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1587125635965">
+    <state x="103" y="103" width="1330" height="619" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1587572662381">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="92" y="92" width="1182" height="554" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.738@0.0.1366.738" timestamp="1585489412988" />
-    <state x="103" y="103" width="1330" height="619" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1536.824@0.0.1536.824" timestamp="1587125635965" />
-    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1587392128140">
+    <state x="103" y="103" width="1330" height="619" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1536.824@0.0.1536.824" timestamp="1587572662381" />
+    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1587483400643">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="510" y="115" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1587316239331" />
-    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1587392128140" />
+    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1587483400643" />
     <state x="538" y="153" key="#com.intellij.ide.util.MemberChooser/0.23.1440.830@0.23.1440.830" timestamp="1587298872516" />
     <state x="538" y="152" key="#com.intellij.ide.util.MemberChooser/0.23.1440.831@0.23.1440.831" timestamp="1587285920489" />
     <state x="538" y="153" key="#com.intellij.ide.util.MemberChooser/0.23.1440.832@0.23.1440.832" timestamp="1587288293858" />
-    <state x="538" y="153" key="#com.intellij.ide.util.MemberChooser/0.23.1440.833@0.23.1440.833" timestamp="1586016859608" />
+    <state x="538" y="153" key="#com.intellij.ide.util.MemberChooser/0.23.1440.833@0.23.1440.833" timestamp="1587478745064" />
     <state x="538" y="153" key="#com.intellij.ide.util.MemberChooser/0.23.1440.834@0.23.1440.834" timestamp="1586020276010" />
     <state x="883" y="187" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1585384559126">
       <screen x="0" y="0" width="1536" height="824" />
@@ -636,81 +693,81 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1585990678752" />
-    <state x="728" y="9" key="CommitChangelistDialog2" timestamp="1587399450238">
+    <state x="728" y="9" key="CommitChangelistDialog2" timestamp="1587570546366">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="540" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1587314489535" />
     <state x="563" y="10" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587234127145" />
-    <state x="728" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587399450238" />
+    <state x="728" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587570546366" />
     <state x="569" y="23" key="CommitChangelistDialog2/0.23.1440.830@0.23.1440.830" timestamp="1586873434192" />
     <state x="524" y="23" key="CommitChangelistDialog2/0.23.1440.831@0.23.1440.831" timestamp="1587294342880" />
     <state x="545" y="32" key="CommitChangelistDialog2/0.23.1440.832@0.23.1440.832" timestamp="1587291260095" />
     <state x="568" y="23" key="CommitChangelistDialog2/0.23.1440.833@0.23.1440.833" timestamp="1585653184893" />
     <state x="569" y="32" key="CommitChangelistDialog2/0.23.1440.834@0.23.1440.834" timestamp="1585412233144" />
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585993156041">
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1587488533554">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1585993156041" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1587488533554" />
     <state x="548" y="154" key="FileChooserDialogImpl" timestamp="1587302642041">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587302642041" />
-    <state width="1493" height="253" key="GridCell.Tab.0.bottom" timestamp="1587203624087">
+    <state width="1493" height="286" key="GridCell.Tab.0.bottom" timestamp="1587573288571">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585583696197" />
-    <state width="1493" height="253" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587203624087" />
+    <state width="1493" height="286" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1585660701259" />
     <state width="1398" height="214" key="GridCell.Tab.0.bottom/0.23.1440.833@0.23.1440.833" timestamp="1585653242599" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585496007883" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1493" height="253" key="GridCell.Tab.0.center" timestamp="1587203624087">
+    <state width="1493" height="286" key="GridCell.Tab.0.center" timestamp="1587573288571">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
-    <state width="1493" height="253" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587203624087" />
+    <state width="1493" height="286" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1585660701258" />
     <state width="1398" height="214" key="GridCell.Tab.0.center/0.23.1440.833@0.23.1440.833" timestamp="1585653242598" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1493" height="253" key="GridCell.Tab.0.left" timestamp="1587203624087">
+    <state width="1493" height="286" key="GridCell.Tab.0.left" timestamp="1587573288571">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
-    <state width="1493" height="253" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587203624087" />
+    <state width="1493" height="286" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1585660701258" />
     <state width="1398" height="214" key="GridCell.Tab.0.left/0.23.1440.833@0.23.1440.833" timestamp="1585653242598" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585496007881" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1493" height="253" key="GridCell.Tab.0.right" timestamp="1587203624087">
+    <state width="1493" height="286" key="GridCell.Tab.0.right" timestamp="1587573288571">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
-    <state width="1493" height="253" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587203624087" />
+    <state width="1493" height="286" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1585660701259" />
     <state width="1398" height="214" key="GridCell.Tab.0.right/0.23.1440.833@0.23.1440.833" timestamp="1585653242599" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1493" height="253" key="GridCell.Tab.1.bottom" timestamp="1587203624087">
+    <state width="1493" height="286" key="GridCell.Tab.1.bottom" timestamp="1587573288571">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
-    <state width="1493" height="253" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587203624087" />
-    <state width="1493" height="253" key="GridCell.Tab.1.center" timestamp="1587203624087">
+    <state width="1493" height="286" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
+    <state width="1493" height="286" key="GridCell.Tab.1.center" timestamp="1587573288571">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
-    <state width="1493" height="253" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1587203624087" />
-    <state width="1493" height="253" key="GridCell.Tab.1.left" timestamp="1587203624087">
+    <state width="1493" height="286" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
+    <state width="1493" height="286" key="GridCell.Tab.1.left" timestamp="1587573288571">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
-    <state width="1493" height="253" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1587203624087" />
-    <state width="1493" height="253" key="GridCell.Tab.1.right" timestamp="1587203624087">
+    <state width="1493" height="286" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
+    <state width="1493" height="286" key="GridCell.Tab.1.right" timestamp="1587573288571">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
-    <state width="1493" height="253" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1587203624087" />
+    <state width="1493" height="286" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state x="263" y="112" key="IDE.errors.dialog" timestamp="1585491874540">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -733,12 +790,12 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="540" height="524" key="StructurePopup/0.0.1536.824@0.0.1536.824" timestamp="1587302664751" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1587304099061">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1587570549342">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="321" y="130" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585491848327" />
     <state x="338" y="158" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1587234146007" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587304099061" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587570549342" />
     <state x="338" y="169" key="Vcs.Push.Dialog.v2/0.23.1440.831@0.23.1440.831" timestamp="1587294349190" />
     <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.833@0.23.1440.833" timestamp="1585653230554" />
     <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.834@0.23.1440.834" timestamp="1585411916104" />
@@ -746,18 +803,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="968" y="189" key="chooseDestDirectoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1585384562668" />
-    <state x="379" y="193" key="com.intellij.ide.util.TipDialog" timestamp="1587674556352">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state x="400" y="240" key="com.intellij.ide.util.TipDialog" timestamp="1587297469960">
+      <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state x="379" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1587674556352" />
+    <state x="379" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1586504252344" />
     <state x="400" y="235" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1587282928533" />
     <state x="400" y="240" key="com.intellij.ide.util.TipDialog/0.23.1440.830@0.23.1440.830" timestamp="1587297469960" />
     <state x="400" y="240" key="com.intellij.ide.util.TipDialog/0.23.1440.831@0.23.1440.831" timestamp="1585660632288" />
     <state x="400" y="241" key="com.intellij.ide.util.TipDialog/0.23.1440.834@0.23.1440.834" timestamp="1586020632000" />
-    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1587125054917">
+    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1587570571387">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1587125054917" />
+    <state x="924" y="115" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1536.824@0.0.1536.824" timestamp="1587570571387" />
+    <state x="301" y="148" width="934" height="564" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1587486354260">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="301" y="148" width="934" height="564" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1587486354260" />
     <state x="458" y="198" key="extract.method.dialog" timestamp="1586876579933">
       <screen x="0" y="23" width="1440" height="831" />
     </state>
@@ -776,10 +837,149 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="418" y="14" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1585384448255" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1587393566307">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1587550702245">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="383" y="130" width="672" height="608" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1585389210401" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1587393566307" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1587550702245" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/LiteGame.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Test/it/polimi/ingsw/controller/BuildStateTest.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/GameMessage.java</url>
+          <line>126</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>90</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BuildState.java</url>
+          <line>97</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/LiteGame.java</url>
+          <line>84</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BackEnd.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Game.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/LiteGame.java</url>
+          <line>83</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Test/it/polimi/ingsw/controller/ChooseWorkerStateTest.java</url>
+          <line>141</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Test/it/polimi/ingsw/controller/ChooseWorkerStateTest.java</url>
+          <line>144</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Test/it/polimi/ingsw/controller/ChooseWorkerStateTest.java</url>
+          <line>150</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Test/it/polimi/ingsw/controller/CharonSwitchStateTest.java</url>
+          <line>90</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Test/it/polimi/ingsw/controller/ChooseWorkerStateTest.java</url>
+          <line>153</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/LiteGame.java</url>
+          <line>82</line>
+          <properties class="it.polimi.ingsw.model.LiteGame" method="notify">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

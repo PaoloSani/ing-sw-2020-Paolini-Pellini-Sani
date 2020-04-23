@@ -6,7 +6,7 @@ import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.GameMessage;
 
-
+//TODO: Riccardo
 public class BackEnd implements Observer<GameMessage> {
     private Game game;
     private GameMessage gameMessage;
@@ -44,7 +44,7 @@ public class BackEnd implements Observer<GameMessage> {
     }
 
     public Player getPlayer2() {
-        return player3;
+        return player2;
     }
 
     public Player getPlayer3() {
@@ -106,6 +106,7 @@ public class BackEnd implements Observer<GameMessage> {
             if ( gameMessage.getSpace1()[0] != -1 ) {
                 updateCurrPlayer();
                 currState.reset();
+                currPlayer = this.player2;      //perché il primo è il challenger
                 currState = placeWorkersState; //Cambio lo stato solo se x1 non è negativo (come di default all'inizio del gioco)
             }
         }
@@ -202,6 +203,22 @@ public class BackEnd implements Observer<GameMessage> {
 
     public Player getToRemove() {
         return toRemove;
+    }
+
+    //////////////////////////////////////////////////////////////
+    /////////////////// Metodi per i Test ////////////////////////
+    //////////////////////////////////////////////////////////////
+
+    public void setState(GameState state) {
+        currState = state;
+    }
+
+    public boolean getLastExecute() {
+        return lastExecute;
+    }
+
+    public void setCurrPlayer(Player player) {
+        currPlayer = player;
     }
 }
 

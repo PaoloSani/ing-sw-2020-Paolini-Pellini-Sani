@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+//TODO: Giuseppe
 public class BuildDefaultTest {
 
     private Space currSpace, space;
