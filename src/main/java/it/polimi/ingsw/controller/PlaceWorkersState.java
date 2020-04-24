@@ -18,11 +18,11 @@ public class PlaceWorkersState implements GameState {
     public boolean execute() {
         boolean result = true;
         space1 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
-        if( space1 == null ) result = false;
+        if( ( space1 == null ) || ( space1.getWorker() != null ) ) result = false;
 
         if ( result ) {
-            space2 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
-            if (space2 == null) result = false;
+            space2 = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace2()[0], backEnd.getGameMessage().getSpace2()[1]);
+            if ( ( space2 == null ) || ( space2.getWorker() != null ) || ( space2 == space1)) result = false;
 
             if ( result ) {
                 backEnd.getCurrPlayer().getWorker1().setSpace(space1);
@@ -31,8 +31,8 @@ public class PlaceWorkersState implements GameState {
             //A questo punto il model modifica il liteGame
             //notify del LiteGame
         }
-        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
+                                                                                        //Aggiorno il LiteGame
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().refreshLiteGame());   //Notifico la VView
         return result;
     }
 

@@ -82,7 +82,7 @@ public class LiteGame extends Observable<LiteGame> {
     @Override
     public void notify(LiteGame message){
         for(Observer<LiteGame> observer: observers){
-            observer.update(message.cloneLG());
+            observer.update(message);               //Non faccio cloneLG() perché la faccio in refreshLiteGame()
         }
     }
 
@@ -102,8 +102,14 @@ public class LiteGame extends Observable<LiteGame> {
         newLG.level2 = this.level2;
         newLG.level3 = this.level3;
         newLG.dome = this.dome;
-        newLG.table = this.table.clone();
+        newLG.table = new String[5][5];
         newLG.observers = this.observers;       //Posso usare sempre la stessa lista perché NON CAMBIA MAI!
+        
+        for (int i = 0 ; i < 5 ; i++){
+            for(int j = 0 ; j < 5 ; j++){
+                newLG.table[i][j] = new String(this.table[i][j]);
+            }
+        }
 
         return newLG;
     }

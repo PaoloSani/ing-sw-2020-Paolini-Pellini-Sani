@@ -20,7 +20,12 @@ public class Game {
         this.dome = constDome;
         this.setUpTable();
         this.liteGame = new LiteGame();
-        refreshLiteGame(); //per copiare la tabella e i pezzi disponibili nel liteGame
+        liteGame.setLevel1(this.level1);
+        liteGame.setLevel2(this.level2);
+        liteGame.setLevel3(this.level3);
+        liteGame.setDome(this.dome);
+        //converte la tabella di Spaces in una tabella a tre dimensioni di caratteri in LiteGame
+        liteGame.convertTable(table); //per copiare la tabella e i pezzi disponibili nel liteGame
         this.constraint = new Constraint();
     }
 
@@ -97,13 +102,15 @@ public class Game {
     }
 
     //TODO: restituisce una nuova liteGame
-    public void refreshLiteGame(){
-        liteGame.setLevel1(this.level1);
-        liteGame.setLevel2(this.level2);
-        liteGame.setLevel3(this.level3);
-        liteGame.setDome(this.dome);
+    public LiteGame refreshLiteGame(){
+        LiteGame newLG = this.liteGame.cloneLG();
+        newLG.setLevel1(this.level1);
+        newLG.setLevel2(this.level2);
+        newLG.setLevel3(this.level3);
+        newLG.setDome(this.dome);
         //converte la tabella di Spaces in una tabella a tre dimensioni di caratteri in LiteGame
-        liteGame.convertTable(table);
+        newLG.convertTable(table);
+        return newLG;
     }
 
     public void setWinner(boolean result){

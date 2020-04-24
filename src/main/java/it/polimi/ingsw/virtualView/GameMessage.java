@@ -31,10 +31,10 @@ public class GameMessage extends Observable <GameMessage> {
 
     private List<Observer<GameMessage>> observers = new ArrayList<>();
 
-    public GameMessage(FrontEnd frontend) {
+    public GameMessage(FrontEnd frontEnd) {
         this.charonSwitching = false;       //Viene settato a true dal frontend, dopo viene resettato a false nella move
-        this.frontEnd = frontend;
-        addObservers( frontend.getBackEnd() );
+        this.frontEnd = frontEnd;
+        addObservers( frontEnd.getBackEnd() );
 
     }
 
@@ -146,8 +146,10 @@ public class GameMessage extends Observable <GameMessage> {
         newMessage.god3 = this.god3;
         newMessage.level = this.level;
         newMessage.charonSwitching = this.charonSwitching;
-        newMessage.space1 = this.space1.clone();
-        newMessage.space2 = this.space2.clone();
+        if (this.space1 != null) newMessage.space1 = this.space1.clone();
+        else newMessage.space1 = null;
+        if (this.space2 != null) newMessage.space2 = this.space2.clone();
+        else newMessage.space2 = null;
         newMessage.observers = this.observers;
 
         return newMessage;

@@ -104,7 +104,7 @@ public class BackEnd implements Observer<GameMessage> {
 
     public void changeState(){
         if (setPlayersState == currState) {
-            if ( gameMessage.getSpace1()[0] != -1 ) {
+            if ( (gameMessage.getSpace1()[0] != -1 ) || (gameMessage.getSpace1() == null) ) {
                 updateCurrPlayer();
                 currState.reset();
                 currPlayer = this.player2;      //perché il primo è il challenger
@@ -159,6 +159,7 @@ public class BackEnd implements Observer<GameMessage> {
             currState = buildState;
         }
 
+        //TODO:togliere le condizioni su artemide e tritone
         else if (moveState == currState) {
             if (!((currPlayer.getGod() == God.ARTEMIS || currPlayer.getGod() == God.TRITON) && gameMessage.getLevel() == 0))
             {
