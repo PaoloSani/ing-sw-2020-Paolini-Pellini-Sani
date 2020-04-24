@@ -8,7 +8,7 @@ import it.polimi.ingsw.util.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class --GameMessage extends Observable <GameMessage> {
+public class GameMessage extends Observable <GameMessage> {
     private FrontEnd frontEnd;
 
     //Utilizzati per settare i due workers di ogni players
@@ -31,6 +31,12 @@ public class --GameMessage extends Observable <GameMessage> {
 
     private List<Observer<GameMessage>> observers = new ArrayList<>();
 
+    public GameMessage(FrontEnd frontend) {
+        this.charonSwitching = false;       //Viene settato a true dal frontend, dopo viene resettato a false nella move
+        this.frontEnd = frontend;
+        addObservers( frontend.getBackEnd() );
+
+    }
     public void addObservers(Observer<GameMessage> observer) {
         observers.add(observer);
     }
@@ -63,12 +69,6 @@ public class --GameMessage extends Observable <GameMessage> {
         return charonSwitching;
     }
 
-    public GameMessage(FrontEnd frontend) {
-        this.charonSwitching = false;       //Viene settato a true dal frontend, dopo viene resettato a false nella move
-        this.frontEnd = frontend;
-        addObservers( frontend.getBackEnd() );
-
-    }
 
     public String getName1() {
         return name1;

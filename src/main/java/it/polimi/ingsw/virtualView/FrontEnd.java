@@ -9,6 +9,8 @@ public class FrontEnd implements Observer<LiteGame> {
     BackEnd backEnd;
 
     private GameMessage gameMessage;
+
+
     private LiteGame liteGame;
     private boolean update = false;
 
@@ -71,5 +73,12 @@ public class FrontEnd implements Observer<LiteGame> {
 
     public boolean getUpdate() {
         return update;
+    }
+
+    //mi serve per i test
+
+
+    public LiteGame getLiteGame() {
+        return liteGame;
     }
 }

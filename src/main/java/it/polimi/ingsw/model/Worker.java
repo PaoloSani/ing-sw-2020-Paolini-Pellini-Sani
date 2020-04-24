@@ -22,5 +22,12 @@ public class Worker {
         this.space.setWorker(this);
     }
 
+    //TODO metodo per il test di remove player state
+    public void setSpaceNull(){
+        this.space.setWorker(null);
+        this.space = null;
+    }
+
+
 }
 

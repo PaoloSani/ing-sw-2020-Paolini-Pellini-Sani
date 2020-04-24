@@ -29,6 +29,8 @@ public class LiteGame extends Observable<LiteGame> {
     private int dome;
     private boolean isWinner;
 
+
+
     // A, B, C a seconda del player
     //
     private String[][] table;
@@ -200,5 +202,13 @@ public class LiteGame extends Observable<LiteGame> {
     protected void setWinner(boolean winner) {
         isWinner = winner;
     }
+    //per i test
+    public String getStringValue(int x, int y) {
+        return this.table[x][y];
+    }
+    // per i test
 
+    public String[][] getTable() {
+        return table;
+    }
 }

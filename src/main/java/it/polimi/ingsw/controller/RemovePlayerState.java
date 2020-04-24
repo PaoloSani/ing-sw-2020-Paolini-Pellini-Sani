@@ -2,7 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.util.GameState;
 
-//TODO: Giuseppe
 public class RemovePlayerState implements GameState {
     private BackEnd backEnd;
 
@@ -14,9 +13,9 @@ public class RemovePlayerState implements GameState {
     @Override
     public boolean execute() {
         backEnd.getToRemove().getWorker1().getSpace().setWorker(null);     //svuoto la cella dalla pedina del worker1
-        backEnd.getToRemove().getWorker1().setSpace(null);                 //il worker non è più associato a nessuna cella
+        backEnd.getToRemove().getWorker1().setSpaceNull();                 //il worker non è più associato a nessuna cella
         backEnd.getToRemove().getWorker2().getSpace().setWorker(null);     //stesso per il worker2
-        backEnd.getToRemove().getWorker2().setSpace(null);
+        backEnd.getToRemove().getWorker2().setSpaceNull();
 
         //setto a null il giocatore che ha perso, nel Server mi occuperò di notificare tale giocatore
         if ( backEnd.getChallenger() == backEnd.getToRemove() )
