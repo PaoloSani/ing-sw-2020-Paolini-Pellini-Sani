@@ -4,6 +4,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.util.Observer;
+import it.polimi.ingsw.virtualView.FrontEnd;
 import it.polimi.ingsw.virtualView.GameMessage;
 
 //TODO: Riccardo
@@ -32,7 +33,7 @@ public class BackEnd implements Observer<GameMessage> {
     public BackEnd() {
         this.game = new Game();
         this.currState = setPlayersState;
-        lastExecute = true;
+        this.lastExecute = true;
     }
 
     public GameMessage getGameMessage() {
@@ -197,6 +198,15 @@ public class BackEnd implements Observer<GameMessage> {
 
     @Override
     public void update(GameMessage gameMessage){
+        //TODO:Non serve perché uso la clone
+
+        /*  if (!firstUpdate){
+         *        this.gameMessage = new GameMessage(gameMessage.getFrontEnd());
+         *        firstUpdate = true;
+         *   }
+         */
+
+        //Usa la clone;
         this.gameMessage = gameMessage;
         if( this.lastExecute ) this.changeState(); // Se la scorsa esecuzione è sata negativa non posso cambiare stato
         lastExecute = currState.execute();
@@ -326,7 +336,7 @@ if ( model.isFreeToMove(result) ){
     return result;
 }
 else {
-    if( result.equals(player.getWorker1())){
+    if( result.equalsLG(player.getWorker1())){
         return player1.getWorker2();
     }
     else return player.getWorker1();

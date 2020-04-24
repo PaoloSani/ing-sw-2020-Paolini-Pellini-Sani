@@ -96,6 +96,7 @@ public class Game {
         liteGame.setGod3(player3.getGod());
     }
 
+    //TODO: restituisce una nuova liteGame
     public void refreshLiteGame(){
         liteGame.setLevel1(this.level1);
         liteGame.setLevel2(this.level2);

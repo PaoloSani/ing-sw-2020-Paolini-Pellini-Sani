@@ -63,11 +63,15 @@ public class FrontEnd implements Observer<LiteGame> {
         //update riceve litegame
         // TODO: se il messaggio è uguale al precedente o se liteGame è vuoto, ok
 
-        //if ((liteGame == null ) || liteGame.equals(message)) {
-        
-        liteGame = message;
-        update = true;
-    }
+        if ( liteGame == null ) {
+            liteGame = message;
+            update = true;
+        }
+        else if ( message.equalsLG(liteGame) ) resetUpdate();
+        else {
+            liteGame = message;
+            update = true;
+        }
     }
 
     public void setBackEnd(BackEnd backEnd) {

@@ -68,7 +68,7 @@ public class MoveState implements GameState {
             }
         }
 
-        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        backEnd.getGame().refreshLiteGame();        //Aggiorno il LiteGame
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return result;
     }
