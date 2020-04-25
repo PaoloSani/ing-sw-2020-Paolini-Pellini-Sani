@@ -84,6 +84,7 @@ fabric.properties
 .idea/**/sonarlint/
 
 .target/
+.idea/
 
 # SonarQube Plugin
 .idea/**/sonarIssues.xml
