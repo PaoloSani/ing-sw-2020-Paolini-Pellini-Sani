@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.util.Observable;
 import it.polimi.ingsw.util.Observer;
-import it.polimi.ingsw.virtualView.FrontEnd;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +97,8 @@ public class LiteGame extends Observable<LiteGame> {
         newLG.god2 = this.god2;
         newLG.god3 = this.god3;
         newLG.currPlayer = this.currPlayer;
-        newLG.currWorker = this.currWorker.clone();
+        if (this.currWorker != null ) newLG.currWorker = this.currWorker.clone();
+        else newLG.currWorker = null;
         newLG.level1 = this.level1;
         newLG.level2 = this.level2;
         newLG.level3 = this.level3;
@@ -107,7 +108,7 @@ public class LiteGame extends Observable<LiteGame> {
 
         for (int i = 0 ; i < 5 ; i++){
             for(int j = 0 ; j < 5 ; j++){
-                newLG.table[i][j] = new String(this.table[i][j]);
+                newLG.table[i][j] = this.table[i][j];
             }
         }
 
@@ -123,7 +124,10 @@ public class LiteGame extends Observable<LiteGame> {
             }
         }
 
-        return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2)   &&
+        if ( liteGame.god1 == null ){
+            return false;
+        }
+        else return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2)   &&
                 liteGame.god3.equals(this.god3) && liteGame.name1.equals(this.name1)            &&
                 liteGame.name2.equals(this.name2) && liteGame.name3.equals(this.name3)          &&
                 //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&

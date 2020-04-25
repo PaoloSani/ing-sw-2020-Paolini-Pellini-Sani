@@ -19,7 +19,7 @@ public class SetPlayersStateTest {
     private GameMessage gameMessage;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         backEnd = new BackEnd();
         frontEnd = new FrontEnd();
@@ -52,6 +52,7 @@ public class SetPlayersStateTest {
 
         //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
         game.getLiteGame().addObservers(frontEnd);
+
         gameMessage.notify(gameMessage);
 
 
@@ -73,6 +74,6 @@ public class SetPlayersStateTest {
         assertEquals(frontEnd.getLiteGame().getDome(),18);
 
         assertNotNull(frontEnd.getLiteGame().getTable());
-        assertEquals(true, !frontEnd.getLiteGame().isWinner());
+        assertTrue(!frontEnd.getLiteGame().isWinner());
     }
 }
