@@ -88,6 +88,7 @@ fabric.properties
 *.class
 GC39.iml
 
+
 # SonarQube Plugin
 .idea/**/sonarIssues.xml
 
