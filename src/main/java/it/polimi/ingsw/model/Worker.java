@@ -18,16 +18,15 @@ public class Worker {
 
     //TODO: sistema le mosse che spostano un giocatore
     public void setSpace( Space space ) {
-        this.space = space;
-        this.space.setWorker(this);
+        if(space == null){
+            this.space.setWorker(null);
+            this.space = null;
+        }
+        else{
+            this.space = space;
+            this.space.setWorker(this);
+        }
     }
-
-    //TODO metodo per il test di remove player state
-    public void setSpaceNull(){
-        this.space.setWorker(null);
-        this.space = null;
-    }
-
 
 }
 
