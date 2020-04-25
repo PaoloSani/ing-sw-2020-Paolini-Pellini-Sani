@@ -101,16 +101,15 @@ public class Game {
         liteGame.setGod3(player3.getGod());
     }
 
-    //TODO: restituisce una nuova liteGame
-    public LiteGame refreshLiteGame(){
-        LiteGame newLG = this.liteGame.cloneLG();
-        newLG.setLevel1(this.level1);
-        newLG.setLevel2(this.level2);
-        newLG.setLevel3(this.level3);
-        newLG.setDome(this.dome);
+
+    public void refreshLiteGame(){
+        liteGame.setLevel1(this.level1);
+        liteGame.setLevel2(this.level2);
+        liteGame.setLevel3(this.level3);
+        liteGame.setDome(this.dome);
         //converte la tabella di Spaces in una tabella a tre dimensioni di caratteri in LiteGame
-        newLG.convertTable(table);
-        return newLG;
+        liteGame.convertTable(table);
+
     }
 
     public void setWinner(boolean result){

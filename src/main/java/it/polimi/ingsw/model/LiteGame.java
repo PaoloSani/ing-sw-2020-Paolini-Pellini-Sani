@@ -82,7 +82,7 @@ public class LiteGame extends Observable<LiteGame> {
     @Override
     public void notify(LiteGame message){
         for(Observer<LiteGame> observer: observers){
-            observer.update(message);               //Non faccio cloneLG() perché la faccio in refreshLiteGame()
+            observer.update(message.cloneLG());               //Non faccio cloneLG() perché la faccio in refreshLiteGame()
         }
     }
 

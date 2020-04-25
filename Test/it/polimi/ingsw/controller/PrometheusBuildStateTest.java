@@ -57,7 +57,7 @@ public class PrometheusBuildStateTest {
         game.setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
 
         game.getLiteGame().addObservers(frontEnd);
-        frontEnd.setLiteGame(game.getLiteGame().cloneLG());
+        //frontEnd.setLiteGame(game.getLiteGame().cloneLG());
 
         backEnd.setCurrPlayer(backEnd.getPlayer2());
         //setto la posizione del giocatore con cui voglio costruire

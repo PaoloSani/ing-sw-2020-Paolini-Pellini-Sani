@@ -76,6 +76,7 @@ public class FrontEnd implements Observer<LiteGame> {
 
     public void setBackEnd(BackEnd backEnd) {
         this.backEnd = backEnd;
+        this.liteGame = backEnd.getGame().getLiteGame().cloneLG();
     }
 
     public boolean getUpdate() {
@@ -89,8 +90,4 @@ public class FrontEnd implements Observer<LiteGame> {
     // Metodi per test //
     /////////////////////
 
-
-    public void setLiteGame(LiteGame liteGame) {
-        this.liteGame = liteGame;
-    }
 }

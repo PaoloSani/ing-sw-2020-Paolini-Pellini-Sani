@@ -31,8 +31,9 @@ public class PlaceWorkersState implements GameState {
             //A questo punto il model modifica il liteGame
             //notify del LiteGame
         }
-                                                                                        //Aggiorno il LiteGame
-        backEnd.getGame().getLiteGame().notify(backEnd.getGame().refreshLiteGame());   //Notifico la VView
+
+        backEnd.getGame().refreshLiteGame();
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return result;
     }
 

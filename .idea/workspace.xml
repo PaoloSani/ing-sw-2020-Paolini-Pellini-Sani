@@ -22,14 +22,35 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
+    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="Test per PrometheusBuildState">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/BuildStateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/BuildStateTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/MoveStateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/MoveStateTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/PlaceWorkersStateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/PlaceWorkersStateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/PrometheusBuildStateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/PrometheusBuildStateTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BackEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/BackEnd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/MoveState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/MoveState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/PlaceWorkersState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/PlaceWorkersState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/PrometheusBuildState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/controller/PrometheusBuildState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/LiteGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/LiteGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/FrontEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/FrontEnd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/BackEnd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/BackEnd.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/BuildState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/BuildState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/CharonSwitchState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/CharonSwitchState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/ChooseWorkerState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/ChooseWorkerState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/MoveState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/MoveState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/PlaceWorkersState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/PlaceWorkersState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/PrometheusBuildState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/PrometheusBuildState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/PrometheusMoveState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/PrometheusMoveState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/RemovePlayerState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/RemovePlayerState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/WinState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/WinState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/LiteGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/LiteGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/virtualView/FrontEnd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/virtualView/FrontEnd.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/BuildStateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/BuildStateTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/MoveStateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/MoveStateTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/PlaceWorkersStateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/PlaceWorkersStateTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +94,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -93,8 +114,8 @@
       <recent name="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PrometheusBuildStateTest.executeTest">
-    <configuration name="MoveStateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.BuildStateTest.poseidonExecuteTest">
+    <configuration name="BuildStateTest.demeterExecuteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -103,8 +124,41 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.MoveStateTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.BuildStateTest" />
+      <option name="METHOD_NAME" value="demeterExecuteTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BuildStateTest.hephaestusExecuteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.BuildStateTest" />
+      <option name="METHOD_NAME" value="hephaestusExecuteTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BuildStateTest.poseidonExecuteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.BuildStateTest" />
+      <option name="METHOD_NAME" value="poseidonExecuteTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -120,37 +174,6 @@
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.MoveStateTest" />
       <option name="METHOD_NAME" value="testExecute" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlaceWorkersStateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.PlaceWorkersStateTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlaceWorkersStateTest.SameSpaceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.PlaceWorkersStateTest" />
-      <option name="METHOD_NAME" value="SameSpaceTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -174,11 +197,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BuildStateTest.poseidonExecuteTest" />
+        <item itemvalue="JUnit.BuildStateTest.hephaestusExecuteTest" />
+        <item itemvalue="JUnit.BuildStateTest.demeterExecuteTest" />
         <item itemvalue="JUnit.PrometheusBuildStateTest.executeTest" />
-        <item itemvalue="JUnit.MoveStateTest" />
         <item itemvalue="JUnit.MoveStateTest.testExecute" />
-        <item itemvalue="JUnit.PlaceWorkersStateTest.SameSpaceTest" />
-        <item itemvalue="JUnit.PlaceWorkersStateTest" />
       </list>
     </recent_temporary>
   </component>
@@ -235,14 +258,8 @@
       <workItem from="1587549714718" duration="2967000" />
       <workItem from="1587568185579" duration="5011000" />
       <workItem from="1587741567764" duration="21237000" />
-      <workItem from="1587801650230" duration="3731000" />
-    </task>
-    <task id="LOCAL-00002" summary="Formattato e rinominato alcune variabili">
-      <created>1584811469984</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1584811469984</updated>
+      <workItem from="1587801650230" duration="6798000" />
+      <workItem from="1587808540803" duration="122000" />
     </task>
     <task id="LOCAL-00003" summary="Formattato e rinominato alcune variabili">
       <created>1584868343129</created>
@@ -580,7 +597,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587768224259</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Test per PrometheusBuildState">
+      <created>1587805498108</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1587805498110</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -624,7 +648,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Creazione test BuildDefault, BuildHefesto, MoveApollo" />
     <MESSAGE value="Correzione test BuildDefault, BuildHefesto, MoveApollo" />
     <MESSAGE value="Merge" />
     <MESSAGE value="Schema UML" />
@@ -649,7 +672,8 @@
     <MESSAGE value="Test per moveState (non completi)" />
     <MESSAGE value="cloneLG(), cloneGM() ed equalsLT()" />
     <MESSAGE value="Test per moveState e PlaceWorkersState" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test per moveState e PlaceWorkersState" />
+    <MESSAGE value="Test per PrometheusBuildState" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test per PrometheusBuildState" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="71" key="#Inspections" timestamp="1587396388008">
@@ -719,14 +743,15 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1585990678752" />
-    <state x="550" y="23" width="890" height="830" key="CommitChangelistDialog2" timestamp="1587768223854">
-      <screen x="0" y="23" width="1440" height="830" />
+    <state x="524" y="23" width="890" height="830" key="CommitChangelistDialog2" timestamp="1587808417805">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state x="540" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1587314489535" />
     <state x="563" y="10" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587234127145" />
     <state x="728" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587570546366" />
+    <state x="550" y="23" key="CommitChangelistDialog2/0.23.1440.829@0.23.1440.829" timestamp="1587805497605" />
     <state x="550" y="23" width="890" height="830" key="CommitChangelistDialog2/0.23.1440.830@0.23.1440.830" timestamp="1587768223854" />
-    <state x="524" y="23" width="888" height="831" key="CommitChangelistDialog2/0.23.1440.831@0.23.1440.831" timestamp="1587758756549" />
+    <state x="524" y="23" width="888" height="831" key="CommitChangelistDialog2/0.23.1440.831@0.23.1440.831" timestamp="1587808417805" />
     <state x="545" y="32" key="CommitChangelistDialog2/0.23.1440.832@0.23.1440.832" timestamp="1587291260095" />
     <state x="558" y="23" width="882" height="833" key="CommitChangelistDialog2/0.23.1440.833@0.23.1440.833" timestamp="1587671337765" />
     <state x="569" y="32" key="CommitChangelistDialog2/0.23.1440.834@0.23.1440.834" timestamp="1585412233144" />
@@ -738,83 +763,83 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587302642041" />
-    <state width="1398" height="261" key="GridCell.Tab.0.bottom" timestamp="1587805052215">
-      <screen x="0" y="23" width="1440" height="829" />
+    <state width="1398" height="210" key="GridCell.Tab.0.bottom" timestamp="1587808327986">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585583696197" />
     <state width="1493" height="286" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1398" height="261" key="GridCell.Tab.0.bottom/0.23.1440.829@0.23.1440.829" timestamp="1587805052215" />
+    <state width="1398" height="210" key="GridCell.Tab.0.bottom/0.23.1440.829@0.23.1440.829" timestamp="1587805533032" />
     <state width="1398" height="262" key="GridCell.Tab.0.bottom/0.23.1440.830@0.23.1440.830" timestamp="1587768233549" />
-    <state width="1398" height="262" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1587764170168" />
+    <state width="1398" height="210" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1587808327986" />
     <state width="1398" height="267" key="GridCell.Tab.0.bottom/0.23.1440.833@0.23.1440.833" timestamp="1587671341906" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585496007883" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1398" height="261" key="GridCell.Tab.0.center" timestamp="1587805052210">
-      <screen x="0" y="23" width="1440" height="829" />
+    <state width="1398" height="210" key="GridCell.Tab.0.center" timestamp="1587808327986">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
     <state width="1493" height="286" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1398" height="261" key="GridCell.Tab.0.center/0.23.1440.829@0.23.1440.829" timestamp="1587805052210" />
+    <state width="1398" height="210" key="GridCell.Tab.0.center/0.23.1440.829@0.23.1440.829" timestamp="1587805533031" />
     <state width="1398" height="262" key="GridCell.Tab.0.center/0.23.1440.830@0.23.1440.830" timestamp="1587768233548" />
-    <state width="1398" height="262" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1587764170167" />
+    <state width="1398" height="210" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1587808327986" />
     <state width="1398" height="267" key="GridCell.Tab.0.center/0.23.1440.833@0.23.1440.833" timestamp="1587671341905" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1398" height="261" key="GridCell.Tab.0.left" timestamp="1587805052210">
-      <screen x="0" y="23" width="1440" height="829" />
+    <state width="1398" height="210" key="GridCell.Tab.0.left" timestamp="1587808327985">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
     <state width="1493" height="286" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1398" height="261" key="GridCell.Tab.0.left/0.23.1440.829@0.23.1440.829" timestamp="1587805052210" />
+    <state width="1398" height="210" key="GridCell.Tab.0.left/0.23.1440.829@0.23.1440.829" timestamp="1587805533030" />
     <state width="1398" height="262" key="GridCell.Tab.0.left/0.23.1440.830@0.23.1440.830" timestamp="1587768233548" />
-    <state width="1398" height="262" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1587764170167" />
+    <state width="1398" height="210" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1587808327985" />
     <state width="1398" height="267" key="GridCell.Tab.0.left/0.23.1440.833@0.23.1440.833" timestamp="1587671341904" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585496007881" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1398" height="261" key="GridCell.Tab.0.right" timestamp="1587805052214">
-      <screen x="0" y="23" width="1440" height="829" />
+    <state width="1398" height="210" key="GridCell.Tab.0.right" timestamp="1587808327986">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1585583696196" />
     <state width="1493" height="286" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1398" height="261" key="GridCell.Tab.0.right/0.23.1440.829@0.23.1440.829" timestamp="1587805052214" />
+    <state width="1398" height="210" key="GridCell.Tab.0.right/0.23.1440.829@0.23.1440.829" timestamp="1587805533032" />
     <state width="1398" height="262" key="GridCell.Tab.0.right/0.23.1440.830@0.23.1440.830" timestamp="1587768233548" />
-    <state width="1398" height="262" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1587764170168" />
+    <state width="1398" height="210" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1587808327986" />
     <state width="1398" height="267" key="GridCell.Tab.0.right/0.23.1440.833@0.23.1440.833" timestamp="1587671341905" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1398" height="261" key="GridCell.Tab.1.bottom" timestamp="1587805052653">
+    <state width="1398" height="261" key="GridCell.Tab.1.bottom" timestamp="1587805393426">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
     <state width="1493" height="286" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1398" height="261" key="GridCell.Tab.1.bottom/0.23.1440.829@0.23.1440.829" timestamp="1587805052653" />
+    <state width="1398" height="261" key="GridCell.Tab.1.bottom/0.23.1440.829@0.23.1440.829" timestamp="1587805393426" />
     <state width="1398" height="262" key="GridCell.Tab.1.bottom/0.23.1440.830@0.23.1440.830" timestamp="1587768233550" />
     <state width="1398" height="262" key="GridCell.Tab.1.bottom/0.23.1440.831@0.23.1440.831" timestamp="1587764170170" />
     <state width="1398" height="267" key="GridCell.Tab.1.bottom/0.23.1440.833@0.23.1440.833" timestamp="1587671341907" />
-    <state width="1398" height="261" key="GridCell.Tab.1.center" timestamp="1587805052652">
+    <state width="1398" height="261" key="GridCell.Tab.1.center" timestamp="1587805393408">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
     <state width="1493" height="286" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1398" height="261" key="GridCell.Tab.1.center/0.23.1440.829@0.23.1440.829" timestamp="1587805052652" />
+    <state width="1398" height="261" key="GridCell.Tab.1.center/0.23.1440.829@0.23.1440.829" timestamp="1587805393408" />
     <state width="1398" height="262" key="GridCell.Tab.1.center/0.23.1440.830@0.23.1440.830" timestamp="1587768233549" />
     <state width="1398" height="262" key="GridCell.Tab.1.center/0.23.1440.831@0.23.1440.831" timestamp="1587764170169" />
     <state width="1398" height="267" key="GridCell.Tab.1.center/0.23.1440.833@0.23.1440.833" timestamp="1587671341906" />
-    <state width="1398" height="261" key="GridCell.Tab.1.left" timestamp="1587805052650">
+    <state width="1398" height="261" key="GridCell.Tab.1.left" timestamp="1587805393407">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
     <state width="1493" height="286" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1398" height="261" key="GridCell.Tab.1.left/0.23.1440.829@0.23.1440.829" timestamp="1587805052650" />
+    <state width="1398" height="261" key="GridCell.Tab.1.left/0.23.1440.829@0.23.1440.829" timestamp="1587805393407" />
     <state width="1398" height="262" key="GridCell.Tab.1.left/0.23.1440.830@0.23.1440.830" timestamp="1587768233549" />
     <state width="1398" height="262" key="GridCell.Tab.1.left/0.23.1440.831@0.23.1440.831" timestamp="1587764170169" />
     <state width="1398" height="267" key="GridCell.Tab.1.left/0.23.1440.833@0.23.1440.833" timestamp="1587671341906" />
-    <state width="1398" height="261" key="GridCell.Tab.1.right" timestamp="1587805052652">
+    <state width="1398" height="261" key="GridCell.Tab.1.right" timestamp="1587805393416">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state width="1323" height="227" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1585421168035" />
     <state width="1493" height="286" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
-    <state width="1398" height="261" key="GridCell.Tab.1.right/0.23.1440.829@0.23.1440.829" timestamp="1587805052652" />
+    <state width="1398" height="261" key="GridCell.Tab.1.right/0.23.1440.829@0.23.1440.829" timestamp="1587805393416" />
     <state width="1398" height="262" key="GridCell.Tab.1.right/0.23.1440.830@0.23.1440.830" timestamp="1587768233550" />
     <state width="1398" height="262" key="GridCell.Tab.1.right/0.23.1440.831@0.23.1440.831" timestamp="1587764170169" />
     <state width="1398" height="267" key="GridCell.Tab.1.right/0.23.1440.833@0.23.1440.833" timestamp="1587671341906" />
@@ -831,11 +856,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="439" y="111" width="957" height="601" key="NewModule_or_Project.wizard/0.0.1536.824@0.0.1536.824" timestamp="1585392715595" />
-    <state x="260" y="23" key="SettingsEditor" timestamp="1587765115559">
+    <state x="260" y="23" key="SettingsEditor" timestamp="1587808683648">
       <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1587302654102" />
-    <state x="260" y="23" key="SettingsEditor/0.23.1440.831@0.23.1440.831" timestamp="1587765115559" />
+    <state x="260" y="23" key="SettingsEditor/0.23.1440.831@0.23.1440.831" timestamp="1587808683648" />
     <state x="260" y="23" key="SettingsEditor/0.23.1440.833@0.23.1440.833" timestamp="1585396281987" />
     <state width="540" height="524" key="StructurePopup" timestamp="1587302664751">
       <screen x="0" y="0" width="1536" height="824" />
@@ -1038,21 +1063,6 @@
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Test/it/polimi/ingsw/controller/PlaceWorkersStateTest.java</url>
-          <line>148</line>
-          <option name="timeStamp" value="106" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Test/it/polimi/ingsw/controller/PlaceWorkersStateTest.java</url>
-          <line>107</line>
-          <option name="timeStamp" value="112" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/virtualView/FrontEnd.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="113" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/LiteGame.java</url>
           <line>124</line>
           <option name="timeStamp" value="114" />
@@ -1061,6 +1071,11 @@
           <url>file://$PROJECT_DIR$/Test/it/polimi/ingsw/controller/PrometheusBuildStateTest.java</url>
           <line>77</line>
           <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Test/it/polimi/ingsw/controller/BuildStateTest.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="117" />
         </line-breakpoint>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/LiteGame.java</url>

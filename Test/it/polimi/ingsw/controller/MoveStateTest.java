@@ -61,7 +61,7 @@ public class MoveStateTest {
 
         //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
         game.getLiteGame().addObservers(frontEnd);
-        frontEnd.setLiteGame(game.getLiteGame().cloneLG());
+        //frontEnd.setLiteGame(game.getLiteGame().cloneLG());
 
 
         //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
@@ -122,7 +122,7 @@ public class MoveStateTest {
 
         //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
         game.getLiteGame().addObservers(frontEnd);
-        frontEnd.setLiteGame(game.getLiteGame().cloneLG());
+        // frontEnd.setLiteGame(game.getLiteGame().cloneLG());
 
 
         //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
@@ -209,7 +209,7 @@ public class MoveStateTest {
 
         //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
         game.getLiteGame().addObservers(frontEnd);
-        frontEnd.setLiteGame(game.getLiteGame().cloneLG());
+        //frontEnd.setLiteGame(game.getLiteGame().cloneLG());
 
         //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
         backEnd.setCurrPlayer(backEnd.getPlayer2());
