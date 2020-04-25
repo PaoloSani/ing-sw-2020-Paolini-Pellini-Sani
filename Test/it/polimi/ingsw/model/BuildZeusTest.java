@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-//TODO: Giuseppe
+
 public class BuildZeusTest {
 
     private Space currSpace, space;
@@ -15,121 +15,121 @@ public class BuildZeusTest {
     private int level;
 
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void unboundedX() throws IllegalSpaceException {
+    @Test
+    public void unboundedX() {
         currSpace = new Space(4,0);
         space = new Space(5, 0);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildZeus.execute( myWorker, space, level);
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeX() throws IllegalSpaceException {
+    @Test
+    public void negativeX()  {
         currSpace = new Space(0,4);
         space = new Space(-1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildZeus.execute( myWorker, space, level);
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void unboundedY() throws IllegalSpaceException {
+    @Test
+    public void unboundedY() {
         currSpace = new Space(0,4);
         space = new Space(0, 5);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildZeus.execute( myWorker, space, level);
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeY() throws IllegalSpaceException {
+    @Test
+    public void negativeY()  {
         currSpace = new Space(0,0);
         space = new Space(0, -1);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildZeus.execute( myWorker, space, level);
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void positiveNotNeighbouringX() throws IllegalSpaceException {
+    @Test
+    public void positiveNotNeighbouringX() {
         currSpace = new Space(2,4);
         space = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildZeus.execute( myWorker, space, level);
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeNotNeighbouringX() throws IllegalSpaceException {
+    @Test
+    public void negativeNotNeighbouringX() {
         currSpace = new Space(0,4);
         space = new Space(2, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildZeus.execute( myWorker, space, level);
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void positiveNotNeighbouringY() throws IllegalSpaceException {
+    @Test
+    public void positiveNotNeighbouringY() {
         currSpace = new Space(0,4);
         space = new Space(0, 2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildZeus.execute( myWorker, space, level);
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
-    @Test ( expected = IllegalSpaceException.class)
-    public void negativeNotNeighbouringY() throws IllegalSpaceException {
+    @Test
+    public void negativeNotNeighbouringY(){
         currSpace = new Space(0,2);
         space = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildZeus.execute( myWorker, space, level);
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void spaceOccupiedByOtherWorker() throws IllegalSpaceException {
+    @Test
+    public void spaceOccupiedByOtherWorker() {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
         space.setWorker(new Worker(new Player("test2", God.ATLAS, game)));
         myWorker.setSpace(currSpace);
         level = 1;
-        buildZeus.execute( myWorker, space, level);
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void spaceOccupiedByDome() throws IllegalSpaceException {
+    @Test
+    public void spaceOccupiedByDome() {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         space.setHeight(4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildZeus.execute( myWorker, space, level);
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void noMoreThanOneLevel() throws IllegalSpaceException {
+    @Test
+    public void noMoreThanOneLevel() {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 2;
         assertTrue( level > space.getHeight() + 1 );
-        buildZeus.execute( myWorker, space, level );
+        assertFalse(buildZeus.execute( myWorker, space, level ));
     }
 
     @Test
-    public void normalBuildCondition() throws IllegalSpaceException {
+    public void normalBuildCondition() {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
@@ -142,7 +142,7 @@ public class BuildZeusTest {
     }
 
     @Test
-    public void buildInSamePosition() throws IllegalSpaceException {
+    public void buildInSamePosition(){
         currSpace = new Space(0,0);
         space = currSpace;
         myWorker = new Worker(player);

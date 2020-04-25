@@ -4,7 +4,6 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
-//TODO: Giuseppe
 public class PrometheusMoveState implements GameState {
     private BackEnd backEnd;
     private int[] toMove = new int[]{0,-1};
@@ -15,18 +14,20 @@ public class PrometheusMoveState implements GameState {
 
     @Override
     public boolean execute() {
-        boolean result = false;
+        //TODO result era false ho corretto a true e utilizzo flag per farlo funzionare. va bene?
+        boolean flag = false;
+        boolean result = true;
         toMove = backEnd.getGameMessage().getSpace1();
         Space nextSpace = null;
-
         nextSpace = backEnd.getGame().getSpace(toMove[0], toMove[1]);
 
         if ( nextSpace == null ) result = false;
 
-        if ( result && (nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() ) <= 0) { //non sto salendo posso muovermi
+        if ( result && (nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() <= 0)) { //non sto salendo posso muovermi
                 result = backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace);
+                flag = true;
         }
-
+        if (flag == false) result = false;
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return result;

@@ -82,8 +82,57 @@ public class LiteGame extends Observable<LiteGame> {
     @Override
     public void notify(LiteGame message){
         for(Observer<LiteGame> observer: observers){
-            observer.update(message);
+            observer.update(message.cloneLG());               //Non faccio cloneLG() perché la faccio in refreshLiteGame()
         }
+    }
+
+    public LiteGame cloneLG(){
+
+        LiteGame newLG = new LiteGame();
+
+        newLG.name1 = this.name1;
+        newLG.name2 = this.name2;
+        newLG.name3 = this.name3;
+        newLG.god1 = this.god1;
+        newLG.god2 = this.god2;
+        newLG.god3 = this.god3;
+        newLG.currPlayer = this.currPlayer;
+        newLG.currWorker = this.currWorker.clone();
+        newLG.level1 = this.level1;
+        newLG.level2 = this.level2;
+        newLG.level3 = this.level3;
+        newLG.dome = this.dome;
+        newLG.table = new String[5][5];
+        newLG.observers = this.observers;       //Posso usare sempre la stessa lista perché NON CAMBIA MAI!
+
+        for (int i = 0 ; i < 5 ; i++){
+            for(int j = 0 ; j < 5 ; j++){
+                newLG.table[i][j] = new String(this.table[i][j]);
+            }
+        }
+
+        return newLG;
+    }
+
+    public boolean equalsLG(LiteGame liteGame){
+        boolean isEqual = true;
+        for (int i = 0 ; i < 5; i++) {
+            for (int j = 0; j < 5; j++){
+                isEqual = isEqual && liteGame.table[i][j].equals(this.table[i][j]);
+            }
+        }
+
+        return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2)   &&
+                liteGame.god3.equals(this.god3) && liteGame.name1.equals(this.name1)            &&
+                liteGame.name2.equals(this.name2) && liteGame.name3.equals(this.name3)          &&
+                //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&
+                liteGame.currWorker[0] == this.currWorker[0]                                    &&
+                liteGame.currWorker[1] == this.currWorker[1]                                    &&
+                liteGame.level1 == this.level1 && liteGame.level2 == this.level2                &&
+                liteGame.level3 == this.level3 && liteGame.dome == this.dome                    &&
+                liteGame.isWinner == this.isWinner                                              );
+
+
     }
 
     public String getName1() {
@@ -200,5 +249,15 @@ public class LiteGame extends Observable<LiteGame> {
     protected void setWinner(boolean winner) {
         isWinner = winner;
     }
+    //per i test
+    public String getStringValue(int x, int y) {
+        return this.table[x][y];
+    }
+    // per i test
+
+    public String[][] getTable() {
+        return table;
+    }
+
 
 }

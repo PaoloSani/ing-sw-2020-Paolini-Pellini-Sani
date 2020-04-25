@@ -61,15 +61,40 @@ public class FrontEnd implements Observer<LiteGame> {
     @Override
     public void update(LiteGame message) {
         //update riceve litegame
-        liteGame = message;
-        update = true;
+        // TODO: se il messaggio è uguale al precedente o se liteGame è vuoto, ok
+
+        if ( liteGame == null ) {
+            liteGame = message;
+            update = true;
+        }
+        else if ( message.equalsLG(liteGame) ) resetUpdate();
+        else {
+            liteGame = message;
+            update = true;
+        }
     }
 
     public void setBackEnd(BackEnd backEnd) {
         this.backEnd = backEnd;
+        this.liteGame = backEnd.getGame().getLiteGame().cloneLG();
     }
 
     public boolean getUpdate() {
         return update;
+    }
+
+    //TODO: serve perché altrimenti update resta sempre a true! Ma dove metterlo??
+    public void resetUpdate() { this.update = false; }
+
+    /////////////////////
+    // Metodi per test //
+    /////////////////////
+
+
+    //mi serve per i test
+
+
+    public LiteGame getLiteGame() {
+        return liteGame;
     }
 }
