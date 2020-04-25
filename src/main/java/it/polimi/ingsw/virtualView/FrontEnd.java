@@ -90,4 +90,11 @@ public class FrontEnd implements Observer<LiteGame> {
     // Metodi per test //
     /////////////////////
 
+
+    //mi serve per i test
+
+
+    public LiteGame getLiteGame() {
+        return liteGame;
+    }
 }

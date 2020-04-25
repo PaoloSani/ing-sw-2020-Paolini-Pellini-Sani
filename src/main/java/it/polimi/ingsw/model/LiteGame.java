@@ -104,7 +104,7 @@ public class LiteGame extends Observable<LiteGame> {
         newLG.dome = this.dome;
         newLG.table = new String[5][5];
         newLG.observers = this.observers;       //Posso usare sempre la stessa lista perché NON CAMBIA MAI!
-        
+
         for (int i = 0 ; i < 5 ; i++){
             for(int j = 0 ; j < 5 ; j++){
                 newLG.table[i][j] = new String(this.table[i][j]);
@@ -249,7 +249,15 @@ public class LiteGame extends Observable<LiteGame> {
     protected void setWinner(boolean winner) {
         isWinner = winner;
     }
+    //per i test
+    public String getStringValue(int x, int y) {
+        return this.table[x][y];
+    }
+    // per i test
 
+    public String[][] getTable() {
+        return table;
+    }
 
 
 }

@@ -13,101 +13,101 @@ public class MoveMinotaurTest {
     private Player player = new Player("test", God.MINOTAUR, game);
 
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void unboundedX() throws IllegalSpaceException {
+    @Test
+    public void unboundedX() {
         currSpace = new Space(4,0);
         nextSpace = new Space(5, 0);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveMinotaur.execute( myWorker, nextSpace);
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeXTest() throws IllegalSpaceException {
+    @Test
+    public void negativeXTest(){
         currSpace = new Space(0,4);
         nextSpace = new Space(-1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveMinotaur.execute( myWorker, nextSpace);
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void unboundedY() throws IllegalSpaceException {
+    @Test
+    public void unboundedY() {
         currSpace = new Space(0,4);
         nextSpace = new Space(0, 5);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveMinotaur.execute( myWorker, nextSpace);
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeY() throws IllegalSpaceException {
+    @Test
+    public void negativeY() {
         currSpace = new Space(0,0);
         nextSpace = new Space(0, -1);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveMinotaur.execute( myWorker, nextSpace);
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void positiveNotNeighbouringX() throws IllegalSpaceException {
+    @Test
+    public void positiveNotNeighbouringX() {
         currSpace = new Space(2,4);
         nextSpace = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveMinotaur.execute( myWorker, nextSpace);
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeNotNeighbouringX() throws IllegalSpaceException {
+    @Test
+    public void negativeNotNeighbouringX() {
         currSpace = new Space(0,4);
         nextSpace = new Space(2, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveMinotaur.execute( myWorker, nextSpace );
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void positiveNotNeighbouringY() throws IllegalSpaceException {
+    @Test
+    public void positiveNotNeighbouringY() {
         currSpace = new Space(0,4);
         nextSpace = new Space(0, 2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveMinotaur.execute( myWorker, nextSpace);
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
-    @Test ( expected = IllegalSpaceException.class)
-    public void negativeNotNeighbouringY() throws IllegalSpaceException {
+    @Test
+    public void negativeNotNeighbouringY() {
         currSpace = new Space(0,2);
         nextSpace = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveMinotaur.execute( myWorker, nextSpace );
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void noMoreThanOneLevel() throws IllegalSpaceException {
+    @Test
+    public void noMoreThanOneLevel() {
         currSpace = new Space(0,4);
         nextSpace = new Space(1, 4);
         nextSpace.setHeight(2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         assertTrue( nextSpace.getHeight() - currSpace.getHeight() > 1 );
-        moveMinotaur.execute( myWorker, nextSpace );
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void samePosition() throws IllegalSpaceException {
+    @Test
+    public void samePosition(){
         currSpace = new Space(0,0);
         nextSpace = currSpace;
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
-        moveMinotaur.execute( myWorker, nextSpace );
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void nextSpaceOccupiedByDome() throws IllegalSpaceException {
+    @Test
+    public void nextSpaceOccupiedByDome() {
         currSpace = new Space(0,4);
         nextSpace = new Space(1, 4);
         nextSpace.setHeight(4);
@@ -115,10 +115,10 @@ public class MoveMinotaurTest {
         myWorker.setSpace(currSpace);
 
         assertTrue(nextSpace.isDomed());
-        moveMinotaur.execute( myWorker, nextSpace );
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
-    @Test ( expected = IllegalSpaceException.class )
-    public void isBlockedByAthena() throws IllegalSpaceException {
+    @Test
+    public void isBlockedByAthena() {
         currSpace = new Space(0,4);
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
@@ -127,11 +127,11 @@ public class MoveMinotaurTest {
         nextSpace.setHeight(1);
 
         assertTrue(game.getConstraint().athenaBlocks());
-        moveMinotaur.execute( myWorker, nextSpace );
+        assertFalse(moveMinotaur.execute( myWorker, nextSpace));
     }
 
     @Test
-    public void minotaurMoveCondition() throws IllegalSpaceException {
+    public void minotaurMoveCondition(){
         currSpace = new Space(0,4);
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
@@ -144,14 +144,14 @@ public class MoveMinotaurTest {
 
         assertNotSame(nextSpace.getWorker(), myWorker);
         assertNotNull(nextSpace.getWorker());
-        moveMinotaur.execute( myWorker, nextSpace );
+        assertTrue(moveMinotaur.execute( myWorker, nextSpace ));
         assertNull(currSpace.getWorker());
         assertSame(nextSpace.getWorker(), myWorker);
         assertSame(myWorker.getSpace(), nextSpace);
     }
 
     @Test
-    public void normalMoveCondition() throws IllegalSpaceException {
+    public void normalMoveCondition() {
         currSpace = new Space(0,4);
         nextSpace = new Space(1, 4);
         myWorker = new Worker(player);
@@ -159,7 +159,7 @@ public class MoveMinotaurTest {
         currSpace.setWorker(myWorker);
 
         assertNotSame(nextSpace.getWorker(), myWorker);
-        moveMinotaur.execute( myWorker, nextSpace );
+        assertTrue(moveMinotaur.execute( myWorker, nextSpace ));
         assertNull(currSpace.getWorker());
         assertSame(nextSpace.getWorker(), myWorker);
         assertSame(myWorker.getSpace(), nextSpace);

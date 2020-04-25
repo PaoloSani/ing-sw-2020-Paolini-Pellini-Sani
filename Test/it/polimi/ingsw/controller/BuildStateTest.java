@@ -129,7 +129,6 @@ public class BuildStateTest {
         int[] spaceToBuild = {1,2};
         gameMessage.setSpace1(spaceToBuild);
         gameMessage.setLevel(1);
-
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
         assertFalse(frontEnd.getUpdate());
 

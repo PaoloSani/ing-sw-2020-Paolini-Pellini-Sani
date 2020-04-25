@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-//TODO: Giuseppe
+
 public class BuildDefaultTest {
 
     private Space currSpace, space;
@@ -14,130 +14,130 @@ public class BuildDefaultTest {
     private Player player = new Player("test", God.PAN, game);
     private int level;
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeXTest() throws IllegalSpaceException {
+    @Test
+    public void negativeXTest() {
         currSpace = new Space(0,4);
         space = new Space(-1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void unboundedX() throws IllegalSpaceException {
+    @Test
+    public void unboundedX() {
         currSpace = new Space(4,0);
         space = new Space(5, 0);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeY() throws IllegalSpaceException {
+    @Test
+    public void negativeY() {
         currSpace = new Space(0,0);
         space = new Space(0, -1);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void unboundedY() throws IllegalSpaceException {
+    @Test
+    public void unboundedY() {
         currSpace = new Space(0,4);
         space = new Space(0, 5);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void positiveNotNeighbouringX() throws IllegalSpaceException {
+    @Test
+    public void positiveNotNeighbouringX() {
         currSpace = new Space(2,4);
         space = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void negativeNotNeighbouringX() throws IllegalSpaceException {
+    @Test
+    public void negativeNotNeighbouringX() {
         currSpace = new Space(0,4);
         space = new Space(2, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void positiveNotNeighbouringY() throws IllegalSpaceException {
+    @Test
+    public void positiveNotNeighbouringY() {
         currSpace = new Space(0,4);
         space = new Space(0, 2);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
-    @Test ( expected = IllegalSpaceException.class)
+    @Test
     public void negativeNotNeighbouringY() throws IllegalSpaceException {
         currSpace = new Space(0,2);
         space = new Space(0, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void samePosition() throws IllegalSpaceException {
+    @Test
+    public void samePosition(){
         currSpace = new Space(0,0);
         space = new Space(0, 0);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void spaceOccupiedByOtherWorker() throws IllegalSpaceException {
+    @Test
+    public void spaceOccupiedByOtherWorker() {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
         space.setWorker(new Worker(new Player("test2", God.ZEUS, game)));
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
-    @Test ( expected = IllegalSpaceException.class )
-    public void spaceOccupiedByDome() throws IllegalSpaceException {
+    @Test
+    public void spaceOccupiedByDome()  {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         space.setHeight(4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 1;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
     //tanto di default space.height = 0
-    @Test ( expected = IllegalSpaceException.class )
-    public void levelExceptionCondition() throws IllegalSpaceException {
+    @Test
+    public void levelExceptionCondition()  {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
         myWorker.setSpace(currSpace);
         level = 2;
-        buildDefault.execute( myWorker, space, level);
+        assertFalse(buildDefault.execute( myWorker, space, level));
     }
 
     @Test
-    public void normalBuildCondition() throws IllegalSpaceException {
+    public void normalBuildCondition() {
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
