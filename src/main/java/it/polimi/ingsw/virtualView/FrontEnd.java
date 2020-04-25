@@ -97,4 +97,8 @@ public class FrontEnd implements Observer<LiteGame> {
     public LiteGame getLiteGame() {
         return liteGame;
     }
+
+    public void setLiteGame(LiteGame cloneLG) {
+        this.liteGame = cloneLG;
+    }
 }
