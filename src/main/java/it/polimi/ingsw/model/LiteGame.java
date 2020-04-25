@@ -115,6 +115,7 @@ public class LiteGame extends Observable<LiteGame> {
     }
 
     public boolean equalsLG(LiteGame liteGame){
+        if(liteGame.getTable()==null) return false;
         boolean isEqual = true;
         for (int i = 0 ; i < 5; i++) {
             for (int j = 0; j < 5; j++){

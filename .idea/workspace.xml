@@ -3,37 +3,15 @@
   <component name="AnalysisUIOptions">
     <option name="SCOPE_TYPE" value="3" />
   </component>
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="Scrittura test delle classi del controller: PrometheusMoveState,SetPlayers state e removestate">
+    <list default="true" id="38b1ec4e-77c7-4c5e-947f-ffa272f4382e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/PrometheusMoveState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/PrometheusMoveState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/RemovePlayerState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/RemovePlayerState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/SetPlayersState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/controller/SetPlayersState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/Worker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/model/Worker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/MoveStateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/MoveStateTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/PlaceWorkersStateTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/PrometheusBuildStateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/PrometheusBuildStateTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/PrometheusMoveStateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/PrometheusMoveStateTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/SetPlayersStateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/SetPlayersStateTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/model/MoveMinotaurTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/ChooseWorkerStateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/ChooseWorkerStateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/RemovePlayerStateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/RemovePlayerStateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/SetPlayersStateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/it/polimi/ingsw/controller/SetPlayersStateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/LiteGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/polimi/ingsw/model/LiteGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/virtualView/FrontEnd.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/polimi/ingsw/virtualView/FrontEnd.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/PlaceWorkersStateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/it/polimi/ingsw/controller/PlaceWorkersStateTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,12 +32,27 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1ZRkUIEDcGAmJMOUQUABA1kEW1H" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -97,8 +90,8 @@
       <recent name="C:\Users\Paolo\IdeaProjects\ing-sw-2020-Paolini-Pellini-Sani\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RemovePlayerStateTest.removingPlayerTest">
-    <configuration name="PlaceWorkersStateTest.ExecutionTrueTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.SetPlayersStateTest">
+    <configuration name="ChooseWorkerStateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GC39" />
       <extension name="coverage">
         <pattern>
@@ -107,23 +100,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.PlaceWorkersStateTest" />
-      <option name="METHOD_NAME" value="ExecutionTrueTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RemovePlayerStateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GC39" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.RemovePlayerStateTest" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.ChooseWorkerStateTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -141,6 +118,21 @@
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.RemovePlayerStateTest" />
       <option name="METHOD_NAME" value="removingPlayerTest" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SetPlayersStateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GC39" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.controller" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.controller.SetPlayersStateTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -177,11 +169,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RemovePlayerStateTest.removingPlayerTest" />
-        <item itemvalue="JUnit.RemovePlayerStateTest" />
-        <item itemvalue="JUnit.PlaceWorkersStateTest.ExecutionTrueTest" />
-        <item itemvalue="JUnit.it.polimi.ingsw.controller in GC39" />
+        <item itemvalue="JUnit.SetPlayersStateTest" />
         <item itemvalue="JUnit.SetPlayersStateTest.settingPlayersTest" />
+        <item itemvalue="JUnit.RemovePlayerStateTest.removingPlayerTest" />
+        <item itemvalue="JUnit.it.polimi.ingsw.controller in GC39" />
+        <item itemvalue="JUnit.ChooseWorkerStateTest" />
       </list>
     </recent_temporary>
   </component>
@@ -240,22 +232,7 @@
       <workItem from="1587737229252" duration="9986000" />
       <workItem from="1587752265070" duration="3265000" />
       <workItem from="1587805300189" duration="2483000" />
-      <workItem from="1587808673790" duration="3740000" />
-      <workItem from="1587812692368" duration="1200000" />
-    </task>
-    <task id="LOCAL-00005" summary="Set delle Strategy per Move e Build">
-      <created>1584986270650</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1584986270650</updated>
-    </task>
-    <task id="LOCAL-00006" summary="MoveHephaestus e charonPower">
-      <created>1585001601707</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1585001601707</updated>
+      <workItem from="1587808673790" duration="5139000" />
     </task>
     <task id="LOCAL-00007" summary="MoveHephaestus e charonPower">
       <created>1585327026394</created>
@@ -586,11 +563,25 @@
       <option name="project" value="LOCAL" />
       <updated>1587810043007</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Scrittura test delle classi del controller: PrometheusMoveState,SetPlayers state e removestate">
+      <created>1587812581330</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1587812581330</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Scrittura test delle classi del controller: PrometheusMoveState,SetPlayers state e removestate">
+      <created>1587813056594</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1587813056594</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -622,12 +613,11 @@
         </entry>
       </map>
     </option>
-    <option name="OPEN_GENERIC_TABS">
-      <map>
-        <entry key="1" value="TOOL_WINDOW" />
-      </map>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+      </set>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Sistemato model" />
@@ -726,10 +716,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="516" y="268" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.824@0.0.1536.824" timestamp="1585990678752" />
-    <state x="48" y="0" key="CommitChangelistDialog2" timestamp="1587812172221">
+    <state x="48" y="0" key="CommitChangelistDialog2" timestamp="1587813055912">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="48" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1587812172221" />
+    <state x="48" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1587813055912" />
     <state x="563" y="10" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587234127145" />
     <state x="728" y="9" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587570546366" />
     <state x="569" y="23" key="CommitChangelistDialog2/0.23.1440.830@0.23.1440.830" timestamp="1586873434192" />
@@ -746,37 +736,37 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587302642041" />
-    <state width="1323" height="180" key="GridCell.Tab.0.bottom" timestamp="1587812547573">
+    <state width="1323" height="180" key="GridCell.Tab.0.bottom" timestamp="1587813943120">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1587812547573" />
+    <state width="1323" height="180" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1587813943120" />
     <state width="1493" height="286" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1585660701259" />
     <state width="1398" height="214" key="GridCell.Tab.0.bottom/0.23.1440.833@0.23.1440.833" timestamp="1585653242599" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.834@0.23.1440.834" timestamp="1585496007883" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1585406570450" />
-    <state width="1323" height="180" key="GridCell.Tab.0.center" timestamp="1587812547571">
+    <state width="1323" height="180" key="GridCell.Tab.0.center" timestamp="1587813943120">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1587812547571" />
+    <state width="1323" height="180" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1587813943120" />
     <state width="1493" height="286" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1585660701258" />
     <state width="1398" height="214" key="GridCell.Tab.0.center/0.23.1440.833@0.23.1440.833" timestamp="1585653242598" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.834@0.23.1440.834" timestamp="1585496007882" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1323" height="180" key="GridCell.Tab.0.left" timestamp="1587812547571">
+    <state width="1323" height="180" key="GridCell.Tab.0.left" timestamp="1587813943120">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1587812547571" />
+    <state width="1323" height="180" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1587813943120" />
     <state width="1493" height="286" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1585660701258" />
     <state width="1398" height="214" key="GridCell.Tab.0.left/0.23.1440.833@0.23.1440.833" timestamp="1585653242598" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.834@0.23.1440.834" timestamp="1585496007881" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1585406570449" />
-    <state width="1323" height="180" key="GridCell.Tab.0.right" timestamp="1587812547572">
+    <state width="1323" height="180" key="GridCell.Tab.0.right" timestamp="1587813943120">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1587812547572" />
+    <state width="1323" height="180" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1587813943120" />
     <state width="1493" height="286" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587573288571" />
     <state width="1398" height="214" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1585660701259" />
     <state width="1398" height="214" key="GridCell.Tab.0.right/0.23.1440.833@0.23.1440.833" timestamp="1585653242599" />
@@ -830,14 +820,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="540" height="524" key="StructurePopup/0.0.1536.824@0.0.1536.824" timestamp="1587302664751" />
-    <state x="338" y="170" key="Vcs.Push.Dialog.v2" timestamp="1587813032617">
-      <screen x="0" y="23" width="1440" height="832" />
+    <state x="321" y="130" key="Vcs.Push.Dialog.v2" timestamp="1587812589024">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="321" y="130" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1587810048821" />
+    <state x="321" y="130" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1587812589024" />
     <state x="338" y="158" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1587234146007" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587570549342" />
     <state x="338" y="169" key="Vcs.Push.Dialog.v2/0.23.1440.831@0.23.1440.831" timestamp="1587294349190" />
-    <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.832@0.23.1440.832" timestamp="1587813032617" />
     <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.833@0.23.1440.833" timestamp="1585653230554" />
     <state x="338" y="170" key="Vcs.Push.Dialog.v2/0.23.1440.834@0.23.1440.834" timestamp="1585411916104" />
     <state x="968" y="189" key="chooseDestDirectoryDialog" timestamp="1585384562668">
@@ -868,14 +857,12 @@
       <screen x="0" y="23" width="1440" height="833" />
     </state>
     <state x="301" y="164" width="837" height="550" key="find.popup/0.23.1440.833@0.23.1440.833" timestamp="1585395096140" />
-    <state x="415" y="229" key="git4idea.merge.GitPullDialog" timestamp="1587813988168">
-      <screen x="0" y="23" width="1440" height="830" />
+    <state x="394" y="183" key="git4idea.merge.GitPullDialog" timestamp="1587813070138">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1587809933596" />
+    <state x="394" y="183" key="git4idea.merge.GitPullDialog/0.0.1366.738@0.0.1366.738" timestamp="1587813070138" />
     <state x="443" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1586882775328" />
-    <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.830@0.23.1440.830" timestamp="1587813988168" />
     <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.831@0.23.1440.831" timestamp="1585583867820" />
-    <state x="415" y="229" key="git4idea.merge.GitPullDialog/0.23.1440.832@0.23.1440.832" timestamp="1587812720884" />
     <state x="418" y="14" key="new project wizard" timestamp="1585384448255">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -987,10 +974,10 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/GC39$PrometheusMoveStateTest_movingTest.ic" NAME="PrometheusMoveStateTest.movingTest Coverage Results" MODIFIED="1587811146221" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/GC39$PrometheusMoveStateTest_movingUp_or_Down.ic" NAME="PrometheusMoveStateTest.movingUp_or_Down Coverage Results" MODIFIED="1587740739599" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>it.polimi.ingsw.controller.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/GC39$PrometheusMoveStateTest_movingUp_or_Down.ic" NAME="PrometheusMoveStateTest.movingUp_or_Down Coverage Results" MODIFIED="1587740739599" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/GC39$PrometheusMoveStateTest_movingTest.ic" NAME="PrometheusMoveStateTest.movingTest Coverage Results" MODIFIED="1587811146221" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>it.polimi.ingsw.controller.*</FILTER>
     </SUITE>
   </component>
