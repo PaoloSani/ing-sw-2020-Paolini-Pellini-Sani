@@ -33,7 +33,7 @@ public class RemovePlayerStateTest {
 
     @Test
     public void removingPlayerTest(){
-        //esegue la execute dello stato BuildState con un giocatore che esegue la execute di default
+        //esegue la execute dello stato RemovePlayerState con un giocatore che esegue la execute di default
         //currPlayer's God -> Tritone
         //inizializzo i player
         backEnd.setPlayer2(new Player("paolo", God.TRITON, game) );

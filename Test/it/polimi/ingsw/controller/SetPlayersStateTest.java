@@ -54,13 +54,13 @@ public class SetPlayersStateTest {
         game.getLiteGame().addObservers(frontEnd);
         gameMessage.notify(gameMessage);
         //TODO attenzione ordine dei nomi invertiti
-        assertEquals(frontEnd.getLiteGame().getName1(),"riccardo");
-        assertEquals(frontEnd.getLiteGame().getName2(),"giuseppe");
-        assertEquals(frontEnd.getLiteGame().getName3(),"paolo");
+        assertEquals(frontEnd.getLiteGame().getName1(),"giuseppe");
+        assertEquals(frontEnd.getLiteGame().getName2(),"paolo");
+        assertEquals(frontEnd.getLiteGame().getName3(),"riccardo");
 
-        assertEquals(frontEnd.getLiteGame().getGod1(),God.ATHENA);
-        assertEquals(frontEnd.getLiteGame().getGod2(),God.CHARON);
-        assertEquals(frontEnd.getLiteGame().getGod3(),God.TRITON);
+        assertEquals(frontEnd.getLiteGame().getGod1(),God.CHARON);
+        assertEquals(frontEnd.getLiteGame().getGod2(),God.TRITON);
+        assertEquals(frontEnd.getLiteGame().getGod3(),God.ATHENA);
 
         assertNotNull(frontEnd.getLiteGame().getCurrWorker());
 
