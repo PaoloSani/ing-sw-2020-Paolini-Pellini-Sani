@@ -4,7 +4,6 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.util.Observer;
-import it.polimi.ingsw.virtualView.FrontEnd;
 import it.polimi.ingsw.virtualView.GameMessage;
 
 //TODO: Riccardo

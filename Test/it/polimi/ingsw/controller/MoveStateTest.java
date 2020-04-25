@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.God;
+import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.virtualView.FrontEnd;
 import it.polimi.ingsw.virtualView.GameMessage;
@@ -17,7 +18,6 @@ public class MoveStateTest {
     private Game game;
 
     private GameMessage gameMessage;
-
 
     @Before
     public void setUp() {
@@ -56,11 +56,13 @@ public class MoveStateTest {
 
         backEnd.setState(backEnd.chooseWorkerState);
 
-        //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
-        game.getLiteGame().addObservers(frontEnd);
-
         //setto i giocatori nella classe LiteGame passando per il Game
         game.setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
+
+        //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
+        game.getLiteGame().addObservers(frontEnd);
+        frontEnd.setLiteGame(game.getLiteGame().cloneLG());
+
 
         //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
         backEnd.setCurrPlayer(backEnd.getPlayer2());
@@ -115,11 +117,13 @@ public class MoveStateTest {
 
         backEnd.setState(backEnd.chooseWorkerState);
 
-        //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
-        game.getLiteGame().addObservers(frontEnd);
-
         //setto i giocatori nella classe LiteGame passando per il Game
         game.setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
+
+        //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
+        game.getLiteGame().addObservers(frontEnd);
+        frontEnd.setLiteGame(game.getLiteGame().cloneLG());
+
 
         //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
         backEnd.setCurrPlayer(backEnd.getPlayer2());
@@ -200,11 +204,12 @@ public class MoveStateTest {
 
         backEnd.setState(backEnd.chooseWorkerState);
 
-        //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
-        game.getLiteGame().addObservers(frontEnd);
-
         //setto i giocatori nella classe LiteGame passando per il Game
         game.setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
+
+        //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
+        game.getLiteGame().addObservers(frontEnd);
+        frontEnd.setLiteGame(game.getLiteGame().cloneLG());
 
         //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
         backEnd.setCurrPlayer(backEnd.getPlayer2());

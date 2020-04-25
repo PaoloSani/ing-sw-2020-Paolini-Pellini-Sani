@@ -84,4 +84,13 @@ public class FrontEnd implements Observer<LiteGame> {
 
     //TODO: serve perché altrimenti update resta sempre a true! Ma dove metterlo??
     public void resetUpdate() { this.update = false; }
+
+    /////////////////////
+    // Metodi per test //
+    /////////////////////
+
+
+    public void setLiteGame(LiteGame liteGame) {
+        this.liteGame = liteGame;
+    }
 }

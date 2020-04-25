@@ -13,7 +13,7 @@ public class PlaceWorkersState implements GameState {
         this.backEnd = backEnd;
     }
 
-
+    //TODO: da correggere, poiché non avrò mai null in una delle due celle (nullPointerException)
     @Override
     public boolean execute() {
         boolean result = true;
@@ -43,6 +43,20 @@ public class PlaceWorkersState implements GameState {
         space2 = null;
     }
 
+
+    /////////////////////
+    // Metodi per Test //
+    /////////////////////
+
+    public void setSpace1(Space s)
+    {
+        space1 = s;
+    }
+
+    public void setSpace2(Space s)
+    {
+        space2 = s;
+    }
 
     //update: il currPlayer del Server ha scelto dove piazzare i suoi giocatori
     // lancio execute che agisce sul model
