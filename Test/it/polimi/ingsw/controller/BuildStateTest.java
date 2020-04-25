@@ -167,7 +167,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdate());
 
 
         //infine testo il caso in cui io cambio stato a partire dalla build
@@ -259,7 +259,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdate());
 
 
         //infine testo il caso in cui io cambio stato a partire dalla build
@@ -290,7 +290,6 @@ public class BuildStateTest {
         gameMessage.setCharonSwitching(false);
 
         //setto che lo stato precedente era MoveState così lo aggiorno con l'update
-        //TODO: inutile nel nostro progetto, utile solo per i test!
         backEnd.setState(backEnd.moveState);
 
         //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
@@ -386,7 +385,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdate());
 
     }
 }

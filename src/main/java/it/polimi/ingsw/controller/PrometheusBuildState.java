@@ -24,11 +24,11 @@ public class PrometheusBuildState implements GameState {
 
 
             if (!backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level))
-                return false;
+                result = false;
 
         }
 
-        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
+        backEnd.getGame().refreshLiteGame();
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return true;
     }

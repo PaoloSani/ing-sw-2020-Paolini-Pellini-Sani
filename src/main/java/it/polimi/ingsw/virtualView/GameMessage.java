@@ -31,12 +31,13 @@ public class GameMessage extends Observable <GameMessage> {
 
     private List<Observer<GameMessage>> observers = new ArrayList<>();
 
-    public GameMessage(FrontEnd frontend) {
+    public GameMessage(FrontEnd frontEnd) {
         this.charonSwitching = false;       //Viene settato a true dal frontend, dopo viene resettato a false nella move
-        this.frontEnd = frontend;
-        addObservers( frontend.getBackEnd() );
+        this.frontEnd = frontEnd;
+        addObservers( frontEnd.getBackEnd() );
 
     }
+
     public void addObservers(Observer<GameMessage> observer) {
         observers.add(observer);
     }
@@ -69,6 +70,12 @@ public class GameMessage extends Observable <GameMessage> {
         return charonSwitching;
     }
 
+    public GameMessage(FrontEnd frontend) {
+        this.charonSwitching = false;       //Viene settato a true dal frontend, dopo viene resettato a false nella move
+        this.frontEnd = frontend;
+        addObservers( frontend.getBackEnd() );
+
+    }
 
     public String getName1() {
         return name1;
@@ -118,17 +125,40 @@ public class GameMessage extends Observable <GameMessage> {
         this.god3 = god3;
     }
 
-    public Observer<LiteGame> getFrontEnd() {
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    //TODO: perché Observer??
+    public FrontEnd getFrontEnd() {
         return frontEnd;
     }
 
     public void notify(GameMessage message) {
         for (Observer<GameMessage> observer : observers) {
-            observer.update(message);
+            observer.update(message.cloneGM());
         }
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+
+    public GameMessage cloneGM(){
+
+        //TODO: clone delle stringhe?
+        GameMessage newMessage = new GameMessage(frontEnd);
+        newMessage.name1 = this.name1;
+        newMessage.name2 = this.name2;
+        newMessage.name3 = this.name3;
+        newMessage.god1 = this.god1;
+        newMessage.god2 = this.god2;
+        newMessage.god3 = this.god3;
+        newMessage.level = this.level;
+        newMessage.charonSwitching = this.charonSwitching;
+        if (this.space1 != null) newMessage.space1 = this.space1.clone();
+        else newMessage.space1 = null;
+        if (this.space2 != null) newMessage.space2 = this.space2.clone();
+        else newMessage.space2 = null;
+        newMessage.observers = this.observers;
+
+        return newMessage;
     }
 }
