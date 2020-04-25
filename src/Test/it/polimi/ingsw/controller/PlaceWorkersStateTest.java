@@ -2,7 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.God;
-import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.virtualView.FrontEnd;
 import it.polimi.ingsw.virtualView.GameMessage;
