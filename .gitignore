@@ -83,10 +83,14 @@ fabric.properties
 # Sonarlint plugin
 .idea/**/sonarlint/
 
-.target/
+target/
 .idea/
 *.class
 GC39.iml
+!.gitignore
+!src/
+!pom.xml
+!Deliverables
 
 
 # SonarQube Plugin
