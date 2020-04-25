@@ -7,7 +7,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
-.idea/**/workspace.xml
+.idea/sonarlint/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
@@ -82,6 +82,8 @@ fabric.properties
 
 # Sonarlint plugin
 .idea/**/sonarlint/
+
+.target/
 
 # SonarQube Plugin
 .idea/**/sonarIssues.xml
