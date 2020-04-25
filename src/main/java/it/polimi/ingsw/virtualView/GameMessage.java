@@ -70,13 +70,6 @@ public class GameMessage extends Observable <GameMessage> {
         return charonSwitching;
     }
 
-    public GameMessage(FrontEnd frontend) {
-        this.charonSwitching = false;       //Viene settato a true dal frontend, dopo viene resettato a false nella move
-        this.frontEnd = frontend;
-        addObservers( frontend.getBackEnd() );
-
-    }
-
     public String getName1() {
         return name1;
     }
