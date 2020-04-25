@@ -53,7 +53,10 @@ public class SetPlayersStateTest {
         //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
         game.getLiteGame().addObservers(frontEnd);
         gameMessage.notify(gameMessage);
-        //TODO attenzione ordine dei nomi invertiti
+
+
+
+
         assertEquals(frontEnd.getLiteGame().getName1(),"giuseppe");
         assertEquals(frontEnd.getLiteGame().getName2(),"paolo");
         assertEquals(frontEnd.getLiteGame().getName3(),"riccardo");

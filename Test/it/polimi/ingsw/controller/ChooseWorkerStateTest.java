@@ -177,10 +177,11 @@ public class ChooseWorkerStateTest {
         backEnd.setState(backEnd.placeWorkersState);
 
         //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
-        game.getLiteGame().addObservers(frontEnd);
 
         //setto i giocatori nella classe LiteGame passando per il Game
         game.setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
+        game.getLiteGame().addObservers(frontEnd);
+        frontEnd.setLiteGame(game.getLiteGame().cloneLG());
 
         //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
         //questo deve per forza di cose essere il challenger se voglio cambiare stato perché nello stato di PlaceWorkerState ciclo tre volte

@@ -59,6 +59,7 @@ public class RemovePlayerStateTest {
 
         //setto i giocatori nella classe LiteGame passando per il Game
         game.setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
+        frontEnd.setLiteGame(game.getLiteGame().cloneLG());
 
         //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
         backEnd.setCurrPlayer(backEnd.getPlayer2());
