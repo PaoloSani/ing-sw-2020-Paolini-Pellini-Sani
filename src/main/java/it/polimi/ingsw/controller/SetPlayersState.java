@@ -7,18 +7,18 @@ import it.polimi.ingsw.util.GameState;
 //TODO: Giuseppe
 public class SetPlayersState implements  GameState {
     private BackEnd backEnd;
-    private String name;
     private String name1;
     private String name2;
+    private String name3;
     private God god1;
     private God god2;
     private God god3;
 
     public SetPlayersState(BackEnd backEnd) {
         this.backEnd = backEnd;
-        this.name = null;
         this.name1 = null;
         this.name2 = null;
+        this.name3 = null;
         this.god1 = null;
         this.god2 = null;
         this.god3 = null;
@@ -30,13 +30,13 @@ public class SetPlayersState implements  GameState {
         god2 = backEnd.getGameMessage().getGod2();
         god3 = backEnd.getGameMessage().getGod3();
 
-        name = backEnd.getGameMessage().getName1();
-        name1 = backEnd.getGameMessage().getName2();
-        name2 = backEnd.getGameMessage().getName3();
+        name1 = backEnd.getGameMessage().getName1();
+        name2 = backEnd.getGameMessage().getName2();
+        name3 = backEnd.getGameMessage().getName3();
 
-        backEnd.setPlayer2(new Player(this.name, god1, backEnd.getGame()));
-        backEnd.setPlayer3(new Player(this.name1, god2, backEnd.getGame()));
-        backEnd.setChallenger(new Player(this.name2, god3, backEnd.getGame()));
+        backEnd.setChallenger(new Player(this.name1, god1, backEnd.getGame()));
+        backEnd.setPlayer2(new Player(this.name2, god2, backEnd.getGame()));
+        backEnd.setPlayer3(new Player(this.name3, god3, backEnd.getGame()));
 
         backEnd.getGame().setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
         //invio la classe litegame backEnd.getGameMessage dal model alla view
@@ -47,9 +47,9 @@ public class SetPlayersState implements  GameState {
 
     @Override
     public void reset() {
-        this.name = null;
         this.name1 = null;
         this.name2 = null;
+        this.name3 = null;
         this.god1 = null;
         this.god2 = null;
         this.god3 = null;

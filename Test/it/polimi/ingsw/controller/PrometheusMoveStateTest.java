@@ -36,10 +36,10 @@ public class PrometheusMoveStateTest {
     //Se Prometeo prova a salire mi ritorna un false e non viene modificato il model
     @Test
     public void movingUp_or_Down() {
-        //esegue la execute dello stato BuildState con un giocatore che esegue la execute di default
+        //esegue la execute dello stato PrometheusMoveState con un giocatore che esegue la execute di default
         //currPlayer's God -> Tritone
         //inizializzo i player
-        backEnd.setPlayer2(new Player("paolo", God.TRITON, game) );
+        backEnd.setPlayer2(new Player("paolo",God.PROMETHEUS, game) );
         backEnd.setPlayer3(new Player("riccardo", God.ATHENA, game) );
         backEnd.setChallenger(new Player("giuseppe", God.CHARON, game) );
 
@@ -47,7 +47,7 @@ public class PrometheusMoveStateTest {
         gameMessage.setName2("paolo");
         gameMessage.setName3("riccardo");
         gameMessage.setName1("giuseppe");
-        gameMessage.setGod2(God.TRITON);
+        gameMessage.setGod2(God.PROMETHEUS);
         gameMessage.setGod3(God.ATHENA);
         gameMessage.setGod1(God.CHARON);
 
@@ -73,7 +73,7 @@ public class PrometheusMoveStateTest {
         backEnd.setCurrWorker(backEnd.getCurrPlayer().getWorker1());
 
         //scrivo nel game message un la posizione in cui voglio muovermi
-        int[] spaceToMove =  {1,2};;
+        int[] spaceToMove =  {1,2};
         gameMessage.setSpace1(spaceToMove);
         //Imposto nella classe game del model che l'altezza della cella dove voglio muovermi è maggiore di quella in cui il worker è
         game.getSpace(1,2).setHeight(1);
@@ -127,7 +127,7 @@ public class PrometheusMoveStateTest {
         backEnd.setCurrWorker(backEnd.getCurrPlayer().getWorker1());
 
         //scrivo nel game message un la posizione in cui voglio muovermi
-        int[] spaceToMove =  {1,2};;
+        int[] spaceToMove =  {1,2};
         gameMessage.setSpace1(spaceToMove);
         //Imposto nella classe game del model che l'altezza della cella dove voglio muovermi è uguale a quella della cella in cui è il mio worker
         game.getSpace(1,2).setHeight(0);
@@ -147,6 +147,8 @@ public class PrometheusMoveStateTest {
         assertEquals(backEnd.getCurrPlayer().getWorker1(),game.getSpace(1,2).getWorker());
         //controllo che il lie game corrisponda alla mia situazione
         assertEquals("B0N",frontEnd.getLiteGame().getStringValue(1,2));
+        assertEquals("V0N",frontEnd.getLiteGame().getStringValue(1,1));
+
     }
 
     @Test //Sto passando una cella in cui voglio muovermi fuori dalla table

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-//TODO: Riccardo
+
 public class MoveMinotaurTest {
     private Space currSpace, nextSpace;
     private Worker myWorker;

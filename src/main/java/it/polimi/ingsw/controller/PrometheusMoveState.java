@@ -14,8 +14,7 @@ public class PrometheusMoveState implements GameState {
 
     @Override
     public boolean execute() {
-        //TODO result era false ho corretto a true e utilizzo flag per farlo funzionare. va bene?
-        boolean flag = false;
+        //TODO result era false ho corretto a true e utilizzo flag per farlo funzionare. va bene
         boolean result = true;
         toMove = backEnd.getGameMessage().getSpace1();
         Space nextSpace = null;
@@ -25,9 +24,9 @@ public class PrometheusMoveState implements GameState {
 
         if ( result && (nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() <= 0)) { //non sto salendo posso muovermi
                 result = backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace);
-                flag = true;
         }
-        if (flag == false) result = false;
+        else result = false;
+
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return result;
