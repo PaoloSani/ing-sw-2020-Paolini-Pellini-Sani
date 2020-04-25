@@ -87,10 +87,12 @@ target/
 .idea/
 *.class
 GC39.iml
+
+
 !.gitignore
 !src/
 !pom.xml
-!Deliverables
+!Deliveries
 
 
 # SonarQube Plugin
