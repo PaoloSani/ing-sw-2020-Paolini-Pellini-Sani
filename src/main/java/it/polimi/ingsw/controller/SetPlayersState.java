@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.util.GameState;
 
-//TODO: Giuseppe
+
 public class SetPlayersState implements  GameState {
     private BackEnd backEnd;
     private String name1;

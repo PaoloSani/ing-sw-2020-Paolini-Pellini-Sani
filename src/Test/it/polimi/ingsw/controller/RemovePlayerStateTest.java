@@ -51,7 +51,7 @@ public class RemovePlayerStateTest {
         gameMessage.setCharonSwitching(false);
 
         //setto che lo stato precedente era chooseWorker così lo aggiorno con l'update
-        //TODO: inutile nel nostro progetto, utile solo per i test!
+        //inutile nel nostro progetto, utile solo per i test!
         backEnd.setState(backEnd.chooseWorkerState);
 
         //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )

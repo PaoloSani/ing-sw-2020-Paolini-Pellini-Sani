@@ -6,7 +6,7 @@ import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.GameMessage;
 
-//TODO: Riccardo
+
 public class BackEnd implements Observer<GameMessage> {
     private Game game;
     private GameMessage gameMessage;

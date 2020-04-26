@@ -14,7 +14,6 @@ public class PrometheusMoveState implements GameState {
 
     @Override
     public boolean execute() {
-        //TODO result era false ho corretto a true e utilizzo flag per farlo funzionare. va bene
         boolean result = true;
         toMove = backEnd.getGameMessage().getSpace1();
         Space nextSpace = null;

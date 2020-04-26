@@ -152,7 +152,7 @@ public class MoveStateTest {
         assertTrue(frontEnd.getUpdate());
 
         //Devo inizializzarlo a false! Altrimenti mi falsa i risultati
-        frontEnd.resetUpdate(); //Todo: correggere il resetUpdate in FrontEnd
+        frontEnd.resetUpdate();
 
 
         //Faccio sì che Artemide provi a tornare indietro

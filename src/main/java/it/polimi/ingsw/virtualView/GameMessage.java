@@ -122,7 +122,6 @@ public class GameMessage extends Observable <GameMessage> {
         this.level = level;
     }
 
-    //TODO: perché Observer??
     public FrontEnd getFrontEnd() {
         return frontEnd;
     }

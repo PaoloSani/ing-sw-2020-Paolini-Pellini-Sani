@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
 
-//TODO: Paolo
+
 public class BuildState implements GameState {
     private BackEnd backEnd;
     private int level;

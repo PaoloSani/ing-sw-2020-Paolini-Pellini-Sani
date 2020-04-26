@@ -205,8 +205,8 @@ public class Game {
 
         //se i controlli sono stati superati allora effettuo lo scambio
         oppWorker.getSpace().setWorker(null);           //la cella che conteneva l'oppWorker è ora liberata
-        this.table[newX][newY].setWorker(oppWorker);    //la nuova cella contiene ora il worker
-        oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY
+        oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY e
+                                                        //la nuova cella contiene ora il worker
         return true;
     }
 
@@ -247,8 +247,8 @@ public class Game {
             return false;
 
         oppWorker.getSpace().setWorker(null);           //la cella che conteneva l'oppWorker è ora liberata
-        this.table[newX][newY].setWorker(oppWorker);    //la nuova cella contiene ora il worker spostato precedentemente
-        oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY
+        oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY e
+                                                        // la nuova cella contiene ora il worker spostato precedentemente
         return true;
 
     }
@@ -256,5 +256,71 @@ public class Game {
 
     public void setCurrPlayer(Player currPlayer) {
         liteGame.setCurrPlayer(currPlayer.getNickname());
+    }
+
+    // la uso nelle move per eliminare duplicazione del codice
+    public boolean invalidMoveSpace (Space nextSpace, Space currSpace){
+        int currX, currY, currH;
+        currX = currSpace.getX();
+        currY = currSpace.getY();
+        currH = currSpace.getHeight();
+        return ( invalidSpace(nextSpace,currSpace)                                    ||
+                nextSpace.getHeight() - currH > 1                                     ||     //sale più di un livello
+                currX == nextSpace.getX() && currY == nextSpace.getY());
+    }
+
+    // la uso nelle build per eliminare duplicazione del codice
+    public boolean invalidSpace (Space space, Space currSpace){
+        int currX, currY;
+        currX = currSpace.getX();
+        currY = currSpace.getY();
+        return (space.getX() > 4 || space.getX() < 0                           ||
+                space.getY() > 4 || space.getY() < 0                           ||     //space non appartenente alla tabella
+                ( currX - space.getX() ) > 1 || ( currX - space.getX() ) < -1  ||     //riga non valida
+                ( currY - space.getY() ) > 1 || ( currY - space.getY() ) < -1);
+    }
+
+   public boolean buildSwitch (Space space, int level, boolean isAtlas){
+        switch (level) {
+
+            case 1:
+                // level>0
+                if (this.level1 > 0) {                       //controllo che il pezzo corrispondente sia disponibile
+                    //decremento i pezzi del livello disponibili, level1 --
+                    this.level1--;
+                    space.setHeight(level);                                          //setto la nuova altezza dello space
+                } else
+                    return false;        // se il pezzo non è disponibile lancio l'eccezione per la costruzione in quella cella
+                break;
+
+            case 2:
+                if (this.level2 > 0) {
+                    this.level2--;
+                    space.setHeight(level);
+                } else return false;
+                break;
+
+            case 3:
+                if (this.level3 > 0) {
+                    this.level3--;
+                    space.setHeight(level);
+                } else return false;
+                break;
+
+            case 4:
+                if (this.dome > 0) {
+                    if (isAtlas) {
+                        space.setHeight(space.getHeight() + 1);
+                        space.setDome();
+                    } else space.setHeight(level);
+                    this.dome--;
+                } else return false;
+                break;
+
+            default:
+                return false;
+
+        }
+        return true;
     }
 }

@@ -83,7 +83,7 @@ public class FrontEnd implements Observer<LiteGame> {
         return update;
     }
 
-    //TODO: serve perché altrimenti update resta sempre a true! Ma dove metterlo??
+    //TODO da togliere magari poi
     public void resetUpdate() { this.update = false; }
 
     /////////////////////
@@ -92,7 +92,6 @@ public class FrontEnd implements Observer<LiteGame> {
 
 
     //mi serve per i test
-
 
     public LiteGame getLiteGame() {
         return liteGame;

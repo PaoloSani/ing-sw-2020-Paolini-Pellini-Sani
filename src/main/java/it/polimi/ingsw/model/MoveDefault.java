@@ -4,10 +4,7 @@ public class MoveDefault implements Move {
 
     public boolean execute( Worker worker, Space nextSpace ) {
         boolean result = true;
-        int currX,currY,currH;
-        currX = worker.getSpace().getX();
-        currY = worker.getSpace().getY();
-        currH = worker.getSpace().getHeight();
+        int currH = worker.getSpace().getHeight();
 
         //reset del boolean Athena nella classe costraint
         if( worker.getPlayer().getGod() == God.ATHENA ){
@@ -15,12 +12,7 @@ public class MoveDefault implements Move {
         }
 
         // controllo il contenuto di nextSpace
-        if (    nextSpace.getX() > 4 || nextSpace.getX() < 0                          ||
-                nextSpace.getY() > 4 || nextSpace.getY() < 0                          ||     //space non appartenente alla tabella
-                ( currX - nextSpace.getX() ) > 1 || ( currX - nextSpace.getX() ) < -1 ||     //riga non valida
-                ( currY - nextSpace.getY() ) > 1 || ( currY - nextSpace.getY() ) < -1 ||     //colonna non valida
-                nextSpace.getHeight() - currH > 1                                     ||     //sale più di un livello
-                currX == nextSpace.getX() && currY == nextSpace.getY()                ||     //la prossima cella è quella corrente
+        if (    worker.getPlayer().getGame().invalidMoveSpace(nextSpace,worker.getSpace()) ||     //la prossima cella è quella corrente
                 nextSpace.getWorker() != null                                         ||     //la prossima cella è occupata
                 nextSpace.isDomed()                                                   ||     //la prossima cella è una cupola
                 //se Athena è true controllo che non si possa salire
@@ -39,8 +31,8 @@ public class MoveDefault implements Move {
 
             //aggiorno la posizione del worker e le space precedente e corrente nella table
             worker.getSpace().setWorker(null);      //setto il worker della space precedente a null (la svuoto)
-            worker.setSpace(nextSpace);             //setto attributo space del worker con la space successiva
-            worker.getSpace().setWorker(worker);    //setto attributo worker nella nuova space con il valore del mio worker
+            worker.setSpace(nextSpace);             //setto attributo space del worker con la space successiva e
+                                                    //setto attributo worker nella nuova space con il valore del mio worker
         }
         return result;
     }

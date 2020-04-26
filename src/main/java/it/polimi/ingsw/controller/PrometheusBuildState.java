@@ -3,7 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
-//TODO: Riccardo
+
 public class PrometheusBuildState implements GameState {
     private BackEnd backEnd;
     private Space toBuild;
