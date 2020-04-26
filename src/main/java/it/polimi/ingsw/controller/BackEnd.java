@@ -91,11 +91,11 @@ public class BackEnd implements Observer<GameMessage> {
 
 
     public void updateCurrPlayer(){
-        if ( ( player2.equals(currPlayer) && player3 != null ) || ( challenger.equals(currPlayer) && player2 == null ) ) {
+        if ( ( ( player2 == currPlayer) && (player3 != null ) ) || ( (challenger == currPlayer) && ( player2 == null ) ) ) {
             currPlayer = player3;
-        } else if ( ( player3.equals(currPlayer) && challenger != null ) || ( player2.equals(currPlayer) && player3 == null ) ) {
+        } else if ( ( ( player3 == currPlayer) && ( challenger != null ) ) || ( ( player2 == currPlayer ) && ( player3 == null ) ) ) {
             currPlayer = challenger;
-        } else if ( ( challenger.equals(currPlayer) && player2 != null ) || ( player3.equals(currPlayer) && challenger == null ) ) {
+        } else if ( ( ( challenger == currPlayer ) && ( player2 != null ) ) || ( ( player3 ==currPlayer) && ( challenger == null ) ) ) {
             currPlayer = player2;
         }
         game.setCurrPlayer(currPlayer);
