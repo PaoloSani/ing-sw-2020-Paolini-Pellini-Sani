@@ -319,7 +319,6 @@ public class Game {
 
             default:
                 return false;
-
         }
         return true;
     }
