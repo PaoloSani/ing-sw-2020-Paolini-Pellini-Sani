@@ -10,6 +10,7 @@ import java.util.List;
 
 public class GameMessage extends Observable <GameMessage> {
     private FrontEnd frontEnd;
+    private int numOfPlayers;
 
     //Utilizzati per settare i due workers di ogni players
     private int[] space1 = new int[]{-1,0};
