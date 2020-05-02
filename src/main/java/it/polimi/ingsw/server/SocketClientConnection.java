@@ -10,17 +10,33 @@ import java.util.Scanner;
 
 public class SocketClientConnection implements ClientConnection, Runnable {
     private Socket socket;
-    private ObjectOutputStream out;
     private Server server;
     private boolean active = true;
+    private String name;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
+
     public SocketClientConnection(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
+        try {
+            in = new ObjectInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            out = new ObjectOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
+
     private synchronized boolean isActive(){
         return active;
     }
-    private synchronized void send(Object message) {
+
+    public synchronized void send(Object message) {
         try {
             out.reset();
             out.writeObject(message);
@@ -56,17 +72,12 @@ public class SocketClientConnection implements ClientConnection, Runnable {
     }
     @Override
     public void run() {
-        ObjectInputStream in;
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ByteArrayInputStream is;
-        String name = null;
+        name = null;
         int playersInTheGame = 0;
         int gameID;
+        boolean validMessage = false;
 
         try{
-            is = new ByteArrayInputStream(os.toByteArray());
-            in = new ObjectInputStream(is);
-            out = new ObjectOutputStream(socket.getOutputStream());
             send("Welcome!\n");
             SettingGameMessage settings = new SettingGameMessage();
 
@@ -85,30 +96,38 @@ public class SocketClientConnection implements ClientConnection, Runnable {
                 }
             }
 
-            is = new ByteArrayInputStream(os.toByteArray());
-            in = new ObjectInputStream(is);
+            while (!validMessage) {
 
-            try {
-                settings = (SettingGameMessage) in.readObject();
-            } catch(IOException | ClassNotFoundException e){
-                send("Error in serialization!\n");
-            }
+                try {
+                    settings = (SettingGameMessage) in.readObject();
+                } catch (IOException | ClassNotFoundException e) {
+                    send("Error in serialization!\n");
+                }
 
-            if ( settings.isCreatingNewGame() ){
-                //nel server crea un nuovo GameID e aspetta che i giocatori si colleghino
-                // legge quanti giocatori mettere nella partita
-            }
-            else if (settings.isPlayingExistingMatch()){
-                //prende
-                settings.getGameID();
-                // lo inserisce nella tale partita nel server
+                if (settings.isCreatingNewGame()) {
+                    validMessage = true;
+                    server.updateCurrMatch();                       //Creato il game ID aggiornato
+                    settings.setGameID(server.getCurrMatch());      //Passiamo al client l'ID aggiornato
 
-            }
-            else {
-                //il server lo inserisce nella waitingConnection tenendo
-                // conto del numero di giocatori con cui vuole giocare
-            }
+                    playersInTheGame = settings.getNumberOfPlayer();
+                    server.createMatch(server.getCurrMatch(), playersInTheGame, this);
 
+                    // Nel server crea un nuovo GameID e aspetta che i giocatori si colleghino
+                    // legge quanti giocatori mettere nella partita
+                } else if (settings.isPlayingExistingMatch()) {
+                    gameID = settings.getGameID();
+                    if (server.addPlayer(gameID,this) && server.checkMatch(gameID)) server.startGame(gameID);
+                    validMessage = true;
+                    //Se il giocatore viene aggiunto
+                    //controllo se è possibile runnare una nuova partita
+
+                } else {
+                    server.lobby(settings.getNickname(), playersInTheGame, this);
+                    validMessage = true;
+                    //il server lo inserisce nella waitingConnection tenendo
+                    // conto del numero di giocatori con cui vuole giocare
+                }
+            }
 
             //server.lobby(this, name);
 
@@ -124,11 +143,26 @@ public class SocketClientConnection implements ClientConnection, Runnable {
                 notify(read);
             }*/
 
-        } catch (IOException | NoSuchElementException e) {
+  /*      } catch (IOException | NoSuchElementException e) {
             System.err.println("Error!" + e.getMessage());
         }finally{
-            close();
+            close();*/
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    public String[] readChallengerMessage() {
+        String message = null;
+        try {
+            message = (String) in.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        //restituisce un array di stringhe, separando in modo opportuno message secondo la presenza di virgole
+        return (message.split(",")); 
     }
 }
 

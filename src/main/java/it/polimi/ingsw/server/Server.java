@@ -1,5 +1,8 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.controller.BackEnd;
+import it.polimi.ingsw.virtualView.FrontEnd;
+
 import java.io.IOException;
 import java.lang.reflect.MalformedParameterizedTypeException;
 import java.net.ServerSocket;
@@ -17,17 +20,23 @@ public class Server {
     ServerSocket serverSocket;
     ExecutorService executor = Executors.newFixedThreadPool(128);
 
-    private Map<String, Socket> waitingConnection2Players = new HashMap<>();
-    private Map<String, Socket> waitingConnection3Players = new HashMap<>();
+    private Map<String, SocketClientConnection> waitingConnection2Players = new HashMap<>();
+    private Map<String, SocketClientConnection> waitingConnection3Players = new HashMap<>();
 
-    private Map<Integer, List<Socket>> playingConnection = new HashMap<>();
+    private Map<Integer, List<SocketClientConnection>> playingConnection2Players = new HashMap<>();
+    private Map<Integer, List<SocketClientConnection>> playingConnection3Players = new HashMap<>();
     private List<String> nicknames = new ArrayList<>();
 
+    //currMatch si riferisce all'ultima partita che è stata creata
     private int currMatch;
 
     public int getCurrMatch() {
         return currMatch;
     }
+
+    public synchronized void updateCurrMatch() { currMatch++; }
+
+    public void resetCurrMatch() { currMatch = 0; }
 
   /*  public synchronized void deregisterConnection(Socket socket) {
         ClientConnection opponent = playingConnection.get(c);
@@ -42,9 +51,43 @@ public class Server {
                 iterator.remove();
             }
         }
+    }*/
+
+    public synchronized void lobby(String name, int numberOfPlayers, SocketClientConnection client){
+        if (numberOfPlayers == 2) {
+            waitingConnection2Players.put(name,client);
+            if (waitingConnection2Players.size() == 2){
+                updateCurrMatch();
+                List<String> keys = new ArrayList<>(waitingConnection2Players.keySet());
+                List<SocketClientConnection> list = new ArrayList<>();
+                list.add(waitingConnection2Players.get(keys.get(0)));
+                list.add(waitingConnection2Players.get(keys.get(1)));
+                playingConnection2Players.put(currMatch, list);
+                waitingConnection2Players.clear();
+                startGame(currMatch);
+
+            }
+        }
+        else if (numberOfPlayers == 3) {
+            waitingConnection3Players.put(name,client);
+            if (waitingConnection3Players.size() == 3){
+                updateCurrMatch();
+                List<String> keys = new ArrayList<>(waitingConnection3Players.keySet());
+                List<SocketClientConnection> list = new ArrayList<>();
+                list.add(waitingConnection3Players.get(keys.get(0)));
+                list.add(waitingConnection3Players.get(keys.get(1)));
+                list.add(waitingConnection3Players.get(keys.get(2)));
+                playingConnection3Players.put(currMatch, list);
+                waitingConnection3Players.clear();
+                startGame(currMatch);
+            }
+        }
+
+
     }
 
-    //Wait for another player
+
+    /*Wait for another player
     public synchronized void lobby(ClientConnection c, String name){
         waitingConnection.put(name, c);
         if (waitingConnection.size() == 2) {
@@ -80,6 +123,7 @@ public class Server {
    */
     public Server() throws IOException {
         this.serverSocket = new ServerSocket(PORT);
+        this.currMatch = 0;
     }
     public void run(){
         while(true){
@@ -93,12 +137,62 @@ public class Server {
         }
     }
 
-    //TODO: sistemare la struttura dati per i nickname
     public boolean existingNickname(String nickname) {
-        return true;
+        return nicknames.contains(nickname);
+    }
+
+    public void createMatch(int gameID , int numberOfPlayers, SocketClientConnection challenger) {
+        List<SocketClientConnection> list = new ArrayList<>();
+        list.add(challenger);
+        if ( numberOfPlayers == 2){
+            playingConnection2Players.put(gameID, list);
+        }
+        else if (numberOfPlayers == 3){
+            playingConnection3Players.put(gameID, list);
+        }
+    }
+
+    public synchronized boolean addPlayer(int gameID, SocketClientConnection player){
+        if (playingConnection2Players.containsKey(gameID)) {
+            List<SocketClientConnection> list = playingConnection2Players.get(gameID);
+            if (list.size() < 2){             //TODO: Un terzo giocatore non può collegarsi, la sua connessione si chiude
+                list.add(player);
+                return true;
+            }
+        } else if (playingConnection3Players.containsKey(gameID)){
+            List<SocketClientConnection> list = playingConnection3Players.get(gameID);
+            if (list.size() < 3){             //Todo: Un quarto giocatore non può collegarsi, la sua connessione si chiude
+                list.add(player);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Fa partire la partita gameID
+    public void startGame(int gameID) {
+        FrontEnd frontEnd;
+        if (playingConnection2Players.containsKey(gameID)){
+            List<SocketClientConnection> list = playingConnection2Players.get(gameID);
+            frontEnd = new FrontEnd(list.get(0), list.get(1), gameID);
+        } else {
+            List<SocketClientConnection> list = playingConnection3Players.get(gameID);
+            frontEnd = new FrontEnd(list.get(0), list.get(1), list.get(2), gameID);
+        }
+
+        BackEnd backEnd = new BackEnd();
+        frontEnd.setBackEnd(backEnd);
+        frontEnd.run();
     }
 
 
+    // TODO: controlla possibili miglioramenti per due giocatori
+    // Controlla se si può avviare la partita gameID
+    public boolean checkMatch(int gameID) {
+        if ( playingConnection2Players.containsKey(gameID) && playingConnection2Players.get(gameID).size() == 2 )
+            return true;
+        else return ( playingConnection3Players.containsKey(gameID) && playingConnection2Players.get(gameID).size() == 3 );
+    }
 }
 
 /*
