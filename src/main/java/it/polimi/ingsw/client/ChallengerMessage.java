@@ -2,7 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.God;
 
-public class challengerMessage {
+public class ChallengerMessage {
     int numOfPlayers;
     God god1;
     God god2;
