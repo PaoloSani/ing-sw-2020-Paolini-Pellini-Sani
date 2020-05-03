@@ -43,4 +43,6 @@ public class ClientMessage {
     public int[] getSpace2() {
         return space2;
     }
+
+
 }

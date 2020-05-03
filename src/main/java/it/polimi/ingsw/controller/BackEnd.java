@@ -120,7 +120,7 @@ public class BackEnd implements Observer<GameMessage> {
         }
 
         else if (chooseWorkerState == currState) {
-            if (toRemove == null) {
+            if ( toRemove == null ) {
                 if (currPlayer.getGod() == God.CHARON && gameMessage.isCharonSwitching()){
                     currState.reset();
                     currState = charonSwitchState;
@@ -178,7 +178,7 @@ public class BackEnd implements Observer<GameMessage> {
 
         else if (removePlayerState == currState) {
 
-            if (lastPlayerInTheGame(currPlayer)) {
+            if ( lastPlayerInTheGame(currPlayer) ) {
                 currState.reset();
                 currState = winState;
             } else {

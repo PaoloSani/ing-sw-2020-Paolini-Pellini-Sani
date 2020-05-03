@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.server.SocketClientConnection;
 import it.polimi.ingsw.util.Observer;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,7 @@ public class FrontEnd implements Observer<LiteGame> {
     private SocketClientConnection client2;
     private SocketClientConnection client3;
     private SocketClientConnection currClient;
+    private boolean EndOfTheGame = false;
 
 
     private int gameID;
@@ -45,6 +47,8 @@ public class FrontEnd implements Observer<LiteGame> {
     }
 
     public void run(){
+
+        //SCELTA DELLE CARTE
         client1.asyncSend("Choose cards of the game");
         client2.asyncSend("Wait! Challenger is choosing cards!");
         if(client3 == null) client3.asyncSend("Wait! Challenger is choosing cards!");
@@ -70,9 +74,42 @@ public class FrontEnd implements Observer<LiteGame> {
         gameMessage.setGod1(God.valueOf(gods[0]));
         gameMessage.setName1(client1.getName());
         updateCurrClient();  //il prossimo turno è del giocatore 2
+        resetUpdate();
         gameMessage.notify(gameMessage);
+        sendLiteGame();
+
+        SocketClientConnection[] clients = new SocketClientConnection[]{client2, client3, client1};
+
+        //I giocatori settano a turno le posizioni dei loro Workers
+        for( SocketClientConnection c : clients ) {
+            resetUpdate();
+            if ( c != null ) {
+                while ( !update ) {
+                    sendToCurrClient("Placing workers");
+                    clientMessage = currClient.readClientMessage();
+                    gameMessage.setSpace1(clientMessage.getSpace1());
+                    gameMessage.setSpace2(clientMessage.getSpace2());
+                    //la chiamata di notify termina nel momento in cui viene eseguita completamente la funzione update della classe FrontEnd
+                    gameMessage.notify(gameMessage);
+                }
+                sendLiteGame();
+            }
+            updateCurrClient();
+        }
 
 
+
+
+        while ( !EndOfTheGame ){
+
+            //all'inizio sceglie il worker con cui giocare
+            chooseWorker();
+
+
+
+
+
+        }
 
 
 
@@ -92,7 +129,7 @@ public class FrontEnd implements Observer<LiteGame> {
         //ricevute tutte le divinità il frontEnd effettua la notify della classe GameMessage
 
         //PLACEWORKERSTATE
-        //A turno ogni client invia la posizione dei suoi giocatori
+        //All'inizio ogni client invia la posizione dei suoi giocatori
 
         //CHOOSEWORKERSTATE
         //Il client sceglie il giocatore
@@ -129,8 +166,29 @@ public class FrontEnd implements Observer<LiteGame> {
     //metodo che sceglie il worker
 
     public void chooseWorker(){
-        //
-        //players.notify
+        resetUpdate();
+        while ( !update ) {
+            sendToCurrClient("Choose Worker");
+            clientMessage = currClient.readClientMessage();
+            gameMessage.setSpace1(clientMessage.getSpace1());
+            gameMessage.notify(gameMessage);
+        }
+        if ( liteGame.getCurrWorker() == null ){
+            currClient.asyncSend("You have lost the match!");
+            SocketClientConnection toRemove = currClient;
+            updateCurrClient();
+            toRemove.closeConnection();
+            toRemove = null;
+
+            // il backEnd esegue la execute di RemovePlayerState
+            gameMessage.notify(gameMessage);
+
+            //Se il giocare era l'ultimo in gioco il backEnd lo scrive nel LiteGame
+            gameMessage.notify(gameMessage);
+
+        }
+
+
     }
     //metodi per la connessione
 
@@ -157,21 +215,26 @@ public class FrontEnd implements Observer<LiteGame> {
         //update riceve litegame
         // TODO: se il messaggio è uguale al precedente o se liteGame è vuoto, ok
 
-        if ( liteGame == null ) {
+        if ( liteGame == null || !message.equalsLG(liteGame) ) {
             liteGame = message;
             update = true;
+        }
 
-        }
-        else if ( message.equalsLG(liteGame) ) resetUpdate();
-        else {
-            liteGame = message;
-            update = true;
-        }
-        client1.asyncSend(message);  //Invio sempre tabella di gioco a tutti i giocatori
-        client2.asyncSend(message);
-        client3.asyncSend(message);
+        else resetUpdate();
+
     }
 
+    public void sendLiteGame(){
+        if ( client1 != null ) {
+            client1.asyncSend(liteGame);  //Invio sempre tabella di gioco a tutti i giocatori
+        }
+        if ( client2 != null ) {
+            client2.asyncSend(liteGame);
+        }
+        if ( client3 != null ) {
+            client3.asyncSend(liteGame);
+        }
+    }
     public void setBackEnd(BackEnd backEnd) {
         this.backEnd = backEnd;
         this.liteGame = backEnd.getGame().getLiteGame().cloneLG();

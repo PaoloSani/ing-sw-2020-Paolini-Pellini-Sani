@@ -6,9 +6,7 @@ import it.polimi.ingsw.model.LiteGame;
 
 import java.io.*;
 import java.net.Socket;
-import java.nio.channels.SeekableByteChannel;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+
 
 public class SocketClientConnection implements Runnable {
     private Socket socket;
