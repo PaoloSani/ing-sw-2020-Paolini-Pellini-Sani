@@ -3,16 +3,39 @@ package it.polimi.ingsw.virtualView;
 import it.polimi.ingsw.controller.BackEnd;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.LiteGame;
+import it.polimi.ingsw.server.SocketClientConnection;
 import it.polimi.ingsw.util.Observer;
 
 public class FrontEnd implements Observer<LiteGame> {
-    BackEnd backEnd;
+    private BackEnd backEnd;
 
     private GameMessage gameMessage;
     private LiteGame liteGame;
     private boolean update = false;
+    private SocketClientConnection client1;
+    private SocketClientConnection client2;
+    private SocketClientConnection client3;
+
+    private int gameID;
+
+    public FrontEnd(SocketClientConnection client1, SocketClientConnection client2, int gameID) {
+        this.client1 = client1;
+        this.client2 = client2;
+        this.gameID = gameID;
+    }
+
+    public FrontEnd(SocketClientConnection client1, SocketClientConnection client2, SocketClientConnection client3, int gameID) {
+        this.client1 = client1;
+        this.client2 = client2;
+        this.client3 = client3;
+        this.gameID = gameID;
+    }
 
     public void run(){
+
+        client1.send("Choose cards of the game");
+        String[] gods = client1.readChallengerMessage();
+
         //riceve il challengerMessage -> capisco quanti giocatori sono in gioco
         //conta la connessione di numOfPlayer client diversi
         //ad ogni connessione chiede di inserire il nickname e poi notifica gli altri giocatori connessi
@@ -47,6 +70,14 @@ public class FrontEnd implements Observer<LiteGame> {
         //EXIT
         //TODO: il caso in cui un giocatore lasci intenzionalmente la partita è da gestire?
 
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
     }
 
 
@@ -86,8 +117,19 @@ public class FrontEnd implements Observer<LiteGame> {
     public void setConnection() {
     }
 
+    public SocketClientConnection getClient1() {
+        return client1;
+    }
 
-    //TODO: se il model ritorna currWorker == null significa che il giocatore corrente ha perso. La virtualView si occupa di informare il client
+    public SocketClientConnection getClient2() {
+        return client2;
+    }
+
+    public SocketClientConnection getClient3() {
+        return client3;
+    }
+
+//TODO: se il model ritorna currWorker == null significa che il giocatore corrente ha perso. La virtualView si occupa di informare il client
     //TODO: e manda un update al controller che rimuove il giocatore dal gioco proseguendo con due giocatori o dichiarando il vincitore
 
     @Override

@@ -2,7 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.God;
 
-public class clientMessage {
+public class ClientMessage {
     String name;
     God god;
     String action;
