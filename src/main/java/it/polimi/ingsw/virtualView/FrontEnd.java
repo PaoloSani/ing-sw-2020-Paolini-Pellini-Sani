@@ -1,40 +1,82 @@
 package it.polimi.ingsw.virtualView;
 
+import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.controller.BackEnd;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.server.SocketClientConnection;
 import it.polimi.ingsw.util.Observer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class FrontEnd implements Observer<LiteGame> {
     private BackEnd backEnd;
 
+    private ClientMessage clientMessage;
     private GameMessage gameMessage;
     private LiteGame liteGame;
     private boolean update = false;
     private SocketClientConnection client1;
     private SocketClientConnection client2;
     private SocketClientConnection client3;
+    private SocketClientConnection currClient;
+
 
     private int gameID;
 
     public FrontEnd(SocketClientConnection client1, SocketClientConnection client2, int gameID) {
         this.client1 = client1;
         this.client2 = client2;
+        this.client3 = null;
+        this.currClient = client2;      //Il primo giocatore a iniziare è il numero 2
         this.gameID = gameID;
+        this.gameMessage = new GameMessage(this);
     }
 
     public FrontEnd(SocketClientConnection client1, SocketClientConnection client2, SocketClientConnection client3, int gameID) {
         this.client1 = client1;
         this.client2 = client2;
         this.client3 = client3;
+        this.currClient = client2;      //Il primo giocatore a iniziare è il numero 2
         this.gameID = gameID;
+        this.gameMessage = new GameMessage(this);
     }
 
     public void run(){
-
-        client1.send("Choose cards of the game");
+        client1.asyncSend("Choose cards of the game");
+        client2.asyncSend("Wait! Challenger is choosing cards!");
+        if(client3 == null) client3.asyncSend("Wait! Challenger is choosing cards!");
         String[] gods = client1.readChallengerMessage();
+        //client 2 e 3 se c'è scelgono le divinità
+        for (int i=0; i<2 && currClient!=client1; i++){
+            sendToCurrClient("Choose your God! Available cards: " + Arrays.toString(gods));
+            clientMessage = currClient.readClientMessage(); // il giocatore due ha scelto la prima divinità
+            if (i == 0) {
+                gameMessage.setGod2(clientMessage.getGod());
+                gameMessage.setName2(clientMessage.getName());
+            } else if (i == 1) {
+                gameMessage.setGod3(clientMessage.getGod());
+                gameMessage.setName3(clientMessage.getName());
+            }
+            List<String> list = new ArrayList<String>(Arrays.asList(gods));
+            list.remove( clientMessage.getGod().name());  //tutto maiuscolo
+            gods = list.toArray(new String[0]);
+            updateCurrClient();
+        }
+
+        currClient.send("Your god is " + gods[0]);  //challenger ha la sua carta
+        gameMessage.setGod1(God.valueOf(gods[0]));
+        gameMessage.setName1(client1.getName());
+        updateCurrClient();  //il prossimo turno è del giocatore 2
+        gameMessage.notify(gameMessage);
+
+
+
+
+
+
 
         //riceve il challengerMessage -> capisco quanti giocatori sono in gioco
         //conta la connessione di numOfPlayer client diversi
@@ -80,28 +122,6 @@ public class FrontEnd implements Observer<LiteGame> {
         this.gameID = gameID;
     }
 
-
-    //metodo che inizializza players
-    public void settingPlayers(String name1, String name2, String name3, God god1, God god2, God god3 ){
-        //caso due o tre giocatori
-        //players.notify
-        gameMessage.setName1(name1);
-        gameMessage.setName2(name2);
-        gameMessage.setName3(name3);
-        gameMessage.setGod1(god1);
-        gameMessage.setGod2(god2);
-        gameMessage.setGod3(god3);
-
-        gameMessage.notify();
-
-        while ( !update ){
-
-        }
-
-        //scrivo ai 2-3 client
-    }
-    //metodo che posiziona i workers
-
     public void placeWorkers(int x1, int y1, int x2, int y2){
         //
         //players.notify
@@ -140,12 +160,16 @@ public class FrontEnd implements Observer<LiteGame> {
         if ( liteGame == null ) {
             liteGame = message;
             update = true;
+
         }
         else if ( message.equalsLG(liteGame) ) resetUpdate();
         else {
             liteGame = message;
             update = true;
         }
+        client1.asyncSend(message);  //Invio sempre tabella di gioco a tutti i giocatori
+        client2.asyncSend(message);
+        client3.asyncSend(message);
     }
 
     public void setBackEnd(BackEnd backEnd) {
@@ -157,9 +181,29 @@ public class FrontEnd implements Observer<LiteGame> {
         return update;
     }
 
+    public void updateCurrClient(){
+        if ( ( ( client2 == currClient) && (client3 != null ) ) || ( (client1 == currClient) && ( client2 == null ) ) ) {
+            currClient = client3;
+        } else if ( ( ( client3 == currClient) && ( client1 != null ) ) || ( ( client2 == currClient ) && ( client3 == null ) ) ) {
+            currClient = client1;
+        } else if ( ( ( client1 == currClient ) && ( client2 != null ) ) || ( ( client3 ==currClient) && ( client1 == null ) ) ) {
+            currClient = client2;
+        }
+    }
+
+    public void sendToCurrClient ( String message ){
+        currClient.asyncSend("Execute your " + message);
+        SocketClientConnection[] clients = new SocketClientConnection[]{client1, client2, client3};
+        for(SocketClientConnection c: clients){
+            if(c != currClient && c != null) c.asyncSend("Wait for " + currClient.getName() + " to execute his " + message);
+        }
+    }
+
+
     //TODO da togliere magari poi
 
     public void resetUpdate() { this.update = false; }
+
 
     /////////////////////
     // Metodi per test //

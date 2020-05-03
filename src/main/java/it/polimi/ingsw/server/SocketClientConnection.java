@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.SettingGameMessage;
+import it.polimi.ingsw.model.LiteGame;
 
 import java.io.*;
 import java.net.Socket;
@@ -8,7 +10,7 @@ import java.nio.channels.SeekableByteChannel;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class SocketClientConnection implements ClientConnection, Runnable {
+public class SocketClientConnection implements Runnable {
     private Socket socket;
     private Server server;
     private boolean active = true;
@@ -45,7 +47,7 @@ public class SocketClientConnection implements ClientConnection, Runnable {
             System.err.println(e.getMessage());
         }
     }
-    @Override
+
     public synchronized void closeConnection() {
         send("Connection closed!");
         try {
@@ -61,7 +63,7 @@ public class SocketClientConnection implements ClientConnection, Runnable {
        //server.deregisterConnection(this);
         System.out.println("Done!");
     }
-    @Override
+
     public void asyncSend(final Object message){
         new Thread(new Runnable() {
             @Override
@@ -164,6 +166,24 @@ public class SocketClientConnection implements ClientConnection, Runnable {
         //restituisce un array di stringhe, separando in modo opportuno message secondo la presenza di virgole
         return (message.split(",")); 
     }
+
+    public ClientMessage readClientMessage() {
+        ClientMessage message = null;
+        try {
+            message = (ClientMessage) in.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return message;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
 }
 
 
