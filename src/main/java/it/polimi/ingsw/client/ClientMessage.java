@@ -7,9 +7,10 @@ public class ClientMessage {
     God god;
     String action;
 
-    //TODO: controlla che siano diverse!
+    //TODO: controlla che siano diverse quando fai PlacingWorkers!
     int [] space1;
     int [] space2;
+    int levelToBuild;
 
     public String getName() {
         return name;
@@ -44,5 +45,19 @@ public class ClientMessage {
         return space2;
     }
 
+    public String getAction() {
+        return action;
+    }
 
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public int getLevelToBuild() {
+        return levelToBuild;
+    }
+
+    public void setLevelToBuild(int levelToBuild) {
+        this.levelToBuild = levelToBuild;
+    }
 }
