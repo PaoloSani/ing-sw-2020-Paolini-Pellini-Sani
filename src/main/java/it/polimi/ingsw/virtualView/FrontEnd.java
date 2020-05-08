@@ -59,7 +59,7 @@ public class FrontEnd implements Observer<LiteGame> {
 
         //client 2 e 3 se c'è scelgono le divinità
         for (int i=0; i<2 && currClient != client1; i++){
-            sendToCurrClient("Choose your God! Available cards: " + Arrays.toString(gods));
+            currClient.asyncSend("Choose your God! Available cards: " + Arrays.toString(gods));
             clientMessage = currClient.readClientMessage(); // il giocatore due ha scelto la prima divinità
             if (i == 0) {
                 gameMessage.setGod2(clientMessage.getGod());
@@ -103,11 +103,7 @@ public class FrontEnd implements Observer<LiteGame> {
             updateCurrClient();
         }
 
-
-
-        //TODO: sistemare il client che interrompe la connessione e la partita viene interrotta da tutti, comprimere codice
-        while ( !endOfTheGame){
-            // chiedo la prossima mossa da fare
+        // chiedo la prossima mossa da fare
             //if ( timeout ) chiudo la partita
             /*switch (action)
                     chooseWorker
@@ -119,7 +115,35 @@ public class FrontEnd implements Observer<LiteGame> {
                     exit -> chiude la partita per tutti i giocatori
             */
 
-            removedPlayer = false;
+
+        while ( !endOfTheGame) {
+            //chiedo al client di eseguire una mossa
+             sendToCurrClient("Next action");
+             clientMessage = currClient.readClientMessage();
+
+             if ( "Choose Worker".equals(clientMessage.getAction()) ) {
+                 chooseWorker();
+             }
+             else if ( "Charon Switch".equals(clientMessage.getAction()) ) {
+                 charonSwitch();
+             }
+             else if ( "Prometheus Build".equals(clientMessage.getAction()) ) {
+                 build();
+             }
+             else if ( "Move".equals(clientMessage.getAction()) ) {
+                 move();
+             }
+             else if ( "Build".equals(clientMessage.getAction()) ) {
+                 build();
+             }
+             else if ( "End".equals(clientMessage.getAction()) ) {
+                 gameMessage.resetGameMessage();
+                 updateCurrClient();
+             }
+             else currClient.asyncSend("Invalid action");
+        }
+
+            /*removedPlayer = false;
             //all'inizio sceglie il worker con cui giocare
             chooseWorker();
 
@@ -161,8 +185,8 @@ public class FrontEnd implements Observer<LiteGame> {
                     while( clientMessage.getAction().equals("Triton moving" ) && !endOfTheGame ){
                         tryMove = move();
                         if ( tryMove && !endOfTheGame ) {        //il client voleva fare la move
-                                sendToCurrClient("Make your move");
-                                clientMessage = currClient.readClientMessage();
+                            sendToCurrClient("Make your move");
+                            clientMessage = currClient.readClientMessage();
                         }
                     }
 
@@ -190,6 +214,9 @@ public class FrontEnd implements Observer<LiteGame> {
             }
 
         }
+        */
+
+        //TODO: sistemare il client che interrompe la connessione e la partita viene interrotta da tutti, comprimere codice
 
         //TODO: sistemare i messaggi
         sendToCurrClient("You won the match");
@@ -217,42 +244,15 @@ public class FrontEnd implements Observer<LiteGame> {
         this.gameID = gameID;
     }
 
-    public void placeWorkers(int x1, int y1, int x2, int y2){
-        //
-        //players.notify
-    }
-    //metodo che sceglie il worker
 
     public void chooseWorker(){
         resetUpdate();
-        while ( !update ) {
-            sendToCurrClient("Choose Worker");
-            clientMessage = currClient.readClientMessage();
-            gameMessage.setSpace1(clientMessage.getSpace1());
-            gameMessage.notify(gameMessage);
-        }
+
+        gameMessage.setSpace1(clientMessage.getSpace1());
+        gameMessage.notify(gameMessage);
 
         if ( liteGame.getCurrWorker() == null ){
-            currClient.asyncSend("You have lost the match!");
-            SocketClientConnection toRemove = currClient;
-            updateCurrClient();
-            toRemove.closeConnection();
-            toRemove = null;
-
-            // il backEnd esegue la execute di RemovePlayerState
-            gameMessage.notify(gameMessage);
-            sendLiteGame(); //mando la tabella di gioco ai giocatori rimasti
-
-            //Se il giocare era l'ultimo in gioco il backEnd lo scrive nel LiteGame
-            gameMessage.notify(gameMessage);
-            if ( liteGame.isWinner() ){
-                currClient.asyncSend("You won the match!\n");
-                currClient.closeConnection();
-                currClient = null;
-                endOfTheGame = true; //booleano per uscire dal metodo run
-            }
-            else chooseWorker();
-
+            removePlayerFromTheGame();
         }
         else {
             sendLiteGame();
@@ -260,121 +260,63 @@ public class FrontEnd implements Observer<LiteGame> {
     }
 
 
-    //il metodo è booleano perché se ritorna VERO allora ha eseguito correttamente la mossa, altrimenti FALSO indica che
-    // il client ha sbagliato mossa e non voleva una Switch ma direttamente una move
-    //questa scelta è per non bloccare il gioco su un client che invoca una switch ma non ha nessuna cella valida in cui farla
-    private boolean charonSwitch() {
-        boolean result = false;
+    private void charonSwitch() {
         resetUpdate();
-        while ( !update && !clientMessage.getAction().equals("Move") ) {
-            gameMessage.setSpace1(clientMessage.getSpace1());
-            gameMessage.setCharonSwitching(true);
-            gameMessage.notify(gameMessage);
+        gameMessage.setSpace1(clientMessage.getSpace1());
+        gameMessage.setCharonSwitching(true);
+        gameMessage.notify(gameMessage);
 
-            if ( !update ){
-                currClient.asyncSend("Invalid move! Repeat your move");
-                clientMessage = currClient.readClientMessage();
-            }
-            else {
-                result = true;
-            }
-        }
         sendLiteGame();
-        return result;
     }
 
-    //il metodo è booleano perché se ritorna VERO allora ha eseguito correttamente la mossa, altrimenti FALSO indica che
-    // il client ha sbagliato mossa e non voleva una Build ma direttamente una move
-    //questa scelta è per non bloccare il gioco su un client che invoca una build ma non ha nessuna cella valida in cui farla
-    private boolean prometheusBuild() {
-        boolean result = false;
+    private void move() {
         resetUpdate();
-        while ( !update && !clientMessage.getAction().equals("Move") ) {
-            gameMessage.setSpace1(clientMessage.getSpace1());
-            gameMessage.setLevel(clientMessage.getLevelToBuild());
-            gameMessage.notify(gameMessage);
 
-            if ( !update ){
-                currClient.asyncSend("Invalid move!");
-                clientMessage = currClient.readClientMessage();
-            }
-            else {
-                result = true;
-            }
-        }
+        gameMessage.setSpace1(clientMessage.getSpace1());
+        gameMessage.resetGameMessage();
+        gameMessage.notify(gameMessage);
+
+
+        if( liteGame.isWinner() ) endOfTheGame = true;
         sendLiteGame();
-        return result;
     }
 
-    private boolean move() {
-        boolean result = false;
+    private void build() {
         resetUpdate();
-        while ( !update && ! clientMessage.getAction().equals("Build") ) {
-            gameMessage.setSpace1(clientMessage.getSpace1());
-            gameMessage.resetGameMessage();
-            gameMessage.notify(gameMessage);
 
-            if ( !update ){
-                currClient.asyncSend("Invalid move! Repeat your move");
-                clientMessage = currClient.readClientMessage();
-            }
-            else{
-                result = true;
-                if(liteGame.isWinner()) endOfTheGame= true;
-            }
+        gameMessage.setSpace1(clientMessage.getSpace1());
+        gameMessage.setLevel(clientMessage.getLevelToBuild());
+        gameMessage.notify(gameMessage);
+
+        if ( liteGame.getCurrWorker() == null ){
+            removePlayerFromTheGame();
         }
-        sendLiteGame();
-        return result;
+        else sendLiteGame();
     }
 
-    private boolean build() {
-        boolean result = false;
-        resetUpdate();
-        while ( !update && ! clientMessage.getAction().equals("End") ) {
-            gameMessage.setSpace1(clientMessage.getSpace1());
-            gameMessage.setLevel(clientMessage.getLevelToBuild());
-            gameMessage.notify(gameMessage);
+    //chiude la connessione del giocatore corrente e inizia il turno con il giocatore successivo
+    //se è il caso di due giocatori conclude la partita e notifica il giocatore vincente
+    private void removePlayerFromTheGame(){
+        currClient.asyncSend("You have lost the match!");
+        SocketClientConnection toRemove = currClient;
+        updateCurrClient();
+        toRemove.closeConnection();
+        toRemove = null;
 
-            if ( !update ){
-                currClient.asyncSend("Invalid move! Repeat your build");
-                clientMessage = currClient.readClientMessage();
-            }
-            else if ( liteGame.getCurrWorker() == null ){
-                currClient.asyncSend("You have lost the match!");
-                SocketClientConnection toRemove = currClient;
-                updateCurrClient();
-                toRemove.closeConnection();
-                toRemove = null;
+        // il backEnd esegue la execute di RemovePlayerState
+        gameMessage.notify(gameMessage);
+        sendLiteGame(); //mando la tabella di gioco ai giocatori rimasti
 
-                // il backEnd esegue la execute di RemovePlayerState
-                gameMessage.notify(gameMessage);
-                sendLiteGame(); //mando la tabella di gioco ai giocatori rimasti
-
-                //Se il giocare era l'ultimo in gioco il backEnd lo scrive nel LiteGame
-                gameMessage.notify(gameMessage);
-                if ( liteGame.isWinner() ){
-                    currClient.asyncSend("You won the match!\n");
-                    currClient.closeConnection();
-                    currClient = null;
-                    endOfTheGame = true; //booleano per uscire dal metodo run
-                }
-                else {
-                    removedPlayer = true;
-                    result = true;
-                }
-
-            }
-            else result = true;
+        //Se il giocare era l'ultimo in gioco il backEnd lo scrive nel LiteGame
+        gameMessage.notify(gameMessage);
+        if ( liteGame.isWinner() ){
+            currClient.asyncSend("You won the match!\n");
+            currClient.closeConnection();
+            currClient = null;
+            endOfTheGame = true; //booleano per uscire dal metodo run
         }
-        sendLiteGame();
-        return result;
     }
 
-
-    //metodi per la connessione
-
-    public void setConnection() {
-    }
 
     public SocketClientConnection getClient1() {
         return client1;
@@ -388,8 +330,6 @@ public class FrontEnd implements Observer<LiteGame> {
         return client3;
     }
 
-//TODO: se il model ritorna currWorker == null significa che il giocatore corrente ha perso. La virtualView si occupa di informare il client
-    //TODO: e manda un update al controller che rimuove il giocatore dal gioco proseguendo con due giocatori o dichiarando il vincitore
 
     @Override
     public void update(LiteGame message) {
@@ -404,6 +344,8 @@ public class FrontEnd implements Observer<LiteGame> {
         else resetUpdate();
 
     }
+
+    public void resetUpdate() { this.update = false; }
 
     public void sendLiteGame(){
         if ( client1 != null ) {
@@ -422,9 +364,6 @@ public class FrontEnd implements Observer<LiteGame> {
         this.liteGame = backEnd.getGame().getLiteGame().cloneLG();
     }
 
-    public boolean getUpdate() {
-        return update;
-    }
 
     public void updateCurrClient(){
         if ( ( ( client2 == currClient) && ( client3 != null ) ) || ( (client1 == currClient) && ( client2 == null ) ) ) {
@@ -437,17 +376,15 @@ public class FrontEnd implements Observer<LiteGame> {
     }
 
     public void sendToCurrClient ( String message ){
-        currClient.asyncSend("Execute your " + message);
+        currClient.asyncSend( message );
         SocketClientConnection[] clients = new SocketClientConnection[]{client1, client2, client3};
         for(SocketClientConnection c: clients){
-            if(c != currClient && c != null) c.asyncSend("Wait for " + currClient.getName() + " to execute his " + message);
+            if(c != currClient && c != null )
+                if ( message.equals("Next Action") )
+                    c.asyncSend("Wait for " + currClient.getName() + " to end his turn" );
+                else c.asyncSend("You lost the match");
         }
     }
-
-
-    //TODO da togliere magari poi
-
-    public void resetUpdate() { this.update = false; }
 
 
     /////////////////////
@@ -458,6 +395,10 @@ public class FrontEnd implements Observer<LiteGame> {
     //mi serve per i test
     public LiteGame getLiteGame() {
         return liteGame;
+    }
+
+    public boolean getUpdate() {
+        return update;
     }
 
     public BackEnd getBackEnd() {
