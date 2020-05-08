@@ -27,6 +27,22 @@ public class Server {
     private Map<Integer, List<SocketClientConnection>> playingConnection3Players = new HashMap<>();
     private List<String> nicknames = new ArrayList<>();
 
+    public Server() throws IOException {
+        this.serverSocket = new ServerSocket(PORT);
+        this.currMatch = 0;
+    }
+    public void run(){
+        while(true){
+            try {
+                Socket newSocket = serverSocket.accept();
+                SocketClientConnection socketConnection = new SocketClientConnection(newSocket, this);
+                executor.submit(socketConnection);
+            } catch (IOException e) {
+                System.out.println("Connection Error!");
+            }
+        }
+    }
+
     //currMatch si riferisce all'ultima partita che è stata creata
     private int currMatch;
 
@@ -121,21 +137,6 @@ public class Server {
     }
 
    */
-    public Server() throws IOException {
-        this.serverSocket = new ServerSocket(PORT);
-        this.currMatch = 0;
-    }
-    public void run(){
-        while(true){
-            try {
-                Socket newSocket = serverSocket.accept();
-                SocketClientConnection socketConnection = new SocketClientConnection(newSocket, this);
-                executor.submit(socketConnection);
-            } catch (IOException e) {
-                System.out.println("Connection Error!");
-            }
-        }
-    }
 
     public boolean existingNickname(String nickname) {
         return nicknames.contains(nickname);

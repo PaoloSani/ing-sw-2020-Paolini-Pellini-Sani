@@ -60,4 +60,7 @@ public class ClientMessage {
     public void setLevelToBuild(int levelToBuild) {
         this.levelToBuild = levelToBuild;
     }
+
+    public void print() {
+    }
 }
