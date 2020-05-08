@@ -467,4 +467,15 @@ public class FrontEnd implements Observer<LiteGame> {
     public void setLiteGame(LiteGame cloneLG) {
         this.liteGame = cloneLG;
     }
+
+    public FrontEnd(){
+        backEnd = null;
+        clientMessage = null;
+        gameMessage = null;
+        liteGame = null;
+        client1 = null;
+        client2 = null;
+        client3 = null;
+        currClient = null;
+    }
 }
