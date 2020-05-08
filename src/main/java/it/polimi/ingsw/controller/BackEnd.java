@@ -167,7 +167,12 @@ public class BackEnd implements Observer<GameMessage> {
         }
 
         else if ( buildState == currState ) {
-            if ( !((currPlayer.getGod() == God.HEPHAESTUS || currPlayer.getGod() == God.POSEIDON || currPlayer.getGod() == God.DEMETER) && gameMessage.getLevel() != 0) ) {
+            if ( toRemove != null ){
+                updateCurrPlayer();
+                currState.reset();
+                currState = removePlayerState;
+            }
+            else if ( !((currPlayer.getGod() == God.HEPHAESTUS || currPlayer.getGod() == God.POSEIDON || currPlayer.getGod() == God.DEMETER) && gameMessage.getLevel() != 0) ) {
                 {
                     currState.reset();
                     updateCurrPlayer();
