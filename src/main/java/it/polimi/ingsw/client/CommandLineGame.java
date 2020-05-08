@@ -1,43 +1,90 @@
 package it.polimi.ingsw.client;
 
-import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class CommandLineGame {
 
-    /**
-     * Colours in ANSI escape code
-     */
-
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-
-    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-
-    /**
-     * End of colours declaration
-     */
-
-    private PrintWriter out = new PrintWriter(System.out);
-    private Scanner in = new Scanner(System.in);
+    private final Scanner in = new Scanner(System.in);
     private String nickname;
+    private String mode = "start";
+    private int numOfPlayers;
+    private int gameID;
+    private SettingGameMessage settingGameMessage = new SettingGameMessage();
+    private boolean quit = true;
 
-    public void welcome(){
-        out.println(ANSI_BLUE_BACKGROUND + ANSI_YELLOW + "\nWelcome to Santorini stranger!\n\nWhat is your name?\n\n" + ANSI_RESET);
-        nickname = in.nextLine();
+    public void startCLI(){
+        welcomeMirror();
     }
+
+    public void welcomeMirror(){
+        System.out.println(ColourFont.ANSI_CYAN_BACKGROUND);
+        System.out.println(ColourFont.ANSI_BOLD + "Welcome to Santorini!\nRETRO\n\n");
+        System.out.println("What is your name?\n" + ColourFont.ANSI_RESET);
+        nickname = in.nextLine();
+        settingGameMessage.setNickname(nickname);
+        while(quit) {
+            quit = false;
+            while (!mode.equals("A") && !mode.equals("B") && !mode.equals("C")) {
+                System.out.println(ColourFont.ANSI_CYAN_BACKGROUND + "\nPlease " + nickname + ", type A, B or C to choose different options:\n");
+                System.out.println(" - A) CREATE A NEW MATCH\n      Be the challenger of the isle!\n");
+                System.out.println(" - B) PLAY WITH YOUR FRIENDS\n      Play an already existing game!\n");
+                System.out.println(" - C) PLAY WITH STRANGERS\n      Challenge yourself with randomly chosen players!\n");
+                mode = in.nextLine();
+                if (!mode.equals("A") && !mode.equals("B") && !mode.equals("C"))
+                    System.out.println("Dare you challenge the Olympus?? Retry\n ");
+            }
+            switch (mode) {
+                case "A":
+                    settingGameMessage.setCreatingNewGame(true);
+                    settingGameMessage.setPlayingExistingMatch(false);
+                    settingGameMessage.setGameID(0);
+                    while (numOfPlayers != 2 && numOfPlayers != 3 && !quit) {
+                        System.out.println("Choose the number of players (2 or 3)");
+                        System.out.println("Type quit to return back!");
+                        String actionA = in.nextLine();
+                        if (actionA.equals("quit")) {
+                            quit = true;
+                            mode = "start";
+                        }
+                    else if (!actionA.equals("2") && !actionA.equals("3"))
+                            System.out.println("Dare you challenge the Olympus?? Retry\n ");
+                        else numOfPlayers = Integer.parseInt(actionA);
+                    }
+                    break;
+                case "B":
+                    settingGameMessage.setPlayingExistingMatch(true);
+                    settingGameMessage.setCreatingNewGame(false);
+                    System.out.println("Type the game ID:\n");
+                    String actionB = in.nextLine();
+                    if (actionB.equals("quit")) {
+                        quit = true;
+                        mode = "start";
+                    }
+                    else {
+                        gameID = Integer.parseInt(actionB);
+                        settingGameMessage.setGameID(gameID);
+                    }
+                    break;
+                case "C":
+                    settingGameMessage.setCreatingNewGame(false);
+                    settingGameMessage.setPlayingExistingMatch(false);
+                    settingGameMessage.setGameID(0);
+                    while (numOfPlayers != 2 && numOfPlayers != 3 && !quit) {
+                        System.out.println("Choose the number of players (2 or 3)\n");
+                        String actionC = in.nextLine();
+                        if (actionC.equals("quit")) {
+                            quit = true;
+                            mode = "start";
+                        }
+                        else if (!actionC.equals("2") && !actionC.equals("3"))
+                            System.out.println("Dare you challenge the Olympus?? Retry\n ");
+                        else numOfPlayers = Integer.parseInt(actionC);
+                    }
+                    break;
+            }
+        }
+        settingGameMessage.setNumberOfPlayer(numOfPlayers);
+    }
+
+
 }
