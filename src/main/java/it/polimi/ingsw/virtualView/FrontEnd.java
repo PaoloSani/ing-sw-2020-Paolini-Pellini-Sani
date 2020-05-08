@@ -13,8 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FrontEnd implements Observer<LiteGame> {
-    private BackEnd backEnd;
 
+    private BackEnd backEnd;
     private ClientMessage clientMessage;
     private GameMessage gameMessage;
     private LiteGame liteGame;
