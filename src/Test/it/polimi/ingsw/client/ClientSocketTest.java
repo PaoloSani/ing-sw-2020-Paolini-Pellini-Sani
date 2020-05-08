@@ -1,10 +1,8 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.server.ClientConnection;
 import it.polimi.ingsw.server.Server;
-import it.polimi.ingsw.server.SocketClientConnection;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 
 import java.io.IOException;
 
@@ -15,7 +13,7 @@ public class ClientSocketTest {
     ClientSocket clientSocket;
     Server server;
 
-    @BeforeEach
+    @Before
     public void setUp() throws IOException {
         clientSocket = new ClientSocket("127.0.0.1", 12345);
         server = new Server();

@@ -96,7 +96,7 @@ public class SocketClientConnection implements Runnable {
                 }
             }
 
-            while (!validMessage) {
+            while ( !validMessage ) {
 
                 try {
                     settings = (SettingGameMessage) in.readObject();
@@ -116,8 +116,11 @@ public class SocketClientConnection implements Runnable {
                     // legge quanti giocatori mettere nella partita
                 } else if (settings.isPlayingExistingMatch()) {
                     gameID = settings.getGameID();
-                    if (server.addPlayer(gameID,this) && server.checkMatch(gameID)) server.startGame(gameID);
-                    validMessage = true;
+
+                    if ( server.addPlayer(gameID,this) ) {
+                        validMessage = true;
+                        if ( server.checkMatch(gameID) ) server.startGame(gameID);
+                    }
                     //Se il giocatore viene aggiunto
                     //controllo se è possibile runnare una nuova partita
 
