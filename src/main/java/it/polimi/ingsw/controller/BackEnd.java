@@ -15,7 +15,7 @@ public class BackEnd implements Observer<GameMessage> {
     private Player player3;
     private Player challenger;
     private Player currPlayer;
-    private Player toRemove;
+    private Player toRemove; //serve per memorizzare il giocatore che non può muovere nessuna pedina, così che poi lo rimuovo dal gioco
     private Worker currWorker;
     private boolean lastExecute;
     public final GameState setPlayersState = new SetPlayersState(this);
@@ -103,10 +103,10 @@ public class BackEnd implements Observer<GameMessage> {
 
     public void changeState(){
         if (setPlayersState == currState) {
+            //TODO: perché (gameMessage.getSpace1() == null) ??
             if ( (gameMessage.getSpace1()[0] != -1 ) || (gameMessage.getSpace1() == null) ) {
-                updateCurrPlayer();
-                currState.reset();
                 currPlayer = this.player2;      //perché il primo è il challenger
+                currState.reset();
                 currState = placeWorkersState; //Cambio lo stato solo se x1 non è negativo (come di default all'inizio del gioco)
             }
         }
@@ -167,7 +167,12 @@ public class BackEnd implements Observer<GameMessage> {
         }
 
         else if ( buildState == currState ) {
-            if (!((currPlayer.getGod() == God.HEPHAESTUS || currPlayer.getGod() == God.POSEIDON || currPlayer.getGod() == God.DEMETER) && gameMessage.getLevel() != 0)) {
+            if ( toRemove != null ){
+                updateCurrPlayer();
+                currState.reset();
+                currState = removePlayerState;
+            }
+            else if ( !((currPlayer.getGod() == God.HEPHAESTUS || currPlayer.getGod() == God.POSEIDON || currPlayer.getGod() == God.DEMETER) && gameMessage.getLevel() != 0) ) {
                 {
                     currState.reset();
                     updateCurrPlayer();

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.util.GameState;
@@ -20,22 +21,30 @@ public class ChooseWorkerState implements GameState {
     @Override
     public boolean execute() {
         boolean result = true;
+        boolean blockedByHypnus = false;
         //all'inizio: riceve la cella che contiene il worker scelto
         //execute: controlla che il worker si posso muovere, altrimenti ritorna l'altro worker
         //Nel litegame c'è un attributo currentworker
 
             chosenWorker = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]).getWorker();
             if ( chosenWorker == null ) result = false;
+            otherWorker = backEnd.getCurrPlayer().getOtherWorker(chosenWorker);
 
         if ( result ) {
-            if (backEnd.getGame().isFreeToMove(chosenWorker)) {
+            if ( backEnd.getCurrPlayer().getGod() != God.HYPNUS                                 &&  // vera solo se la divinità corrente non è hypnus
+                    backEnd.getGame().getConstraint().hypnusBlocks()                            &&  // vera se hypnus è presente in gioco
+                    chosenWorker.getSpace().getHeight() > otherWorker.getSpace().getHeight()    ) { // vera se il client non ha passato un worker valido
+                    blockedByHypnus = true;
+
+            }
+
+            if ( !blockedByHypnus && backEnd.getGame().isFreeToMove(chosenWorker) ) {
                 //Modifico attributo currentworker nel backend
                 backEnd.setCurrWorker(chosenWorker);
                 //lo scrivo nel litegame
                 backEnd.getGame().setCurrWorker(chosenWorker);
             } else {
-                otherWorker = backEnd.getCurrPlayer().getOtherWorker(chosenWorker);
-                if (backEnd.getGame().isFreeToMove(otherWorker)) {
+                if ( backEnd.getGame().isFreeToMove(otherWorker) ) {
                     //lo scrivo nel backend
                     backEnd.setCurrWorker(otherWorker);
                     //Modifico attributo currentworker nel litegame

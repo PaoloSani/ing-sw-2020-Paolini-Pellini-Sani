@@ -93,6 +93,18 @@ public class BuildState implements GameState {
             }
         }
 
+        //le righe che seguono (97-104) sono per il caso sfigatissimo
+        boolean saveAthena = backEnd.getGame().getConstraint().athenaBlocks();
+        backEnd.getGame().getConstraint().setAthena(false);
+        //CASO SFIGATISSIMO: il currWorker si è appena bloccato e l'altro worker è già bloccato tra un cerchio di cupole
+        if ( !backEnd.getGame().isFreeToMove(backEnd.getCurrWorker()) && !backEnd.getGame().isFreeToMove(backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrWorker())) ){
+            backEnd.setToRemove(backEnd.getCurrPlayer());
+            backEnd.getGame().setCurrWorker(null);
+        }
+        backEnd.getGame().getConstraint().setAthena(saveAthena);
+
+
+
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la View
         return result;
