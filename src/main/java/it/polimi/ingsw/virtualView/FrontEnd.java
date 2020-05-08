@@ -12,8 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FrontEnd implements Observer<LiteGame> {
-    private BackEnd backEnd;
 
+    private BackEnd backEnd;
     private ClientMessage clientMessage;
     private GameMessage gameMessage;
     private LiteGame liteGame;
@@ -407,5 +407,16 @@ public class FrontEnd implements Observer<LiteGame> {
 
     public void setLiteGame(LiteGame cloneLG) {
         this.liteGame = cloneLG;
+    }
+
+    public FrontEnd(){
+        backEnd = null;
+        clientMessage = null;
+        gameMessage = null;
+        liteGame = null;
+        client1 = null;
+        client2 = null;
+        client3 = null;
+        currClient = null;
     }
 }
