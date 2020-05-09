@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class ClientSocket {
+public class ClientConnection {
     private String ip;
     private int port;
     private ObjectInputStream socketIn;
@@ -18,7 +18,7 @@ public class ClientSocket {
     private Socket socket;
 
 
-    public ClientSocket(String ip, int port){
+    public ClientConnection(String ip, int port){
         this.ip = ip;
         this.port = port;
     }
@@ -77,7 +77,7 @@ public class ClientSocket {
     }
 
     public void connect() throws IOException {
-        Socket socket = new Socket(ip, port);
+        socket = new Socket(ip, port);
         System.out.println("Connection established");
         socketIn = new ObjectInputStream(socket.getInputStream());
         socketOut = new ObjectOutputStream(socket.getOutputStream());

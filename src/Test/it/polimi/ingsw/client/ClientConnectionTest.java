@@ -6,16 +6,14 @@ import org.junit.Before;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class ClientConnectionTest {
 
-public class ClientSocketTest {
-
-    ClientSocket clientSocket;
+    ClientConnection clientConnection;
     Server server;
 
     @Before
     public void setUp() throws IOException {
-        clientSocket = new ClientSocket("127.0.0.1", 12345);
+        clientConnection = new ClientConnection("127.0.0.1", 12345);
         server = new Server();
 
     }
@@ -23,8 +21,8 @@ public class ClientSocketTest {
     @Test
     public void socketTest() throws IOException {
         server.run();
-        clientSocket.connect();
-        System.out.println(clientSocket.readString());
+        clientConnection.connect();
+        System.out.println(clientConnection.readString());
 
     }
 
