@@ -4,27 +4,25 @@ import it.polimi.ingsw.controller.BackEnd;
 import it.polimi.ingsw.virtualView.FrontEnd;
 
 import java.io.IOException;
-import java.lang.reflect.MalformedParameterizedTypeException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
-    public static final int PORT = 12345;
-    ServerSocket serverSocket;
-    ExecutorService executor = Executors.newFixedThreadPool(128);
+    public static final int PORT = 4700;
+    private ServerSocket serverSocket;
+    private ExecutorService executor = Executors.newFixedThreadPool(128);
 
-    private Map<String, SocketClientConnection> waitingConnection2Players = new HashMap<>();
-    private Map<String, SocketClientConnection> waitingConnection3Players = new HashMap<>();
+    private Map<String, ServerConnection> waitingConnection2Players = new HashMap<>();
+    private Map<String, ServerConnection> waitingConnection3Players = new HashMap<>();
 
-    private Map<Integer, List<SocketClientConnection>> playingConnection2Players = new HashMap<>();
-    private Map<Integer, List<SocketClientConnection>> playingConnection3Players = new HashMap<>();
+    private Map<Integer, List<ServerConnection>> playingConnection2Players = new HashMap<>();
+    private Map<Integer, List<ServerConnection>> playingConnection3Players = new HashMap<>();
     private List<String> nicknames = new ArrayList<>();
 
     public Server() throws IOException {
@@ -35,8 +33,8 @@ public class Server {
         while(true){
             try {
                 Socket newSocket = serverSocket.accept();
-                SocketClientConnection socketConnection = new SocketClientConnection(newSocket, this);
-                executor.submit(socketConnection);
+                ServerConnection serverConnection = new ServerConnection(newSocket, this);
+                executor.submit(serverConnection);
             } catch (IOException e) {
                 System.out.println("Connection Error!");
             }
@@ -69,13 +67,13 @@ public class Server {
         }
     }*/
 
-    public synchronized void lobby(String name, int numberOfPlayers, SocketClientConnection client){
+    public synchronized void lobby(String name, int numberOfPlayers, ServerConnection client){
         if (numberOfPlayers == 2) {
             waitingConnection2Players.put(name,client);
             if (waitingConnection2Players.size() == 2){
                 updateCurrMatch();
                 List<String> keys = new ArrayList<>(waitingConnection2Players.keySet());
-                List<SocketClientConnection> list = new ArrayList<>();
+                List<ServerConnection> list = new ArrayList<>();
                 list.add(waitingConnection2Players.get(keys.get(0)));
                 list.add(waitingConnection2Players.get(keys.get(1)));
                 playingConnection2Players.put(currMatch, list);
@@ -89,7 +87,7 @@ public class Server {
             if (waitingConnection3Players.size() == 3){
                 updateCurrMatch();
                 List<String> keys = new ArrayList<>(waitingConnection3Players.keySet());
-                List<SocketClientConnection> list = new ArrayList<>();
+                List<ServerConnection> list = new ArrayList<>();
                 list.add(waitingConnection3Players.get(keys.get(0)));
                 list.add(waitingConnection3Players.get(keys.get(1)));
                 list.add(waitingConnection3Players.get(keys.get(2)));
@@ -142,8 +140,8 @@ public class Server {
         return nicknames.contains(nickname);
     }
 
-    public void createMatch(int gameID , int numberOfPlayers, SocketClientConnection challenger) {
-        List<SocketClientConnection> list = new ArrayList<>();
+    public void createMatch(int gameID , int numberOfPlayers, ServerConnection challenger) {
+        List<ServerConnection> list = new ArrayList<>();
         list.add(challenger);
         if ( numberOfPlayers == 2){
             playingConnection2Players.put(gameID, list);
@@ -153,15 +151,15 @@ public class Server {
         }
     }
 
-    public synchronized boolean addPlayer(int gameID, SocketClientConnection player){
+    public synchronized boolean addPlayer(int gameID, ServerConnection player){
         if (playingConnection2Players.containsKey(gameID)) {
-            List<SocketClientConnection> list = playingConnection2Players.get(gameID);
+            List<ServerConnection> list = playingConnection2Players.get(gameID);
             if (list.size() < 2){             //TODO: Un terzo giocatore non può collegarsi, la sua connessione si chiude
                 list.add(player);
                 return true;
             }
         } else if (playingConnection3Players.containsKey(gameID)){
-            List<SocketClientConnection> list = playingConnection3Players.get(gameID);
+            List<ServerConnection> list = playingConnection3Players.get(gameID);
             if (list.size() < 3){             //Todo: Un quarto giocatore non può collegarsi, la sua connessione si chiude
                 list.add(player);
                 return true;
@@ -170,14 +168,18 @@ public class Server {
         return false;
     }
 
+    public void addNickname(String name){
+        nicknames.add(name);
+    }
+
     //Fa partire la partita gameID
     public void startGame(int gameID) {
         FrontEnd frontEnd;
         if (playingConnection2Players.containsKey(gameID)){
-            List<SocketClientConnection> list = playingConnection2Players.get(gameID);
+            List<ServerConnection> list = playingConnection2Players.get(gameID);
             frontEnd = new FrontEnd(list.get(0), list.get(1), gameID);
         } else {
-            List<SocketClientConnection> list = playingConnection3Players.get(gameID);
+            List<ServerConnection> list = playingConnection3Players.get(gameID);
             frontEnd = new FrontEnd(list.get(0), list.get(1), list.get(2), gameID);
         }
 

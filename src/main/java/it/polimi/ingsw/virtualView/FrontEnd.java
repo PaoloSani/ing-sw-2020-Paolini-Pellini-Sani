@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.controller.BackEnd;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.LiteGame;
-import it.polimi.ingsw.server.SocketClientConnection;
+import it.polimi.ingsw.server.ServerConnection;
 import it.polimi.ingsw.util.Observer;
 
 import java.util.ArrayList;
@@ -18,17 +18,17 @@ public class FrontEnd implements Observer<LiteGame> {
     private GameMessage gameMessage;
     private LiteGame liteGame;
     private boolean update = false;
-    private SocketClientConnection client1;
-    private SocketClientConnection client2;
-    private SocketClientConnection client3;
-    private SocketClientConnection currClient;
+    private ServerConnection client1;
+    private ServerConnection client2;
+    private ServerConnection client3;
+    private ServerConnection currClient;
     private boolean endOfTheGame = false;
     private boolean removedPlayer = false;
 
 
     private int gameID;
 
-    public FrontEnd(SocketClientConnection client1, SocketClientConnection client2, int gameID) {
+    public FrontEnd(ServerConnection client1, ServerConnection client2, int gameID) {
         this.client1 = client1;
         this.client2 = client2;
         this.client3 = null;
@@ -37,7 +37,7 @@ public class FrontEnd implements Observer<LiteGame> {
         this.gameMessage = new GameMessage(this);
     }
 
-    public FrontEnd(SocketClientConnection client1, SocketClientConnection client2, SocketClientConnection client3, int gameID) {
+    public FrontEnd(ServerConnection client1, ServerConnection client2, ServerConnection client3, int gameID) {
         this.client1 = client1;
         this.client2 = client2;
         this.client3 = client3;
@@ -83,10 +83,10 @@ public class FrontEnd implements Observer<LiteGame> {
         gameMessage.notify(gameMessage);
         sendLiteGame();
 
-        SocketClientConnection[] clients = new SocketClientConnection[]{client2, client3, client1};
+        ServerConnection[] clients = new ServerConnection[]{client2, client3, client1};
 
         //I giocatori settano a turno le posizioni dei loro Workers
-        for( SocketClientConnection c : clients ) {
+        for( ServerConnection c : clients ) {
             resetUpdate();
 
             if ( c != null ) {
@@ -103,19 +103,6 @@ public class FrontEnd implements Observer<LiteGame> {
 
             updateCurrClient();
         }
-
-        // chiedo la prossima mossa da fare
-            //if ( timeout ) chiudo la partita
-            /*switch (action)
-                    chooseWorker
-                    switching
-                    prometheusBuild
-                    Move -> metto un contatore per verificare che sia fatta sempre almeno una volta
-                    build -> contatore per verificare che sia fatta almeno una volta ->faccio updateClient
-                    end -> chiude il turno
-                    exit -> chiude la partita per tutti i giocatori
-            */
-
 
         while ( !endOfTheGame) {
             //chiedo al client di eseguire una mossa
@@ -144,84 +131,12 @@ public class FrontEnd implements Observer<LiteGame> {
              else currClient.asyncSend("Invalid action");
         }
 
-            /*removedPlayer = false;
-            //all'inizio sceglie il worker con cui giocare
-            chooseWorker();
-
-            //rifaccio il controllo perhé chooseWorker() potrebbe avere modificato questo attributo
-            if ( !endOfTheGame ) {
-                boolean tryMove;
-                // delego alla client le opzioni di costruire o muoversi, prima di fare la normale mossa, tramite poteri speciali
-                sendToCurrClient("Make your move");
-                clientMessage = currClient.readClientMessage();
-
-                if (clientMessage.getAction().equals("Switching")) {
-                    tryMove = charonSwitch();
-                    if (tryMove) {        //il client voleva fare la move
-                        sendToCurrClient("Make your move");
-                        clientMessage = currClient.readClientMessage();
-                    }
-
-                } else if (clientMessage.getAction().equals("Prometheus moving")) {
-                    tryMove = prometheusBuild();
-                    if (tryMove) {        //il client voleva fare la move
-                        sendToCurrClient("Make your move");
-                        clientMessage = currClient.readClientMessage();
-                    }
-                }
-
-                move();
-                if(!endOfTheGame){
-                    sendToCurrClient("Make your move");
-                    clientMessage = currClient.readClientMessage();
-
-                    if ( clientMessage.getAction().equals("Artemis moving") ){
-                        tryMove = move();
-                        if (tryMove && !endOfTheGame) {        //il client voleva fare la move
-                            sendToCurrClient("Make your build");
-                            clientMessage = currClient.readClientMessage();
-                        }
-                    }
-
-                    while( clientMessage.getAction().equals("Triton moving" ) && !endOfTheGame ){
-                        tryMove = move();
-                        if ( tryMove && !endOfTheGame ) {        //il client voleva fare la move
-                            sendToCurrClient("Make your move");
-                            clientMessage = currClient.readClientMessage();
-                        }
-                    }
-
-                    if( !endOfTheGame ){
-                        build();
-                        if ( !removedPlayer && !endOfTheGame ){
-                            sendToCurrClient("Make your move");
-                            clientMessage = currClient.readClientMessage();
-
-                            //End mi serve perché Poseidone, Demetra o Efesto potrebbero non volere usare il loro potere speciale. Se il client non è uno di questi tre
-                            // il messaggio di end viene generato automaticamente
-                            while ( !clientMessage.getAction().equals("End") ){
-                                if ( build() ) {
-                                    sendToCurrClient("Make your build");
-                                    clientMessage = currClient.readClientMessage();
-                                }
-                            }
-
-                            //fondamentale qui, perché se il cambio turno porta da poseidone a demetra, per esempio, il backend riparte da ChooseWorkerState
-                            gameMessage.resetGameMessage();
-                            updateCurrClient();
-                        }
-                    }
-                }
-            }
-
-        }
-        */
 
         //TODO: sistemare il client che interrompe la connessione e la partita viene interrotta da tutti, comprimere codice
 
         //TODO: sistemare i messaggi
         sendToCurrClient("You won the match");
-        for ( SocketClientConnection s : clients ){
+        for ( ServerConnection s : clients ){
             s.closeConnection();
         }
     }
@@ -299,7 +214,7 @@ public class FrontEnd implements Observer<LiteGame> {
     //se è il caso di due giocatori conclude la partita e notifica il giocatore vincente
     private void removePlayerFromTheGame(){
         currClient.asyncSend("You have lost the match!");
-        SocketClientConnection toRemove = currClient;
+        ServerConnection toRemove = currClient;
         updateCurrClient();
         toRemove.closeConnection();
         toRemove = null;
@@ -319,15 +234,15 @@ public class FrontEnd implements Observer<LiteGame> {
     }
 
 
-    public SocketClientConnection getClient1() {
+    public ServerConnection getClient1() {
         return client1;
     }
 
-    public SocketClientConnection getClient2() {
+    public ServerConnection getClient2() {
         return client2;
     }
 
-    public SocketClientConnection getClient3() {
+    public ServerConnection getClient3() {
         return client3;
     }
 
@@ -378,8 +293,8 @@ public class FrontEnd implements Observer<LiteGame> {
 
     public void sendToCurrClient ( String message ){
         currClient.asyncSend( message );
-        SocketClientConnection[] clients = new SocketClientConnection[]{client1, client2, client3};
-        for(SocketClientConnection c: clients){
+        ServerConnection[] clients = new ServerConnection[]{client1, client2, client3};
+        for(ServerConnection c: clients){
             if(c != currClient && c != null )
                 if ( message.equals("Next Action") )
                     c.asyncSend("Wait for " + currClient.getName() + " to end his turn" );

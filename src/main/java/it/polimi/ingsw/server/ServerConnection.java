@@ -6,9 +6,11 @@ import it.polimi.ingsw.model.LiteGame;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 
-public class SocketClientConnection implements Runnable {
+public class ServerConnection implements Runnable {
     private Socket socket;
     private Server server;
     private boolean active = true;
@@ -16,20 +18,9 @@ public class SocketClientConnection implements Runnable {
     private ObjectOutputStream out;
     private ObjectInputStream in;
 
-    public SocketClientConnection(Socket socket, Server server) {
+    public ServerConnection(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
-        try {
-            in = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            out = new ObjectOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private synchronized boolean isActive(){
@@ -55,6 +46,7 @@ public class SocketClientConnection implements Runnable {
         }
         active = false;
     }
+
     private void close() {
         closeConnection();
         System.out.println("Deregistering client...");
@@ -77,32 +69,33 @@ public class SocketClientConnection implements Runnable {
         int gameID;
         boolean validMessage = false;
 
-        try{
-            send("Welcome!\n");
+
+        try {
+            out = new ObjectOutputStream(socket.getOutputStream());
+            out.flush();
+            in = new ObjectInputStream(socket.getInputStream());
+            send("Welcome, server ready!\n");
             SettingGameMessage settings = new SettingGameMessage();
-
             while ( name == null ){
-                try {
-                    settings = (SettingGameMessage) in.readObject();
-                } catch(IOException | ClassNotFoundException e){
-                    send("Error in serialization!\n");
-                }
+                settings = (SettingGameMessage) in.readObject();
 
-                if ( server.existingNickname(settings.getNickname()) )
-                    send("Nickname not available!\n");
+                name = settings.getNickname();
+
+
+                if ( server.existingNickname(name) ) {
+                    send("Invalid Nickname");
+                    name = null;
+                }
                 else {
-                    name = settings.getNickname();
-                    send("Nickname accepted!\n");
+                    send("Nickname accepted");
+                    server.addNickname(name);
                 }
             }
 
             while ( !validMessage ) {
 
-                try {
-                    settings = (SettingGameMessage) in.readObject();
-                } catch (IOException | ClassNotFoundException e) {
-                    send("Error in serialization!\n");
-                }
+                settings = (SettingGameMessage) in.readObject();
+
 
                 if (settings.isCreatingNewGame()) {
                     validMessage = true;
@@ -111,6 +104,7 @@ public class SocketClientConnection implements Runnable {
 
                     playersInTheGame = settings.getNumberOfPlayer();
                     server.createMatch(server.getCurrMatch(), playersInTheGame, this);
+                    send(server.getCurrMatch());
 
                     // Nel server crea un nuovo GameID e aspetta che i giocatori si colleghino
                     // legge quanti giocatori mettere nella partita
@@ -119,7 +113,17 @@ public class SocketClientConnection implements Runnable {
 
                     if ( server.addPlayer(gameID,this) ) {
                         validMessage = true;
-                        if ( server.checkMatch(gameID) ) server.startGame(gameID);
+                        if ( server.checkMatch(gameID) ){
+                            //TODO: thread?
+                            server.startGame(gameID);
+                            send("Beginning new match");
+                        }
+                        else {
+                            send("Waiting for other players");
+                        }
+                    }
+                    else {
+                        send("Insert valid gameID");
                     }
                     //Se il giocatore viene aggiunto
                     //controllo se è possibile runnare una nuova partita
@@ -127,31 +131,19 @@ public class SocketClientConnection implements Runnable {
                 } else {
                     server.lobby(settings.getNickname(), playersInTheGame, this);
                     validMessage = true;
+                    send("Waiting other player to join the match");
                     //il server lo inserisce nella waitingConnection tenendo
                     // conto del numero di giocatori con cui vuole giocare
                 }
             }
 
-            //server.lobby(this, name);
+            //controllo se la connessione cade o se il client si disconnette
 
-
-
-            //Crea nuova Partita - Carica partita esistente - Inizia a giocare (opzione con cui gioco con giocatori casuali)
-
-
-
-            /*server.lobby(this, name);
-            while(isActive()){
-                read = in.nextLine();
-                notify(read);
-            }*/
-
-  /*      } catch (IOException | NoSuchElementException e) {
-            System.err.println("Error!" + e.getMessage());
-        }finally{
-            close();*/
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException e ) {
             e.printStackTrace();
+        }
+        finally{
+            close();
         }
     }
 
