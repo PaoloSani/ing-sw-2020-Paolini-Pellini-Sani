@@ -11,6 +11,7 @@ public class SettingGameMessage implements Serializable {
     private boolean creatingNewGame;
     private boolean playingExistingMatch;
     private int gameID;
+    private boolean quitChoice;
     public String getNickname() {
         return nickname;
     }
@@ -49,5 +50,13 @@ public class SettingGameMessage implements Serializable {
 
     public void setGameID(int gameID) {
         this.gameID = gameID;
+    }
+
+    public boolean isQuitChoice() {
+        return quitChoice;
+    }
+
+    public void setQuitChoice(boolean quitChoice) {
+        this.quitChoice = quitChoice;
     }
 }

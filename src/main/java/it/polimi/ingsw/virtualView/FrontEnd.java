@@ -56,21 +56,22 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         //I giocatori settano a turno le posizioni dei loro Workers
         for( ServerConnection c : clients ) {
             if ( c != null ){
-                c.send("Game has started with code " + String.valueOf(gameID) + "\n" + "Current players are " +
-                client1.getName() + ", " + client2.getName() + ", " + client3.getName());
+                if ( client3 == null ){
+                    c.send("Game has started with code " + String.valueOf(gameID) + "\n" + "Current players are " +
+                            client1.getName() + ", " + client2.getName());
+                }
+                else {
+                    c.send("Game has started with code " + String.valueOf(gameID) + "\n" + "Current players are " +
+                            client1.getName() + ", " + client2.getName() + ", " + client3.getName());
+                }
             }
         }
-        client1.asyncSend("Choose cards of the game");
-        client2.asyncSend("Wait! Challenger is choosing cards!");
-        if(client3 != null) {
-            client3.asyncSend("Wait! Challenger is choosing cards!");
-        }
-        //todo: modifica con array di God
+
         String[] gods = client1.readChallengerMessage();
 
         //client 2 e 3 se c'è scelgono le divinità
         for (int i=0; i<2 && currClient != client1; i++){
-            currClient.asyncSend("Choose your God! Available cards: " + Arrays.toString(gods));
+            currClient.asyncSend(Arrays.toString(gods) );
             clientMessage = currClient.readClientMessage(); // il giocatore due ha scelto la prima divinità
             if (i == 0) {
                 gameMessage.setGod2(clientMessage.getGod());
@@ -82,17 +83,17 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
             List<String> list = new ArrayList<String>(Arrays.asList(gods));
             list.remove( clientMessage.getGod().name());  //tutto maiuscolo
             gods = list.toArray(new String[0]);
+            currClient.asyncSend("Choice confirmed");
             updateCurrClient();
         }
 
-        currClient.send("Your god is " + gods[0]);  //challenger ha la sua carta
+        currClient.send(gods[0]);  //challenger ha la sua carta
         gameMessage.setGod1(God.valueOf(gods[0]));
         gameMessage.setName1(client1.getName());
         updateCurrClient();  //il prossimo turno è del giocatore 2
         resetUpdate();
         gameMessage.notify(gameMessage);
         sendLiteGame();
-
 
         //I giocatori settano a turno le posizioni dei loro Workers
         for( ServerConnection c : clients ) {
@@ -262,6 +263,9 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         // TODO: se il messaggio è uguale al precedente o se liteGame è vuoto, ok
 
         if ( liteGame == null || !message.equalsLG(liteGame) ) {
+            if ( liteGame == null ){
+                liteGame = new LiteGame();
+            }
             liteGame = message;
             update = true;
         }

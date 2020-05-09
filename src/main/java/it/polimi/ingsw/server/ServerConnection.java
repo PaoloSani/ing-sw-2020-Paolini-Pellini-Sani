@@ -2,12 +2,11 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.SettingGameMessage;
-import it.polimi.ingsw.model.LiteGame;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 
 public class ServerConnection implements Runnable {
@@ -143,23 +142,21 @@ public class ServerConnection implements Runnable {
         } catch (IOException | ClassNotFoundException e ) {
             e.printStackTrace();
         }
-        finally{
-            close();
-        }
+
     }
 
     //todo: modificare con metodi enumeration di God
     public String[] readChallengerMessage() {
-        String message = null;
+        String message[] = null;
         try {
-            message = (String) in.readObject();
+            message = (String[]) in.readObject();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         //restituisce un array di stringhe, separando in modo opportuno message secondo la presenza di virgole
-        return (message.split(",")); 
+        return message;
     }
 
     public ClientMessage readClientMessage() {
