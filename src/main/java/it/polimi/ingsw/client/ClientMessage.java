@@ -2,7 +2,10 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.God;
 
-public class ClientMessage {
+
+import java.io.Serializable;
+
+public class ClientMessage implements Serializable {
     String name;
     God god;
     String action;

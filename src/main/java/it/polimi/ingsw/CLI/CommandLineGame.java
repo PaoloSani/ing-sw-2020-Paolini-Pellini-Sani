@@ -15,6 +15,7 @@ public class CommandLineGame {
 
     private final Scanner in = new Scanner(System.in);
     private String nickname;
+    private God god;
     private String mode = "start";
     private int numOfPlayers;
     private int gameID;
@@ -22,17 +23,24 @@ public class CommandLineGame {
     private boolean quit = true;
     private ClientConnection clientConnection;
     private String[] challengerMessage;
-    private LiteGame liteGame;
-    private ClientMessage clientMessage;
+    private LiteGame liteGame = new LiteGame();
+    private ClientMessage clientMessage = new ClientMessage();
 
 
     public void runCLI(){
         welcomeMirror();
+        //messaggio di inizio partita
         System.out.println(clientConnection.readString());
+        //metodo per l'inizio della partita e la scelta delle carte
         challengerChoosesGods();
-
+        chooseCard();
+        liteGame = clientConnection.readLiteGame();
+        placeWorkers();
         initializeGameTable();
     }
+
+
+
 
     /**
      * Welcome method: initialize a new settingGameMessage to send to Server
@@ -51,8 +59,7 @@ public class CommandLineGame {
 
             System.out.println("  What is your name?\n" + ColourFont.ANSI_RESET);
             while (!messageFromServer.equals("Nickname accepted")) {
-                nickname = in.nextLine();
-                nickname = nickname.toUpperCase();
+                nickname = in.nextLine().toUpperCase();
                 settingGameMessage.setNickname(nickname);
                 clientConnection.send(settingGameMessage);
                 messageFromServer = clientConnection.readString();
@@ -81,7 +88,7 @@ public class CommandLineGame {
                             System.out.println("\n  Choose the number of players (2 or 3)");
                             System.out.println("  Type quit to return back!\n");
                             String actionA = in.nextLine();
-                            actionA.toUpperCase();
+                            actionA = actionA.toUpperCase();
                             if (actionA.equals("QUIT")) {
                                 quit = true;
                                 mode = "start";
@@ -89,8 +96,11 @@ public class CommandLineGame {
                                 System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                             else numOfPlayers = Integer.parseInt(actionA);
                         }
-                        clientConnection.send(settingGameMessage);
-                        System.out.println("The gameID is " + clientConnection.readString() + "\n");
+                        if ( !quit ) {
+                            settingGameMessage.setNumberOfPlayer(numOfPlayers);
+                            clientConnection.send(settingGameMessage);
+                            System.out.println("The gameID is " + clientConnection.readString() + "\n");
+                        }
                         break;
                     case "B":
                         settingGameMessage.setPlayingExistingMatch(true);
@@ -98,7 +108,7 @@ public class CommandLineGame {
                         System.out.println("  Type the game ID");
                         System.out.println("  Type quit to return back!\n");
                         boolean validGameId = false;
-                        while (!validGameId){
+                        while (!validGameId && !quit){
                             String actionB = in.nextLine();
                             actionB = actionB.toUpperCase();
                             if (actionB.equals("QUIT")) {
@@ -108,12 +118,14 @@ public class CommandLineGame {
                                 gameID = Integer.parseInt(actionB);
                                 settingGameMessage.setGameID(gameID);
                             }
-                            clientConnection.send(settingGameMessage);
-                            messageFromServer = clientConnection.readString();
-                            System.out.println("Server says: " + messageFromServer + "\n");
-                            if (messageFromServer.equals("Insert valid gameID"))
-                                System.out.println("Insert a valid gameID");
-                            else validGameId = true;
+                            if ( !quit ) {
+                                clientConnection.send(settingGameMessage);
+                                messageFromServer = clientConnection.readString();
+                                System.out.println("Server says: " + messageFromServer + "\n");
+                                if (messageFromServer.equals("Insert valid gameID"))
+                                    System.out.println("Insert a valid gameID");
+                                else validGameId = true;
+                            }
                         }
                         break;
                     case "C":
@@ -121,7 +133,8 @@ public class CommandLineGame {
                         settingGameMessage.setPlayingExistingMatch(false);
                         settingGameMessage.setGameID(0);
                         while (numOfPlayers != 2 && numOfPlayers != 3 && !quit) {
-                            System.out.println("  Choose the number of players (2 or 3)\n");
+                            System.out.println("  Choose the number of players (2 or 3)");
+                            System.out.println("  Type quit to return back!");
                             String actionC = in.nextLine();
                             actionC = actionC.toUpperCase();
                             if (actionC.equals("QUIT")) {
@@ -131,14 +144,15 @@ public class CommandLineGame {
                                 System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                             else numOfPlayers = Integer.parseInt(actionC);
                         }
-                        settingGameMessage.setNumberOfPlayer(numOfPlayers);
-                        clientConnection.send(settingGameMessage);
-                        System.out.println("Server says: " + clientConnection.readString() + "\n");
-
+                        if ( !quit ) {
+                            settingGameMessage.setNumberOfPlayer(numOfPlayers);
+                            clientConnection.send(settingGameMessage);
+                            System.out.println("Server says: " + clientConnection.readString() + "\n");
+                        }
                         break;
                 }
             }
-            settingGameMessage.setNumberOfPlayer(numOfPlayers);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -172,10 +186,62 @@ public class CommandLineGame {
                 challengerMessage =
                         new String[]{chosenGods.get(0).toString(), chosenGods.get(1).toString(), chosenGods.get(2).toString()};
             }
+            System.out.println("Now wait for other players to choose their cards");
+            clientConnection.send(challengerMessage);
+
         }
         else System.out.println("  Please, wait the Challenger to choose the Pantheon");
     }
 
+    private void chooseCard() {
+
+        String messageFromFrontEnd = clientConnection.readString();
+        if ( mode.equals("A") ){
+            god = God.valueOf(messageFromFrontEnd);
+            System.out.println("Your god is " + messageFromFrontEnd);
+        }
+        else {
+            String choice = "none";
+
+            while ( !messageFromFrontEnd.contains(choice) ){
+                System.out.println("Choose your god! Available gods: " + messageFromFrontEnd);
+                choice = in.nextLine().toUpperCase();
+            }
+            god = God.valueOf(choice);
+            //in realtà settare il nickname è superfluo perché il frontend già conosce i nickname dei client
+            clientMessage.setName(nickname);
+            clientMessage.setGod(god);
+            clientConnection.send(clientMessage);
+            System.out.println(clientConnection.readString());
+        }
+    }
+
+    private void placeWorkers() {
+        String messageFromFrontEnd = "none";
+        while ( !messageFromFrontEnd.equals("Placing workers") ){
+            messageFromFrontEnd = clientConnection.readString();
+            System.out.println(messageFromFrontEnd);
+           if ( messageFromFrontEnd.contains("Wait") ){
+               liteGame = clientConnection.readLiteGame();
+           }
+        }
+        clientMessage.setSpace1(getSpaceFromClient());
+        clientMessage.setSpace2(getSpaceFromClient());
+        clientConnection.send(clientMessage);
+        liteGame = clientConnection.readLiteGame();
+    }
+
+    private int[] getSpaceFromClient(){
+        int[] newSpace = new int[]{5,5};
+        //TODO: migliorare controlli sulle celle disponibili e messaggio di errore al client
+        while ( newSpace[0] < 0 || newSpace[0] > 4 || newSpace[1] < 0 || newSpace[1] > 4 ) {
+            System.out.println("Insert the space coordinates (NUM NUM): \n ");
+            String space = in.nextLine();
+            String[] coord = space.split(" ");
+            newSpace = new int[]{Integer.parseInt(coord[0]), Integer.parseInt(coord[1])};
+        }
+        return newSpace;
+    }
     /**
      * It prints on mirror the gametable from the litegame
      */

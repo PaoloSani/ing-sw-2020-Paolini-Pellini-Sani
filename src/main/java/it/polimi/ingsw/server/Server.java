@@ -196,7 +196,7 @@ public class Server {
     public boolean checkMatch(int gameID) {
         if ( playingConnection2Players.containsKey(gameID) && playingConnection2Players.get(gameID).size() == 2 )
             return true;
-        else return ( playingConnection3Players.containsKey(gameID) && playingConnection2Players.get(gameID).size() == 3 );
+        else return ( playingConnection3Players.containsKey(gameID) && playingConnection3Players.get(gameID).size() == 3 );
     }
 }
 
