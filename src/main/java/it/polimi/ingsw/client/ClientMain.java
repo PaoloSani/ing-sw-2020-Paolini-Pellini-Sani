@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.CLI.OpeningMirror;
+
 import java.io.IOException;
 
 public class ClientMain {

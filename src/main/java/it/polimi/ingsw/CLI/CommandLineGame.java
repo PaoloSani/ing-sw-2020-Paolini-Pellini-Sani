@@ -1,6 +1,9 @@
-package it.polimi.ingsw.client;
+package it.polimi.ingsw.CLI;
 
+import it.polimi.ingsw.client.ClientMessage;
+import it.polimi.ingsw.client.SettingGameMessage;
 import it.polimi.ingsw.model.God;
+import it.polimi.ingsw.model.LiteGame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ public class CommandLineGame {
     private SettingGameMessage settingGameMessage = new SettingGameMessage();
     private boolean quit = true;
     private String[] challengerMessage;
+    private LiteGame liteGame;
     private ClientMessage clientMessage;
 
 
@@ -32,7 +36,7 @@ public class CommandLineGame {
     public void welcomeMirror(){
         System.out.println(ColourFont.ANSI_CYAN_BACKGROUND);
         System.out.println(ColourFont.ANSI_BOLD + "  Welcome to Santorini\n  RETRO Version\n\n");
-        System.out.println("  What is your name?\n" + ColourFont.ANSI_RESET);
+        System.out.println("  What is your name?\n\n" + ColourFont.ANSI_RESET);
         nickname = in.nextLine();
         settingGameMessage.setNickname(nickname);
         while(quit) {
@@ -108,8 +112,7 @@ public class CommandLineGame {
     }
 
     /**
-     *
-     *
+     * The Challenger chooses the card which he wants to play with*
      */
 
     public void challengerChoosesGods(){
@@ -138,6 +141,16 @@ public class CommandLineGame {
             }
         }
         else System.out.println("  Please, wait the Challenger to choose the Pantheon");
+    }
+
+    /**
+     * It prints on mirror the gametable from the litegame
+     */
+
+    public void printGameTable(){
+        System.out.println(ColourFont.ANSI_BOLD+"  KEYS:\n"+ColourFont.ANSI_RESET+ColourFont.ANSI_CYAN_BACKGROUND);
+        System.out.println("  - ground level: " + ColourFont.ANSI_GREEN_BACKGROUND + "  \n" + ColourFont.ANSI_RESET + ColourFont.ANSI_CYAN_BACKGROUND);
+        System.out.println("  - first level: " + ColourFont.ANSI_GREEN_BACKGROUND + "  \n" + ColourFont.ANSI_RESET + ColourFont.ANSI_CYAN_BACKGROUND);
     }
 
     SettingGameMessage getSettingGameMessage(){

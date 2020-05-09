@@ -1,4 +1,6 @@
-package it.polimi.ingsw.client;
+package it.polimi.ingsw.GUI;
+
+import it.polimi.ingsw.CLI.ColourFont;
 
 import javax.swing.*;
 

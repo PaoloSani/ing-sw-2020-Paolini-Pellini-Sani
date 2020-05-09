@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client;
+package it.polimi.ingsw.CLI;
 
 public enum ColourFont {
 
@@ -10,6 +10,8 @@ public enum ColourFont {
     ANSI_PURPLE("\u001B[35m"),
     ANSI_CYAN("\u001B[36m"),
     ANSI_WHITE("\u001B[37m"),
+
+    ANSI_PROVA("\033[38;5;206m"),
 
     ANSI_BLACK_BACKGROUND("\u001B[40m"),
     ANSI_RED_BACKGROUND("\u001B[41m"),
@@ -23,7 +25,7 @@ public enum ColourFont {
     ANSI_BOLD("\u001b[1m"),
     ANSI_UNDERLINE(" \u001b[4m");
 
-    static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     private String escape;
 
