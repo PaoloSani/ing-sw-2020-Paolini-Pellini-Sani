@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FrontEnd implements Observer<LiteGame> {
+public class FrontEnd implements Observer<LiteGame>,Runnable {
 
     private BackEnd backEnd;
     private ClientMessage clientMessage;
@@ -46,10 +46,20 @@ public class FrontEnd implements Observer<LiteGame> {
         this.gameMessage = new GameMessage(this);
     }
 
+    @Override
     public void run(){
 
         //SCELTA DELLE CARTE
         //TODO: informa i client dei giocatori presenti nel gioco
+        ServerConnection[] clients = new ServerConnection[]{client2, client3, client1};
+
+        //I giocatori settano a turno le posizioni dei loro Workers
+        for( ServerConnection c : clients ) {
+            if ( c != null ){
+                c.send("Game has started with code " + String.valueOf(gameID) + "\n" + "Current players are " +
+                client1.getName() + ", " + client2.getName() + ", " + client3.getName());
+            }
+        }
         client1.asyncSend("Choose cards of the game");
         client2.asyncSend("Wait! Challenger is choosing cards!");
         if(client3 != null) {
@@ -83,7 +93,6 @@ public class FrontEnd implements Observer<LiteGame> {
         gameMessage.notify(gameMessage);
         sendLiteGame();
 
-        ServerConnection[] clients = new ServerConnection[]{client2, client3, client1};
 
         //I giocatori settano a turno le posizioni dei loro Workers
         for( ServerConnection c : clients ) {

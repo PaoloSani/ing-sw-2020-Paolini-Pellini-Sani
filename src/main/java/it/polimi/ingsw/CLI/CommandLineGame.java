@@ -26,9 +26,9 @@ public class CommandLineGame {
     private ClientMessage clientMessage;
 
 
-    public void startCLI(){
+    public void runCLI(){
         welcomeMirror();
-
+        System.out.println(clientConnection.readString());
         challengerChoosesGods();
 
         initializeGameTable();
@@ -97,17 +97,24 @@ public class CommandLineGame {
                         settingGameMessage.setCreatingNewGame(false);
                         System.out.println("  Type the game ID");
                         System.out.println("  Type quit to return back!\n");
-                        String actionB = in.nextLine();
-                        actionB = actionB.toUpperCase();
-                        if (actionB.equals("QUIT")) {
-                            quit = true;
-                            mode = "start";
-                        } else {
-                            gameID = Integer.parseInt(actionB);
-                            settingGameMessage.setGameID(gameID);
+                        boolean validGameId = false;
+                        while (!validGameId){
+                            String actionB = in.nextLine();
+                            actionB = actionB.toUpperCase();
+                            if (actionB.equals("QUIT")) {
+                                quit = true;
+                                mode = "start";
+                            } else {
+                                gameID = Integer.parseInt(actionB);
+                                settingGameMessage.setGameID(gameID);
+                            }
+                            clientConnection.send(settingGameMessage);
+                            messageFromServer = clientConnection.readString();
+                            System.out.println("Server says: " + messageFromServer + "\n");
+                            if (messageFromServer.equals("Insert valid gameID"))
+                                System.out.println("Insert a valid gameID");
+                            else validGameId = true;
                         }
-                        clientConnection.send(settingGameMessage);
-                        System.out.println("Server says: " + clientConnection.readString() + "\n");
                         break;
                     case "C":
                         settingGameMessage.setCreatingNewGame(false);
@@ -124,6 +131,7 @@ public class CommandLineGame {
                                 System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                             else numOfPlayers = Integer.parseInt(actionC);
                         }
+                        settingGameMessage.setNumberOfPlayer(numOfPlayers);
                         clientConnection.send(settingGameMessage);
                         System.out.println("Server says: " + clientConnection.readString() + "\n");
 
