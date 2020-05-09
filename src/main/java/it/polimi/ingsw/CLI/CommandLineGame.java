@@ -86,6 +86,7 @@ public class CommandLineGame {
                                 System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                             else numOfPlayers = Integer.parseInt(actionA);
                         }
+                        settingGameMessage.setNumberOfPlayer(numOfPlayers);
                         clientConnection.send(settingGameMessage);
                         System.out.println("The gameID is " + clientConnection.readString() + "\n");
                         break;
@@ -121,13 +122,13 @@ public class CommandLineGame {
                                 System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                             else numOfPlayers = Integer.parseInt(actionC);
                         }
+                        settingGameMessage.setNumberOfPlayer(numOfPlayers);
                         clientConnection.send(settingGameMessage);
                         System.out.println("Server says: " + clientConnection.readString() + "\n");
 
                         break;
                 }
             }
-            settingGameMessage.setNumberOfPlayer(numOfPlayers);
 
         } catch (IOException e) {
             e.printStackTrace();

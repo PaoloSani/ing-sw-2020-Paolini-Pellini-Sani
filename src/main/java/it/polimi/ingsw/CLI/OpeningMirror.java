@@ -3,7 +3,6 @@ package it.polimi.ingsw.CLI;
 import it.polimi.ingsw.GUI.GraphicalGame;
 
 
-
 import java.util.Scanner;
 
 public class OpeningMirror {
