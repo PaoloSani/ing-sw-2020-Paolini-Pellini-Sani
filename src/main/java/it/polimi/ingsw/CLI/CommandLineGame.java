@@ -28,16 +28,19 @@ public class CommandLineGame {
 
     public void startCLI(){
         welcomeMirror();
+
         challengerChoosesGods();
+
+        initializeGameTable();
     }
 
     /**
      * Welcome method: initialize a new settingGameMessage to send to Server
      */
 
-    public void welcomeMirror() {
-        System.out.println(ColourFont.ANSI_CYAN_BACKGROUND);
-        System.out.println(ColourFont.ANSI_BOLD + "  Welcome to Santorini\n  RETRO Version\n\n");
+    void welcomeMirror() {
+        System.out.println(ColourFont.ANSI_BLUE_BACKGROUND);
+        System.out.println(ColourFont.ANSI_BOLD + "  Welcome to Santorini\n  RETRO Version\n\n" + ColourFont.ANSI_RESET + ColourFont.ANSI_BLUE_BACKGROUND);
         clientConnection = new ClientConnection("127.0.0.1", 4700);
         try {
             clientConnection.connect();
@@ -61,7 +64,7 @@ public class CommandLineGame {
             while (quit) {
                 quit = false;
                 while (!mode.equals("A") && !mode.equals("B") && !mode.equals("C")) {
-                    System.out.println(ColourFont.ANSI_CYAN_BACKGROUND + "\nPlease " + nickname + ", type A, B or C to choose different options:\n");
+                    System.out.println(ColourFont.ANSI_BLUE_BACKGROUND + "\nPlease " + nickname + ", type A, B or C to choose different options:\n");
                     System.out.println(" - A) CREATE A NEW MATCH\n      Be the challenger of the isle!\n");
                     System.out.println(" - B) PLAY WITH YOUR FRIENDS\n      Play an already existing game!\n");
                     System.out.println(" - C) PLAY WITH STRANGERS\n      Challenge yourself with randomly chosen players!\n");
@@ -137,7 +140,7 @@ public class CommandLineGame {
      * The Challenger chooses the card which he wants to play with*
      */
 
-    public void challengerChoosesGods(){
+    void challengerChoosesGods(){
         if(mode.equals("A")) {
             List<God> chosenGods = new ArrayList<>();
             while (chosenGods.size() < numOfPlayers) {
@@ -169,10 +172,42 @@ public class CommandLineGame {
      * It prints on mirror the gametable from the litegame
      */
 
-    public void printGameTable(){
-        System.out.println(ColourFont.ANSI_BOLD+"  KEYS:\n"+ColourFont.ANSI_RESET+ColourFont.ANSI_CYAN_BACKGROUND);
-        System.out.println("  - ground level: " + ColourFont.ANSI_GREEN_BACKGROUND + "  \n" + ColourFont.ANSI_RESET + ColourFont.ANSI_CYAN_BACKGROUND);
-        System.out.println("  - first level: " + ColourFont.ANSI_GREEN_BACKGROUND + "  \n" + ColourFont.ANSI_RESET + ColourFont.ANSI_CYAN_BACKGROUND);
+    void printKeysTable(){
+        System.out.println(ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET+ColourFont.ANSI_BLACK_BACKGROUND + "\n");
+        System.out.println("  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
+        System.out.println("  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
+        System.out.println("  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
+        System.out.println("  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
+        System.out.println("  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND + "\n");
+
+    }
+
+
+    void initializeGameTable(){
+        printKeysTable();
+        System.out.println(                                      "         1       2       3       4       5");
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("  1 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("  2 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("  3 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("  4 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("  5 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
+        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET + "\n\n");
+
     }
 
     SettingGameMessage getSettingGameMessage(){
