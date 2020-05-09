@@ -162,7 +162,7 @@ public class CommandLineGame {
                 try {
                     chosenGods.add(God.valueOf(singleChosenGod));
                 } catch (IllegalArgumentException e) {
-                    System.out.println(ColourFont.ANSI_BOLD + "  Please, type a valid God!\n" + ColourFont.ANSI_RESET + ColourFont.ANSI_CYAN_BACKGROUND);
+                    System.out.println(ColourFont.ANSI_BOLD + "  Please, type a valid God!\n" + ColourFont.ANSI_RESET + ColourFont.ANSI_BLUE_BACKGROUND);
                 }
             }
             if (numOfPlayers == 2) {

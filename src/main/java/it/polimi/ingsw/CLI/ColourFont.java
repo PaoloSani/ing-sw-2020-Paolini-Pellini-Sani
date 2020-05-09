@@ -23,7 +23,8 @@ public enum ColourFont {
     ANSI_WHITE_BACKGROUND("\u001B[47m"),
 
     ANSI_BOLD("\u001b[1m"),
-    ANSI_UNDERLINE(" \u001b[4m");
+    ANSI_UNDERLINE(" \u001b[4m"),
+    ANSI_REVERSED("\u001b[7m");
 
     public static final String ANSI_RESET = "\u001B[0m";
 
