@@ -147,6 +147,7 @@ public class ServerConnection implements Runnable {
         }
     }
 
+    //todo: modificare con metodi enumeration di God
     public String[] readChallengerMessage() {
         String message = null;
         try {

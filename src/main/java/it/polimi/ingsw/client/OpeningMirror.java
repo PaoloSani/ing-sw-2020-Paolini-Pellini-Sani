@@ -10,7 +10,7 @@ public class OpeningMirror {
 
     private Scanner in = new Scanner(System.in);
     private String lookAndFeel = "default";
-    private GraphicalGame graphicalGame;
+    private GraphicalGame GGame;
     private CommandLineGame CLGame;
 
     public void userInterfaceSetup(){
@@ -26,10 +26,8 @@ public class OpeningMirror {
         }
 
         if (lookAndFeel.equals("A")) {
-            graphicalGame = new GraphicalGame();
-            /**
-             * ...
-             */
+            GGame = new GraphicalGame();
+            GGame.startGUI();
         }
         else {
             CLGame = new CommandLineGame();

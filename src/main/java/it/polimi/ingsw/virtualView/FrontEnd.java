@@ -55,6 +55,7 @@ public class FrontEnd implements Observer<LiteGame> {
         if(client3 != null) {
             client3.asyncSend("Wait! Challenger is choosing cards!");
         }
+        //todo: modifica con array di God
         String[] gods = client1.readChallengerMessage();
 
         //client 2 e 3 se c'è scelgono le divinità

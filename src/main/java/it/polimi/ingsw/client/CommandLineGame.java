@@ -1,6 +1,10 @@
 package it.polimi.ingsw.client;
 
 import java.io.IOException;
+import it.polimi.ingsw.model.God;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CommandLineGame {
@@ -13,10 +17,19 @@ public class CommandLineGame {
     private SettingGameMessage settingGameMessage = new SettingGameMessage();
     private boolean quit = true;
     private ClientConnection clientConnection;
+    private String[] challengerMessage;
+    private ClientMessage clientMessage;
+
 
     public void startCLI(){
         welcomeMirror();
+        waitGame();
+        challengerChoosesGods();
     }
+
+    /**
+     * Welcome method: initialize a new settingGameMessage to send to Server
+     */
 
     public void welcomeMirror() {
         System.out.println(ColourFont.ANSI_CYAN_BACKGROUND);
