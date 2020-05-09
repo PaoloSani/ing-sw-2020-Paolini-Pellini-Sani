@@ -190,6 +190,76 @@ public class CommandLineGame {
 
     }
 
+    void buildGameTable(){
+        String[][] gameTable = liteGame.getTable();
+
+        System.out.println("        1        2        3        4        5");
+        System.out.println("    + = = = ++ = = = ++ = = = ++ = = = ++ = = = +");
+        for (int i = 0; i < 5; i++){
+            buildTableRow(gameTable[i],i+1);
+        }
+    }
+
+    void buildTableRow(String[] liteGameRow, int x){
+        String[] space1 = buildGameSpace(liteGameRow[0]);
+        String[] space2 = buildGameSpace(liteGameRow[1]);
+        String[] space3 = buildGameSpace(liteGameRow[2]);
+        String[] space4 = buildGameSpace(liteGameRow[3]);
+        String[] space5 = buildGameSpace(liteGameRow[4]);
+
+        String[] row = new String[]{
+                "    "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0],
+                " "+x+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1],
+                "    "+space1[2]+space2[2]+space3[2]+space4[2]+space5[2],
+                "    "+space1[3]+space2[3]+space3[3]+space4[3]+space5[3]
+        };
+        for (String s : row){
+            System.out.println(s);
+        }
+    }
+
+    String[] buildGameSpace(String spaceFromLiteGame){
+        ColourFont background = ColourFont.ANSI_MENU_BACKGROUND;
+        ColourFont foreground = ColourFont.ANSI_WHITE_TEXT;
+        String reset = ColourFont.ANSI_RESET;
+        String player;
+        char[] spaceAnalyzer = spaceFromLiteGame.toCharArray();
+
+        if (spaceAnalyzer[1] == '0') background = ColourFont.ANSI_GREEN_BACKGROUND;
+        else if (spaceAnalyzer[1] == '1') background = ColourFont.ANSI_LEVEL1;
+        else if (spaceAnalyzer[1] == '2') background = ColourFont.ANSI_LEVEL2;
+        else if (spaceAnalyzer[1] == '3') {
+            background = ColourFont.ANSI_LEVEL3;
+            foreground = ColourFont.ANSI_BLACK_TEXT;
+        }
+        if (spaceAnalyzer[2] == 'D') background = ColourFont.ANSI_DOME;
+        switch(spaceAnalyzer[0]){
+            case 'A':
+                player = "A";
+                break;
+
+            case 'B':
+                player = "B";
+                break;
+
+            case 'C':
+                player = "C";
+                break;
+
+            default:
+                player = " ";
+                break;
+            }
+
+        String[] gameSpace = new String[]{
+                                          "|"+background.toString()+foreground.toString()+"       "+reset+"|",
+                                          "|"+background.toString()+foreground.toString()+"   "+player+"   "+reset+"|",
+                                          "|"+background.toString()+foreground.toString()+"       "+reset+"|",
+                                          "+ = = = +"
+        };
+        return gameSpace;
+    }
+
 
     void initializeGameTable(){
         printKeysTable();
@@ -220,6 +290,10 @@ public class CommandLineGame {
 
     SettingGameMessage getSettingGameMessage(){
         return  settingGameMessage;
+    }
+
+    void setLiteGame(LiteGame liteGame){
+        this.liteGame = liteGame;
     }
 
 }
