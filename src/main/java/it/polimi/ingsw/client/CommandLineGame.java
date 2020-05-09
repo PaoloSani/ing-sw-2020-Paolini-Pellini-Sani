@@ -18,8 +18,8 @@ public class CommandLineGame {
 
     public void welcomeMirror(){
         System.out.println(ColourFont.ANSI_CYAN_BACKGROUND);
-        System.out.println(ColourFont.ANSI_BOLD + "Welcome to Santorini!\nRETRO\n\n");
-        System.out.println("What is your name?\n" + ColourFont.ANSI_RESET);
+        System.out.println(ColourFont.ANSI_BOLD + "  Welcome to Santorini\n  RETRO Version\n\n");
+        System.out.println("  What is your name?\n" + ColourFont.ANSI_RESET);
         nickname = in.nextLine();
         settingGameMessage.setNickname(nickname);
         while(quit) {
@@ -29,7 +29,7 @@ public class CommandLineGame {
                 System.out.println(" - A) CREATE A NEW MATCH\n      Be the challenger of the isle!\n");
                 System.out.println(" - B) PLAY WITH YOUR FRIENDS\n      Play an already existing game!\n");
                 System.out.println(" - C) PLAY WITH STRANGERS\n      Challenge yourself with randomly chosen players!\n");
-                mode = in.nextLine();
+                mode = in.nextLine().toUpperCase();
                 if (!mode.equals("A") && !mode.equals("B") && !mode.equals("C"))
                     System.out.println("Dare you challenge the Olympus?? Retry\n ");
             }
@@ -39,24 +39,27 @@ public class CommandLineGame {
                     settingGameMessage.setPlayingExistingMatch(false);
                     settingGameMessage.setGameID(0);
                     while (numOfPlayers != 2 && numOfPlayers != 3 && !quit) {
-                        System.out.println("Choose the number of players (2 or 3)");
-                        System.out.println("Type quit to return back!");
+                        System.out.println("\n  Choose the number of players (2 or 3)");
+                        System.out.println("  Type quit to return back!\n");
                         String actionA = in.nextLine();
-                        if (actionA.equals("quit")) {
+                        actionA.toUpperCase();
+                        if (actionA.equals("QUIT")) {
                             quit = true;
                             mode = "start";
                         }
                     else if (!actionA.equals("2") && !actionA.equals("3"))
-                            System.out.println("Dare you challenge the Olympus?? Retry\n ");
+                            System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                         else numOfPlayers = Integer.parseInt(actionA);
                     }
                     break;
                 case "B":
                     settingGameMessage.setPlayingExistingMatch(true);
                     settingGameMessage.setCreatingNewGame(false);
-                    System.out.println("Type the game ID:\n");
+                    System.out.println("  Type the game ID");
+                    System.out.println("  Type quit to return back!\n");
                     String actionB = in.nextLine();
-                    if (actionB.equals("quit")) {
+                    actionB = actionB.toUpperCase();
+                    if (actionB.equals("QUIT")) {
                         quit = true;
                         mode = "start";
                     }
@@ -70,14 +73,15 @@ public class CommandLineGame {
                     settingGameMessage.setPlayingExistingMatch(false);
                     settingGameMessage.setGameID(0);
                     while (numOfPlayers != 2 && numOfPlayers != 3 && !quit) {
-                        System.out.println("Choose the number of players (2 or 3)\n");
+                        System.out.println("  Choose the number of players (2 or 3)\n");
                         String actionC = in.nextLine();
-                        if (actionC.equals("quit")) {
+                        actionC = actionC.toUpperCase();
+                        if (actionC.equals("QUIT")) {
                             quit = true;
                             mode = "start";
                         }
                         else if (!actionC.equals("2") && !actionC.equals("3"))
-                            System.out.println("Dare you challenge the Olympus?? Retry\n ");
+                            System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                         else numOfPlayers = Integer.parseInt(actionC);
                     }
                     break;

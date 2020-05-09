@@ -15,13 +15,14 @@ public class OpeningMirror {
 
     public void userInterfaceSetup(){
         while(!lookAndFeel.equals("A") && !lookAndFeel.equals("B")) {
-            System.out.println(ColourFont.ANSI_CYAN_BACKGROUND.toString()+ColourFont.ANSI_BOLD.toString() + "Hello stranger!\nIn order to guarantee a better game experience, you can choose\n");
+            System.out.println(ColourFont.ANSI_CYAN_BACKGROUND.toString()+ColourFont.ANSI_BOLD.toString() + "\n  Hello stranger!\n  In order to guarantee a better game experience, you can choose\n");
             System.out.println(ColourFont.ANSI_RESET + ColourFont.ANSI_CYAN_BACKGROUND.toString()+" - A) ADVANCED GAME");
             System.out.println("      \n");                   //Description of Advanced Game
             System.out.println(" - B) RETRO\' GAME");
             System.out.println("      \n");                   //Description of Retro' Game
             lookAndFeel = in.nextLine();
-            if(!lookAndFeel.equals("A") && !lookAndFeel.equals("B")) System.out.println("Please retry\n\n");
+            lookAndFeel = lookAndFeel.toUpperCase();
+            if(!lookAndFeel.equals("A") && !lookAndFeel.equals("B")) System.out.println("  Please retry\n\n");
         }
 
         if (lookAndFeel.equals("A")) {
