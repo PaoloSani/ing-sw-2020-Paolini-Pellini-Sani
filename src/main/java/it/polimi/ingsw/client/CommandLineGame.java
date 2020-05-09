@@ -22,6 +22,7 @@ public class CommandLineGame {
         System.out.println("  What is your name?\n" + ColourFont.ANSI_RESET);
         nickname = in.nextLine();
         settingGameMessage.setNickname(nickname);
+
         while(quit) {
             quit = false;
             while (!mode.equals("A") && !mode.equals("B") && !mode.equals("C")) {

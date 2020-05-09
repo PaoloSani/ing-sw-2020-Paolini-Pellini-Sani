@@ -12,6 +12,7 @@ public class ClientMain {
 
         try {
             clientSocket.connect();
+            System.out.println(clientSocket.readString());
 
         } catch (IOException e) {
             e.printStackTrace();
