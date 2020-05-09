@@ -17,6 +17,7 @@ public class Server {
     public static final int PORT = 4700;
     private ServerSocket serverSocket;
     private ExecutorService executor = Executors.newFixedThreadPool(128);
+    private ExecutorService nowPlaying = Executors.newFixedThreadPool(128);
 
     private Map<String, ServerConnection> waitingConnection2Players = new HashMap<>();
     private Map<String, ServerConnection> waitingConnection3Players = new HashMap<>();
@@ -185,7 +186,7 @@ public class Server {
 
         BackEnd backEnd = new BackEnd();
         frontEnd.setBackEnd(backEnd);
-        frontEnd.run();
+        nowPlaying.submit(frontEnd);
     }
 
 

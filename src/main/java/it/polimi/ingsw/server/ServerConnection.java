@@ -113,6 +113,7 @@ public class ServerConnection implements Runnable {
 
                     if ( server.addPlayer(gameID,this) ) {
                         validMessage = true;
+                        // checkMatch mi dice se ho raggiunto il numero di giocatori per iniziare la partita corrispondente al gameid considerato
                         if ( server.checkMatch(gameID) ){
                             //TODO: thread?
                             server.startGame(gameID);
@@ -136,7 +137,7 @@ public class ServerConnection implements Runnable {
                     // conto del numero di giocatori con cui vuole giocare
                 }
             }
-
+            while (true){}
             //controllo se la connessione cade o se il client si disconnette
 
         } catch (IOException | ClassNotFoundException e ) {

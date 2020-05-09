@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FrontEnd implements Observer<LiteGame> {
+public class FrontEnd implements Observer<LiteGame>,Runnable {
 
     private BackEnd backEnd;
     private ClientMessage clientMessage;
@@ -46,6 +46,7 @@ public class FrontEnd implements Observer<LiteGame> {
         this.gameMessage = new GameMessage(this);
     }
 
+    @Override
     public void run(){
 
         //SCELTA DELLE CARTE
