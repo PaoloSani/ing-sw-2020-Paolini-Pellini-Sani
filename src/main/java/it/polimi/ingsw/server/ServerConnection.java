@@ -104,7 +104,7 @@ public class ServerConnection implements Runnable {
 
                     playersInTheGame = settings.getNumberOfPlayer();
                     server.createMatch(server.getCurrMatch(), playersInTheGame, this);
-                    send(server.getCurrMatch());
+                    send(String.valueOf(server.getCurrMatch()));
 
                     // Nel server crea un nuovo GameID e aspetta che i giocatori si colleghino
                     // legge quanti giocatori mettere nella partita
