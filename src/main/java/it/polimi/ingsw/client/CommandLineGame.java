@@ -1,5 +1,9 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.model.God;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CommandLineGame {
@@ -11,10 +15,19 @@ public class CommandLineGame {
     private int gameID;
     private SettingGameMessage settingGameMessage = new SettingGameMessage();
     private boolean quit = true;
+    private String[] challengerMessage;
+    private ClientMessage clientMessage;
+
 
     public void startCLI(){
         welcomeMirror();
+        waitGame();
+        challengerChoosesGods();
     }
+
+    /**
+     * Welcome method: initialize a new settingGameMessage to send to Server
+     */
 
     public void welcomeMirror(){
         System.out.println(ColourFont.ANSI_CYAN_BACKGROUND);
@@ -90,5 +103,45 @@ public class CommandLineGame {
         settingGameMessage.setNumberOfPlayer(numOfPlayers);
     }
 
+    public void waitGame(){
+
+    }
+
+    /**
+     *
+     *
+     */
+
+    public void challengerChoosesGods(){
+        if(mode.equals("A")) {
+            List<God> chosenGods = new ArrayList<>();
+            while (chosenGods.size() < numOfPlayers) {
+                System.out.println("  Challenger of the Olympus, choose the Gods who will lead you to the glory\n");
+                for (God g : God.values()) {
+                    if (!chosenGods.contains(g)) System.out.println("  - " + g.toString() + ": " + g.getPower());
+                }
+                System.out.println("");
+                System.out.println("  Please,choose a God\n");
+                String singleChosenGod = in.nextLine().toUpperCase();
+                try {
+                    chosenGods.add(God.valueOf(singleChosenGod));
+                } catch (IllegalArgumentException e) {
+                    System.out.println(ColourFont.ANSI_BOLD + "  Please, type a valid God!\n" + ColourFont.ANSI_RESET + ColourFont.ANSI_CYAN_BACKGROUND);
+                }
+            }
+            if (numOfPlayers == 2) {
+                challengerMessage =
+                        new String[]{chosenGods.get(0).toString(), chosenGods.get(1).toString()};
+            } else {
+                challengerMessage =
+                        new String[]{chosenGods.get(0).toString(), chosenGods.get(1).toString(), chosenGods.get(2).toString()};
+            }
+        }
+        else System.out.println("  Please, wait the Challenger to choose the Pantheon");
+    }
+
+    SettingGameMessage getSettingGameMessage(){
+        return  settingGameMessage;
+    }
 
 }
