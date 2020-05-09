@@ -1,7 +1,7 @@
 package it.polimi.ingsw.CLI;
 
 import it.polimi.ingsw.GUI.GraphicalGame;
-import it.polimi.ingsw.client.CommandLineGame;
+
 
 
 import java.util.Scanner;
