@@ -26,10 +26,12 @@ public class CommandLineGame {
     private ClientMessage clientMessage;
 
 
-    public void startCLI(){
+    public void runCLI(){
         welcomeMirror();
+        System.out.println(clientConnection.readString());
         challengerChoosesGods();
     }
+
 
     /**
      * Welcome method: initialize a new settingGameMessage to send to Server

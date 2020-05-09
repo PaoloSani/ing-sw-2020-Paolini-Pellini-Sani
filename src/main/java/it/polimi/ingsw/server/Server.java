@@ -30,6 +30,7 @@ public class Server {
         this.serverSocket = new ServerSocket(PORT);
         this.currMatch = 0;
     }
+
     public void run(){
         while(true){
             try {

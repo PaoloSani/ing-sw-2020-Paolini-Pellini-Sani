@@ -35,7 +35,7 @@ public class OpeningMirror {
         }
         else {
             CLGame = new CommandLineGame();
-            CLGame.startCLI();
+            CLGame.runCLI();
         }
 
     }
