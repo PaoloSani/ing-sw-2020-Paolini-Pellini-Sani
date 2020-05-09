@@ -1,5 +1,6 @@
-package it.polimi.ingsw.client;
+package it.polimi.ingsw.CLI;
 
+import it.polimi.ingsw.client.ClientConnection;
 import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.SettingGameMessage;
 import java.io.IOException;
@@ -27,7 +28,6 @@ public class CommandLineGame {
 
     public void startCLI(){
         welcomeMirror();
-        waitGame();
         challengerChoosesGods();
     }
 
