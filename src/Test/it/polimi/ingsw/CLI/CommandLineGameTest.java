@@ -9,49 +9,20 @@ public class CommandLineGameTest {
     Game game = new Game();
 
     @Test
-    public void voidGroundGameSpace(){
-        String testString = "V0N";
-        String[] result = cli.buildGameSpace(testString);
-        for (String s : result){
-            System.out.println(s);
-        }
+    public void chosenWorkerTest(){
+        Player player1 = new Player("Rick", God.MORTAL,game);
+        Player player2 = new Player("Paul", God.MORTAL,game);
+        Player player3 = new Player("Giuse", God.MORTAL,game);
+        game.setPlayers(player1, player2, player3);
+        Worker w = new Worker(player1);
+        w.setSpace(game.getSpace(2,3));
+        game.setCurrWorker(w);
+        game.refreshLiteGame();
+        cli.setLiteGame(game.getLiteGame().makeSerializable());
+        cli.buildGameTable();
     }
 
-    @Test
-    public void ALevel1GameSpace(){
-        String testString = "A1N";
-        String[] result = cli.buildGameSpace(testString);
-        for (String s : result){
-            System.out.println(s);
-        }
-    }
 
-    @Test
-    public void BLevel2GameSpace(){
-        String testString = "B2N";
-        String[] result = cli.buildGameSpace(testString);
-        for (String s : result){
-            System.out.println(s);
-        }
-    }
-
-    @Test
-    public void CLevel3GameSpace(){
-        String testString = "C3N";
-        String[] result = cli.buildGameSpace(testString);
-        for (String s : result){
-            System.out.println(s);
-        }
-    }
-
-    @Test
-    public void domedGameSpace(){
-        String testString = "V0D";
-        String[] result = cli.buildGameSpace(testString);
-        for (String s : result){
-            System.out.println(s);
-        }
-    }
 
     @Test
     public void exampleTableRow(){
@@ -79,11 +50,13 @@ public class CommandLineGameTest {
         Player player2 = new Player("Paul", God.MORTAL,game);
         Player player3 = new Player("Giuse", God.MORTAL,game);
         game.setPlayers(player1, player2, player3);
+        Worker w = new Worker(player1);
         game.getSpace(0,0).setWorker(new Worker(player1));
         game.getSpace(0,1).setWorker(new Worker(player1));
         game.getSpace(2,3).setWorker(new Worker(player2));
-        game.getSpace(4,1).setWorker(new Worker(player3));
+        w.setSpace(game.getSpace(1,4));
         game.getSpace(3,1).setWorker(new Worker(player3));
+        game.setCurrWorker(w);
         game.refreshLiteGame();
 
         cli.setLiteGame(game.getLiteGame().makeSerializable());

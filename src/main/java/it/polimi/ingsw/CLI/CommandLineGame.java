@@ -3,6 +3,8 @@ package it.polimi.ingsw.CLI;
 import it.polimi.ingsw.client.ClientConnection;
 import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.SettingGameMessage;
+
+import java.awt.image.BandCombineOp;
 import java.io.IOException;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
@@ -267,40 +269,54 @@ public class CommandLineGame {
         }
     }
 
-    void buildTableRow(String[] serializableLiteGameRow, int x){
-        String[] space1 = buildGameSpace(serializableLiteGameRow[0]);
-        String[] space2 = buildGameSpace(serializableLiteGameRow[1]);
-        String[] space3 = buildGameSpace(serializableLiteGameRow[2]);
-        String[] space4 = buildGameSpace(serializableLiteGameRow[3]);
-        String[] space5 = buildGameSpace(serializableLiteGameRow[4]);
+    void buildTableRow(String[] serializableLiteGameRow, int row){
+        String[] space1 = buildGameSpace(serializableLiteGameRow[0],row-1,0);
+        String[] space2 = buildGameSpace(serializableLiteGameRow[1],row-1,1);
+        String[] space3 = buildGameSpace(serializableLiteGameRow[2],row-1,2);
+        String[] space4 = buildGameSpace(serializableLiteGameRow[3],row-1,3);
+        String[] space5 = buildGameSpace(serializableLiteGameRow[4],row-1,4);
 
-        String[] row = new String[]{
+        String[] newRow = new String[]{
                 "    "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0],
-                " "+x+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1],
+                " "+row+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1],
                 "    "+space1[2]+space2[2]+space3[2]+space4[2]+space5[2],
                 "    "+space1[3]+space2[3]+space3[3]+space4[3]+space5[3]
         };
-        for (String s : row){
+        for (String s : newRow){
             System.out.println(s);
         }
     }
 
-    String[] buildGameSpace(String spaceFromLiteGame){
+    String[] buildGameSpace(String spaceFromLiteGame, int row, int col){
         ColourFont background = ColourFont.ANSI_MENU_BACKGROUND;
         ColourFont foreground = ColourFont.ANSI_WHITE_TEXT;
+        ColourFont chosen = ColourFont.ANSI_GREEN_BACKGROUND;
         String dome = "";
         String reset = ColourFont.ANSI_RESET;
         String player;
+        String[] gameSpace;
         char[] spaceAnalyzer = spaceFromLiteGame.toCharArray();
 
-        if (spaceAnalyzer[1] == '0') background = ColourFont.ANSI_GREEN_BACKGROUND;
-        else if (spaceAnalyzer[1] == '1') background = ColourFont.ANSI_LEVEL1;
-        else if (spaceAnalyzer[1] == '2') background = ColourFont.ANSI_LEVEL2;
+        if (spaceAnalyzer[1] == '0') {
+            background = ColourFont.ANSI_GREEN_BACKGROUND;
+            chosen = background;
+        }
+        else if (spaceAnalyzer[1] == '1') {
+            background = ColourFont.ANSI_LEVEL1;
+            chosen = background;
+        }
+        else if (spaceAnalyzer[1] == '2') {
+            background = ColourFont.ANSI_LEVEL2;
+            chosen = background;
+        }
         else if (spaceAnalyzer[1] == '3') {
             background = ColourFont.ANSI_LEVEL3;
+            chosen = background;
             foreground = ColourFont.ANSI_BLACK_TEXT;
         }
-        if (spaceAnalyzer[2] == 'D') dome = ColourFont.ANSI_DOME.toString();
+        if (spaceAnalyzer[2] == 'D') {
+            dome = ColourFont.ANSI_DOME.toString();
+        }
         switch(spaceAnalyzer[0]){
             case 'A':
                 player = "(A)";
@@ -318,13 +334,26 @@ public class CommandLineGame {
                 player = "   ";
                 break;
             }
+        if (serializableLiteGame.getCurrWorker()[0] == row && serializableLiteGame.getCurrWorker()[1] == col){
+            chosen = ColourFont.ANSI_WORKER;
+        }
 
-        String[] gameSpace = new String[]{
-                                          "|"+background.toString()+foreground.toString()+" "+dome+"     "+background.toString()+" "+reset+"|",
-                                          "|"+background.toString()+foreground.toString()+" "+dome +" "+player+" "+background.toString()+" "+reset+"|",
-                                          "|"+background.toString()+foreground.toString()+" "+dome+"     "+background.toString()+" "+reset+"|",
-                                          "+ = = = +"
-        };
+        if(chosen == ColourFont.ANSI_WORKER) {
+            gameSpace = new String[]{
+                    "|" + chosen + foreground.toString() + " " + dome + "     " + chosen + " " + reset + "|",
+                    "|" + chosen + foreground.toString() + " " + dome + " " + background + player + chosen.toString() + dome + " " + chosen + " " + reset + "|",
+                    "|" + chosen + foreground.toString() + " " + dome + "     " + chosen + " " + reset + "|",
+                    "+ = = = +"
+            };
+        }
+        else{
+            gameSpace = new String[]{
+                    "|" + background + foreground.toString() + " " + dome + "     " + background + " " + reset + "|",
+                    "|" + background + foreground.toString() + " " + dome + " " + background + dome + player + dome + " " + background + " " + reset + "|",
+                    "|" + background + foreground.toString() + " " + dome + "     " + background+ " " + reset + "|",
+                    "+ = = = +"
+            };
+        }
         return gameSpace;
     }
 
@@ -356,12 +385,12 @@ public class CommandLineGame {
 
     }
 
-    SettingGameMessage getSettingGameMessage(){
-        return  settingGameMessage;
-    }
 
-    void setLiteGame(SerializableLiteGame serializableLiteGame){
+    public void setLiteGame(SerializableLiteGame serializableLiteGame){
         this.serializableLiteGame = serializableLiteGame;
     }
 
+    public SerializableLiteGame getSerializableLiteGame(){
+        return this.serializableLiteGame;
+    }
 }
