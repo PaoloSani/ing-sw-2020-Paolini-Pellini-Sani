@@ -53,14 +53,7 @@ public class ServerConnection implements Runnable {
         System.out.println("Done!");
     }
 
-    public void asyncSend(final Object message){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                send(message);
-            }
-        }).start();
-    }
+
     @Override
     public void run() {
         name = null;
