@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Classe da passare come messaggio alla virtual view
-public class LiteGame extends Observable<LiteGame> implements Serializable {
+public class LiteGame extends Observable<LiteGame>  {
 
-    private static final long ID = 1L;
     private String name1;       // Challenger: sceglie le carte e gioca per ultimo
     private String name2;       // Start Player: giocatore che gioca per primo il turno e pesca per primo la carta
     private String name3;
@@ -267,4 +266,24 @@ public class LiteGame extends Observable<LiteGame> implements Serializable {
     }
 
 
+    public SerializableLiteGame makeSerializable() {
+        SerializableLiteGame newSLG = new SerializableLiteGame();
+
+        newSLG.setName1(this.name1);
+        newSLG.setName2(this.name2);
+        newSLG.setName3(this.name3);
+        newSLG.setGod1(this.god1);
+        newSLG.setGod2(this.god2);
+        newSLG.setGod3(this.god3);
+        newSLG.setCurrPlayer(this.currPlayer);
+        if (this.currWorker != null ) newSLG.setCurrWorker(this.currWorker[0], this.currWorker[1]);
+        else newSLG.setCurrWorker(-1, 0);
+        newSLG.setLevel1(this.level1);
+        newSLG.setLevel2(this.level2);
+        newSLG.setLevel3(this.level3);
+        newSLG.setDome(this.dome);
+        newSLG.setTable(this.table.clone());
+
+        return newSLG;
+    }
 }

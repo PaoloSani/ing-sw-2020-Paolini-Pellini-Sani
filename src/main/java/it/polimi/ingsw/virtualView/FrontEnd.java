@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.controller.BackEnd;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.LiteGame;
+import it.polimi.ingsw.model.SerializableLiteGame;
 import it.polimi.ingsw.server.ServerConnection;
 import it.polimi.ingsw.util.Observer;
 
@@ -28,21 +29,23 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
     private int gameID;
 
-    public FrontEnd(ServerConnection client1, ServerConnection client2, int gameID) {
+    public FrontEnd(ServerConnection client1, ServerConnection client2, int gameID, BackEnd backEnd) {
         this.client1 = client1;
         this.client2 = client2;
         this.client3 = null;
         this.currClient = client2;      //Il primo giocatore a iniziare è il numero 2
         this.gameID = gameID;
+        this.backEnd = backEnd;
         this.gameMessage = new GameMessage(this);
     }
 
-    public FrontEnd(ServerConnection client1, ServerConnection client2, ServerConnection client3, int gameID) {
+    public FrontEnd(ServerConnection client1, ServerConnection client2, ServerConnection client3, int gameID, BackEnd backEnd) {
         this.client1 = client1;
         this.client2 = client2;
         this.client3 = client3;
         this.currClient = client2;      //Il primo giocatore a iniziare è il numero 2
         this.gameID = gameID;
+        this.backEnd = backEnd;
         this.gameMessage = new GameMessage(this);
     }
 
@@ -277,14 +280,16 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     public void resetUpdate() { this.update = false; }
 
     public void sendLiteGame(){
+        SerializableLiteGame toSend = liteGame.makeSerializable();
+
         if ( client1 != null ) {
-            client1.asyncSend(liteGame);  //Invio sempre tabella di gioco a tutti i giocatori
+            client1.asyncSend(toSend);  //Invio sempre tabella di gioco a tutti i giocatori
         }
         if ( client2 != null ) {
-            client2.asyncSend(liteGame);
+            client2.asyncSend(toSend);
         }
         if ( client3 != null ) {
-            client3.asyncSend(liteGame);
+            client3.asyncSend(toSend);
         }
     }
 

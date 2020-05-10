@@ -5,7 +5,7 @@ import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.SettingGameMessage;
 import java.io.IOException;
 import it.polimi.ingsw.model.God;
-import it.polimi.ingsw.model.LiteGame;
+import it.polimi.ingsw.model.SerializableLiteGame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class CommandLineGame {
     private boolean quit = true;
     private ClientConnection clientConnection;
     private String[] challengerMessage;
-    private LiteGame liteGame = new LiteGame();
+    private SerializableLiteGame serializableLiteGame = new SerializableLiteGame();
     private ClientMessage clientMessage = new ClientMessage();
 
 
@@ -34,7 +34,7 @@ public class CommandLineGame {
         //metodo per l'inizio della partita e la scelta delle carte
         challengerChoosesGods();
         chooseCard();
-        liteGame = clientConnection.readLiteGame();
+        serializableLiteGame = clientConnection.readLiteGame();
         placeWorkers();
         initializeGameTable();
     }
@@ -223,13 +223,13 @@ public class CommandLineGame {
             messageFromFrontEnd = clientConnection.readString();
             System.out.println(messageFromFrontEnd);
            if ( messageFromFrontEnd.contains("Wait") ){
-               liteGame = clientConnection.readLiteGame();
+               serializableLiteGame = clientConnection.readLiteGame();
            }
         }
         clientMessage.setSpace1(getSpaceFromClient());
         clientMessage.setSpace2(getSpaceFromClient());
         clientConnection.send(clientMessage);
-        liteGame = clientConnection.readLiteGame();
+        serializableLiteGame = clientConnection.readLiteGame();
     }
 
     private int[] getSpaceFromClient(){
@@ -258,7 +258,7 @@ public class CommandLineGame {
     }
 
     void buildGameTable(){
-        String[][] gameTable = liteGame.getTable();
+        String[][] gameTable = serializableLiteGame.getTable();
 
         System.out.println("        1        2        3        4        5");
         System.out.println("    + = = = ++ = = = ++ = = = ++ = = = ++ = = = +");
@@ -267,12 +267,12 @@ public class CommandLineGame {
         }
     }
 
-    void buildTableRow(String[] liteGameRow, int x){
-        String[] space1 = buildGameSpace(liteGameRow[0]);
-        String[] space2 = buildGameSpace(liteGameRow[1]);
-        String[] space3 = buildGameSpace(liteGameRow[2]);
-        String[] space4 = buildGameSpace(liteGameRow[3]);
-        String[] space5 = buildGameSpace(liteGameRow[4]);
+    void buildTableRow(String[] serializableLiteGameRow, int x){
+        String[] space1 = buildGameSpace(serializableLiteGameRow[0]);
+        String[] space2 = buildGameSpace(serializableLiteGameRow[1]);
+        String[] space3 = buildGameSpace(serializableLiteGameRow[2]);
+        String[] space4 = buildGameSpace(serializableLiteGameRow[3]);
+        String[] space5 = buildGameSpace(serializableLiteGameRow[4]);
 
         String[] row = new String[]{
                 "    "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0],
@@ -363,8 +363,8 @@ public class CommandLineGame {
         return  settingGameMessage;
     }
 
-    void setLiteGame(LiteGame liteGame){
-        this.liteGame = liteGame;
+    void setLiteGame(SerializableLiteGame serializableLiteGame){
+        this.serializableLiteGame = serializableLiteGame;
     }
 
 }

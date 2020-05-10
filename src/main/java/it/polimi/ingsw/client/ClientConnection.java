@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.model.LiteGame;
+import it.polimi.ingsw.model.SerializableLiteGame;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -33,48 +33,6 @@ public class ClientConnection {
         this.active = active;
     }
 
-    public Thread asyncReadFromSocket(final ObjectInputStream socketIn){
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (isActive()) {
-                        Object inputObject = socketIn.readObject();
-                        if(inputObject instanceof String){
-                            System.out.println((String)inputObject);
-                        } else if (inputObject instanceof LiteGame){
-                            //liteGame = (LiteGame) inputObject;
-                        } else {
-                            throw new IllegalArgumentException();
-                        }
-                    }
-                } catch (Exception e){ //serve ?
-                    setActive(false);
-                }
-            }
-        });
-        t.start();
-        return t;
-    }
-
-    public Thread asyncWriteToSocket(final Scanner stdin, final PrintWriter socketOut){
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (isActive()) {
-                        String inputLine = stdin.nextLine();
-                        socketOut.println(inputLine);
-                        socketOut.flush();
-                    }
-                }catch(Exception e){
-                    setActive(false);
-                }
-            }
-        });
-        t.start();
-        return t;
-    }
 
     public void connect() throws IOException {
         socket = new Socket(ip, port);
@@ -112,10 +70,10 @@ public class ClientConnection {
         return message;
     }
 
-    public LiteGame readLiteGame(){
-        LiteGame message = null;
+    public SerializableLiteGame readLiteGame(){
+       SerializableLiteGame message = null;
         try {
-            message = (LiteGame) socketIn.readObject();
+            message = (SerializableLiteGame) socketIn.readObject();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

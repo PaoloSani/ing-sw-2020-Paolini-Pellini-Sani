@@ -97,8 +97,10 @@ public class Game {
         liteGame.setGod1(player1.getGod());
         liteGame.setName2(player2.getNickname());
         liteGame.setGod2(player2.getGod());
-        liteGame.setName3(player3.getNickname());
-        liteGame.setGod3(player3.getGod());
+        if ( player3 != null ) {
+            liteGame.setName3(player3.getNickname());
+            liteGame.setGod3(player3.getGod());
+        }
     }
 
 

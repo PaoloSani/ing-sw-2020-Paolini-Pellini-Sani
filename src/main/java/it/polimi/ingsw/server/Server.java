@@ -177,16 +177,16 @@ public class Server {
     //Fa partire la partita gameID
     public void startGame(int gameID) {
         FrontEnd frontEnd;
+        BackEnd backEnd = new BackEnd();
+
         if (playingConnection2Players.containsKey(gameID)){
             List<ServerConnection> list = playingConnection2Players.get(gameID);
-            frontEnd = new FrontEnd(list.get(0), list.get(1), gameID);
+            frontEnd = new FrontEnd(list.get(0), list.get(1), gameID, backEnd);
         } else {
             List<ServerConnection> list = playingConnection3Players.get(gameID);
-            frontEnd = new FrontEnd(list.get(0), list.get(1), list.get(2), gameID);
+            frontEnd = new FrontEnd(list.get(0), list.get(1), list.get(2), gameID, backEnd);
         }
 
-        BackEnd backEnd = new BackEnd();
-        frontEnd.setBackEnd(backEnd);
         nowPlaying.submit(frontEnd);
     }
 

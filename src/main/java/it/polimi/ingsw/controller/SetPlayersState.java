@@ -36,10 +36,14 @@ public class SetPlayersState implements  GameState {
 
         backEnd.setChallenger(new Player(this.name1, god1, backEnd.getGame()));
         backEnd.setPlayer2(new Player(this.name2, god2, backEnd.getGame()));
-        backEnd.setPlayer3(new Player(this.name3, god3, backEnd.getGame()));
+        if ( name3 != null ) {
+            backEnd.setPlayer3(new Player(this.name3, god3, backEnd.getGame()));
+        }
+        else {
+            backEnd.setPlayer3(null);
+        }
 
         //se hypnus è presente in gioco, la classe Player ha già settato il costraint
-
         backEnd.getGame().setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
         //invio la classe litegame backEnd.getGameMessage dal model alla view
         backEnd.getGame().getLiteGame().addObservers(backEnd.getGameMessage().getFrontEnd());
