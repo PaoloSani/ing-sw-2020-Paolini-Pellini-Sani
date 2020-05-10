@@ -238,12 +238,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
         //Se il giocare era l'ultimo in gioco il backEnd lo scrive nel LiteGame
         gameMessage.notify(gameMessage);
-        if ( liteGame.isWinner() ){
-            currClient.asyncSend("You won the match!\n");
-            currClient.closeConnection();
-            currClient = null;
-            endOfTheGame = true; //booleano per uscire dal metodo run
-        }
+
     }
 
 
@@ -314,7 +309,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         ServerConnection[] clients = new ServerConnection[]{client1, client2, client3};
         for(ServerConnection c: clients){
             if(c != currClient && c != null )
-                if ( message.equals("Next Action") )
+                if ( !message.contains("You won") )
                     c.asyncSend("Wait for " + currClient.getName() + " to end his turn" );
                 else c.asyncSend("You lost the match");
         }
