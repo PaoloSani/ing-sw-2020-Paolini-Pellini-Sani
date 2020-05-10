@@ -25,22 +25,54 @@ public class CommandLineGame {
     private String[] challengerMessage;
     private SerializableLiteGame serializableLiteGame = new SerializableLiteGame();
     private ClientMessage clientMessage = new ClientMessage();
+    private boolean endOfTheGame = false;
+    private String messageFromFrontEnd;
+    private String lastAction = "none";
+    private SerializableLiteGame newMessage = new SerializableLiteGame();
 
-
-    public void runCLI(){
+    public void runCLI() {
         welcomeMirror();
         //messaggio di inizio partita
         System.out.println(clientConnection.readString());
         //metodo per l'inizio della partita e la scelta delle carte
         challengerChoosesGods();
         chooseCard();
-        serializableLiteGame = clientConnection.readLiteGame();
         placeWorkers();
-        initializeGameTable();
+        while(!endOfTheGame) {
+            messageFromFrontEnd = clientConnection.readString();
+            if(messageFromFrontEnd.equals("Next action")){
+                if (lastAction.equals("none") || lastAction.equals("End")) chooseWorker();
+                else if (lastAction.equals("Choose Worker")){
+
+                    if(god == God.CHARON){
+                        System.out.println("  Do you want to use Charon power? (type yes/no)");
+                        if(in.nextLine().toUpperCase().equals("YES"))
+                    }
+
+                }
+
+
+                clientMessage.setAction(lastAction);
+                clientMessage.setSpace1(getSpaceFromClient());
+                if ( lastAction.contains("Build")){
+                    getLevel();
+                }
+                clientConnection.send(clientMessage);
+            }
+            //Siamo in caso in cui o abbiamo vinto o abbiamo perso
+            else if(!messageFromFrontEnd.contains("Wait")){
+                endOfTheGame = true;
+            }
+
+            else System.out.println(messageFromFrontEnd);
+
+            if(!messageFromFrontEnd.equals("Invalid action")) {
+                serializableLiteGame = clientConnection.readLiteGame();
+                buildGameTable();
+            }
+        }
+        System.out.println(messageFromFrontEnd);
     }
-
-
-
 
     /**
      * Welcome method: initialize a new settingGameMessage to send to Server
@@ -196,7 +228,7 @@ public class CommandLineGame {
 
     private void chooseCard() {
 
-        String messageFromFrontEnd = clientConnection.readString();
+        messageFromFrontEnd = clientConnection.readString();
         if ( mode.equals("A") ){
             god = God.valueOf(messageFromFrontEnd);
             System.out.println("Your god is " + messageFromFrontEnd);
@@ -215,31 +247,50 @@ public class CommandLineGame {
             clientConnection.send(clientMessage);
             System.out.println(clientConnection.readString());
         }
+        serializableLiteGame = clientConnection.readLiteGame();
+        buildGameTable();
     }
 
     private void placeWorkers() {
-        String messageFromFrontEnd = "none";
+        messageFromFrontEnd = "none";
         while ( !messageFromFrontEnd.equals("Placing workers") ){
             messageFromFrontEnd = clientConnection.readString();
             System.out.println(messageFromFrontEnd);
            if ( messageFromFrontEnd.contains("Wait") ){
                serializableLiteGame = clientConnection.readLiteGame();
+               buildGameTable();
            }
         }
+        boolean validPlacing = false;
+        while (!validPlacing) {
+            clientMessage.setSpace1(getSpaceFromClient());
+            clientMessage.setSpace2(getSpaceFromClient());
+            clientConnection.send(clientMessage);
+            newMessage = clientConnection.readLiteGame();
+            if(!newMessage.equalsSLG(serializableLiteGame)){
+                validPlacing = true;
+                serializableLiteGame = newMessage;
+            }
+            buildGameTable();
+            if(!validPlacing) System.out.println("  Please retype two correct spaces!");
+        }
+    }
+
+    private void chooseWorker() {
         clientMessage.setSpace1(getSpaceFromClient());
-        clientMessage.setSpace2(getSpaceFromClient());
+        lastAction = "Choose Worker";
+        clientMessage.setAction(lastAction);
         clientConnection.send(clientMessage);
-        serializableLiteGame = clientConnection.readLiteGame();
     }
 
     private int[] getSpaceFromClient(){
         int[] newSpace = new int[]{5,5};
         //TODO: migliorare controlli sulle celle disponibili e messaggio di errore al client
-        while ( newSpace[0] < 0 || newSpace[0] > 4 || newSpace[1] < 0 || newSpace[1] > 4 ) {
+        while ( (newSpace[0] < 0 || newSpace[0] > 4 || newSpace[1] < 0 || newSpace[1] > 4)) {
             System.out.println("Insert the space coordinates (NUM NUM): \n ");
             String space = in.nextLine();
             String[] coord = space.split(" ");
-            newSpace = new int[]{Integer.parseInt(coord[0]), Integer.parseInt(coord[1])};
+            newSpace = new int[]{Integer.parseInt(coord[0])-1, Integer.parseInt(coord[1])-1};
         }
         return newSpace;
     }
@@ -329,34 +380,6 @@ public class CommandLineGame {
                                           "+ = = = +"
         };
         return gameSpace;
-    }
-
-
-    void initializeGameTable(){
-        printKeysTable();
-        System.out.println(                                      "         1       2       3       4       5");
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("  1 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("  2 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("  3 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("  4 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("  5 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET + "\n\n");
-
     }
 
     SettingGameMessage getSettingGameMessage(){
