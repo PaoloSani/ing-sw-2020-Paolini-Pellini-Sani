@@ -78,7 +78,7 @@ public class CommandLineGameTest {
         game.getSpace(3,1).setWorker(new Worker(player1));
         game.refreshLiteGame();
 
-        cli.setLiteGame(game.getLiteGame());
+        cli.setLiteGame(game.getLiteGame().makeSerializable());
         cli.buildGameTable();
     }
 

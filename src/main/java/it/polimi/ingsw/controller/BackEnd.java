@@ -11,9 +11,9 @@ public class BackEnd implements Observer<GameMessage> {
     private Game game;
     private GameMessage gameMessage;
     private GameState currState;
+    private Player challenger;
     private Player player2;
     private Player player3;
-    private Player challenger;
     private Player currPlayer;
     private Player toRemove; //serve per memorizzare il giocatore che non può muovere nessuna pedina, così che poi lo rimuovo dal gioco
     private Worker currWorker;
