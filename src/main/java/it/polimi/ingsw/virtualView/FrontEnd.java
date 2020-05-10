@@ -74,7 +74,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
         //client 2 e 3 se c'è scelgono le divinità
         for (int i=0; i<2 && currClient != client1; i++){
-            currClient.asyncSend(Arrays.toString(gods) );
+            currClient.send(Arrays.toString(gods) );
             clientMessage = currClient.readClientMessage(); // il giocatore due ha scelto la prima divinità
             if (i == 0) {
                 gameMessage.setGod2(clientMessage.getGod());
@@ -86,7 +86,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
             List<String> list = new ArrayList<String>(Arrays.asList(gods));
             list.remove( clientMessage.getGod().name());  //tutto maiuscolo
             gods = list.toArray(new String[0]);
-            currClient.asyncSend("Choice confirmed");
+            currClient.send("Choice confirmed");
             updateCurrClient();
         }
 
@@ -140,8 +140,9 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
              else if ( "End".equals(clientMessage.getAction()) ) {
                  gameMessage.resetGameMessage();
                  updateCurrClient();
+                 sendLiteGame();
              }
-             else currClient.asyncSend("Invalid action");
+             else currClient.send("Invalid action");
         }
 
 
@@ -226,7 +227,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     //chiude la connessione del giocatore corrente e inizia il turno con il giocatore successivo
     //se è il caso di due giocatori conclude la partita e notifica il giocatore vincente
     private void removePlayerFromTheGame(){
-        currClient.asyncSend("You have lost the match!");
+        currClient.send("You have lost the match!");
         ServerConnection toRemove = currClient;
         updateCurrClient();
         toRemove.closeConnection();
@@ -278,13 +279,13 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         SerializableLiteGame toSend = liteGame.makeSerializable();
 
         if ( client1 != null ) {
-            client1.asyncSend(toSend);  //Invio sempre tabella di gioco a tutti i giocatori
+            client1.send(toSend);  //Invio sempre tabella di gioco a tutti i giocatori
         }
         if ( client2 != null ) {
-            client2.asyncSend(toSend);
+            client2.send(toSend);
         }
         if ( client3 != null ) {
-            client3.asyncSend(toSend);
+            client3.send(toSend);
         }
     }
 
@@ -305,13 +306,13 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     public void sendToCurrClient ( String message ){
-        currClient.asyncSend( message );
+        currClient.send( message );
         ServerConnection[] clients = new ServerConnection[]{client1, client2, client3};
         for(ServerConnection c: clients){
             if(c != currClient && c != null )
                 if ( !message.contains("You won") )
-                    c.asyncSend("Wait for " + currClient.getName() + " to end his turn" );
-                else c.asyncSend("You lost the match");
+                    c.send("Wait for " + currClient.getName() + " to end his turn" );
+                else c.send("You lost the match");
         }
     }
 
