@@ -38,7 +38,6 @@ public class CommandLineGame {
         chooseCard();
         serializableLiteGame = clientConnection.readLiteGame();
         placeWorkers();
-        initializeGameTable();
     }
 
 
@@ -54,7 +53,7 @@ public class CommandLineGame {
         clientConnection = new ClientConnection("127.0.0.1", 4700);
         try {
             clientConnection.connect();
-            String messageFromServer = "Beginning";
+            String messageFromServer = "  Beginning";
             //welcoming client
             System.out.println(clientConnection.readString());
 
@@ -101,7 +100,7 @@ public class CommandLineGame {
                         if ( !quit ) {
                             settingGameMessage.setNumberOfPlayer(numOfPlayers);
                             clientConnection.send(settingGameMessage);
-                            System.out.println("The gameID is " + clientConnection.readString() + "\n");
+                            System.out.println("  The gameID is " + clientConnection.readString() + "\n");
                         }
                         break;
                     case "B":
@@ -123,9 +122,9 @@ public class CommandLineGame {
                             if ( !quit ) {
                                 clientConnection.send(settingGameMessage);
                                 messageFromServer = clientConnection.readString();
-                                System.out.println("Server says: " + messageFromServer + "\n");
+                                System.out.println("  Server says: " + messageFromServer + "\n");
                                 if (messageFromServer.equals("Insert valid gameID"))
-                                    System.out.println("Insert a valid gameID");
+                                    System.out.println("  Insert a valid gameID");
                                 else validGameId = true;
                             }
                         }
@@ -149,7 +148,7 @@ public class CommandLineGame {
                         if ( !quit ) {
                             settingGameMessage.setNumberOfPlayer(numOfPlayers);
                             clientConnection.send(settingGameMessage);
-                            System.out.println("Server says: " + clientConnection.readString() + "\n");
+                            System.out.println("  Server says: " + clientConnection.readString() + "\n");
                         }
                         break;
                 }
@@ -173,7 +172,7 @@ public class CommandLineGame {
                 for (God g : God.values()) {
                     if (!chosenGods.contains(g)) System.out.println("  - " + g.toString() + ": " + g.getPower());
                 }
-                System.out.println("");
+                System.out.println();
                 System.out.println("  Please,choose a God\n");
                 String singleChosenGod = in.nextLine().toUpperCase();
                 try {
@@ -189,7 +188,7 @@ public class CommandLineGame {
                 challengerMessage =
                         new String[]{chosenGods.get(0).toString(), chosenGods.get(1).toString(), chosenGods.get(2).toString()};
             }
-            System.out.println("Now wait for other players to choose their cards");
+            System.out.println("  Now wait for other players to choose their cards");
             clientConnection.send(challengerMessage);
 
         }
@@ -201,13 +200,13 @@ public class CommandLineGame {
         String messageFromFrontEnd = clientConnection.readString();
         if ( mode.equals("A") ){
             god = God.valueOf(messageFromFrontEnd);
-            System.out.println("Your god is " + messageFromFrontEnd);
+            System.out.println("  Your god is " + messageFromFrontEnd);
         }
         else {
             String choice = "none";
 
             while ( !messageFromFrontEnd.contains(choice) ){
-                System.out.println("Choose your god! Available gods: " + messageFromFrontEnd);
+                System.out.println("  Choose your god! Available gods: " + messageFromFrontEnd);
                 choice = in.nextLine().toUpperCase();
             }
             god = God.valueOf(choice);
@@ -223,7 +222,7 @@ public class CommandLineGame {
         String messageFromFrontEnd = "none";
         while ( !messageFromFrontEnd.equals("Placing workers") ){
             messageFromFrontEnd = clientConnection.readString();
-            System.out.println(messageFromFrontEnd);
+            System.out.println("  "+messageFromFrontEnd);
            if ( messageFromFrontEnd.contains("Wait") ){
                serializableLiteGame = clientConnection.readLiteGame();
            }
@@ -238,10 +237,15 @@ public class CommandLineGame {
         int[] newSpace = new int[]{5,5};
         //TODO: migliorare controlli sulle celle disponibili e messaggio di errore al client
         while ( newSpace[0] < 0 || newSpace[0] > 4 || newSpace[1] < 0 || newSpace[1] > 4 ) {
-            System.out.println("Insert the space coordinates (NUM NUM): \n ");
-            String space = in.nextLine();
-            String[] coord = space.split(" ");
-            newSpace = new int[]{Integer.parseInt(coord[0]), Integer.parseInt(coord[1])};
+            System.out.println("  Insert the space coordinates (ROW-COL): \n ");
+            for(boolean validMessage = false;!validMessage; ) {
+                String space = in.nextLine();
+                String[] coord = space.split("-");
+                if (coord.length == 2){
+                    newSpace = new int[]{Integer.parseInt(coord[0]), Integer.parseInt(coord[1])};
+                    validMessage = true;
+                }
+            }
         }
         return newSpace;
     }
@@ -255,7 +259,7 @@ public class CommandLineGame {
         System.out.println("  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
         System.out.println("  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
         System.out.println("  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND + "\n");
+        System.out.println("  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND + ColourFont.ANSI_RESET+"\n");
 
     }
 
@@ -357,34 +361,15 @@ public class CommandLineGame {
         return gameSpace;
     }
 
-
-    void initializeGameTable(){
-        printKeysTable();
-        System.out.println(                                      "         1       2       3       4       5");
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("  1 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("  2 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("  3 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("  4 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("  5 " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " |       |       |       |       |       | " + ColourFont.ANSI_RESET);
-        System.out.println("    " + ColourFont.ANSI_GREEN_BACKGROUND + " +-------+-------+-------+-------+-------+ " + ColourFont.ANSI_RESET + "\n\n");
-
+    String parseInput(){
+        String message = in.nextLine();
+        message.toUpperCase();
+        String[] parsedMessage = message.split(" ");
+        for (String s : parsedMessage){
+            message = s + " "
+        }
+        return null;
     }
-
 
     public void setLiteGame(SerializableLiteGame serializableLiteGame){
         this.serializableLiteGame = serializableLiteGame;
