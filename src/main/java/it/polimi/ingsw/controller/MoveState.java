@@ -68,6 +68,7 @@ public class MoveState implements GameState {
             }
         }
         //Aggiorno il LiteGame
+        backEnd.getGame().setCurrWorker(backEnd.getCurrWorker());
         backEnd.getGame().refreshLiteGame();
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return result;
