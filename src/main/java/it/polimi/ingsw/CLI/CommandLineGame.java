@@ -306,7 +306,7 @@ public class CommandLineGame {
             clientMessage.setName(nickname);
             clientMessage.setGod(god);
             clientConnection.send(clientMessage);
-            System.out.println(clientConnection.readString());
+            System.out.println(clientConnection.readString()+ColourFont.ANSI_RESET+"\n\n");
         }
         serializableLiteGame = clientConnection.readLiteGame();
         buildGameTable();
@@ -351,7 +351,10 @@ public class CommandLineGame {
             System.out.println("  Insert the space coordinates (ROW-COL): \n ");
             for(boolean validMessage = false;!validMessage; ) {
                 String space = in.nextLine();
+                space.replace(" ","-");
+                space.replace(",","-");
                 String[] coord = space.split("-");
+
                 if (coord.length == 2){
                     newSpace = new int[]{Integer.parseInt(coord[0]), Integer.parseInt(coord[1])};
                     validMessage = true;
@@ -492,7 +495,7 @@ public class CommandLineGame {
         message.toUpperCase();
         String[] parsedMessage = message.split(" ");
         for (String s : parsedMessage){
-            message = s + " "
+            message = s + " ";
         }
         return null;
     }
