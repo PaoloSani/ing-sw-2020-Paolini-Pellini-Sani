@@ -31,6 +31,8 @@ public class CommandLineGame {
     private SerializableLiteGame newMessage = new SerializableLiteGame();
 
     public void runCLI() {
+        int moveCounter =0, buildCounter =0;
+        int [] lastSpace = new int[]{5,5};
         welcomeMirror();
         //messaggio di inizio partita
         System.out.println(clientConnection.readString());
@@ -41,22 +43,76 @@ public class CommandLineGame {
         while(!endOfTheGame) {
             messageFromFrontEnd = clientConnection.readString();
             if(messageFromFrontEnd.equals("Next action")){
-                if (lastAction.equals("none") || lastAction.equals("End")) chooseWorker();
-                else if (lastAction.equals("Choose Worker")){
+                if (lastAction.equals("none") || lastAction.equals("End")) lastAction = "Choose Worker";
 
-                    if(god == God.CHARON){
+                else if (lastAction.equals("Choose Worker")){
+                    if(god == God.CHARON) {
                         System.out.println("  Do you want to use Charon power? (type yes/no)");
-                        if(in.nextLine().toUpperCase().equals("YES"))
+                        if (in.nextLine().toUpperCase().equals("YES")) {
+                            lastAction = "Charon Switch";
+                        }
+                    }
+                    else if(god == God.PROMETHEUS) {
+                        System.out.println("  Do you want to use Prometheus power? (type yes/no)");
+                        if (in.nextLine().toUpperCase().equals("YES")) {
+                            lastAction = "Prometheus Build";
+                        }
+                    }
+                    else {
+                        lastAction = "Move";
+                        moveCounter ++;
+
                     }
 
                 }
+                else if( lastAction.equals("Charon Switch") || lastAction.equals("Prometheus Build") ) lastAction = "Move";
+                else if( lastAction.equals("Move")){
+                    if( god == God.ARTEMIS && moveCounter ==1 || god == God.TRITON && isPerimetralSpace(lastSpace)){
+                        System.out.println("  Do you want to move again? (yes/no)");
+                        if (in.nextLine().toUpperCase().equals("YES")) {
+                            lastAction = "Move";
+                            moveCounter ++;
+                        }
+                    }
+                    else {
+                        buildCounter ++;
+                        lastAction = "Build";
 
-
-                clientMessage.setAction(lastAction);
-                clientMessage.setSpace1(getSpaceFromClient());
-                if ( lastAction.contains("Build")){
-                    getLevel();
+                    }
                 }
+
+                else if (lastAction.equals("Build")){
+                    if( (god == God.HEPHAESTUS || god == God.DEMETER) && buildCounter ==1){
+                        System.out.println("  Do you want to build again? (yes/no)");
+                        if (in.nextLine().toUpperCase().equals("YES")) {
+                            lastAction = "Build";
+                            buildCounter ++;
+                        }
+                    }
+                    else if ( god == God.POSEIDON ){
+                        System.out.println("  Do you want to build again? (yes/no)");
+                        if (in.nextLine().toUpperCase().equals("YES") && buildCounter > 0 &&
+                            buildCounter <4 && getHeight(serializableLiteGame.getCurrWorker()) == 0 ){
+                            lastAction = "Build";
+                            buildCounter ++;
+                        }
+                    }
+                    else {
+                        moveCounter = 0;
+                        buildCounter = 0;
+                        lastAction = "End";
+                    }
+                }
+
+                if(!lastAction.equals("End")) {
+                    lastSpace = getSpaceFromClient();
+                    clientMessage.setSpace1(lastSpace);
+                    if (lastAction.contains("Build")) {
+                        System.out.println("  Which level do you want to build? (1-4)");
+                        clientMessage.setLevelToBuild(Integer.parseInt(in.nextLine()));
+                    }
+                }
+                clientMessage.setAction(lastAction);
                 clientConnection.send(clientMessage);
             }
             //Siamo in caso in cui o abbiamo vinto o abbiamo perso
@@ -73,6 +129,7 @@ public class CommandLineGame {
         }
         System.out.println(messageFromFrontEnd);
     }
+
 
     /**
      * Welcome method: initialize a new settingGameMessage to send to Server
@@ -294,6 +351,17 @@ public class CommandLineGame {
         }
         return newSpace;
     }
+
+    private boolean isPerimetralSpace(int[] space){
+        return space[0]== 0 || space[1] == 0 || space[0]== 4 || space[1] == 4;
+    }
+
+    private int getHeight(int[] space) {
+        return Integer.parseInt(serializableLiteGame.getTable()[space[0]][space[1]].substring(1,1));
+    }
+
+
+
     /**
      * It prints on mirror the gametable from the litegame
      */
