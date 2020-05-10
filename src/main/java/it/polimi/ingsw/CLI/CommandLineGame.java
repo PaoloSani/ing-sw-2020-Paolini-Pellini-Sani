@@ -52,18 +52,20 @@ public class CommandLineGame {
                         System.out.println("  Do you want to use Charon power? (type yes/no)");
                         if (in.nextLine().toUpperCase().equals("YES")) {
                             lastAction = "Charon Switch";
+                            System.out.println("  Make your " + lastAction + "!" );
                         }
                     }
                     else if(god == God.PROMETHEUS) {
                         System.out.println("  Do you want to use Prometheus power? (type yes/no)");
                         if (in.nextLine().toUpperCase().equals("YES")) {
                             lastAction = "Prometheus Build";
+                            System.out.println("  Make your " + lastAction + "!" );
                         }
                     }
                     else {
                         lastAction = "Move";
                         moveCounter ++;
-
+                        System.out.println("  Make your " + lastAction + "!" );
                     }
 
                 }
@@ -74,11 +76,13 @@ public class CommandLineGame {
                         if (in.nextLine().toUpperCase().equals("YES")) {
                             lastAction = "Move";
                             moveCounter ++;
+                            System.out.println("  Make your " + lastAction + "!" );
                         }
                     }
                     else {
                         buildCounter ++;
                         lastAction = "Build";
+                        System.out.println("  Make your " + lastAction + "!" );
 
                     }
                 }
@@ -89,6 +93,7 @@ public class CommandLineGame {
                         if (in.nextLine().toUpperCase().equals("YES")) {
                             lastAction = "Build";
                             buildCounter ++;
+                            System.out.println("  Make your " + lastAction + "!" );
                         }
                     }
                     else if ( god == God.POSEIDON ){
@@ -97,6 +102,7 @@ public class CommandLineGame {
                             buildCounter <4 && getHeight(serializableLiteGame.getCurrWorker()) == 0 ){
                             lastAction = "Build";
                             buildCounter ++;
+                            System.out.println("  Make your " + lastAction + "!" );
                         }
                     }
                     else {
