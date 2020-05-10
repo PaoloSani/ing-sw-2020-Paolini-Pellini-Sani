@@ -107,6 +107,7 @@ public class CommandLineGame {
                 }
 
                 if(!lastAction.equals("End")) {
+                    System.out.println("  Make your " + lastAction + "!" );
                     lastSpace = getSpaceFromClient();
                     clientMessage.setSpace1(lastSpace);
                     if (lastAction.contains("Build")) {
