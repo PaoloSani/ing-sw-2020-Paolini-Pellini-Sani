@@ -158,8 +158,9 @@ public class CommandLineGame {
             e.printStackTrace();
         }
     }
+
     /**
-     * The Challenger chooses the card which he wants to play with*
+     * The Challenger chooses the cards which he wants to play with*
      */
 
     void challengerChoosesGods(){
@@ -287,40 +288,44 @@ public class CommandLineGame {
     String[] buildGameSpace(String spaceFromLiteGame){
         ColourFont background = ColourFont.ANSI_MENU_BACKGROUND;
         ColourFont foreground = ColourFont.ANSI_WHITE_TEXT;
+        String dome = "";
         String reset = ColourFont.ANSI_RESET;
         String player;
         char[] spaceAnalyzer = spaceFromLiteGame.toCharArray();
 
         if (spaceAnalyzer[1] == '0') background = ColourFont.ANSI_GREEN_BACKGROUND;
         else if (spaceAnalyzer[1] == '1') background = ColourFont.ANSI_LEVEL1;
-        else if (spaceAnalyzer[1] == '2') background = ColourFont.ANSI_LEVEL2;
+        else if (spaceAnalyzer[1] == '2') {
+            background = ColourFont.ANSI_LEVEL2;
+            foreground = ColourFont.ANSI_BLACK_TEXT;
+        }
         else if (spaceAnalyzer[1] == '3') {
             background = ColourFont.ANSI_LEVEL3;
             foreground = ColourFont.ANSI_BLACK_TEXT;
         }
-        if (spaceAnalyzer[2] == 'D') background = ColourFont.ANSI_DOME;
+        if (spaceAnalyzer[2] == 'D') dome = ColourFont.ANSI_DOME.toString();
         switch(spaceAnalyzer[0]){
             case 'A':
-                player = "A";
+                player = "(A)";
                 break;
 
             case 'B':
-                player = "B";
+                player = "(B)";
                 break;
 
             case 'C':
-                player = "C";
+                player = "(C)";
                 break;
 
             default:
-                player = " ";
+                player = "   ";
                 break;
             }
 
         String[] gameSpace = new String[]{
-                                          "|"+background.toString()+foreground.toString()+"       "+reset+"|",
-                                          "|"+background.toString()+foreground.toString()+"   "+player+"   "+reset+"|",
-                                          "|"+background.toString()+foreground.toString()+"       "+reset+"|",
+                                          "|"+background.toString()+foreground.toString()+" "+dome+"     "+background.toString()+" "+reset+"|",
+                                          "|"+background.toString()+foreground.toString()+" "+dome +" "+player+" "+background.toString()+" "+reset+"|",
+                                          "|"+background.toString()+foreground.toString()+" "+dome+"     "+background.toString()+" "+reset+"|",
                                           "+ = = = +"
         };
         return gameSpace;

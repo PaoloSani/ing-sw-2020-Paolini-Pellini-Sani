@@ -12,6 +12,10 @@ public enum ColourFont {
     ANSI_DOME("\033[48;5;25m"),
     ANSI_MENU_BACKGROUND("\033[48;5;188m"),
 
+    U_WORKERA("\u24b6"),
+    U_WORKERB("\u24b7"),
+    U_WORKERC("\u25b8"),
+
     ANSI_WHITE_TEXT("\033[38;5;255m"),
     ANSI_BLACK_TEXT("\033[38;5;16m"),
 
@@ -21,6 +25,7 @@ public enum ColourFont {
     ANSI_PURPLE_BACKGROUND("\u001B[45m"),
     ANSI_CYAN_BACKGROUND("\u001B[46m"),
     ANSI_WHITE_BACKGROUND("\u001B[47m"),
+
 
     ANSI_BOLD("\u001b[1m"),
     ANSI_UNDERLINE(" \u001b[4m"),

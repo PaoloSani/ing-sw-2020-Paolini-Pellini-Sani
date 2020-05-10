@@ -37,5 +37,7 @@ public class OpeningMirror {
             CLGame.runCLI();
         }
 
+        //CIRCLED LATIN CAPITAL LETTER A
+        //Unicode: U+24B6, UTF-8: E2 92 B6
     }
 }
