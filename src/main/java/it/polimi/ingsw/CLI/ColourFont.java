@@ -11,8 +11,11 @@ public enum ColourFont {
     ANSI_LEVEL3("\033[48;5;255m"),
     ANSI_DOME("\033[48;5;25m"),
     ANSI_MENU_BACKGROUND("\033[48;5;188m"),
-    ANSI_WORKER("\033[48;5;214m"),
+    ANSI_WORKER("\033[48;5;31m"),
 
+    ANSI_RED_TEXT("\033[38;5;124m"),
+    ANSI_ICE_TEXT("\033[38;5;189m"),
+    ANSI_GOLD_TEXT("\033[38;5;214m"),
     ANSI_WHITE_TEXT("\033[38;5;255m"),
     ANSI_BLACK_TEXT("\033[38;5;16m"),
 

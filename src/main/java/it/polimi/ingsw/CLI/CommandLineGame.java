@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.ClientConnection;
 import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.SettingGameMessage;
 
-import java.awt.image.BandCombineOp;
 import java.io.IOException;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
@@ -407,10 +406,38 @@ public class CommandLineGame {
         String[] newRow;
         if (row == 1){
             newRow = new String[]{
-                    "    "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0]+"            "+"  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND,
-                    " "+row+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1]+"            "+"  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND,
-                    "    "+space1[2]+space2[2]+space3[2]+space4[2]+space5[2]+"            "+"  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND,
-                    "    "+space1[3]+space2[3]+space3[3]+space4[3]+space5[3]+"            "+"  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND + ColourFont.ANSI_RESET
+                    "    "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0]+"            "+"  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET,
+                    " "+row+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1]+"            "+"  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET,
+                    "    "+space1[2]+space2[2]+space3[2]+space4[2]+space5[2]+"            "+"  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET,
+                    "    "+space1[3]+space2[3]+space3[3]+space4[3]+space5[3]+"            "+"  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET
+            };
+        }
+
+        else if (row == 2) {
+            if (numOfPlayers == 3) {
+                newRow = new String[]{
+                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.ANSI_ICE_TEXT + serializableLiteGame.getName1() + ColourFont.ANSI_RESET,
+                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.ANSI_RED_TEXT + serializableLiteGame.getName2() + ColourFont.ANSI_RESET,
+                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - PLAYER C: " + ColourFont.ANSI_GOLD_TEXT + serializableLiteGame.getName3() + ColourFont.ANSI_RESET
+                };
+            }
+            else {
+                newRow = new String[]{
+                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.ANSI_ICE_TEXT + serializableLiteGame.getName1() + ColourFont.ANSI_RESET,
+                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.ANSI_GOLD_TEXT + serializableLiteGame.getName2() + ColourFont.ANSI_RESET,
+                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                };
+            }
+        }
+
+        else if (row == 3){
+            newRow = new String[]{
+                    "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                    " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1]+ "            " + "  - CURRENT WORKER: "+ColourFont.ANSI_WORKER+"    "+ColourFont.ANSI_RESET,
+                    "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                    "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3]
             };
         }
 
@@ -501,6 +528,7 @@ public class CommandLineGame {
         return settingGameMessage;
     }
 
+    //todo: da finire
     String parseInput(){
         String message = in.nextLine();
         message.toUpperCase();
@@ -517,5 +545,9 @@ public class CommandLineGame {
 
     public SerializableLiteGame getSerializableLiteGame(){
         return this.serializableLiteGame;
+    }
+
+    public void setNumOfPlayer(int i) {
+        this.numOfPlayers = i;
     }
 }
