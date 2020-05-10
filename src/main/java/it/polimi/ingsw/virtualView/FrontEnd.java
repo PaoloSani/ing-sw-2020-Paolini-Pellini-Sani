@@ -140,6 +140,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
              else if ( "End".equals(clientMessage.getAction()) ) {
                  gameMessage.resetGameMessage();
                  updateCurrClient();
+                 sendLiteGame();
              }
              else currClient.asyncSend("Invalid action");
         }

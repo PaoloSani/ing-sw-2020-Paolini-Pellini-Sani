@@ -2,10 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.SerializableLiteGame;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
