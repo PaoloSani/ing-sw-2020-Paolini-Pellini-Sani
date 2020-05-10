@@ -356,7 +356,7 @@ public class CommandLineGame {
                 String[] coord = space.split("-");
 
                 if (coord.length == 2){
-                    newSpace = new int[]{Integer.parseInt(coord[0]), Integer.parseInt(coord[1])};
+                    newSpace = new int[]{Integer.parseInt(coord[0])-1, Integer.parseInt(coord[1])-1};
                     validMessage = true;
                 }
             }
