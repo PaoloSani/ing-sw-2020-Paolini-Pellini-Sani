@@ -390,8 +390,8 @@ public class CommandLineGame {
 
     void buildGameTable(){
         String[][] gameTable = serializableLiteGame.getTable();
-
-        System.out.println("        1        2        3        4        5                " + ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET+ColourFont.ANSI_BLACK_BACKGROUND + "\n");
+        System.out.println("                                                             ");
+        System.out.println("        1        2        3        4        5                " +  ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET);
         System.out.println("    + = = = ++ = = = ++ = = = ++ = = = ++ = = = +            " + "  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
         for (int i = 0; i < 5; i++){
             buildTableRow(gameTable[i],i+1);
@@ -415,7 +415,7 @@ public class CommandLineGame {
         }
 
         else if (row == 2) {
-            if (numOfPlayers == 3) {
+            if (this.serializableLiteGame.getName3() != null) {
                 newRow = new String[]{
                         "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
                         " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.ANSI_ICE_TEXT + serializableLiteGame.getName1() + ColourFont.ANSI_RESET,
