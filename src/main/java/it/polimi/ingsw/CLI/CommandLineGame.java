@@ -414,10 +414,7 @@ public class CommandLineGame {
 
         if (spaceAnalyzer[1] == '0') background = ColourFont.ANSI_GREEN_BACKGROUND;
         else if (spaceAnalyzer[1] == '1') background = ColourFont.ANSI_LEVEL1;
-        else if (spaceAnalyzer[1] == '2') {
-            background = ColourFont.ANSI_LEVEL2;
-            foreground = ColourFont.ANSI_BLACK_TEXT;
-        }
+        else if (spaceAnalyzer[1] == '2') background = ColourFont.ANSI_LEVEL2;
         else if (spaceAnalyzer[1] == '3') {
             background = ColourFont.ANSI_LEVEL3;
             foreground = ColourFont.ANSI_BLACK_TEXT;
