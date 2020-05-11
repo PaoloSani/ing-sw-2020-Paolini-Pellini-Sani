@@ -124,7 +124,6 @@ public class ServerConnection implements Runnable {
                 } else {
                     server.lobby(settings.getNickname(), playersInTheGame, this);
                     validMessage = true;
-                    send("Waiting other player to join the match");
                     //il server lo inserisce nella waitingConnection tenendo
                     // conto del numero di giocatori con cui vuole giocare
                 }
@@ -136,6 +135,19 @@ public class ServerConnection implements Runnable {
             e.printStackTrace();
         }
 
+    }
+
+    public String readString(){
+        String message = null;
+        try {
+            message = (String) in.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        //restituisce un array di stringhe, separando in modo opportuno message secondo la presenza di virgole
+        return message;
     }
 
     //todo: modificare con metodi enumeration di God

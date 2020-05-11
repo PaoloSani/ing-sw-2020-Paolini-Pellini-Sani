@@ -83,6 +83,9 @@ public class Server {
                 startGame(currMatch);
 
             }
+            else {
+                client.send("Waiting other player to join the match");
+            }
         }
         else if (numberOfPlayers == 3) {
             waitingConnection3Players.put(name,client);
@@ -181,10 +184,10 @@ public class Server {
 
         if (playingConnection2Players.containsKey(gameID)){
             List<ServerConnection> list = playingConnection2Players.get(gameID);
-            frontEnd = new FrontEnd(list.get(0), list.get(1), gameID, backEnd);
+            frontEnd = new FrontEnd(this, list.get(0), list.get(1), gameID, backEnd);
         } else {
             List<ServerConnection> list = playingConnection3Players.get(gameID);
-            frontEnd = new FrontEnd(list.get(0), list.get(1), list.get(2), gameID, backEnd);
+            frontEnd = new FrontEnd(this, list.get(0), list.get(1), list.get(2), gameID, backEnd);
         }
 
         nowPlaying.submit(frontEnd);
@@ -197,6 +200,17 @@ public class Server {
         if ( playingConnection2Players.containsKey(gameID) && playingConnection2Players.get(gameID).size() == 2 )
             return true;
         else return ( playingConnection3Players.containsKey(gameID) && playingConnection3Players.get(gameID).size() == 3 );
+    }
+
+    public void endGame(int gameID) {
+        if ( playingConnection2Players.containsKey(gameID) ){
+            playingConnection2Players.remove(gameID);
+        }
+        else playingConnection3Players.remove(gameID);
+    }
+
+    public void removeNicname(String name) {
+        nicknames.remove(name);
     }
 }
 

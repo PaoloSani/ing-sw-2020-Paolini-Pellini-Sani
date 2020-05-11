@@ -28,6 +28,7 @@ public class CommandLineGame {
     private SerializableLiteGame serializableLiteGame = new SerializableLiteGame();
     private ClientMessage clientMessage = new ClientMessage();
     private boolean endOfTheGame = false;
+    private String messageFromServer;
     private String messageFromFrontEnd;
     private String lastAction = "none";
     private SerializableLiteGame newMessage = new SerializableLiteGame();
