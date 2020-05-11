@@ -80,8 +80,11 @@ public class Server {
                 list.add(waitingConnection2Players.get(keys.get(1)));
                 playingConnection2Players.put(currMatch, list);
                 waitingConnection2Players.clear();
+                client.send("Starting new game.");
                 startGame(currMatch);
-
+            }
+            else {
+                client.send("Waiting for an other player to join the match. You are the challenger.");
             }
         }
         else if (numberOfPlayers == 3) {
@@ -95,48 +98,21 @@ public class Server {
                 list.add(waitingConnection3Players.get(keys.get(2)));
                 playingConnection3Players.put(currMatch, list);
                 waitingConnection3Players.clear();
+                client.send("Starting new game.");
                 startGame(currMatch);
             }
-        }
-
-
-    }
-
-
-    /*Wait for another player
-    public synchronized void lobby(ClientConnection c, String name){
-        waitingConnection.put(name, c);
-        if (waitingConnection.size() == 2) {
-            List<String> keys = new ArrayList<>(waitingConnection.keySet());
-            ClientConnection c1 = waitingConnection.get(keys.get(0));
-            ClientConnection c2 = waitingConnection.get(keys.get(1));
-            Player player1 = new Player(keys.get(0), Cell.X);
-            Player player2 = new Player(keys.get(0), Cell.O);
-            View player1View = new RemoteView(player1, keys.get(1), c1);
-            View player2View = new RemoteView(player2, keys.get(0), c2);
-            Model model = new Model();
-            Controller controller = new Controller(model);
-            model.addObserver(player1View);
-            model.addObserver(player2View);
-            player1View.addObserver(controller);
-            player2View.addObserver(controller);
-            playingConnection.put(c1, c2);
-            playingConnection.put(c2, c1);
-            waitingConnection.clear();
-            c1.asyncSend(model.getBoardCopy());
-            c2.asyncSend(model.getBoardCopy());
-            if(model.isPlayerTurn(player1)){
-                c1.asyncSend(gameMessage.moveMessage);
-                c2.asyncSend(gameMessage.waitMessage);
-            } else {
-                c2.asyncSend(gameMessage.moveMessage);
-                c1.asyncSend(gameMessage.waitMessage);
+            else {
+                String message = "Waiting other players to join the match.";
+                if ( waitingConnection3Players.size() == 1 ){
+                    message = message.concat(" You are the challenger.");
+                }
+                client.send(message);
             }
-
         }
     }
 
-   */
+
+
 
     public boolean existingNickname(String nickname) {
         return nicknames.contains(nickname);
@@ -181,10 +157,10 @@ public class Server {
 
         if (playingConnection2Players.containsKey(gameID)){
             List<ServerConnection> list = playingConnection2Players.get(gameID);
-            frontEnd = new FrontEnd(list.get(0), list.get(1), gameID, backEnd);
+            frontEnd = new FrontEnd(this, list.get(0), list.get(1), gameID, backEnd);
         } else {
             List<ServerConnection> list = playingConnection3Players.get(gameID);
-            frontEnd = new FrontEnd(list.get(0), list.get(1), list.get(2), gameID, backEnd);
+            frontEnd = new FrontEnd(this, list.get(0), list.get(1), list.get(2), gameID, backEnd);
         }
 
         nowPlaying.submit(frontEnd);
@@ -197,6 +173,17 @@ public class Server {
         if ( playingConnection2Players.containsKey(gameID) && playingConnection2Players.get(gameID).size() == 2 )
             return true;
         else return ( playingConnection3Players.containsKey(gameID) && playingConnection3Players.get(gameID).size() == 3 );
+    }
+
+    public void endGame(int gameID) {
+        if ( playingConnection2Players.containsKey(gameID) ){
+            playingConnection2Players.remove(gameID);
+        }
+        else playingConnection3Players.remove(gameID);
+    }
+
+    public void removeNicname(String name) {
+        nicknames.remove(name);
     }
 }
 

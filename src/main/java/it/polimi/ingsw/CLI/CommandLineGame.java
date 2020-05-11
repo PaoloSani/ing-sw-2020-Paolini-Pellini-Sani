@@ -28,6 +28,7 @@ public class CommandLineGame {
     private SerializableLiteGame serializableLiteGame = new SerializableLiteGame();
     private ClientMessage clientMessage = new ClientMessage();
     private boolean endOfTheGame = false;
+    private String messageFromServer;
     private String messageFromFrontEnd;
     private String lastAction = "none";
     private SerializableLiteGame newMessage = new SerializableLiteGame();
@@ -274,7 +275,11 @@ public class CommandLineGame {
                         if ( !quit ) {
                             settingGameMessage.setNumberOfPlayer(numOfPlayers);
                             clientConnection.send(settingGameMessage);
-                            System.out.println("  Server says: " + clientConnection.readString() + "\n");
+                            messageFromServer = clientConnection.readString();
+                            System.out.println("  Server says: " + messageFromServer + "\n");
+                            if ( messageFromServer.contains("You are")){
+                                mode = "A";
+                            }
                         }
                         break;
                 }

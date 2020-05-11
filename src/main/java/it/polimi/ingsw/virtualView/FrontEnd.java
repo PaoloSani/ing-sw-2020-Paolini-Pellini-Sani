@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.BackEnd;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.model.SerializableLiteGame;
+import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.ServerConnection;
 import it.polimi.ingsw.util.Observer;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class FrontEnd implements Observer<LiteGame>,Runnable {
 
+    private Server server;
     private BackEnd backEnd;
     private ClientMessage clientMessage;
     private GameMessage gameMessage;
@@ -24,11 +26,11 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     private ServerConnection client3;
     private ServerConnection currClient;
     private boolean endOfTheGame = false;
-    private boolean removedPlayer = false;
 
     private int gameID;
 
-    public FrontEnd(ServerConnection client1, ServerConnection client2, int gameID, BackEnd backEnd) {
+    public FrontEnd(Server server, ServerConnection client1, ServerConnection client2, int gameID, BackEnd backEnd) {
+        this.server = server;
         this.client1 = client1;
         this.client2 = client2;
         this.client3 = null;
@@ -38,7 +40,8 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         this.gameMessage = new GameMessage(this);
     }
 
-    public FrontEnd(ServerConnection client1, ServerConnection client2, ServerConnection client3, int gameID, BackEnd backEnd) {
+    public FrontEnd(Server server, ServerConnection client1, ServerConnection client2, ServerConnection client3, int gameID, BackEnd backEnd) {
+        this.server = server;
         this.client1 = client1;
         this.client2 = client2;
         this.client3 = client3;
@@ -151,41 +154,29 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
              }
         }
 
-
-        //TODO: sistemare il client che interrompe la connessione e la partita viene interrotta da tutti, comprimere codice
-
-        //TODO: sistemare i messaggi
         sendToCurrClient("You won the match");
         sendLiteGame();
 
-       // waitForClosing();
+        endMatch();
+    }
 
-        for ( ServerConnection s : clients ){
-            s.closeConnection();
+    private void endMatch() {
+        if ( client1 != null && client1.readString().equals("Closing")){
+            server.removeNicname(client1.getName());
+            client1.closeConnection();
         }
-    }
 
-    private void waitForClosing() {
 
-    }
+        if ( client2 != null && client2.readString().equals("Closing") ){
+            server.removeNicname(client1.getName());
+            client2.closeConnection();
+        }
 
-    private void read(){
-        //non scade il timeout
-        clientMessage = currClient.readClientMessage();
-        //action non dev'essere exit
-        closeMatch();
-    }
-
-    public void closeMatch(){
-
-    }
-
-    public int getGameID() {
-        return gameID;
-    }
-
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
+        if ( client3 != null && client3.readString().equals("Closing") ){
+            server.removeNicname(client1.getName());
+            client3.closeConnection();
+        }
+        server.endGame(gameID);
     }
 
 
@@ -248,20 +239,6 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         gameMessage.notify(gameMessage);
 
     }
-
-
-    public ServerConnection getClient1() {
-        return client1;
-    }
-
-    public ServerConnection getClient2() {
-        return client2;
-    }
-
-    public ServerConnection getClient3() {
-        return client3;
-    }
-
 
     @Override
     public void update(LiteGame message) {
