@@ -46,7 +46,7 @@ public class CommandLineGameTest {
         game.getSpace(3,3).setHeight(1);
         game.getSpace(2,4).setHeight(1);
         game.getSpace(4,4).setDome();
-        Player player1 = new Player("Rick", God.POSEIDON,game);
+        Player player1 = new Player("Rick", God.PAN,game);
         Player player2 = new Player("Paul", God.ZEUS,game);
         Player player3 = new Player("Giuse", God.HEPHAESTUS,game);
         game.setPlayers(player1, player2, player3);

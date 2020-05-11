@@ -305,7 +305,7 @@ public class CommandLineGame {
         messageFromFrontEnd = clientConnection.readString();
         if ( mode.equals("A") ){
             god = God.valueOf(messageFromFrontEnd);
-            System.out.println("  Your god is " + messageFromFrontEnd);
+            System.out.println("  Your god is: " + messageFromFrontEnd);
         }
         else {
             String choice = "none";
@@ -350,13 +350,6 @@ public class CommandLineGame {
         }
     }
 
-    private void chooseWorker() {
-        clientMessage.setSpace1(getSpaceFromClient());
-        lastAction = "Choose Worker";
-        clientMessage.setAction(lastAction);
-        clientConnection.send(clientMessage);
-    }
-
     private int[] getSpaceFromClient(){
         int[] newSpace = new int[]{5,5};
         //TODO: migliorare controlli sulle celle disponibili e messaggio di errore al client
@@ -387,25 +380,11 @@ public class CommandLineGame {
 
 
 
-    /**
-     * It prints on mirror the gametable from the litegame
-     */
-
-    void printKeysTable(){
-        System.out.println(ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET+ColourFont.ANSI_BLACK_BACKGROUND + "\n");
-        System.out.println("  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND + ColourFont.ANSI_RESET+"\n");
-
-    }
-
     void buildGameTable(){
         String[][] gameTable = serializableLiteGame.getTable();
         System.out.println("                                                             ");
         System.out.println("        1        2        3        4        5                " +  ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET);
-        System.out.println("    + = = = ++ = = = ++ = = = ++ = = = ++ = = = +            " + "  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
+        System.out.println("    + = = = ++ = = = ++ = = = ++ = = = ++ = = = +            " + "  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET);
         for (int i = 0; i < 5; i++){
             buildTableRow(gameTable[i],i+1);
         }

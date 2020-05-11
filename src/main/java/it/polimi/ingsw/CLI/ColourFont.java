@@ -83,7 +83,7 @@ public enum ColourFont {
                 colour = "\033[38;5;52m";
                 break;
             case PAN:
-                colour = "\033[38;5;22m";
+                colour = "\033[38;5;28m";
                 break;
             case POSEIDON:
                 colour = "\033[38;5;25m";
