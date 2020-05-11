@@ -215,7 +215,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         resetUpdate();
 
         gameMessage.setSpace1(clientMessage.getSpace1());
-        gameMessage.setLevel(clientMessage.getLevelToBuild());
+        gameMessage.setLevel(clientMessage.getLevelToBuild());      //TODO: lo chiedo solo se il giocatore possiede Efesto! (Nella CLI)
         gameMessage.notify(gameMessage);
 
         if ( liteGame.getCurrWorker() == null ){
