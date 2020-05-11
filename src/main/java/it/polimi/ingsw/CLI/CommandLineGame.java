@@ -126,8 +126,8 @@ public class CommandLineGame {
                     clientMessage.setSpace1(lastSpace);
                     if (lastAction.contains("Build")) {
                         if ( god == God.ATLAS ) {
-                            System.out.println("  Which level do you want to build? (1-4)");
-                            clientMessage.setLevelToBuild(Integer.parseInt(in.nextLine()));
+                            System.out.println("  Do you want to build a dome? (yes/no)");
+                            if(in.nextLine().equals("yes")) clientMessage.setLevelToBuild(4);
                         }
                         else clientMessage.setLevelToBuild(getHeight(clientMessage.getSpace1())+1);
                         if ( buildCounter == 1 ) {
@@ -184,7 +184,7 @@ public class CommandLineGame {
             System.out.println(clientConnection.readString());
 
 
-            System.out.println("  What is your name?\n" + ColourFont.ANSI_RESET);
+            System.out.println("  What's your name?\n\n" + ColourFont.ANSI_RESET);
             while (!messageFromServer.equals("Nickname accepted")) {
                 nickname = in.nextLine().toUpperCase();
                 settingGameMessage.setNickname(nickname);
@@ -564,6 +564,7 @@ public class CommandLineGame {
                 player = "   ";
                 break;
             }
+        player = ColourFont.ANSI_BLACK_TEXT+player+ColourFont.ANSI_BLACK_TEXT;
         if (serializableLiteGame.getCurrWorker()[0] == row && serializableLiteGame.getCurrWorker()[1] == col){
             chosen = ColourFont.ANSI_WORKER;
         }

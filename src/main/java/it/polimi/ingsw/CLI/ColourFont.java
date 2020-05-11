@@ -65,7 +65,7 @@ public enum ColourFont {
                 colour = "\033[38;5;30m";
                 break;
             case ATLAS:
-                colour = "\033[38;5;20m";
+                colour = "\033[38;5;33m";
                 break;
             case CHARON:
                 colour = "\033[38;5;58m";
@@ -80,7 +80,7 @@ public enum ColourFont {
                 colour = "\033[38;5;105m";
                 break;
             case MINOTAUR:
-                colour = "\033[38;5;52m";
+                colour = "\033[38;5;130m";
                 break;
             case PAN:
                 colour = "\033[38;5;28m";
