@@ -101,11 +101,13 @@ public class Player {
     //Il metodo isWinner viene invocato successivamente ad ogni move() e controlla se la mossa è vincente
     //Al suo interno chiama la scrittura nel liteGame per segnalare se il giocatore corrente ha vinto
     public void isWinner(Space oldSpace, Space currSpace) {
-        if ( oldSpace.getHeight() == 2 && currSpace.getHeight() == 3 )
+        if ( oldSpace.getHeight() == 2 && currSpace.getHeight() == 3 ) {
             game.getLiteGame().setWinner(true);
-
-        //Condizione di vittoria Pan
-        game.getLiteGame().setWinner(this.god == God.PAN && (oldSpace.getHeight() - currSpace.getHeight() > 1 ));
+        }
+        else {
+            //Condizione di vittoria Pan
+            game.getLiteGame().setWinner(this.god == God.PAN && (oldSpace.getHeight() - currSpace.getHeight() > 1));
+        }
     }
 
     // Esegue la strategy che viene associata ad ogni player secondo la propria divinità

@@ -27,8 +27,13 @@ public class ChooseWorkerState implements GameState {
         //Nel litegame c'è un attributo currentworker
 
             chosenWorker = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]).getWorker();
-            if ( chosenWorker == null ) result = false;
-            otherWorker = backEnd.getCurrPlayer().getOtherWorker(chosenWorker);
+            if ( chosenWorker == null || chosenWorker.getPlayer() != backEnd.getCurrPlayer() ) {
+                result = false;
+                backEnd.getGame().getLiteGame().setCurrWorker(5,5);
+            }
+            else {
+                otherWorker = backEnd.getCurrPlayer().getOtherWorker(chosenWorker);
+            }
 
         if ( result ) {
             if ( backEnd.getCurrPlayer().getGod() != God.HYPNUS                                 &&  // vera solo se la divinità corrente non è hypnus
