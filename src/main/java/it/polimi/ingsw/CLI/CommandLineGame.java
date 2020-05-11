@@ -158,6 +158,12 @@ public class CommandLineGame {
             }
         }
         System.out.println(messageFromFrontEnd);
+        clientConnection.send("Closing");
+        try {
+            clientConnection.closeConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

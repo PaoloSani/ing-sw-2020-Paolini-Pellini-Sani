@@ -26,7 +26,6 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     private boolean endOfTheGame = false;
     private boolean removedPlayer = false;
 
-
     private int gameID;
 
     public FrontEnd(ServerConnection client1, ServerConnection client2, int gameID, BackEnd backEnd) {
@@ -157,9 +156,17 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
         //TODO: sistemare i messaggi
         sendToCurrClient("You won the match");
+        sendLiteGame();
+
+       // waitForClosing();
+
         for ( ServerConnection s : clients ){
             s.closeConnection();
         }
+    }
+
+    private void waitForClosing() {
+
     }
 
     private void read(){
