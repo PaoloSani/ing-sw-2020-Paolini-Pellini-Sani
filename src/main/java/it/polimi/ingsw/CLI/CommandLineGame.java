@@ -331,7 +331,7 @@ public class CommandLineGame {
         messageFromFrontEnd = clientConnection.readString();
         if ( mode.equals("A") ){
             god = God.valueOf(messageFromFrontEnd);
-            System.out.println("  Your god is " + messageFromFrontEnd);
+            System.out.println("  Your god is " + messageFromFrontEnd + ColourFont.ANSI_RESET);
         }
         else {
             String choice = "none";
@@ -454,19 +454,37 @@ public class CommandLineGame {
         }
 
         else if (row == 2) {
+            String yourPlayer = " (YOU)";
+            String name1 = "none";
+            String name2 = "none";
+            String name3 = "none";
+
+            if (serializableLiteGame.getName1() != null ) {
+                name1 = serializableLiteGame.getName1();
+                if ( name1.equals(nickname)) name1 = name1.concat(yourPlayer);
+            }
+            if (serializableLiteGame.getName2() != null ) {
+                name2 = serializableLiteGame.getName2();
+                if ( name2.equals(nickname)) name2 = name2.concat(yourPlayer);
+            }
+            if (serializableLiteGame.getName3() != null ) {
+                name3 = serializableLiteGame.getName3();
+                if ( name3.equals(nickname)) name3 = name3.concat(yourPlayer);
+            }
+
             if (this.serializableLiteGame.getName3() != null) {
                 newRow = new String[]{
                         "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getName1() + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getName2() + ColourFont.ANSI_RESET,
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - PLAYER C: " + ColourFont.getGodColour(serializableLiteGame.getGod3()) + serializableLiteGame.getName3() + ColourFont.ANSI_RESET
+                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
+                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
+                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - PLAYER C: " + ColourFont.getGodColour(serializableLiteGame.getGod3()) + name3 + ColourFont.ANSI_RESET
                 };
             }
             else {
                 newRow = new String[]{
                         "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getName1() + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getName2() + ColourFont.ANSI_RESET,
+                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
+                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
                         "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
                 };
             }
@@ -486,7 +504,7 @@ public class CommandLineGame {
                         "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
                         " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
                         "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A:  " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
+                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
                 };
             }
         }
