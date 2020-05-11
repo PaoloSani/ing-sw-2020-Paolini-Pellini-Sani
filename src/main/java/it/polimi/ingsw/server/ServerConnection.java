@@ -122,6 +122,7 @@ public class ServerConnection implements Runnable {
                     //controllo se è possibile runnare una nuova partita
 
                 } else {
+                    playersInTheGame = settings.getNumberOfPlayer();
                     server.lobby(settings.getNickname(), playersInTheGame, this);
                     validMessage = true;
                     //il server lo inserisce nella waitingConnection tenendo

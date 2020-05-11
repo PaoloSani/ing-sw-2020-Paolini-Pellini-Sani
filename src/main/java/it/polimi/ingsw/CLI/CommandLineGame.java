@@ -275,7 +275,11 @@ public class CommandLineGame {
                         if ( !quit ) {
                             settingGameMessage.setNumberOfPlayer(numOfPlayers);
                             clientConnection.send(settingGameMessage);
-                            System.out.println("  Server says: " + clientConnection.readString() + "\n");
+                            messageFromServer = clientConnection.readString();
+                            System.out.println("  Server says: " + messageFromServer + "\n");
+                            if ( messageFromServer.contains("You are")){
+                                mode = "A";
+                            }
                         }
                         break;
                 }
