@@ -105,6 +105,7 @@ public class LiteGame extends Observable<LiteGame>  {
         newLG.level3 = this.level3;
         newLG.dome = this.dome;
         newLG.table = new String[5][5];
+        newLG.setWinner(this.isWinner);
         newLG.observers = this.observers;       //Posso usare sempre la stessa lista perché NON CAMBIA MAI!
 
         for (int i = 0 ; i < 5 ; i++){
@@ -234,7 +235,7 @@ public class LiteGame extends Observable<LiteGame>  {
     }
 
 
-    protected void setCurrWorker(int x, int y) {
+    public void setCurrWorker(int x, int y) {
         if ( x < 0 ){   //se il giocatore ha perso, setto una cella non valida nella tabella
             this.currWorker = null;
         }
@@ -294,6 +295,7 @@ public class LiteGame extends Observable<LiteGame>  {
         newSLG.setLevel2(this.level2);
         newSLG.setLevel3(this.level3);
         newSLG.setDome(this.dome);
+        newSLG.setWinner(this.isWinner);
         newSLG.setTable(this.table.clone());
 
         return newSLG;

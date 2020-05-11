@@ -312,7 +312,7 @@ public class Game {
             case 4:
                 if (this.dome > 0) {
                     if (isAtlas) {
-                        space.setHeight(space.getHeight() + 1);
+                        space.setHeight(space.getHeight());
                         space.setDome();
                     } else space.setHeight(level);
                     this.dome--;

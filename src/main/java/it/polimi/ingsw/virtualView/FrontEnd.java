@@ -117,7 +117,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
         }
 
-        while ( !endOfTheGame) {
+        while ( !endOfTheGame ) {
             //chiedo al client di eseguire una mossa
              sendToCurrClient("Next action");
              clientMessage = currClient.readClientMessage();
@@ -137,12 +137,19 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
              else if ( "Build".equals(clientMessage.getAction()) ) {
                  build();
              }
-             else if ( "End".equals(clientMessage.getAction()) ) {
+
+             if ( "End".equals(clientMessage.getAction()) ) {
                  gameMessage.resetGameMessage();
                  updateCurrClient();
+                 liteGame.setCurrWorker(5,5);
                  sendLiteGame();
              }
-             else currClient.send("Invalid action");
+             else {
+                 sendLiteGame();
+                 if (!update) {
+                     currClient.send("Invalid action");
+                 } else currClient.send("Action performed");
+             }
         }
 
 
@@ -184,9 +191,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         if ( liteGame.getCurrWorker() == null ){
             removePlayerFromTheGame();
         }
-        else {
-            sendLiteGame();
-        }
+
     }
 
 
@@ -195,8 +200,6 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         gameMessage.setSpace1(clientMessage.getSpace1());
         gameMessage.setCharonSwitching(true);
         gameMessage.notify(gameMessage);
-
-        sendLiteGame();
     }
 
     private void move() {
@@ -208,20 +211,18 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
 
         if( liteGame.isWinner() ) endOfTheGame = true;
-        sendLiteGame();
     }
 
     private void build() {
         resetUpdate();
 
         gameMessage.setSpace1(clientMessage.getSpace1());
-        gameMessage.setLevel(clientMessage.getLevelToBuild());      //TODO: lo chiedo solo se il giocatore possiede Efesto! (Nella CLI)
+        gameMessage.setLevel(clientMessage.getLevelToBuild());
         gameMessage.notify(gameMessage);
 
         if ( liteGame.getCurrWorker() == null ){
             removePlayerFromTheGame();
         }
-        else sendLiteGame();
     }
 
     //chiude la connessione del giocatore corrente e inizia il turno con il giocatore successivo
@@ -235,7 +236,6 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
         // il backEnd esegue la execute di RemovePlayerState
         gameMessage.notify(gameMessage);
-        sendLiteGame(); //mando la tabella di gioco ai giocatori rimasti
 
         //Se il giocare era l'ultimo in gioco il backEnd lo scrive nel LiteGame
         gameMessage.notify(gameMessage);
