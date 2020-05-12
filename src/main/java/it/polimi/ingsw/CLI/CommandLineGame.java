@@ -68,6 +68,11 @@ public class CommandLineGame {
                                 lastAction = "Prometheus Build";
                                 messageToPrint = "  Please select the space where you want to build (ROW-COL)";
                             }
+                            else {
+                                lastAction = "Move";
+                                messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
+                                moveCounter++;
+                            }
                         } else {
                             lastAction = "Move";
                             moveCounter++;
@@ -75,8 +80,11 @@ public class CommandLineGame {
 
                         }
 
-                    } else if (lastAction.equals("Charon Switch") || lastAction.equals("Prometheus Build"))
+                    } else if (lastAction.equals("Charon Switch") || lastAction.equals("Prometheus Build")){
                         lastAction = "Move";
+                        moveCounter++;
+                        messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
+                    }
                     else if (lastAction.equals("Move")) {
                         if ((god == God.ARTEMIS && moveCounter == 1) || (god == God.TRITON && isPerimetralSpace(lastSpace))) {
                             System.out.println("  Do you want to move again? (yes/no)");
@@ -159,6 +167,8 @@ public class CommandLineGame {
             }
         }
         System.out.println(messageFromFrontEnd);
+        serializableLiteGame = clientConnection.readLiteGame();
+        buildGameTable();
         clientConnection.send("Closing");
         try {
             clientConnection.closeConnection();
@@ -397,6 +407,9 @@ public class CommandLineGame {
                 if (coord.length == 2){
                     newSpace = new int[]{Integer.parseInt(coord[0])-1, Integer.parseInt(coord[1])-1};
                     validMessage = true;
+                }
+                else{
+                    System.out.println("  Invalid space!");
                 }
             }
         }

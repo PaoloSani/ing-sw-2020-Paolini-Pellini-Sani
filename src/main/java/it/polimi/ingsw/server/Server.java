@@ -114,7 +114,7 @@ public class Server {
 
 
 
-    public boolean existingNickname(String nickname) {
+    public synchronized boolean existingNickname(String nickname) {
         return nicknames.contains(nickname);
     }
 
