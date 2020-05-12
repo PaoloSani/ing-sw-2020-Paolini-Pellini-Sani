@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.BackEnd;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.model.SerializableLiteGame;
+import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.ServerConnection;
 import it.polimi.ingsw.util.Observer;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class FrontEnd implements Observer<LiteGame>,Runnable {
 
+    private Server server;
     private BackEnd backEnd;
     private ClientMessage clientMessage;
     private GameMessage gameMessage;
@@ -24,12 +26,11 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     private ServerConnection client3;
     private ServerConnection currClient;
     private boolean endOfTheGame = false;
-    private boolean removedPlayer = false;
-
 
     private int gameID;
 
-    public FrontEnd(ServerConnection client1, ServerConnection client2, int gameID, BackEnd backEnd) {
+    public FrontEnd(Server server, ServerConnection client1, ServerConnection client2, int gameID, BackEnd backEnd) {
+        this.server = server;
         this.client1 = client1;
         this.client2 = client2;
         this.client3 = null;
@@ -39,7 +40,8 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         this.gameMessage = new GameMessage(this);
     }
 
-    public FrontEnd(ServerConnection client1, ServerConnection client2, ServerConnection client3, int gameID, BackEnd backEnd) {
+    public FrontEnd(Server server, ServerConnection client1, ServerConnection client2, ServerConnection client3, int gameID, BackEnd backEnd) {
+        this.server = server;
         this.client1 = client1;
         this.client2 = client2;
         this.client3 = client3;
@@ -117,7 +119,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
         }
 
-        while ( !endOfTheGame) {
+        while ( !endOfTheGame ) {
             //chiedo al client di eseguire una mossa
              sendToCurrClient("Next action");
              clientMessage = currClient.readClientMessage();
@@ -137,41 +139,44 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
              else if ( "Build".equals(clientMessage.getAction()) ) {
                  build();
              }
-             else if ( "End".equals(clientMessage.getAction()) ) {
+
+             if ( "End".equals(clientMessage.getAction()) ) {
                  gameMessage.resetGameMessage();
                  updateCurrClient();
+                 liteGame.setCurrWorker(5,5);
                  sendLiteGame();
              }
-             else currClient.send("Invalid action");
+             else {
+                 sendLiteGame();
+                 if (!update) {
+                     currClient.send("Invalid action");
+                 } else currClient.send("Action performed");
+             }
+        }
+
+        sendToCurrClient("You won the match.");
+        sendLiteGame();
+
+        endMatch();
+    }
+
+    private void endMatch() {
+        if ( client1 != null && client1.readString().equals("Closing")){
+            server.removeNicname(client1.getName());
+            client1.closeConnection();
         }
 
 
-        //TODO: sistemare il client che interrompe la connessione e la partita viene interrotta da tutti, comprimere codice
-
-        //TODO: sistemare i messaggi
-        sendToCurrClient("You won the match");
-        for ( ServerConnection s : clients ){
-            s.closeConnection();
+        if ( client2 != null && client2.readString().equals("Closing") ){
+            server.removeNicname(client1.getName());
+            client2.closeConnection();
         }
-    }
 
-    private void read(){
-        //non scade il timeout
-        clientMessage = currClient.readClientMessage();
-        //action non dev'essere exit
-        closeMatch();
-    }
-
-    public void closeMatch(){
-
-    }
-
-    public int getGameID() {
-        return gameID;
-    }
-
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
+        if ( client3 != null && client3.readString().equals("Closing") ){
+            server.removeNicname(client1.getName());
+            client3.closeConnection();
+        }
+        server.endGame(gameID);
     }
 
 
@@ -184,9 +189,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         if ( liteGame.getCurrWorker() == null ){
             removePlayerFromTheGame();
         }
-        else {
-            sendLiteGame();
-        }
+
     }
 
 
@@ -195,8 +198,6 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         gameMessage.setSpace1(clientMessage.getSpace1());
         gameMessage.setCharonSwitching(true);
         gameMessage.notify(gameMessage);
-
-        sendLiteGame();
     }
 
     private void move() {
@@ -208,7 +209,6 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
 
         if( liteGame.isWinner() ) endOfTheGame = true;
-        sendLiteGame();
     }
 
     private void build() {
@@ -221,7 +221,6 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         if ( liteGame.getCurrWorker() == null ){
             removePlayerFromTheGame();
         }
-        else sendLiteGame();
     }
 
     //chiude la connessione del giocatore corrente e inizia il turno con il giocatore successivo
@@ -235,26 +234,11 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
         // il backEnd esegue la execute di RemovePlayerState
         gameMessage.notify(gameMessage);
-        sendLiteGame(); //mando la tabella di gioco ai giocatori rimasti
 
         //Se il giocare era l'ultimo in gioco il backEnd lo scrive nel LiteGame
         gameMessage.notify(gameMessage);
 
     }
-
-
-    public ServerConnection getClient1() {
-        return client1;
-    }
-
-    public ServerConnection getClient2() {
-        return client2;
-    }
-
-    public ServerConnection getClient3() {
-        return client3;
-    }
-
 
     @Override
     public void update(LiteGame message) {
@@ -312,7 +296,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
             if(c != currClient && c != null )
                 if ( !message.contains("You won") )
                     c.send("Wait for " + currClient.getName() + " to end his turn" );
-                else c.send("You lost the match");
+                else c.send("You lost the match. " + currClient.getName() + " won the game.");
         }
     }
 

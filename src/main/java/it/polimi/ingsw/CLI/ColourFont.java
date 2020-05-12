@@ -1,5 +1,7 @@
 package it.polimi.ingsw.CLI;
 
+import it.polimi.ingsw.model.God;
+
 public enum ColourFont {
     //FOREGROUND COLOR: "\033[38;5;<COLOR>m"
     //BACKGROUND COLOR: "\033[48;5;<COLOR>m"
@@ -46,6 +48,60 @@ public enum ColourFont {
     @Override
     public String toString(){
         return escape;
+    }
+
+
+    //TODO:setta i colori nella view delle varie divinità
+    public static String getGodColour(God god){
+        String colour;
+        switch (god) {
+            case APOLLO:
+                colour = "\033[38;5;45m";
+                break;
+            case ARTEMIS:
+                colour = "\033[38;5;189m";
+                break;
+            case ATHENA:
+                colour = "\033[38;5;30m";
+                break;
+            case ATLAS:
+                colour = "\033[38;5;33m";
+                break;
+            case CHARON:
+                colour = "\033[38;5;58m";
+                break;
+            case DEMETER:
+                colour = "\033[38;5;154m";
+                break;
+            case HEPHAESTUS:
+                colour = "\033[38;5;160m";
+                break;
+            case HYPNUS:
+                colour = "\033[38;5;105m";
+                break;
+            case MINOTAUR:
+                colour = "\033[38;5;130m";
+                break;
+            case PAN:
+                colour = "\033[38;5;28m";
+                break;
+            case POSEIDON:
+                colour = "\033[38;5;25m";
+                break;
+            case PROMETHEUS:
+                colour = "\033[38;5;202m";
+                break;
+            case TRITON:
+                colour = "\033[38;5;116m";
+                break;
+            case ZEUS:
+                colour = "\033[38;5;220m";
+                break;
+            default:
+                colour = "\033[38;5;231m";
+                break;
+        }
+        return colour;
     }
 
 }

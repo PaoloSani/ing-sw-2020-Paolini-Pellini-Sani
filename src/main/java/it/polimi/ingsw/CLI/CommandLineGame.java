@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,13 +28,17 @@ public class CommandLineGame {
     private SerializableLiteGame serializableLiteGame = new SerializableLiteGame();
     private ClientMessage clientMessage = new ClientMessage();
     private boolean endOfTheGame = false;
+    private String messageFromServer;
     private String messageFromFrontEnd;
     private String lastAction = "none";
     private SerializableLiteGame newMessage = new SerializableLiteGame();
 
     public void runCLI() {
         int moveCounter =0, buildCounter =0;
+        boolean repeat = false;
         int [] lastSpace = new int[]{5,5};
+        int[] firstWorker = new int[]{5,5};
+        String messageToPrint = "none";             //TODO: stampo questo invece che lastAction
         welcomeMirror();
         //messaggio di inizio partita
         System.out.println(clientConnection.readString());
@@ -43,81 +48,92 @@ public class CommandLineGame {
         placeWorkers();
         while(!endOfTheGame) {
             messageFromFrontEnd = clientConnection.readString();
-            if(messageFromFrontEnd.equals("Next action")){
-                if (lastAction.equals("none") || lastAction.equals("End")) lastAction = "Choose Worker";
-
-                else if (lastAction.equals("Choose Worker")){
-                    if(god == God.CHARON) {
-                        System.out.println("  Do you want to use Charon power? (type yes/no)");
-                        if (in.nextLine().toUpperCase().equals("YES")) {
-                            lastAction = "Charon Switch";
-                            System.out.println("  Make your " + lastAction + "!" );
-                        }
-                    }
-                    else if(god == God.PROMETHEUS) {
-                        System.out.println("  Do you want to use Prometheus power? (type yes/no)");
-                        if (in.nextLine().toUpperCase().equals("YES")) {
-                            lastAction = "Prometheus Build";
-                            System.out.println("  Make your " + lastAction + "!" );
-                        }
-                    }
-                    else {
-                        lastAction = "Move";
-                        moveCounter ++;
-                        System.out.println("  Make your " + lastAction + "!" );
+            if(messageFromFrontEnd.equals("Next action") ){
+                if ( !repeat ) {
+                    if (lastAction.equals("none") || lastAction.equals("End")) {
+                        lastAction = "Choose Worker";
+                        messageToPrint = "  Select the worker you want to play with";
                     }
 
-                }
-                else if( lastAction.equals("Charon Switch") || lastAction.equals("Prometheus Build") ) lastAction = "Move";
-                else if( lastAction.equals("Move")){
-                    if( god == God.ARTEMIS && moveCounter ==1 || god == God.TRITON && isPerimetralSpace(lastSpace)){
-                        System.out.println("  Do you want to move again? (yes/no)");
-                        if (in.nextLine().toUpperCase().equals("YES")) {
+                    else if (lastAction.equals("Choose Worker")) {
+                        if (god == God.CHARON) {
+                            System.out.println("  Do you want to use Charon power? (type yes/no)");
+                            if (in.nextLine().equalsIgnoreCase("YES")) {
+                                lastAction = "Charon Switch";
+                                messageToPrint = "  Please select a space occupied by an opponent worker (ROW-COL)";
+                            }
+                        } else if (god == God.PROMETHEUS) {
+                            System.out.println("  Do you want to use Prometheus power? (yes/no)");
+                            if (in.nextLine().equalsIgnoreCase("YES")) {
+                                lastAction = "Prometheus Build";
+                                messageToPrint = "  Please select the space where you want to build (ROW-COL)";
+                            }
+                        } else {
                             lastAction = "Move";
-                            moveCounter ++;
-                            System.out.println("  Make your " + lastAction + "!" );
-                        }
-                    }
-                    else {
-                        buildCounter ++;
-                        lastAction = "Build";
-                        System.out.println("  Make your " + lastAction + "!" );
+                            moveCounter++;
+                            messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
 
+                        }
+
+                    } else if (lastAction.equals("Charon Switch") || lastAction.equals("Prometheus Build"))
+                        lastAction = "Move";
+                    else if (lastAction.equals("Move")) {
+                        if ((god == God.ARTEMIS && moveCounter == 1) || (god == God.TRITON && isPerimetralSpace(lastSpace))) {
+                            System.out.println("  Do you want to move again? (yes/no)");
+                            if (in.nextLine().equalsIgnoreCase("YES")) {
+                                lastAction = "Move";
+                                messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
+                                moveCounter++;
+                            } else {
+                                lastAction = "Build";
+                                buildCounter++;
+                                messageToPrint = "  Please select the space where you want to build (ROW-COL)";
+                            }
+                        } else {
+                            buildCounter++;
+                            lastAction = "Build";
+                            messageToPrint = "  Please select the space where you want to build (ROW-COL)";
+                        }
+                    } else if (lastAction.equals("Build")) {
+                        if ( ((god == God.HEPHAESTUS || god == God.DEMETER) && buildCounter == 1)  ||     //se Efesto o Demetra e ha già fatto una sola build
+                            ( god == God.POSEIDON && buildCounter > 0 && buildCounter < 4 &&              // se Poseidone e ha già fatto una o più costruzioni (max 3)
+                             !Arrays.equals(firstWorker, serializableLiteGame.getCurrWorker()))           ){       // sta giocando con il suo secondo worker
+
+                            System.out.println("  Do you want to build again? (yes/no)");
+                            if (in.nextLine().equalsIgnoreCase("YES") ) {
+                                lastAction = "Build";
+                                messageToPrint = "  Please select the space where you want to build (ROW-COL)";
+                                buildCounter++;
+                            }
+                            else{
+                                moveCounter = 0;
+                                buildCounter = 0;
+                                messageToPrint = "  End of the turn";
+                                lastAction = "End";
+                            }
+                        } else {
+                            moveCounter = 0;
+                            buildCounter = 0;
+                            messageToPrint = "  End of the turn";
+                            lastAction = "End";
+                        }
                     }
                 }
+                else repeat = false;
 
-                else if (lastAction.equals("Build")){
-                    if( (god == God.HEPHAESTUS || god == God.DEMETER) && buildCounter ==1){
-                        System.out.println("  Do you want to build again? (yes/no)");
-                        if (in.nextLine().toUpperCase().equals("YES")) {
-                            lastAction = "Build";
-                            buildCounter ++;
-                            System.out.println("  Make your " + lastAction + "!" );
-                        }
-                    }
-                    else if ( god == God.POSEIDON ){
-                        System.out.println("  Do you want to build again? (yes/no)");
-                        if (in.nextLine().toUpperCase().equals("YES") && buildCounter > 0 &&
-                            buildCounter <4 && getHeight(serializableLiteGame.getCurrWorker()) == 0 ){
-                            lastAction = "Build";
-                            buildCounter ++;
-                            System.out.println("  Make your " + lastAction + "!" );
-                        }
-                    }
-                    else {
-                        moveCounter = 0;
-                        buildCounter = 0;
-                        lastAction = "End";
-                    }
-                }
-
-                if(!lastAction.equals("End")) {
-                    System.out.println("  Make your " + lastAction + "!" );
+                if( !lastAction.equals("End") ) {
+                    System.out.println(messageToPrint);
                     lastSpace = getSpaceFromClient();
                     clientMessage.setSpace1(lastSpace);
                     if (lastAction.contains("Build")) {
-                        System.out.println("  Which level do you want to build? (1-4)");
-                        clientMessage.setLevelToBuild(Integer.parseInt(in.nextLine()));
+                        if ( god == God.ATLAS ) {
+                            System.out.println("  Do you want to build a dome? (yes/no)");
+                            if(in.nextLine().equals("yes")) clientMessage.setLevelToBuild(4);
+                        }
+                        else clientMessage.setLevelToBuild(getHeight(clientMessage.getSpace1())+1);
+                        if ( buildCounter == 1 ) {
+                            firstWorker = serializableLiteGame.getCurrWorker();
+                        }
                     }
                 }
                 clientMessage.setAction(lastAction);
@@ -130,12 +146,25 @@ public class CommandLineGame {
 
             else System.out.println(messageFromFrontEnd);
 
-            if(!messageFromFrontEnd.equals("Invalid action")) {
-                serializableLiteGame = clientConnection.readLiteGame();
-                buildGameTable();
+            serializableLiteGame = clientConnection.readLiteGame();
+            buildGameTable();
+
+            if ( messageFromFrontEnd.equals("Next action") && !lastAction.equals("End") ) {
+                messageFromFrontEnd = clientConnection.readString();
+
+                if (messageFromFrontEnd.equals("Invalid action")) {
+                    repeat = true;
+                    System.out.println("  " + messageFromFrontEnd);
+                }
             }
         }
         System.out.println(messageFromFrontEnd);
+        clientConnection.send("Closing");
+        try {
+            clientConnection.closeConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -156,7 +185,7 @@ public class CommandLineGame {
             System.out.println(clientConnection.readString());
 
 
-            System.out.println("  What is your name?\n" + ColourFont.ANSI_RESET);
+            System.out.println("  What's your name?\n\n" + ColourFont.ANSI_RESET);
             while (!messageFromServer.equals("Nickname accepted")) {
                 nickname = in.nextLine().toUpperCase();
                 settingGameMessage.setNickname(nickname);
@@ -246,7 +275,11 @@ public class CommandLineGame {
                         if ( !quit ) {
                             settingGameMessage.setNumberOfPlayer(numOfPlayers);
                             clientConnection.send(settingGameMessage);
-                            System.out.println("  Server says: " + clientConnection.readString() + "\n");
+                            messageFromServer = clientConnection.readString();
+                            System.out.println("  Server says: " + messageFromServer + "\n");
+                            if ( messageFromServer.contains("You are")){
+                                mode = "A";
+                            }
                         }
                         break;
                 }
@@ -298,7 +331,7 @@ public class CommandLineGame {
         messageFromFrontEnd = clientConnection.readString();
         if ( mode.equals("A") ){
             god = God.valueOf(messageFromFrontEnd);
-            System.out.println("  Your god is " + messageFromFrontEnd);
+            System.out.println("  Your god is " + messageFromFrontEnd + ColourFont.ANSI_RESET);
         }
         else {
             String choice = "none";
@@ -375,7 +408,7 @@ public class CommandLineGame {
     }
 
     private int getHeight(int[] space) {
-        return Integer.parseInt(serializableLiteGame.getTable()[space[0]][space[1]].substring(1,1));
+        return Integer.parseInt(serializableLiteGame.getTable()[space[0]][space[1]].substring(1,2));
     }
 
 
@@ -398,7 +431,7 @@ public class CommandLineGame {
         String[][] gameTable = serializableLiteGame.getTable();
         System.out.println("                                                             ");
         System.out.println("        1        2        3        4        5                " +  ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET);
-        System.out.println("    + = = = ++ = = = ++ = = = ++ = = = ++ = = = +            " + "  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
+        System.out.println("    + = = = ++ = = = ++ = = = ++ = = = ++ = = = +            " + "  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET );
         for (int i = 0; i < 5; i++){
             buildTableRow(gameTable[i],i+1);
         }
@@ -421,39 +454,85 @@ public class CommandLineGame {
         }
 
         else if (row == 2) {
+            String yourPlayer = " (YOU)";
+            String name1 = "none";
+            String name2 = "none";
+            String name3 = "none";
+
+            if (serializableLiteGame.getName1() != null ) {
+                name1 = serializableLiteGame.getName1();
+                if ( name1.equals(nickname)) name1 = name1.concat(yourPlayer);
+            }
+            if (serializableLiteGame.getName2() != null ) {
+                name2 = serializableLiteGame.getName2();
+                if ( name2.equals(nickname)) name2 = name2.concat(yourPlayer);
+            }
+            if (serializableLiteGame.getName3() != null ) {
+                name3 = serializableLiteGame.getName3();
+                if ( name3.equals(nickname)) name3 = name3.concat(yourPlayer);
+            }
+
             if (this.serializableLiteGame.getName3() != null) {
                 newRow = new String[]{
                         "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.ANSI_ICE_TEXT + serializableLiteGame.getName1() + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.ANSI_RED_TEXT + serializableLiteGame.getName2() + ColourFont.ANSI_RESET,
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - PLAYER C: " + ColourFont.ANSI_GOLD_TEXT + serializableLiteGame.getName3() + ColourFont.ANSI_RESET
+                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
+                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
+                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - PLAYER C: " + ColourFont.getGodColour(serializableLiteGame.getGod3()) + name3 + ColourFont.ANSI_RESET
                 };
             }
             else {
                 newRow = new String[]{
                         "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.ANSI_ICE_TEXT + serializableLiteGame.getName1() + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.ANSI_GOLD_TEXT + serializableLiteGame.getName2() + ColourFont.ANSI_RESET,
+                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
+                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
                         "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
                 };
             }
         }
 
         else if (row == 3){
-            newRow = new String[]{
-                    "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                    " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1]+ "            " + "  - CURRENT WORKER: "+ColourFont.ANSI_WORKER+"    "+ColourFont.ANSI_RESET,
-                    "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                    "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3]
-            };
+            if (this.serializableLiteGame.getName3() != null) {
+                newRow = new String[]{
+                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
+                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
+                };
+            }
+            else {
+                newRow = new String[]{
+                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
+                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
+                };
+            }
         }
 
+        else if (row == 4) {
+            if (this.serializableLiteGame.getName3() != null) {
+                newRow = new String[]{
+                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0] + "            " + "  - GOD B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getGod2() + ColourFont.ANSI_RESET,
+                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - GOD C: "  + ColourFont.getGodColour(serializableLiteGame.getGod3()) + serializableLiteGame.getGod3() + ColourFont.ANSI_RESET,
+                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                };
+            }
+            else {
+                newRow = new String[]{
+                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0] + "            " + "  - GOD B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getGod2() + ColourFont.ANSI_RESET,
+                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1],
+                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                };
+            }
+        }
         else {
             newRow = new String[]{
                     "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
                     " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1],
                     "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                    "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3]
+                    "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
             };
         }
         for (String s : newRow){
@@ -508,6 +587,7 @@ public class CommandLineGame {
                 player = "   ";
                 break;
             }
+        player = ColourFont.ANSI_BLACK_TEXT+player+ColourFont.ANSI_BLACK_TEXT;
         if (serializableLiteGame.getCurrWorker()[0] == row && serializableLiteGame.getCurrWorker()[1] == col){
             chosen = ColourFont.ANSI_WORKER;
         }
