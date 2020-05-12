@@ -168,12 +168,12 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
 
         if ( client2 != null && client2.readString().equals("Closing") ){
-            server.removeNicname(client1.getName());
+            server.removeNicname(client2.getName());
             client2.closeConnection();
         }
 
         if ( client3 != null && client3.readString().equals("Closing") ){
-            server.removeNicname(client1.getName());
+            server.removeNicname(client3.getName());
             client3.closeConnection();
         }
         server.endGame(gameID);
