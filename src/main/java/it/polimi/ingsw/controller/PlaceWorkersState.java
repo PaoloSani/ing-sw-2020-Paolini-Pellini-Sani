@@ -14,6 +14,7 @@ public class PlaceWorkersState implements GameState {
     }
 
     //TODO: da correggere, poiché non avrò mai null in una delle due celle (nullPointerException)
+    //TODO Sistemare caso tre giocatore durante il placing workers, se il terzo client mette workers in cella sbagliata poi si chiude
     @Override
     public boolean execute() {
         boolean result = true;

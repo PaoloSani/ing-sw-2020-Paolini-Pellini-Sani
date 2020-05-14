@@ -150,7 +150,8 @@ public class Game {
         }
         return false;
     }
-
+    //TODO serve return false ? perchè crea errori e non chiamo mai un free to build con un worker furori dalla table
+    //per esempio 5-5 che mi da null point exception
     public boolean isFreeToBuild( Worker worker ){
         int currX,currY;
         currX = worker.getSpace().getX();
