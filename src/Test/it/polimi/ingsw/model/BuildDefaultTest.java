@@ -9,16 +9,13 @@ public class BuildDefaultTest {
 
     private Space currSpace, space;
     private Worker myWorker;
-    private BuildDefault buildDefault;
-    private Game game;
-    private Player player;
+    private BuildDefault buildDefault = new BuildDefault();
+    private Game game = new Game();
+    private Player player = new Player("test", God.PAN, game);
     private int level;
 
     @Test
     public void negativeXTest() {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,4);
         space = new Space(-1, 4);
         myWorker = new Worker(player);
@@ -29,9 +26,6 @@ public class BuildDefaultTest {
 
     @Test
     public void unboundedX() {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(4,0);
         space = new Space(5, 0);
         myWorker = new Worker(player);
@@ -42,9 +36,6 @@ public class BuildDefaultTest {
 
     @Test
     public void negativeY() {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,0);
         space = new Space(0, -1);
         myWorker = new Worker(player);
@@ -55,9 +46,6 @@ public class BuildDefaultTest {
 
     @Test
     public void unboundedY() {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,4);
         space = new Space(0, 5);
         myWorker = new Worker(player);
@@ -70,7 +58,6 @@ public class BuildDefaultTest {
     public void positiveNotNeighbouringX() {
         buildDefault = new BuildDefault();
         game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(2,4);
         space = new Space(0, 4);
         myWorker = new Worker(player);
@@ -81,9 +68,6 @@ public class BuildDefaultTest {
 
     @Test
     public void negativeNotNeighbouringX() {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,4);
         space = new Space(2, 4);
         myWorker = new Worker(player);
@@ -94,9 +78,6 @@ public class BuildDefaultTest {
 
     @Test
     public void positiveNotNeighbouringY() {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,4);
         space = new Space(0, 2);
         myWorker = new Worker(player);
@@ -107,9 +88,6 @@ public class BuildDefaultTest {
 
     @Test
     public void negativeNotNeighbouringY() throws IllegalSpaceException {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,2);
         space = new Space(0, 4);
         myWorker = new Worker(player);
@@ -120,9 +98,6 @@ public class BuildDefaultTest {
 
     @Test
     public void samePosition(){
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,0);
         space = new Space(0, 0);
         myWorker = new Worker(player);
@@ -133,9 +108,6 @@ public class BuildDefaultTest {
 
     @Test
     public void spaceOccupiedByOtherWorker() {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
@@ -147,9 +119,6 @@ public class BuildDefaultTest {
 
     @Test
     public void spaceOccupiedByDome()  {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         space.setHeight(4);
@@ -161,9 +130,6 @@ public class BuildDefaultTest {
     //tanto di default space.height = 0
     @Test
     public void levelExceptionCondition()  {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
@@ -174,9 +140,6 @@ public class BuildDefaultTest {
 
     @Test
     public void normalBuildCondition() {
-        buildDefault = new BuildDefault();
-        game = new Game();
-        Player player = new Player("test", God.PAN, game);
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);

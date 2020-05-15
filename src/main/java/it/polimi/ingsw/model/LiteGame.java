@@ -132,7 +132,7 @@ public class LiteGame extends Observable<LiteGame>  {
         else {
             if ( name3 == null )
             return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2)   &&
-                     liteGame.name1.equals(this.name1)                                              &&
+                    liteGame.name1.equals(this.name1)                                              &&
                     liteGame.name2.equals(this.name2)                                               &&
                     //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&
                     liteGame.currWorker[0] == this.currWorker[0]                                    &&

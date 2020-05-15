@@ -9,18 +9,14 @@ public class BuildZeusTest {
 
     private Space currSpace, space;
     private Worker myWorker;
-    private BuildZeus buildZeus;
-    private Game game ;
-    private Player player;
+    private BuildZeus buildZeus = new BuildZeus();
+    private Game game = new Game();
+    private Player  player = new Player("test", God.ZEUS, game);
     private int level;
 
 
     @Test
     public void unboundedX() {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
-        game = new Game();
         currSpace = new Space(4,0);
         space = new Space(5, 0);
         myWorker = new Worker(player);
@@ -31,9 +27,6 @@ public class BuildZeusTest {
 
     @Test
     public void negativeX()  {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,4);
         space = new Space(-1, 4);
         myWorker = new Worker(player);
@@ -44,9 +37,6 @@ public class BuildZeusTest {
 
     @Test
     public void unboundedY() {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,4);
         space = new Space(0, 5);
         myWorker = new Worker(player);
@@ -57,9 +47,6 @@ public class BuildZeusTest {
 
     @Test
     public void negativeY()  {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,0);
         space = new Space(0, -1);
         myWorker = new Worker(player);
@@ -70,9 +57,6 @@ public class BuildZeusTest {
 
     @Test
     public void positiveNotNeighbouringX() {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(2,4);
         space = new Space(0, 4);
         myWorker = new Worker(player);
@@ -83,9 +67,6 @@ public class BuildZeusTest {
 
     @Test
     public void negativeNotNeighbouringX() {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,4);
         space = new Space(2, 4);
         myWorker = new Worker(player);
@@ -96,9 +77,6 @@ public class BuildZeusTest {
 
     @Test
     public void positiveNotNeighbouringY() {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,4);
         space = new Space(0, 2);
         myWorker = new Worker(player);
@@ -109,9 +87,6 @@ public class BuildZeusTest {
 
     @Test
     public void negativeNotNeighbouringY(){
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,2);
         space = new Space(0, 4);
         myWorker = new Worker(player);
@@ -122,9 +97,6 @@ public class BuildZeusTest {
 
     @Test
     public void spaceOccupiedByOtherWorker() {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
@@ -136,9 +108,6 @@ public class BuildZeusTest {
 
     @Test
     public void spaceOccupiedByDome() {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         space.setHeight(4);
@@ -150,9 +119,6 @@ public class BuildZeusTest {
 
     @Test
     public void noMoreThanOneLevel() {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
@@ -164,9 +130,6 @@ public class BuildZeusTest {
 
     @Test
     public void normalBuildCondition() {
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,4);
         space = new Space(1, 4);
         myWorker = new Worker(player);
@@ -180,9 +143,6 @@ public class BuildZeusTest {
 
     @Test
     public void buildInSamePosition(){
-        game = new Game();
-        player = new Player("test", God.ZEUS, game);
-        buildZeus= new BuildZeus();
         currSpace = new Space(0,0);
         space = currSpace;
         myWorker = new Worker(player);
