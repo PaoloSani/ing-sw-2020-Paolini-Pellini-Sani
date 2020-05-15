@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="383.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../resources/Backgrounds/bg_modeselect.png" />
+            <Image url="@../Backgrounds/bg_modeselect.png" />
          </image>
       </ImageView>
       <TextField fx:id="lblName" layoutX="214.0" layoutY="242.0" prefHeight="24.0" prefWidth="172.0" text="Choose your nickname">

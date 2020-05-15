@@ -20,5 +20,6 @@ public class GraphicalGame {
     }
 
     public void nextPage(ActionEvent actionEvent) {
+
     }
 }
