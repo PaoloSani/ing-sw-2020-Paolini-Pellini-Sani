@@ -59,5 +59,14 @@
             <Image url="@../TitleGraphics/santorini-logo.png" />
          </image>
       </ImageView>
+      <Button fx:id="nextButton" layoutX="267.0" layoutY="354.0" mnemonicParsing="false" onAction="#goFurther" prefHeight="49.0" prefWidth="51.0">
+         <graphic>
+            <ImageView fitHeight="47.0" fitWidth="36.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Buttons/btn_back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
