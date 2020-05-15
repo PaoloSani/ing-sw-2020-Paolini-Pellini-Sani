@@ -150,7 +150,8 @@ public class Game {
         }
         return false;
     }
-
+    //TODO serve return false ? perchè crea errori e non chiamo mai un free to build con un worker furori dalla table
+    //per esempio 5-5 che mi da null point exception
     public boolean isFreeToBuild( Worker worker ){
         int currX,currY;
         currX = worker.getSpace().getX();
@@ -202,7 +203,8 @@ public class Game {
         //ora che ho le nuove coordinate, controllo eventuali anomalie
         if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
              this.table[newX][newY].isDomed()             ||        //la space non è occupate da una cupola
-             this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
+                myWorker.getPlayer() == oppWorker.getPlayer()   ||
+                this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
              return false;
 
         //se i controlli sono stati superati allora effettuo lo scambio
@@ -245,6 +247,7 @@ public class Game {
         //ora che ho le nuove coordinate, controllo eventuali anomalie
         if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
                 this.table[newX][newY].isDomed()          ||        //la space non è occupate da una cupola
+                myWorker.getPlayer() == oppWorker.getPlayer()   ||
                 this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
             return false;
 

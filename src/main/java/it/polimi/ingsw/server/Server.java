@@ -25,8 +25,6 @@ public class Server {
     private Map<Integer, List<ServerConnection>> playingConnection2Players = new HashMap<>();
     private Map<Integer, List<ServerConnection>> playingConnection3Players = new HashMap<>();
     private List<String> nicknames = new ArrayList<>();
-    private int currMatch;
-
 
     public Server() throws IOException {
         this.serverSocket = new ServerSocket(PORT);
@@ -44,7 +42,9 @@ public class Server {
             }
         }
     }
+
     //currMatch si riferisce all'ultima partita che è stata creata
+    private int currMatch;
 
     public int getCurrMatch() {
         return currMatch;
@@ -113,8 +113,8 @@ public class Server {
 
 
 
-    //TODO:metterlo synchronized? (insieme ad addNickname)
-    public boolean existingNickname(String nickname) {
+
+    public synchronized boolean existingNickname(String nickname) {
         return nicknames.contains(nickname);
     }
 

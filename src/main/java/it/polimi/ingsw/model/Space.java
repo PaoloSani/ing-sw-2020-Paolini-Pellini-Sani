@@ -40,7 +40,7 @@ public class Space {
     }
 
     public void setWorker( Worker worker ) {
-        this.worker = worker;
+            this.worker = worker;
     }
 
     public boolean isDomed() {

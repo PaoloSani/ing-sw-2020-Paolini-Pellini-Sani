@@ -154,7 +154,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
              }
         }
 
-        sendToCurrClient("You won the match");
+        sendToCurrClient("You won the match.");
         sendLiteGame();
 
         endMatch();
@@ -168,12 +168,12 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
 
         if ( client2 != null && client2.readString().equals("Closing") ){
-            server.removeNicname(client1.getName());
+            server.removeNicname(client2.getName());
             client2.closeConnection();
         }
 
         if ( client3 != null && client3.readString().equals("Closing") ){
-            server.removeNicname(client1.getName());
+            server.removeNicname(client3.getName());
             client3.closeConnection();
         }
         server.endGame(gameID);
@@ -296,7 +296,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
             if(c != currClient && c != null )
                 if ( !message.contains("You won") )
                     c.send("Wait for " + currClient.getName() + " to end his turn" );
-                else c.send("You lost the match");
+                else c.send("You lost the match. " + currClient.getName() + " won the game.");
         }
     }
 
