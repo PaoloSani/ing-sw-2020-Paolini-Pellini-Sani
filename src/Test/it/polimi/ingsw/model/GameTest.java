@@ -121,6 +121,15 @@ public class GameTest {
         game.getSpace(2, 2).setWorker(myWorker);
         assertEquals(game.isFreeToBuild(myWorker), true);
 
+        game.getSpace(1,1).setDome();
+        game.getSpace(1,2).setDome();
+        game.getSpace(1,3).setDome();
+        game.getSpace(2,1).setDome();
+        game.getSpace(3,1).setDome();
+        game.getSpace(3,2).setDome();
+        game.getSpace(3,3).setDome();
+        game.getSpace(2,3).setDome();
+        assertEquals(game.isFreeToBuild(myWorker), false);
     }
 
     //*********************//
@@ -181,7 +190,7 @@ public class GameTest {
     }
 
     @Test
-    public void minotaurHasWorked() throws IllegalSpaceException {
+    public void minotaurHasWorked() {
         myWorker.setSpace(game.getSpace(0, 0));
         oppWorker.setSpace(game.getSpace(0, 1));
         assertNotEquals(oppWorker.getSpace(), game.getSpace(0, 2));
