@@ -1,6 +1,8 @@
 package it.polimi.ingsw.CLI;
 
+import it.polimi.ingsw.GUI.GUILauncher;
 import it.polimi.ingsw.GUI.GraphicalGame;
+import javafx.application.Application;
 
 
 import java.util.Scanner;
@@ -29,8 +31,7 @@ public class OpeningMirror {
         }
 
         if (lookAndFeel.equals("A")) {
-            GGame = new GraphicalGame();
-            GGame.startGUI();
+
         }
         else {
             CLGame = new CommandLineGame();

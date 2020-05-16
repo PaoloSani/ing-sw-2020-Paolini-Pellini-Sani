@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.NicknameWindow">
+   <children>
+      <ImageView fitHeight="535.0" fitWidth="1018.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../ing-sw-2020-Paolini-Pellini-Sani/src/main/resources/Backgrounds/bg_modeselect.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="160.0" fitWidth="364.0" layoutX="291.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../ing-sw-2020-Paolini-Pellini-Sani/src/main/resources/TitleGraphics/santorini-logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="336.0" layoutY="328.0" prefHeight="55.0" prefWidth="295.0" text="Choose your nickname" textAlignment="CENTER" textFill="#005bb5">
+         <font>
+            <Font name="Herculanum" size="22.0" />
+         </font>
+      </Label>
+      <TextField layoutX="340.0" layoutY="383.0" prefHeight="27.0" prefWidth="260.0" />
+      <Button fx:id="nextButton" layoutX="451.0" layoutY="438.0" mnemonicParsing="false" onAction="#goFurther">
+         <graphic>
+            <ImageView fitHeight="27.0" fitWidth="55.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../ing-sw-2020-Paolini-Pellini-Sani-2/src/main/resources/Buttons/btn_back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

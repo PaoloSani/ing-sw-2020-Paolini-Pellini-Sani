@@ -33,32 +33,16 @@ public class Game {
         return constraint;
     }
 
-    public int getLevel1() {
-        return level1;
-    }
-
     public void setLevel1(int level1) {
         this.level1 = level1;
-    }
-
-    public int getLevel2() {
-        return level2;
     }
 
     public void setLevel2(int level2) {
         this.level2 = level2;
     }
 
-    public int getLevel3() {
-        return level3;
-    }
-
     public void setLevel3(int level3) {
         this.level3 = level3;
-    }
-
-    public int getDome() {
-        return dome;
     }
 
     public void setDome(int dome) {
@@ -156,16 +140,14 @@ public class Game {
         currX = worker.getSpace().getX();
         currY = worker.getSpace().getY();
 
-        if( ( 0 <= currX && currX <= 4 ) && ( 0 <= currY && currY <= 4 ) ){
             for( int i = currX - 1; i < currX + 2; i++ ){
                 for( int j = currY - 1; j < currY + 2; j++ ){
                     if( !( i == currX && j == currY ) && ( i >= 0 && i <= 4 && j >= 0 && j <= 4 ) ){
-                        if( table[i][j].getWorker() == null && ( table[i][j].getHeight() < 4 ) ) return true;
+                        if( table[i][j].getWorker() == null && ( table[i][j].getHeight() < 4 ) && !table[i][j].isDomed() ) return true;
                     }
                 }
             }
-        }
-        return false;
+          return false;
        }
 
 

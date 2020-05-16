@@ -18,7 +18,6 @@ public class Worker {
 
     public void setSpace( Space space ) {
         if(space == null){
-            this.space.setWorker(null);
             this.space = null;
         }
         else{

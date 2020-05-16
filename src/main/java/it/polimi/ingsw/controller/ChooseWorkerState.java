@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.God;
-import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.util.GameState;
 
