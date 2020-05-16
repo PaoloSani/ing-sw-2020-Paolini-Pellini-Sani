@@ -286,6 +286,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                         }
                         if ( !quit ) {
                             settingGameMessage.setNumberOfPlayer(numOfPlayers);
+                            settingGameMessage.setNickname(nickname);
                             clientConnection.send(settingGameMessage);
                             messageFromServer = readString();
                             System.out.println("  Server says: " + messageFromServer + "\n");
