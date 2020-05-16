@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
-    public static final int PORT = 4700;
+    public static final int PORT = 4702;
     private ServerSocket serverSocket;
     private ExecutorService executor = Executors.newFixedThreadPool(128);
     private ExecutorService nowPlaying = Executors.newFixedThreadPool(128);
@@ -53,21 +53,6 @@ public class Server {
     public synchronized void updateCurrMatch() { currMatch++; }
 
     public void resetCurrMatch() { currMatch = 0; }
-
-  /*  public synchronized void deregisterConnection(Socket socket) {
-        ClientConnection opponent = playingConnection.get(c);
-        if(opponent != null) {
-            opponent.closeConnection();
-        }
-        playingConnection.remove(c);
-        playingConnection.remove(opponent);
-        Iterator<String> iterator = waitingConnection.keySet().iterator();
-        while(iterator.hasNext()){
-            if(waitingConnection.get(iterator.next())==c){
-                iterator.remove();
-            }
-        }
-    }*/
 
     public synchronized void lobby(String name, int numberOfPlayers, ServerConnection client){
         if (numberOfPlayers == 2) {
@@ -110,9 +95,6 @@ public class Server {
             }
         }
     }
-
-
-
 
     public synchronized boolean existingNickname(String nickname) {
         return nicknames.contains(nickname);
@@ -158,10 +140,16 @@ public class Server {
         if (playingConnection2Players.containsKey(gameID)){
             List<ServerConnection> list = playingConnection2Players.get(gameID);
             frontEnd = new FrontEnd(this, list.get(0), list.get(1), gameID, backEnd);
+            list.get(0).setFrontEnd(frontEnd);
+            list.get(1).setFrontEnd(frontEnd);
         } else {
             List<ServerConnection> list = playingConnection3Players.get(gameID);
             frontEnd = new FrontEnd(this, list.get(0), list.get(1), list.get(2), gameID, backEnd);
+            list.get(0).setFrontEnd(frontEnd);
+            list.get(1).setFrontEnd(frontEnd);
+            list.get(2).setFrontEnd(frontEnd);
         }
+
 
         nowPlaying.submit(frontEnd);
     }
@@ -175,80 +163,41 @@ public class Server {
         else return ( playingConnection3Players.containsKey(gameID) && playingConnection3Players.get(gameID).size() == 3 );
     }
 
-    public void endGame(int gameID) {
+
+
+    public void endGame(int gameID, ServerConnection closingPlayer) {
         if ( playingConnection2Players.containsKey(gameID) ){
+            for ( ServerConnection s : playingConnection2Players.get(gameID) ){
+                if ( closingPlayer != null ) {
+                    s.send("Ending game: " + closingPlayer.getName() + " has left");
+                }
+                s.send(Message.CLOSE);
+                s.closeConnection();
+                removeNickname(s.getName());
+            }
             playingConnection2Players.remove(gameID);
         }
-        else playingConnection3Players.remove(gameID);
+        else {
+            for ( ServerConnection s : playingConnection3Players.get(gameID) ){
+                if ( closingPlayer != null ) {
+                    s.send("Ending game: " + closingPlayer.getName() + " has left");
+                }
+                s.send(Message.CLOSE);
+                s.closeConnection();
+                removeNickname(s.getName());
+            }
+            playingConnection3Players.remove(gameID);
+        }
     }
 
-    public void removeNicname(String name) {
-        nicknames.remove(name);
+    public void removeNickname(String nameToRemove) {
+        //Firstly, I must check the player is not waiting in a list. In that case I'll remove him
+        if ( waitingConnection2Players.containsKey(nameToRemove) ){
+            waitingConnection2Players.remove(nameToRemove);
+        }
+        else if( waitingConnection3Players.containsKey(nameToRemove) ){
+            waitingConnection3Players.remove(nameToRemove);
+        }
+        nicknames.remove(nameToRemove);
     }
 }
-
-/*
-    public synchronized void deregisterConnection(ClientConnection c) {
-        ClientConnection opponent = playingConnection.get(c);
-        if(opponent != null) {
-            opponent.closeConnection();
-        }
-        playingConnection.remove(c);
-        playingConnection.remove(opponent);
-        Iterator<String> iterator = waitingConnection.keySet().iterator();
-        while(iterator.hasNext()){
-            if(waitingConnection.get(iterator.next())==c){
-                iterator.remove();
-            }
-        }
-    }
-    //Wait for another player
-    public synchronized void lobby(ClientConnection c, String name){
-        waitingConnection.put(name, c);
-        if (waitingConnection.size() == 2) {
-            List<String> keys = new ArrayList<>(waitingConnection.keySet());
-            ClientConnection c1 = waitingConnection.get(keys.get(0));
-            ClientConnection c2 = waitingConnection.get(keys.get(1));
-            Player player1 = new Player(keys.get(0), Cell.X);
-            Player player2 = new Player(keys.get(0), Cell.O);
-            View player1View = new RemoteView(player1, keys.get(1), c1);
-            View player2View = new RemoteView(player2, keys.get(0), c2);
-            Model model = new Model();
-            Controller controller = new Controller(model);
-            model.addObserver(player1View);
-            model.addObserver(player2View);
-            player1View.addObserver(controller);
-            player2View.addObserver(controller);
-            playingConnection.put(c1, c2);
-            playingConnection.put(c2, c1);
-            waitingConnection.clear();
-            c1.asyncSend(model.getBoardCopy());
-            c2.asyncSend(model.getBoardCopy());
-            if(model.isPlayerTurn(player1)){
-                c1.asyncSend(gameMessage.moveMessage);
-                c2.asyncSend(gameMessage.waitMessage);
-            } else {
-                c2.asyncSend(gameMessage.moveMessage);
-                c1.asyncSend(gameMessage.waitMessage);
-            }
-
-        }
-    }
-    public Server() throws IOException {
-        this.serverSocket = new ServerSocket(PORT);
-    }
-    public void run(){
-        while(true){
-            try {
-                Socket newSocket = serverSocket.accept();
-                SocketClientConnection socketConnection = new SocketClientConnection(newSocket, this);
-                executor.submit(socketConnection);
-            } catch (IOException e) {
-                System.out.println("Connection Error!");
-            }
-        }
-    }
-}
-
-}
-*/

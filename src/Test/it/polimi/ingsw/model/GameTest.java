@@ -152,7 +152,7 @@ public class GameTest {
     }
 
     @Test
-    public void minotaurHasWorked() throws IllegalSpaceException {
+    public void minotaurHasWorked() {
         myWorker.setSpace(game.getSpace(0,0));
         oppWorker.setSpace(game.getSpace(0,1));
         assertNotEquals(oppWorker.getSpace(), game.getSpace(0,2));
