@@ -64,12 +64,12 @@ public class ServerConnection implements Runnable {
     public void run() {
         active = true;
          try {
-             socket.setSoTimeout(6000);
+             //socket.setSoTimeout(6000);
              out = new ObjectOutputStream(socket.getOutputStream());
              out.flush();
              in = new ObjectInputStream(socket.getInputStream());
              send("Welcome, server ready!\n");
-             sendPing();
+             //sendPing();
 
              while (active) {
                  Object message;
@@ -92,6 +92,7 @@ public class ServerConnection implements Runnable {
                              server.endGame(gameID, this);
                              active = false;
                          } else {
+                             server.removeFromWaitingList(this);
                              server.removeNickname(name);
                              active = false;
                          }
@@ -164,7 +165,7 @@ public class ServerConnection implements Runnable {
         //Il giocatore è aggiunto e controllo se è possibile lanciare una nuova partita
         else {
             playersInTheGame = settings.getNumberOfPlayer();
-            server.lobby(settings.getNickname(), playersInTheGame, this);
+            server.lobby(playersInTheGame, this);
         }
     }
 

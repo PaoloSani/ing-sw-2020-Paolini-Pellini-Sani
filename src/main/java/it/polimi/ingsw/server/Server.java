@@ -19,8 +19,8 @@ public class Server {
     private ExecutorService executor = Executors.newFixedThreadPool(128);
     private ExecutorService nowPlaying = Executors.newFixedThreadPool(128);
 
-    private Map<String, ServerConnection> waitingConnection2Players = new HashMap<>();
-    private Map<String, ServerConnection> waitingConnection3Players = new HashMap<>();
+    private List<ServerConnection> waitingConnection2Players = new ArrayList<>();
+    private List<ServerConnection> waitingConnection3Players = new ArrayList<>();
 
     private Map<Integer, List<ServerConnection>> playingConnection2Players = new HashMap<>();
     private Map<Integer, List<ServerConnection>> playingConnection3Players = new HashMap<>();
@@ -54,15 +54,14 @@ public class Server {
 
     public void resetCurrMatch() { currMatch = 0; }
 
-    public synchronized void lobby(String name, int numberOfPlayers, ServerConnection client){
+    public synchronized void lobby(int numberOfPlayers, ServerConnection client){
         if (numberOfPlayers == 2) {
-            waitingConnection2Players.put(name,client);
+            waitingConnection2Players.add(client);
             if (waitingConnection2Players.size() == 2){
                 updateCurrMatch();
-                List<String> keys = new ArrayList<>(waitingConnection2Players.keySet());
                 List<ServerConnection> list = new ArrayList<>();
-                list.add(waitingConnection2Players.get(keys.get(0)));
-                list.add(waitingConnection2Players.get(keys.get(1)));
+                list.add(waitingConnection2Players.get(0));
+                list.add(waitingConnection2Players.get(1));
                 playingConnection2Players.put(currMatch, list);
                 waitingConnection2Players.clear();
                 client.send("Starting new game.");
@@ -73,14 +72,13 @@ public class Server {
             }
         }
         else if (numberOfPlayers == 3) {
-            waitingConnection3Players.put(name,client);
+            waitingConnection3Players.add(client);
             if (waitingConnection3Players.size() == 3){
                 updateCurrMatch();
-                List<String> keys = new ArrayList<>(waitingConnection3Players.keySet());
                 List<ServerConnection> list = new ArrayList<>();
-                list.add(waitingConnection3Players.get(keys.get(0)));
-                list.add(waitingConnection3Players.get(keys.get(1)));
-                list.add(waitingConnection3Players.get(keys.get(2)));
+                list.add(waitingConnection3Players.get(0));
+                list.add(waitingConnection3Players.get(1));
+                list.add(waitingConnection3Players.get(2));
                 playingConnection3Players.put(currMatch, list);
                 waitingConnection3Players.clear();
                 client.send("Starting new game.");
@@ -190,14 +188,17 @@ public class Server {
         }
     }
 
+    public void removeFromWaitingList(ServerConnection toRemove){
+        if ( waitingConnection2Players.contains(toRemove)){
+            waitingConnection2Players.remove(toRemove);
+        }
+        else if ( waitingConnection3Players.contains(toRemove) ){
+            waitingConnection3Players.remove(toRemove);
+        }
+    }
+
     public void removeNickname(String nameToRemove) {
         //Firstly, I must check the player is not waiting in a list. In that case I'll remove him
-        if ( waitingConnection2Players.containsKey(nameToRemove) ){
-            waitingConnection2Players.remove(nameToRemove);
-        }
-        else if( waitingConnection3Players.containsKey(nameToRemove) ){
-            waitingConnection3Players.remove(nameToRemove);
-        }
         nicknames.remove(nameToRemove);
     }
 }
