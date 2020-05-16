@@ -54,16 +54,23 @@ public class SerializableLiteGame implements Serializable {
         if ( newOne.god1 == null ){
             return false;
         }
-        else return (isEqual && newOne.god1.equals(this.god1) && newOne.god2.equals(this.god2)   &&
+        else
+            if ( god3 != null ) return (isEqual && newOne.god1.equals(this.god1) && newOne.god2.equals(this.god2)   &&
                 newOne.god3.equals(this.god3) && newOne.name1.equals(this.name1)            &&
                 newOne.name2.equals(this.name2) && newOne.name3.equals(this.name3)          &&
-                //newOne.currPlayer.equalsLG(this.currPlayer)                                   &&
                 newOne.currWorker[0] == this.currWorker[0]                                    &&
                 newOne.currWorker[1] == this.currWorker[1]                                    &&
                 newOne.level1 == this.level1 && newOne.level2 == this.level2                &&
                 newOne.level3 == this.level3 && newOne.dome == this.dome                    &&
                 newOne.isWinner == this.isWinner                                              );
-
+            else return (isEqual && newOne.god1.equals(this.god1) && newOne.god2.equals(this.god2)   &&
+                      newOne.name1.equals(this.name1)            &&
+                    newOne.name2.equals(this.name2) &&
+                    newOne.currWorker[0] == this.currWorker[0]                                    &&
+                    newOne.currWorker[1] == this.currWorker[1]                                    &&
+                    newOne.level1 == this.level1 && newOne.level2 == this.level2                &&
+                    newOne.level3 == this.level3 && newOne.dome == this.dome                    &&
+                    newOne.isWinner == this.isWinner                                              );
     }
 
     public String getName1() {
