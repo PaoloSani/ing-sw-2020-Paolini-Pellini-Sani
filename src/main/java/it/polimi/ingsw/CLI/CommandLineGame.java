@@ -685,48 +685,42 @@ public class CommandLineGame implements Observer<MessageHandler> {
         ).start();
     }
 
+    //Legge stringhe dal MessageHandler se la cli è stata notificata per una stringa nuova dal messageHandler
     public synchronized String readString(){
-        while ( !( updateString )){
+        while ( !updateString ){
             try {
                  wait();
             } catch (InterruptedException e) {
                e.printStackTrace();
             }
         }
+        String result = messageHandler.getString();
         updateString = false;
-        notifyAll();
-        return messageHandler.getString();
+        messageHandler.setStringRead(false);
+        return result;
     }
 
     public synchronized SerializableLiteGame readSerializableLG() {
-        while ( !(updateLG)){
+        while ( !updateLG ){
             try {
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
         updateLG = false;
-        notifyAll();
-        return messageHandler.getLiteGameFromServer();
+        SerializableLiteGame result = messageHandler.getLiteGameFromServer();
+        messageHandler.setLGRead(false);
+        return result;
     }
 
     @Override
     public synchronized void update(MessageHandler message){
-        while ( updateString || updateLG ){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
         if ( message.isStringRead() ){
             updateString = true;
         }
-        else updateLG = true;
-
+        if ( message.isLGRead() ) updateLG = true;
+        messageHandler = message;
         notifyAll();
     }
 }

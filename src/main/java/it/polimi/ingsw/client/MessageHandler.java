@@ -10,6 +10,7 @@ public class MessageHandler extends Observable<MessageHandler>{
     private CommandLineGame cliToNotify;
     //true se ho letto una stringa, false se ho letto un liteGame
     private boolean stringRead;
+    private boolean LGRead;
 
     public MessageHandler(CommandLineGame cli) {
         cliToNotify = cli;
@@ -44,5 +45,13 @@ public class MessageHandler extends Observable<MessageHandler>{
 
     public void notify(MessageHandler message){
         cliToNotify.update(message);
+    }
+
+    public boolean isLGRead() {
+        return LGRead;
+    }
+
+    public void setLGRead(boolean LGRead) {
+        this.LGRead = LGRead;
     }
 }
