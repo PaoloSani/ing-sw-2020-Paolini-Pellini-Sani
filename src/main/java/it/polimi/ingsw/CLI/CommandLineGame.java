@@ -2,18 +2,22 @@ package it.polimi.ingsw.CLI;
 
 import it.polimi.ingsw.client.ClientConnection;
 import it.polimi.ingsw.client.ClientMessage;
+import it.polimi.ingsw.client.MessageHandler;
 import it.polimi.ingsw.client.SettingGameMessage;
 
-import java.io.IOException;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
+import it.polimi.ingsw.server.Message;
+import it.polimi.ingsw.util.Observer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class CommandLineGame {
+
+
+public class CommandLineGame implements Observer<MessageHandler> {
 
     private final Scanner in = new Scanner(System.in);
     private String nickname;
@@ -28,26 +32,38 @@ public class CommandLineGame {
     private SerializableLiteGame serializableLiteGame = new SerializableLiteGame();
     private ClientMessage clientMessage = new ClientMessage();
     private boolean endOfTheGame = false;
-    private String messageFromServer;
     private String messageFromFrontEnd;
     private String lastAction = "none";
-    private SerializableLiteGame newMessage = new SerializableLiteGame();
+    private SerializableLiteGame newSLG = new SerializableLiteGame();
+    private MessageHandler messageHandler;
+    private boolean update = false;
+    private String fromClient;
+    private int[] spaceFromInput;
+    private boolean enableInput;
+
+    public CommandLineGame() {
+        this.messageHandler = new MessageHandler(this);
+        this.clientConnection = new ClientConnection("127.0.0.1", 4702, messageHandler);
+        enableInput = false;
+    }
 
     public void runCLI() {
-        int moveCounter =0, buildCounter =0;
+        int moveCounter =0, buildCounter = 0;
         boolean repeat = false;
         int [] lastSpace = new int[]{5,5};
         int[] firstWorker = new int[]{5,5};
         String messageToPrint = "none";             //TODO: stampo questo invece che lastAction
+
+        new Thread ( () -> clientConnection.run()).start();
         welcomeMirror();
         //messaggio di inizio partita
-        System.out.println(clientConnection.readString());
+        System.out.println(readString());
         //metodo per l'inizio della partita e la scelta delle carte
         challengerChoosesGods();
         chooseCard();
         placeWorkers();
         while(!endOfTheGame) {
-            messageFromFrontEnd = clientConnection.readString();
+            messageFromFrontEnd = readString();
             if(messageFromFrontEnd.equals("Next action") ){
                 if ( !repeat ) {
                     if (lastAction.equals("none") || lastAction.equals("End")) {
@@ -154,11 +170,11 @@ public class CommandLineGame {
 
             else System.out.println(messageFromFrontEnd);
 
-            serializableLiteGame = clientConnection.readLiteGame();
+            serializableLiteGame = readSerializableLG();
             buildGameTable();
 
             if ( messageFromFrontEnd.equals("Next action") && !lastAction.equals("End") ) {
-                messageFromFrontEnd = clientConnection.readString();
+                messageFromFrontEnd = readString();
 
                 if (messageFromFrontEnd.equals("Invalid action")) {
                     repeat = true;
@@ -167,40 +183,28 @@ public class CommandLineGame {
             }
         }
         System.out.println(messageFromFrontEnd);
-        serializableLiteGame = clientConnection.readLiteGame();
+        serializableLiteGame = readSerializableLG();
         buildGameTable();
-        clientConnection.send("Closing");
-        try {
-            clientConnection.closeConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
-
-
 
 
     /**
      * Welcome method: initialize a new settingGameMessage to send to Server
      */
 
-    void welcomeMirror() {
+    public void welcomeMirror() {
         System.out.println(ColourFont.ANSI_BLUE_BACKGROUND);
         System.out.println(ColourFont.ANSI_BOLD + "  Welcome to Santorini\n  RETRO Version\n\n" + ColourFont.ANSI_RESET + ColourFont.ANSI_BLUE_BACKGROUND);
-        clientConnection = new ClientConnection("127.0.0.1", 4700);
-        try {
-            clientConnection.connect();
+
             String messageFromServer = "Beginning";
             //welcoming client
-            System.out.println(clientConnection.readString());
-
+            System.out.println(readString());
 
             System.out.println("  What's your name?\n\n" + ColourFont.ANSI_RESET);
             while (!messageFromServer.equals("Nickname accepted")) {
                 nickname = in.nextLine().toUpperCase();
-                settingGameMessage.setNickname(nickname);
-                clientConnection.send(settingGameMessage);
-                messageFromServer = clientConnection.readString();
+                clientConnection.send(nickname);
+                messageFromServer = readString();
                 if (messageFromServer.equals("Invalid Nickname")) {
                     System.out.println("  Nickname not available. Choose another nickname\n" + ColourFont.ANSI_RESET);
                 }
@@ -237,7 +241,7 @@ public class CommandLineGame {
                         if ( !quit ) {
                             settingGameMessage.setNumberOfPlayer(numOfPlayers);
                             clientConnection.send(settingGameMessage);
-                            System.out.println("  The gameID is " + clientConnection.readString() + "\n");
+                            System.out.println("  The gameID is " + readString() + "\n");
                         }
                         break;
                     case "B":
@@ -258,7 +262,7 @@ public class CommandLineGame {
                             }
                             if ( !quit ) {
                                 clientConnection.send(settingGameMessage);
-                                messageFromServer = clientConnection.readString();
+                                messageFromServer = readString();
                                 System.out.println("  Server says: " + messageFromServer + "\n");
                                 if (messageFromServer.equals("Insert valid gameID"))
                                     System.out.println("  Insert a valid gameID");
@@ -284,8 +288,9 @@ public class CommandLineGame {
                         }
                         if ( !quit ) {
                             settingGameMessage.setNumberOfPlayer(numOfPlayers);
+                            settingGameMessage.setNickname(nickname);
                             clientConnection.send(settingGameMessage);
-                            messageFromServer = clientConnection.readString();
+                            messageFromServer = readString();
                             System.out.println("  Server says: " + messageFromServer + "\n");
                             if ( messageFromServer.contains("You are")){
                                 mode = "A";
@@ -296,9 +301,7 @@ public class CommandLineGame {
             }
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     /**
@@ -338,7 +341,7 @@ public class CommandLineGame {
 
     private void chooseCard() {
 
-        messageFromFrontEnd = clientConnection.readString();
+        messageFromFrontEnd = readString();
         if ( mode.equals("A") ){
             god = God.valueOf(messageFromFrontEnd);
             System.out.println("  Your god is " + messageFromFrontEnd + ColourFont.ANSI_RESET);
@@ -355,19 +358,19 @@ public class CommandLineGame {
             clientMessage.setName(nickname);
             clientMessage.setGod(god);
             clientConnection.send(clientMessage);
-            System.out.println(clientConnection.readString()+ColourFont.ANSI_RESET+"\n\n");
+            System.out.println(readString()+ColourFont.ANSI_RESET+"\n\n");
         }
-        serializableLiteGame = clientConnection.readLiteGame();
+        serializableLiteGame = readSerializableLG();
         buildGameTable();
     }
 
     private void placeWorkers() {
         messageFromFrontEnd = "none";
         while ( !messageFromFrontEnd.equals("Placing workers") ){
-            messageFromFrontEnd = clientConnection.readString();
+            messageFromFrontEnd = readString();
             System.out.println("  "+messageFromFrontEnd);
            if ( messageFromFrontEnd.contains("Wait") ){
-               serializableLiteGame = clientConnection.readLiteGame();
+               serializableLiteGame = readSerializableLG();
                buildGameTable();
            }
         }
@@ -376,10 +379,10 @@ public class CommandLineGame {
             clientMessage.setSpace1(getSpaceFromClient());
             clientMessage.setSpace2(getSpaceFromClient());
             clientConnection.send(clientMessage);
-            newMessage = clientConnection.readLiteGame();
-            if(!newMessage.equalsSLG(serializableLiteGame)){
+            newSLG = readSerializableLG();
+            if(!newSLG.equalsSLG(serializableLiteGame)){
                 validPlacing = true;
-                serializableLiteGame = newMessage;
+                serializableLiteGame = newSLG;
             }
             buildGameTable();
             if(!validPlacing) System.out.println("  Please retype two correct spaces!");
@@ -440,7 +443,7 @@ public class CommandLineGame {
 
     }
 
-    void buildGameTable(){
+    public synchronized void  buildGameTable(){
         String[][] gameTable = serializableLiteGame.getTable();
         System.out.println("                                                             ");
         System.out.println("        1        2        3        4        5                " +  ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET);
@@ -629,9 +632,9 @@ public class CommandLineGame {
     }
 
     //todo: da finire
-    String parseInput(){
+    String parseInput() {
         String message = in.nextLine();
-        message.toUpperCase();
+        message = message.toUpperCase();
         String[] parsedMessage = message.split(" ");
         for (String s : parsedMessage){
             message = s + " ";
@@ -639,7 +642,7 @@ public class CommandLineGame {
         return null;
     }
 
-    public void setLiteGame(SerializableLiteGame serializableLiteGame){
+    public void setLiteGame(SerializableLiteGame serializableLiteGame) {
         this.serializableLiteGame = serializableLiteGame;
     }
 
@@ -649,5 +652,67 @@ public class CommandLineGame {
 
     public void setNumOfPlayer(int i) {
         this.numOfPlayers = i;
+    }
+
+   /* public synchronized String readStringFromInput(){
+        fromClient = null;
+        enableInput = true;
+        while( fromClient )
+    }
+    */
+
+    public void readInputThread() {
+        new Thread ( () ->
+        {
+            String command = "start";
+            while (!command.equals("CLOSE")) {
+                if (in.hasNext()) {
+                    command = in.nextLine().toUpperCase();
+                    if ( enableInput ){
+                        fromClient = command;
+                    }
+
+                    //processo la stringa
+                    //se non è il suo turno non riceve NEXT ACTION dal front end, quindi non fa niente se l'utente scrive un comando valido
+
+                }
+            }
+            clientConnection.send(Message.CLOSE);
+            clientConnection.setActive(false);
+        }
+        ).start();
+    }
+
+    public synchronized String readString(){
+        while ( !(update && messageHandler.isStringRead())){
+            try {
+                 wait();
+            } catch (InterruptedException e) {
+               e.printStackTrace();
+            }
+        }
+        update = false;
+
+        return messageHandler.getString();
+    }
+
+    public synchronized SerializableLiteGame readSerializableLG() {
+        while ( !(update && !messageHandler.isStringRead())){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        update = false;
+        return messageHandler.getLiteGameFromServer();
+    }
+
+    @Override
+    public synchronized void update(MessageHandler message){
+        update = true;
+        messageHandler = message;
+        notifyAll();
     }
 }

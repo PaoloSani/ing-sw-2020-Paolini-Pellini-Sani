@@ -31,7 +31,7 @@ public class OpeningMirror {
         }
 
         if (lookAndFeel.equals("A")) {
-
+            GUILauncher.launchGUI();
         }
         else {
             CLGame = new CommandLineGame();

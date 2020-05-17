@@ -64,6 +64,4 @@ public class ClientMessage implements Serializable {
         this.levelToBuild = levelToBuild;
     }
 
-    public void print() {
-    }
 }

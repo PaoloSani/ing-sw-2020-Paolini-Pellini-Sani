@@ -62,22 +62,23 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         for( ServerConnection c : clients ) {
             if ( c != null ){
                 if ( client3 == null ){
-                    c.send("Game has started with code " + String.valueOf(gameID) + "\n" + "Current players are " +
+                    c.send("Game has started with code " + gameID + "\n" + "Current players are " +
                             client1.getName() + ", " + client2.getName());
                 }
                 else {
-                    c.send("Game has started with code " + String.valueOf(gameID) + "\n" + "Current players are " +
+                    c.send("Game has started with code " + gameID + "\n" + "Current players are " +
                             client1.getName() + ", " + client2.getName() + ", " + client3.getName());
                 }
+                c.setGameID(gameID);
             }
         }
 
-        String[] gods = client1.readChallengerMessage();
+        String[] gods = readChallengerMessage();
 
         //client 2 e 3 se c'è scelgono le divinità
         for (int i=0; i<2 && currClient != client1; i++){
             currClient.send(Arrays.toString(gods) );
-            clientMessage = currClient.readClientMessage(); // il giocatore due ha scelto la prima divinità
+            clientMessage = readClientMessage(); // il giocatore due ha scelto la prima divinità
             if (i == 0) {
                 gameMessage.setGod2(clientMessage.getGod());
                 gameMessage.setName2(clientMessage.getName());
@@ -107,7 +108,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
             if ( c != null ) {
                 while ( !update ) {
                     sendToCurrClient("Placing workers");
-                    clientMessage = currClient.readClientMessage();
+                    clientMessage = readClientMessage();
                     gameMessage.setSpace1(clientMessage.getSpace1());
                     gameMessage.setSpace2(clientMessage.getSpace2());
                     //la chiamata di notify termina nel momento in cui viene eseguita completamente la funzione update della classe FrontEnd
@@ -122,7 +123,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         while ( !endOfTheGame ) {
             //chiedo al client di eseguire una mossa
              sendToCurrClient("Next action");
-             clientMessage = currClient.readClientMessage();
+             clientMessage = readClientMessage();
 
              if ( "Choose Worker".equals(clientMessage.getAction()) ) {
                  chooseWorker();
@@ -157,27 +158,10 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         sendToCurrClient("You won the match.");
         sendLiteGame();
 
-        endMatch();
+        server.endGame(gameID, null);
     }
 
-    private void endMatch() {
-        if ( client1 != null && client1.readString().equals("Closing")){
-            server.removeNicname(client1.getName());
-            client1.closeConnection();
-        }
 
-
-        if ( client2 != null && client2.readString().equals("Closing") ){
-            server.removeNicname(client2.getName());
-            client2.closeConnection();
-        }
-
-        if ( client3 != null && client3.readString().equals("Closing") ){
-            server.removeNicname(client3.getName());
-            client3.closeConnection();
-        }
-        server.endGame(gameID);
-    }
 
 
     public void chooseWorker(){
@@ -241,7 +225,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     @Override
-    public void update(LiteGame message) {
+    public synchronized void update(LiteGame message) {
         //update riceve litegame
         // TODO: se il messaggio è uguale al precedente o se liteGame è vuoto, ok
 
@@ -257,7 +241,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
     }
 
-    public void resetUpdate() { this.update = false; }
+    public synchronized void resetUpdate() { this.update = false; }
 
     public void sendLiteGame(){
         SerializableLiteGame toSend = liteGame.makeSerializable();
@@ -300,6 +284,33 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         }
     }
 
+
+    public synchronized String[] readChallengerMessage() {
+        while ( client1.getChallengerChoice() == null ){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return client1.getChallengerChoice();
+    }
+
+    public synchronized ClientMessage readClientMessage(){
+        while ( !currClient.isUpdateClientMessage() ) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        currClient.setUpdateClientMessage(false);
+        return currClient.getClientMessage();
+    }
+
+    public synchronized void updating(){
+        notifyAll();
+    }
 
     /////////////////////
     // Metodi per test //

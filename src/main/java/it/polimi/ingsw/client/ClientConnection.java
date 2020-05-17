@@ -1,23 +1,31 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.SerializableLiteGame;
+import it.polimi.ingsw.server.Message;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.net.SocketTimeoutException;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
-public class ClientConnection {
+
+public class ClientConnection implements Runnable{
     private String ip;
     private int port;
-    private ObjectInputStream socketIn;
-    private ObjectOutputStream socketOut;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
     private Socket socket;
+    private MessageHandler messageHandler;
+    private Queue<Object> messageInQueue;
+    private Queue<Object> messageOutQueue;
 
-
-    public ClientConnection(String ip, int port){
+    public ClientConnection(String ip, int port, MessageHandler messageHandler){
         this.ip = ip;
         this.port = port;
+        this.messageHandler = messageHandler;
+        messageInQueue = new LinkedBlockingQueue<>();
+        messageOutQueue = new LinkedBlockingQueue<>();
     }
 
     private boolean active = true; /////////////
@@ -30,47 +38,87 @@ public class ClientConnection {
         this.active = active;
     }
 
+    public synchronized void send(Object message) {
+        messageOutQueue.add(message);
+    }
 
-    public void connect() throws IOException {
-        socket = new Socket(ip, port);
-        System.out.println("Connection established");
-        socketIn = new ObjectInputStream(socket.getInputStream());
-        socketOut = new ObjectOutputStream(socket.getOutputStream());
+    public void read(){
+        try {
+            while ( active ) {
+                Object newMessage = in.readObject();
+                messageInQueue.add(newMessage);
+            }
+        } catch (SocketTimeoutException s){
+            active = false;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void run() {
+        try {
+            socket = new Socket(ip, port);
+            System.out.println("Connection established");
+            in = new ObjectInputStream(socket.getInputStream());
+            out = new ObjectOutputStream(socket.getOutputStream());
+            new Thread (this::read).start();
+
+            while (active) {
+                Object toSend = messageOutQueue.poll();
+                while ( toSend != null ) {
+                    out.reset();
+                    out.writeObject(toSend);
+                    out.flush();
+                    toSend = messageOutQueue.poll();
+                }
+
+                Object message = messageInQueue.poll();
+                if ( message != null ) {
+                    if (message instanceof String) {
+                        messageHandler.setStringRead(true);
+                        messageHandler.setMessage((String) message);
+                    } else if (message instanceof SerializableLiteGame) {
+                        messageHandler.setStringRead(false);
+                        messageHandler.setLiteGameFromServer((SerializableLiteGame) message);
+                    } else if (message instanceof Message) {
+                        if (message.equals(Message.PING)) {
+                            send(Message.PONG);
+                        } else if (message.equals(Message.CLOSE)) {
+                            active = false;
+                        }
+                    }
+                }
+            }
+        }
+        catch ( IOException e) {
+                e.printStackTrace();
+        } finally {
+            try {
+                closeConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
 
     public void closeConnection() throws IOException {
-        socketIn.close();
-        socketOut.close();
+        setActive(false);
+        in.close();
+        out.close();
         socket.close();
     }
 
-    public synchronized void send(Object message) {
-        try {
-            socketOut.reset();
-            socketOut.writeObject(message);
-            socketOut.flush();
-        } catch(IOException e){
-            System.err.println(e.getMessage());
-        }
-    }
+
 
     public String readString(){
         String message = null;
         try {
-            message = (String) socketIn.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return message;
-    }
-
-    public SerializableLiteGame readLiteGame(){
-       SerializableLiteGame message = null;
-        try {
-            message = (SerializableLiteGame) socketIn.readObject();
+            message = (String) in.readObject();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
