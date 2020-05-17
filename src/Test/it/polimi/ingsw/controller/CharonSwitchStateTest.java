@@ -28,6 +28,7 @@ public class CharonSwitchStateTest {
         game = backEnd.getGame();
         //il game message deve essere del frontEnd
         gameMessage = new GameMessage(frontEnd);
+        backEnd.charonSwitchState.reset();
 
     }
 

@@ -56,14 +56,41 @@ public class SetPlayersStateTest {
         gameMessage.notify(gameMessage);
 
 
-
-
         assertEquals(frontEnd.getLiteGame().getName1(),"giuseppe");
         assertEquals(frontEnd.getLiteGame().getName2(),"paolo");
         assertEquals(frontEnd.getLiteGame().getName3(),"riccardo");
 
         assertEquals(frontEnd.getLiteGame().getGod1(),God.CHARON);
         assertEquals(frontEnd.getLiteGame().getGod2(),God.TRITON);
+        assertEquals(frontEnd.getLiteGame().getGod3(),God.ATHENA);
+
+        assertNotNull(frontEnd.getLiteGame().getCurrWorker());
+
+        assertEquals(frontEnd.getLiteGame().getLevel1(),22);
+        assertEquals(frontEnd.getLiteGame().getLevel2(),18);
+        assertEquals(frontEnd.getLiteGame().getLevel3(),14);
+        assertEquals(frontEnd.getLiteGame().getDome(),18);
+
+        assertNotNull(frontEnd.getLiteGame().getTable());
+        assertTrue(!frontEnd.getLiteGame().isWinner());
+
+        backEnd.setPlayer2(null);
+        gameMessage.setName2("paolo");
+        gameMessage.setName1("giuseppe");
+        gameMessage.setName3(null);
+        gameMessage.setGod3(God.ATHENA);
+        gameMessage.setGod1(God.CHARON);
+
+        gameMessage.setCharonSwitching(false);
+
+        //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
+        game.getLiteGame().addObservers(frontEnd);
+
+        gameMessage.notify(gameMessage);
+        assertEquals(frontEnd.getLiteGame().getName1(),"giuseppe");
+        assertEquals(frontEnd.getLiteGame().getName2(),"paolo");
+
+        assertEquals(frontEnd.getLiteGame().getGod1(),God.CHARON);
         assertEquals(frontEnd.getLiteGame().getGod3(),God.ATHENA);
 
         assertNotNull(frontEnd.getLiteGame().getCurrWorker());

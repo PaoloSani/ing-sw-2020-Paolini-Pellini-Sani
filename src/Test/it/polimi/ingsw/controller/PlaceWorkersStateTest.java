@@ -31,7 +31,6 @@ public class PlaceWorkersStateTest {
 
         //il game message deve essere del frontEnd
         gameMessage = new GameMessage(frontEnd);
-
     }
 
     @Test

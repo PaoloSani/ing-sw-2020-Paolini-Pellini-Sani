@@ -30,6 +30,7 @@ public class PrometheusMoveStateTest {
         game = backEnd.getGame();
         //il game message deve essere del frontEnd
         gameMessage = new GameMessage(frontEnd);
+        backEnd.prometheusMoveState.reset();
 
     }
     //Se Prometeo prova a salire mi ritorna un false e non viene modificato il model
