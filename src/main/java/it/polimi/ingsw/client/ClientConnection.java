@@ -5,20 +5,27 @@ import it.polimi.ingsw.server.Message;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class ClientConnection implements Runnable{
     private String ip;
     private int port;
-    private ObjectInputStream socketIn;
-    private ObjectOutputStream socketOut;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
     private Socket socket;
     private MessageHandler messageHandler;
+    private Queue<Object> messageInQueue;
+    private Queue<Object> messageOutQueue;
 
     public ClientConnection(String ip, int port, MessageHandler messageHandler){
         this.ip = ip;
         this.port = port;
         this.messageHandler = messageHandler;
+        messageInQueue = new LinkedBlockingQueue<>();
+        messageOutQueue = new LinkedBlockingQueue<>();
     }
 
     private boolean active = true; /////////////
@@ -31,19 +38,45 @@ public class ClientConnection implements Runnable{
         this.active = active;
     }
 
+    public synchronized void send(Object message) {
+        messageOutQueue.add(message);
+    }
+
+    public void read(){
+        try {
+            while ( active ) {
+                Object newMessage = in.readObject();
+                messageInQueue.add(newMessage);
+            }
+        } catch (SocketTimeoutException s){
+            active = false;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public void run() {
         try {
             socket = new Socket(ip, port);
             System.out.println("Connection established");
-            socketIn = new ObjectInputStream(socket.getInputStream());
-            socketOut = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+            out = new ObjectOutputStream(socket.getOutputStream());
+            new Thread (this::read).start();
+
             while (active) {
-                Object message;
-                message = socketIn.readObject();
+                Object toSend = messageOutQueue.poll();
+                while ( toSend != null ) {
+                    out.reset();
+                    out.writeObject(toSend);
+                    out.flush();
+                    toSend = messageOutQueue.poll();
+                }
 
-
-                if (message instanceof String) {
+                Object message = messageInQueue.poll();
+                if ( message != null ) {
+                    if (message instanceof String) {
                         messageHandler.setStringRead(true);
                         messageHandler.setMessage((String) message);
                     } else if (message instanceof SerializableLiteGame) {
@@ -56,9 +89,10 @@ public class ClientConnection implements Runnable{
                             active = false;
                         }
                     }
+                }
             }
         }
-        catch (ClassNotFoundException | IOException e) {
+        catch ( IOException e) {
                 e.printStackTrace();
         } finally {
             try {
@@ -74,19 +108,22 @@ public class ClientConnection implements Runnable{
 
     public void closeConnection() throws IOException {
         setActive(false);
-        socketIn.close();
-        socketOut.close();
+        in.close();
+        out.close();
         socket.close();
     }
 
-    public synchronized void send(Object message) {
-        try {
-            socketOut.reset();
-            socketOut.writeObject(message);
-            socketOut.flush();
-        } catch(IOException e){
-            System.err.println(e.getMessage());
-        }
-    }
 
+
+    public String readString(){
+        String message = null;
+        try {
+            message = (String) in.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return message;
+    }
 }

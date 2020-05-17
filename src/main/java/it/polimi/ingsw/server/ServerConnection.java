@@ -9,6 +9,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Vector;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import static java.lang.Thread.sleep;
 
@@ -25,6 +31,9 @@ public class ServerConnection implements Runnable {
     private volatile boolean updateClientMessage;
     private int gameID;
     private FrontEnd frontEnd;
+    private Queue<Object> messageInQueue;
+    private Queue<Object> messageOutQueue;
+
 
     public ServerConnection(Socket socket, Server server) {
         this.socket = socket;
@@ -34,6 +43,8 @@ public class ServerConnection implements Runnable {
         this.updateClientMessage = false;
         this.gameID = -1;
         frontEnd = null;
+        messageInQueue = new LinkedBlockingQueue<>();
+        messageOutQueue = new LinkedBlockingQueue<>();
     }
 
     private synchronized boolean isActive(){
@@ -41,12 +52,19 @@ public class ServerConnection implements Runnable {
     }
 
     public synchronized void send(Object message) {
+        messageOutQueue.add(message);
+    }
+
+    public void read(){
         try {
-            out.reset();
-            out.writeObject(message);
-            out.flush();
-        } catch(IOException e){
-            System.err.println(e.getMessage());
+            while ( active ) {
+                Object newMessage = in.readObject();
+                messageInQueue.add(newMessage);
+            }
+        } catch (SocketTimeoutException s){
+            active = false;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -64,17 +82,25 @@ public class ServerConnection implements Runnable {
     public void run() {
         active = true;
          try {
-             socket.setSoTimeout(6000);
+             //socket.setSoTimeout(6000);
              out = new ObjectOutputStream(socket.getOutputStream());
              out.flush();
              in = new ObjectInputStream(socket.getInputStream());
              send("Welcome, server ready!\n");
-             sendPing();
+             //sendPing();
+             new Thread (this::read).start();
 
              while (active) {
-                 Object message;
-                 message = in.readObject();
-                 synchronized (message) {
+                 Object toSend = messageOutQueue.poll();
+                 while ( toSend != null ) {
+                     out.reset();
+                     out.writeObject(toSend);
+                     out.flush();
+                     toSend = messageOutQueue.poll();
+                 }
+
+                 Object message = messageInQueue.poll();
+                 if ( message != null ) {
                      if (message instanceof SettingGameMessage) {
                          initialize((SettingGameMessage) message);
                      } else if (message instanceof String) {
@@ -102,12 +128,13 @@ public class ServerConnection implements Runnable {
                          }
                      }
                  }
-             } //controllo se la connessione cade o se il client si disconnette
+             }
+             //controllo se la connessione cade o se il client si disconnette
          }
-         catch (SocketTimeoutException s ){
+         catch ( SocketTimeoutException s ){
              active = false;
          }
-         catch (IOException | ClassNotFoundException e) {
+         catch (IOException e) {
             e.printStackTrace();
          }
 
@@ -116,7 +143,7 @@ public class ServerConnection implements Runnable {
          }
     }
 
-    public synchronized void setNickname(String name){
+    public void setNickname(String name){
         if ( server.existingNickname(name) ) {
             send("Invalid Nickname");
             this.name = null;
@@ -128,7 +155,7 @@ public class ServerConnection implements Runnable {
         }
     }
 
-    public synchronized void initialize(SettingGameMessage settings){
+    public void initialize(SettingGameMessage settings){
         int playersInTheGame = 0;
 
         // Nel server crea un nuovo GameID e aspetta che i giocatori si colleghino
@@ -169,9 +196,21 @@ public class ServerConnection implements Runnable {
         }
     }
 
+    public String readString(){
+        String message = null;
+        try {
+            message = (String) in.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        //restituisce un array di stringhe, separando in modo opportuno message secondo la presenza di virgole
+        return message;
+    }
 
 
-    public synchronized void sendPing(){
+    public void sendPing(){
         new Thread ( () ->{
             while( active ){
                 try {
