@@ -64,45 +64,45 @@ public class ServerConnection implements Runnable {
     public void run() {
         active = true;
          try {
-             //socket.setSoTimeout(6000);
+             socket.setSoTimeout(6000);
              out = new ObjectOutputStream(socket.getOutputStream());
              out.flush();
              in = new ObjectInputStream(socket.getInputStream());
              send("Welcome, server ready!\n");
-             //sendPing();
+             sendPing();
 
              while (active) {
                  Object message;
                  message = in.readObject();
-                 if (message instanceof SettingGameMessage) {
-                     initialize((SettingGameMessage) message);
-                 } else if (message instanceof String) {
-                     setNickname((String) message);
-                 } else if (message instanceof ClientMessage) {
-                     clientMessage = (ClientMessage) message;
-                     updateClientMessage = true;
-                     notifyFrontEnd();
-                 } else if (message instanceof String[]) {
-                     challengerChoice = (String[]) message;
-                     notifyFrontEnd();
-                 } else if (message instanceof Message) {
-                     if (message.equals(Message.CLOSE)) {
-                         //If the gameID is -1, the player isn't playing a match yet. Else, I'll end the match he is playing
-                         if (gameID != -1) {
-                             server.endGame(gameID, this);
-                             active = false;
-                         } else {
-                             server.removeFromWaitingList(this);
-                             server.removeNickname(name);
-                             active = false;
+                 synchronized (message) {
+                     if (message instanceof SettingGameMessage) {
+                         initialize((SettingGameMessage) message);
+                     } else if (message instanceof String) {
+                         setNickname((String) message);
+                     } else if (message instanceof ClientMessage) {
+                         clientMessage = (ClientMessage) message;
+                         updateClientMessage = true;
+                         notifyFrontEnd();
+                     } else if (message instanceof String[]) {
+                         challengerChoice = (String[]) message;
+                         notifyFrontEnd();
+                     } else if (message instanceof Message) {
+                         if (message.equals(Message.CLOSE)) {
+                             //If the gameID is -1, the player isn't playing a match yet. Else, I'll end the match he is playing
+                             if (gameID != -1) {
+                                 server.endGame(gameID, this);
+                                 active = false;
+                             } else {
+                                 server.removeFromWaitingList(this);
+                                 server.removeNickname(name);
+                                 active = false;
+                             }
+                         } else if (message.equals(Message.PONG)) {
+                             System.out.println("Pong from : " + socket);
                          }
                      }
-                     else if ( message.equals(Message.PONG) ){
-                         System.out.println("Pong from : " + socket);
-                     }
                  }
-             }
-             //controllo se la connessione cade o se il client si disconnette
+             } //controllo se la connessione cade o se il client si disconnette
          }
          catch (SocketTimeoutException s ){
              active = false;
@@ -116,7 +116,7 @@ public class ServerConnection implements Runnable {
          }
     }
 
-    public void setNickname(String name){
+    public synchronized void setNickname(String name){
         if ( server.existingNickname(name) ) {
             send("Invalid Nickname");
             this.name = null;
@@ -128,7 +128,7 @@ public class ServerConnection implements Runnable {
         }
     }
 
-    public void initialize(SettingGameMessage settings){
+    public synchronized void initialize(SettingGameMessage settings){
         int playersInTheGame = 0;
 
         // Nel server crea un nuovo GameID e aspetta che i giocatori si colleghino
@@ -169,21 +169,9 @@ public class ServerConnection implements Runnable {
         }
     }
 
-    public String readString(){
-        String message = null;
-        try {
-            message = (String) in.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        //restituisce un array di stringhe, separando in modo opportuno message secondo la presenza di virgole
-        return message;
-    }
 
 
-    public void sendPing(){
+    public synchronized void sendPing(){
         new Thread ( () ->{
             while( active ){
                 try {

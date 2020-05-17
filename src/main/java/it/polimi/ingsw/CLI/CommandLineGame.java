@@ -431,16 +431,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
      * It prints on mirror the gametable from the litegame
      */
 
-    void printKeysTable(){
-        System.out.println(ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET+ColourFont.ANSI_BLACK_BACKGROUND + "\n");
-        System.out.println("  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND + ColourFont.ANSI_RESET+"\n");
-
-    }
-
     void buildGameTable(){
         String[][] gameTable = serializableLiteGame.getTable();
         System.out.println("                                                             ");
@@ -629,16 +619,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
         return settingGameMessage;
     }
 
-    //todo: da finire
-    String parseInput() {
-        String message = in.nextLine();
-        message = message.toUpperCase();
-        String[] parsedMessage = message.split(" ");
-        for (String s : parsedMessage){
-            message = s + " ";
-        }
-        return null;
-    }
 
     public void setLiteGame(SerializableLiteGame serializableLiteGame) {
         this.serializableLiteGame = serializableLiteGame;

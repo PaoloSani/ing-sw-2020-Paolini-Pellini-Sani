@@ -42,22 +42,20 @@ public class ClientConnection implements Runnable{
                 Object message;
                 message = socketIn.readObject();
 
-                if ( message instanceof String ) {
-                    messageHandler.setStringRead(true);
-                    messageHandler.setMessage((String) message);
-                }
-                else if ( message instanceof SerializableLiteGame ) {
-                    messageHandler.setStringRead(false);
-                    messageHandler.setLiteGameFromServer( (SerializableLiteGame) message);
-                }
-                else if (message instanceof Message) {
-                    if ( message.equals(Message.PING)){
-                        send(Message.PONG);
+
+                if (message instanceof String) {
+                        messageHandler.setStringRead(true);
+                        messageHandler.setMessage((String) message);
+                    } else if (message instanceof SerializableLiteGame) {
+                        messageHandler.setStringRead(false);
+                        messageHandler.setLiteGameFromServer((SerializableLiteGame) message);
+                    } else if (message instanceof Message) {
+                        if (message.equals(Message.PING)) {
+                            send(Message.PONG);
+                        } else if (message.equals(Message.CLOSE)) {
+                            active = false;
+                        }
                     }
-                    else if (message.equals(Message.CLOSE)) {
-                        active = false;
-                    }
-                }
             }
         }
         catch (ClassNotFoundException | IOException e) {
@@ -91,15 +89,4 @@ public class ClientConnection implements Runnable{
         }
     }
 
-    public String readString(){
-        String message = null;
-        try {
-            message = (String) socketIn.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return message;
-    }
 }
