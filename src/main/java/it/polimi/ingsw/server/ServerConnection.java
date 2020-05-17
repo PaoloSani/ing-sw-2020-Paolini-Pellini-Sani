@@ -87,7 +87,7 @@ public class ServerConnection implements Runnable {
              out.flush();
              in = new ObjectInputStream(socket.getInputStream());
              send("Welcome, server ready!\n");
-             //sendPing();
+             sendPing();
              new Thread (this::read).start();
 
              while (active) {

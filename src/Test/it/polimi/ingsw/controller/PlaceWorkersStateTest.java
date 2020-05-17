@@ -64,11 +64,11 @@ public class PlaceWorkersStateTest {
         gameMessage.setSpace1(new int[]{1,1});
         gameMessage.setSpace2(new int[]{2,2});
 
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         gameMessage.notify(gameMessage);
 
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
     }
 
@@ -102,11 +102,11 @@ public class PlaceWorkersStateTest {
         gameMessage.setSpace1(new int[]{1,1});
         gameMessage.setSpace2(new int[]{1,1});
 
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         gameMessage.notify(gameMessage);
 
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
     }
 

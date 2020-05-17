@@ -73,7 +73,7 @@ public class ChooseWorkerStateTest {
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -82,7 +82,7 @@ public class ChooseWorkerStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
         int[] position = game.getLiteGame().getCurrWorker();
         assertArrayEquals(spaceOfMyChoice, position);
     }
@@ -139,7 +139,7 @@ public class ChooseWorkerStateTest {
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -148,7 +148,7 @@ public class ChooseWorkerStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
         int[] newPosition = {2,1};
         int[] position = game.getLiteGame().getCurrWorker();
         assertArrayEquals(newPosition, position);
@@ -213,7 +213,7 @@ public class ChooseWorkerStateTest {
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -222,7 +222,7 @@ public class ChooseWorkerStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         int[] position = game.getLiteGame().getCurrWorker();
         assertArrayEquals(null, position);

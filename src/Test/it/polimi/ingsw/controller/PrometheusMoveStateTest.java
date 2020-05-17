@@ -3,7 +3,6 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.virtualView.FrontEnd;
 import it.polimi.ingsw.virtualView.GameMessage;
 import org.junit.Before;
@@ -80,7 +79,7 @@ public class PrometheusMoveStateTest {
         game.getSpace(1,1).setHeight(0);
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
         //sto simulando la notify del model litegame sul front end
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -134,7 +133,7 @@ public class PrometheusMoveStateTest {
         game.getSpace(1,1).setHeight(0);
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
         //sto simulando la notify del model litegame sul front end
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -196,7 +195,7 @@ public class PrometheusMoveStateTest {
         game.getSpace(1,1).setHeight(0);
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
         //sto simulando la notify del model litegame sul front end
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);

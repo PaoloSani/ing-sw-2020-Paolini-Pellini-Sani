@@ -2,7 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.God;
-import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.virtualView.FrontEnd;
 import it.polimi.ingsw.virtualView.GameMessage;
@@ -79,7 +78,7 @@ public class MoveStateTest {
         gameMessage.setLevel(0);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -88,7 +87,7 @@ public class MoveStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         assertEquals(backEnd.getCurrState(),backEnd.moveState);
 
@@ -140,7 +139,7 @@ public class MoveStateTest {
         gameMessage.setLevel(0);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -149,7 +148,7 @@ public class MoveStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         //Devo inizializzarlo a false! Altrimenti mi falsa i risultati
         frontEnd.resetUpdate();
@@ -161,13 +160,13 @@ public class MoveStateTest {
         gameMessage.setLevel(0);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
 
         //Controllo che Artemide non sia tornata indietro
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Faccio sì che Artemide faccia un'altra mossa (valida)
         toBeOccupied = new int[]{1,3};
@@ -175,12 +174,12 @@ public class MoveStateTest {
         gameMessage.setLevel(0);
 
         //Controllo che Artemide non sia tornata indietro
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
 
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
 
     }
@@ -226,7 +225,7 @@ public class MoveStateTest {
         gameMessage.setLevel(0);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -235,7 +234,7 @@ public class MoveStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         //Devo inizializzarlo a false! Altrimenti mi falsa i risultati
         frontEnd.resetUpdate();
@@ -248,7 +247,7 @@ public class MoveStateTest {
         gameMessage.setLevel(0);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -257,7 +256,7 @@ public class MoveStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         //Devo inizializzarlo a false! Altrimenti mi falsa i risultati
         frontEnd.resetUpdate();
@@ -269,7 +268,7 @@ public class MoveStateTest {
         gameMessage.setLevel(0);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -278,7 +277,7 @@ public class MoveStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         //Devo inizializzarlo a false! Altrimenti mi falsa i risultati
         frontEnd.resetUpdate();
@@ -290,7 +289,7 @@ public class MoveStateTest {
         gameMessage.setLevel(0);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -299,7 +298,7 @@ public class MoveStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         //Devo inizializzarlo a false! Altrimenti mi falsa i risultati
         frontEnd.resetUpdate();
@@ -311,7 +310,7 @@ public class MoveStateTest {
         gameMessage.setLevel(0);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -320,7 +319,7 @@ public class MoveStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
         /*assertEquals(backEnd.getCurrState(), backEnd.moveState);
 
         gameMessage.notify(gameMessage);
