@@ -6,7 +6,10 @@ import it.polimi.ingsw.server.Message;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
@@ -17,15 +20,15 @@ public class ClientConnection implements Runnable{
     private ObjectOutputStream out;
     private Socket socket;
     private MessageHandler messageHandler;
-    private Queue<Object> messageInQueue;
-    private Queue<Object> messageOutQueue;
+    private BlockingQueue<Object> messageInQueue;
+    private BlockingQueue<Object> messageOutQueue;
 
     public ClientConnection(String ip, int port, MessageHandler messageHandler){
         this.ip = ip;
         this.port = port;
         this.messageHandler = messageHandler;
-        messageInQueue = new LinkedBlockingQueue<>();
-        messageOutQueue = new LinkedBlockingQueue<>();
+        messageInQueue = new LinkedBlockingDeque<>();
+        messageOutQueue = new LinkedBlockingDeque<>();
     }
 
     private boolean active = true; /////////////
@@ -112,13 +115,10 @@ public class ClientConnection implements Runnable{
 
 
     public void closeConnection() throws IOException {
-        setActive(false);
         in.close();
         out.close();
         socket.close();
     }
-
-
 
     public String readString(){
         String message = null;

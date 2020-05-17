@@ -13,10 +13,10 @@ public class Player {
 
     public Player( String nickname, God god, Game game) {
         this.nickname = nickname;
+        this.game = game;
         setGod(god);
         this.worker1 = new Worker(this );
         this.worker2 = new Worker(this );
-        this.game = game;
     }
 
     public String getNickname() {

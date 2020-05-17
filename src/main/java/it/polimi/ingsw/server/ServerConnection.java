@@ -9,10 +9,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Vector;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -31,8 +33,8 @@ public class ServerConnection implements Runnable {
     private volatile boolean updateClientMessage;
     private int gameID;
     private FrontEnd frontEnd;
-    private Queue<Object> messageInQueue;
-    private Queue<Object> messageOutQueue;
+    private BlockingQueue<Object> messageInQueue;
+    private BlockingQueue<Object> messageOutQueue;
 
 
     public ServerConnection(Socket socket, Server server) {
@@ -43,8 +45,8 @@ public class ServerConnection implements Runnable {
         this.updateClientMessage = false;
         this.gameID = -1;
         frontEnd = null;
-        messageInQueue = new LinkedBlockingQueue<>();
-        messageOutQueue = new LinkedBlockingQueue<>();
+        messageInQueue = new LinkedBlockingDeque<>();
+        messageOutQueue = new LinkedBlockingDeque<>();
     }
 
     private synchronized boolean isActive(){
@@ -69,13 +71,13 @@ public class ServerConnection implements Runnable {
     }
 
     public synchronized void closeConnection() {
-        send("Connection closed!");
         try {
+            in.close();
+            out.close();
             socket.close();
         } catch (IOException e) {
             System.err.println("Error when closing socket!");
         }
-        active = false;
     }
 
     @Override
@@ -87,7 +89,7 @@ public class ServerConnection implements Runnable {
              out.flush();
              in = new ObjectInputStream(socket.getInputStream());
              send("Welcome, server ready!\n");
-             //sendPing();
+             sendPing();
              new Thread (this::read).start();
 
              while (active) {
@@ -128,6 +130,13 @@ public class ServerConnection implements Runnable {
                          }
                      }
                  }
+             }
+             Object toSend = messageOutQueue.poll();
+             while ( toSend != null ) {
+                 out.reset();
+                 out.writeObject(toSend);
+                 out.flush();
+                 toSend = messageOutQueue.poll();
              }
              //controllo se la connessione cade o se il client si disconnette
          }
@@ -196,19 +205,9 @@ public class ServerConnection implements Runnable {
         }
     }
 
-    public String readString(){
-        String message = null;
-        try {
-            message = (String) in.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        //restituisce un array di stringhe, separando in modo opportuno message secondo la presenza di virgole
-        return message;
+    public void setActive(boolean active) {
+        this.active = active;
     }
-
 
     public void sendPing(){
         new Thread ( () ->{

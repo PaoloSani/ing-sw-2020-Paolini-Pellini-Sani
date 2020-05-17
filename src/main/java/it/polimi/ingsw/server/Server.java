@@ -169,8 +169,10 @@ public class Server {
                 if ( closingPlayer != null ) {
                     s.send("Ending game: " + closingPlayer.getName() + " has left");
                 }
-                s.send(Message.CLOSE);
-                s.closeConnection();
+                if ( s != closingPlayer ) {
+                    s.send(Message.CLOSE);
+                    s.setActive(false);
+                }
                 removeNickname(s.getName());
             }
             playingConnection2Players.remove(gameID);
@@ -180,8 +182,10 @@ public class Server {
                 if ( closingPlayer != null ) {
                     s.send("Ending game: " + closingPlayer.getName() + " has left");
                 }
-                s.send(Message.CLOSE);
-                s.closeConnection();
+                if ( s != closingPlayer ) {
+                    s.send(Message.CLOSE);
+                    s.setActive(false);
+                }
                 removeNickname(s.getName());
             }
             playingConnection3Players.remove(gameID);
