@@ -51,7 +51,7 @@ public class ServerConnection implements Runnable {
         return active;
     }
 
-    public void send(Object message) {
+    public synchronized void send(Object message) {
         messageOutQueue.add(message);
     }
 
@@ -87,7 +87,7 @@ public class ServerConnection implements Runnable {
              out.flush();
              in = new ObjectInputStream(socket.getInputStream());
              send("Welcome, server ready!\n");
-             sendPing();
+             //sendPing();
              new Thread (this::read).start();
 
              while (active) {
