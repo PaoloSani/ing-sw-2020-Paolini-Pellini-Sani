@@ -38,7 +38,7 @@ public class MoveApollo implements Move {
                 worker.getSpace().setWorker(oppWorker);   //Sposto nella mia cella il worker avversario
                 oppWorker.setSpace(worker.getSpace());    //La nuova cella del worker avversario è la mia cella
                 worker.setSpace(nextSpace);               //La mia nuova cella è la cella che aveva il worker avversario e
-                                                          //La cella dove io sono mi contieneèx
+                                                          //La cella dove io sono mi contiene
             }
         }
         return result;
