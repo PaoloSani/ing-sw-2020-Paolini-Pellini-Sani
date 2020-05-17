@@ -50,16 +50,6 @@ public class PlaceWorkersState implements GameState {
     // Metodi per Test //
     /////////////////////
 
-    public void setSpace1(Space s)
-    {
-        space1 = s;
-    }
-
-    public void setSpace2(Space s)
-    {
-        space2 = s;
-    }
-
     //update: il currPlayer del Server ha scelto dove piazzare i suoi giocatori
     // lancio execute che agisce sul model
 

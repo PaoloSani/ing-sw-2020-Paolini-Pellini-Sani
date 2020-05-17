@@ -170,6 +170,10 @@ public class LiteGame extends Observable<LiteGame>  {
     protected void setName1(String name1) {
         this.name1 = name1;
     }
+    //per i test di winner state
+    public void setName1Test(String name1) {
+        this.name1 = name1;
+    }
 
     protected void setName2(String name2) {
         this.name2 = name2;
