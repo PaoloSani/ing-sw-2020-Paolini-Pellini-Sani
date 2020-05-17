@@ -199,6 +199,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
             String messageFromServer = "Beginning";
             //welcoming client
+
             System.out.println(readString());
 
             System.out.println("  What's your name?\n\n" + ColourFont.ANSI_RESET);

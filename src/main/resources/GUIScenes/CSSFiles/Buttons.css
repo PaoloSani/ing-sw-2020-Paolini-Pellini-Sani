@@ -1,0 +1,20 @@
+.button {
+    -fx-padding: 15px 15px;
+    -fx-background-color: #005bb5;
+    -fx-text-fill: aliceblue;
+    -fx-font-family: Herculanum;
+}
+
+.button:hover {
+    -fx-background-color: #0048b6;
+}
+
+.button:pressed{
+    -fx-background-color: #258bd0;
+}
+
+
+
+
+
+

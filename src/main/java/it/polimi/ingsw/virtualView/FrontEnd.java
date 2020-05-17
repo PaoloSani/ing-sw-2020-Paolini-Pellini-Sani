@@ -313,7 +313,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     public synchronized void updating(){
-        notifyAll();
+        notify();
     }
 
     /////////////////////

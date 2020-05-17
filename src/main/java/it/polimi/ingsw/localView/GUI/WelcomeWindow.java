@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GUI;
+package it.polimi.ingsw.localView.GUI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +25,8 @@ public class WelcomeWindow {
             welcomeStage.setTitle("SANTORINI");
             welcomeStage.setResizable(false);
             welcomeStage.setOnCloseRequest( event -> System.exit(0));
+            Stage toClose = (Stage) nextButton.getScene().getWindow();
+            toClose.close();
             welcomeStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -33,7 +34,4 @@ public class WelcomeWindow {
 
     }
 
-    public void pressButton(MouseEvent mouseEvent) {
-
-    }
 }
