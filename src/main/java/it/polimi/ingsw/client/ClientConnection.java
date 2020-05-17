@@ -46,7 +46,12 @@ public class ClientConnection implements Runnable{
         try {
             while ( active ) {
                 Object newMessage = in.readObject();
-                messageInQueue.add(newMessage);
+                if ( newMessage instanceof Message && Message.PING.equals((Message) newMessage)){
+                    send(Message.PONG);
+                }
+                else {
+                    messageInQueue.add(newMessage);
+                }
             }
         } catch (SocketTimeoutException s){
             active = false;
@@ -74,19 +79,19 @@ public class ClientConnection implements Runnable{
                     toSend = messageOutQueue.poll();
                 }
 
-                Object message = messageInQueue.poll();
-                if ( message != null ) {
-                    if (message instanceof String) {
-                        messageHandler.setStringRead(true);
-                        messageHandler.setMessage((String) message);
-                    } else if (message instanceof SerializableLiteGame) {
-                        messageHandler.setStringRead(false);
-                        messageHandler.setLiteGameFromServer((SerializableLiteGame) message);
-                    } else if (message instanceof Message) {
-                        if (message.equals(Message.PING)) {
-                            send(Message.PONG);
-                        } else if (message.equals(Message.CLOSE)) {
-                            active = false;
+                if ( ( !messageHandler.isStringRead() && !messageHandler.isLGRead()) ) {
+                    Object message = messageInQueue.poll();
+                    if (message != null) {
+                        if ( message instanceof String ) {
+                            messageHandler.setStringRead(true);
+                            messageHandler.setMessage((String) message);
+                        } else if (message instanceof SerializableLiteGame) {
+                            messageHandler.setLGRead(true);
+                            messageHandler.setLiteGameFromServer((SerializableLiteGame) message);
+                        } else if (message instanceof Message) {
+                            if (message.equals(Message.CLOSE)) {
+                                active = false;
+                            }
                         }
                     }
                 }

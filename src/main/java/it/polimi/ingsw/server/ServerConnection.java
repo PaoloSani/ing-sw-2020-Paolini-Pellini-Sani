@@ -51,7 +51,7 @@ public class ServerConnection implements Runnable {
         return active;
     }
 
-    public synchronized void send(Object message) {
+    public void send(Object message) {
         messageOutQueue.add(message);
     }
 
