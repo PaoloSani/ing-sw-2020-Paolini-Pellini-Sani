@@ -9,6 +9,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Vector;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import static java.lang.Thread.sleep;
 
@@ -25,6 +31,9 @@ public class ServerConnection implements Runnable {
     private volatile boolean updateClientMessage;
     private int gameID;
     private FrontEnd frontEnd;
+    private Queue<Object> messageInQueue;
+    private Queue<Object> messageOutQueue;
+
 
     public ServerConnection(Socket socket, Server server) {
         this.socket = socket;
@@ -34,6 +43,8 @@ public class ServerConnection implements Runnable {
         this.updateClientMessage = false;
         this.gameID = -1;
         frontEnd = null;
+        messageInQueue = new LinkedBlockingQueue<>();
+        messageOutQueue = new LinkedBlockingQueue<>();
     }
 
     private synchronized boolean isActive(){
@@ -41,12 +52,19 @@ public class ServerConnection implements Runnable {
     }
 
     public synchronized void send(Object message) {
+        messageOutQueue.add(message);
+    }
+
+    public void read(){
         try {
-            out.reset();
-            out.writeObject(message);
-            out.flush();
-        } catch(IOException e){
-            System.err.println(e.getMessage());
+            while ( active ) {
+                Object newMessage = in.readObject();
+                messageInQueue.add(newMessage);
+            }
+        } catch (SocketTimeoutException s){
+            active = false;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -70,44 +88,53 @@ public class ServerConnection implements Runnable {
              in = new ObjectInputStream(socket.getInputStream());
              send("Welcome, server ready!\n");
              //sendPing();
+             new Thread (this::read).start();
 
              while (active) {
-                 Object message;
-                 message = in.readObject();
-                 if (message instanceof SettingGameMessage) {
-                     initialize((SettingGameMessage) message);
-                 } else if (message instanceof String) {
-                     setNickname((String) message);
-                 } else if (message instanceof ClientMessage) {
-                     clientMessage = (ClientMessage) message;
-                     updateClientMessage = true;
-                     notifyFrontEnd();
-                 } else if (message instanceof String[]) {
-                     challengerChoice = (String[]) message;
-                     notifyFrontEnd();
-                 } else if (message instanceof Message) {
-                     if (message.equals(Message.CLOSE)) {
-                         //If the gameID is -1, the player isn't playing a match yet. Else, I'll end the match he is playing
-                         if (gameID != -1) {
-                             server.endGame(gameID, this);
-                             active = false;
-                         } else {
-                             server.removeFromWaitingList(this);
-                             server.removeNickname(name);
-                             active = false;
+                 Object toSend = messageOutQueue.poll();
+                 while ( toSend != null ) {
+                     out.reset();
+                     out.writeObject(toSend);
+                     out.flush();
+                     toSend = messageOutQueue.poll();
+                 }
+
+                 Object message = messageInQueue.poll();
+                 if ( message != null ) {
+                     if (message instanceof SettingGameMessage) {
+                         initialize((SettingGameMessage) message);
+                     } else if (message instanceof String) {
+                         setNickname((String) message);
+                     } else if (message instanceof ClientMessage) {
+                         clientMessage = (ClientMessage) message;
+                         updateClientMessage = true;
+                         notifyFrontEnd();
+                     } else if (message instanceof String[]) {
+                         challengerChoice = (String[]) message;
+                         notifyFrontEnd();
+                     } else if (message instanceof Message) {
+                         if (message.equals(Message.CLOSE)) {
+                             //If the gameID is -1, the player isn't playing a match yet. Else, I'll end the match he is playing
+                             if (gameID != -1) {
+                                 server.endGame(gameID, this);
+                                 active = false;
+                             } else {
+                                 server.removeFromWaitingList(this);
+                                 server.removeNickname(name);
+                                 active = false;
+                             }
+                         } else if (message.equals(Message.PONG)) {
+                             System.out.println("Pong from : " + socket);
                          }
-                     }
-                     else if ( message.equals(Message.PONG) ){
-                         System.out.println("Pong from : " + socket);
                      }
                  }
              }
              //controllo se la connessione cade o se il client si disconnette
          }
-         catch (SocketTimeoutException s ){
+         catch ( SocketTimeoutException s ){
              active = false;
          }
-         catch (IOException | ClassNotFoundException e) {
+         catch (IOException e) {
             e.printStackTrace();
          }
 

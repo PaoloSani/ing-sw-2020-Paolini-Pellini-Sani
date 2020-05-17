@@ -39,6 +39,13 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private boolean update = false;
     private String fromClient;
     private int[] spaceFromInput;
+    private boolean enableInput;
+
+    public CommandLineGame() {
+        this.messageHandler = new MessageHandler(this);
+        this.clientConnection = new ClientConnection("127.0.0.1", 4702, messageHandler);
+        enableInput = false;
+    }
 
     public void runCLI() {
         int moveCounter =0, buildCounter = 0;
@@ -180,11 +187,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
         buildGameTable();
     }
 
-
-    public CommandLineGame() {
-        this.messageHandler = new MessageHandler(this);
-        this.clientConnection = new ClientConnection("127.0.0.1", 4702, messageHandler);
-    }
 
     /**
      * Welcome method: initialize a new settingGameMessage to send to Server
@@ -441,7 +443,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
     }
 
-    void buildGameTable(){
+    public synchronized void  buildGameTable(){
         String[][] gameTable = serializableLiteGame.getTable();
         System.out.println("                                                             ");
         System.out.println("        1        2        3        4        5                " +  ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET);
@@ -652,13 +654,23 @@ public class CommandLineGame implements Observer<MessageHandler> {
         this.numOfPlayers = i;
     }
 
+   /* public synchronized String readStringFromInput(){
+        fromClient = null;
+        enableInput = true;
+        while( fromClient )
+    }
+    */
+
     public void readInputThread() {
         new Thread ( () ->
         {
             String command = "start";
             while (!command.equals("CLOSE")) {
                 if (in.hasNext()) {
-                    String input = in.nextLine();
+                    command = in.nextLine().toUpperCase();
+                    if ( enableInput ){
+                        fromClient = command;
+                    }
 
                     //processo la stringa
                     //se non è il suo turno non riceve NEXT ACTION dal front end, quindi non fa niente se l'utente scrive un comando valido
