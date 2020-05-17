@@ -124,4 +124,16 @@ public class BackEndTest {
         assertSame(backEnd.getCurrPlayer(), backEnd.getPlayer2());
 
     }
+
+    @Test
+    public void lastPlayerInTheGameTest() {
+        backEnd.setChallenger(null);
+        backEnd.setPlayer2(new Player("Paolo", God.PROMETHEUS, game));
+        backEnd.setPlayer3(new Player("Giuseppe", God.ZEUS, game));
+        assertFalse(backEnd.lastPlayerInTheGame(backEnd.getPlayer2()));
+
+        backEnd.setPlayer3(null);
+        assertTrue(backEnd.lastPlayerInTheGame(backEnd.getPlayer2()));
+
+    }
 }

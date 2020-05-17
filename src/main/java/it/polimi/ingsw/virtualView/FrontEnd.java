@@ -20,12 +20,13 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     private ClientMessage clientMessage;
     private GameMessage gameMessage;
     private LiteGame liteGame;
-    private boolean update = false;
+    private boolean updateModel = false;
     private ServerConnection client1;
     private ServerConnection client2;
     private ServerConnection client3;
     private ServerConnection currClient;
     private boolean endOfTheGame = false;
+    private boolean updateServer;
 
     private int gameID;
 
@@ -38,6 +39,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         this.gameID = gameID;
         this.backEnd = backEnd;
         this.gameMessage = new GameMessage(this);
+        this.updateServer = false;
     }
 
     public FrontEnd(Server server, ServerConnection client1, ServerConnection client2, ServerConnection client3, int gameID, BackEnd backEnd) {
@@ -49,6 +51,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         this.gameID = gameID;
         this.backEnd = backEnd;
         this.gameMessage = new GameMessage(this);
+        this.updateServer = false;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
             resetUpdate();
 
             if ( c != null ) {
-                while ( !update ) {
+                while ( !updateModel) {
                     sendToCurrClient("Placing workers");
                     clientMessage = readClientMessage();
                     gameMessage.setSpace1(clientMessage.getSpace1());
@@ -149,7 +152,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
              }
              else {
                  sendLiteGame();
-                 if (!update) {
+                 if (!updateModel) {
                      currClient.send("Invalid action");
                  } else currClient.send("Action performed");
              }
@@ -234,14 +237,14 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
                 liteGame = new LiteGame();
             }
             liteGame = message;
-            update = true;
+            updateModel = true;
         }
 
         else resetUpdate();
 
     }
 
-    public synchronized void resetUpdate() { this.update = false; }
+    public synchronized void resetUpdate() { this.updateModel = false; }
 
     public void sendLiteGame(){
         SerializableLiteGame toSend = liteGame.makeSerializable();
@@ -304,6 +307,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
                 e.printStackTrace();
             }
         }
+
         currClient.setUpdateClientMessage(false);
         return currClient.getClientMessage();
     }
@@ -322,8 +326,8 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         return liteGame;
     }
 
-    public boolean getUpdate() {
-        return update;
+    public boolean getUpdateModel() {
+        return updateModel;
     }
 
     public BackEnd getBackEnd() {

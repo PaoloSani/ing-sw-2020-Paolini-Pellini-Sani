@@ -36,7 +36,8 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private String lastAction = "none";
     private SerializableLiteGame newSLG = new SerializableLiteGame();
     private MessageHandler messageHandler;
-    private boolean update = false;
+    private boolean updateString = false;
+    private boolean updateLG = false;
     private String fromClient;
     private int[] spaceFromInput;
     private boolean enableInput;
@@ -685,20 +686,20 @@ public class CommandLineGame implements Observer<MessageHandler> {
     }
 
     public synchronized String readString(){
-        while ( !(update && messageHandler.isStringRead())){
+        while ( !( updateString )){
             try {
                  wait();
             } catch (InterruptedException e) {
                e.printStackTrace();
             }
         }
-        update = false;
-
+        updateString = false;
+        notifyAll();
         return messageHandler.getString();
     }
 
     public synchronized SerializableLiteGame readSerializableLG() {
-        while ( !(update && !messageHandler.isStringRead())){
+        while ( !(updateLG)){
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -706,14 +707,26 @@ public class CommandLineGame implements Observer<MessageHandler> {
             }
         }
 
-        update = false;
+        updateLG = false;
+        notifyAll();
         return messageHandler.getLiteGameFromServer();
     }
 
     @Override
     public synchronized void update(MessageHandler message){
-        update = true;
-        messageHandler = message;
+        while ( updateString || updateLG ){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if ( message.isStringRead() ){
+            updateString = true;
+        }
+        else updateLG = true;
+
         notifyAll();
     }
 }
