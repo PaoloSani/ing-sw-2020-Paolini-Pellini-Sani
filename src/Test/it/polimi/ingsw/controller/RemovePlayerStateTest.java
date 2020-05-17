@@ -131,7 +131,7 @@ public class RemovePlayerStateTest {
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
         //sto simulando la notify del model litegame sul front end
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -174,7 +174,7 @@ public class RemovePlayerStateTest {
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
         //sto simulando la notify del model litegame sul front end
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //mando la notify al controller
         gameMessage.notify(gameMessage);

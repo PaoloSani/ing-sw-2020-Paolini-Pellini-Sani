@@ -247,7 +247,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //se provo a costruire una terza volta, non ho modifiche alla tabella
         spaceToBuild = new int[]{2,1};
@@ -261,7 +261,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
 
         //infine testo il caso in cui io cambio stato a partire dalla build
@@ -316,7 +316,7 @@ public class BuildStateTest {
         gameMessage.setLevel(1);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -325,7 +325,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         //ora eseguo la seconda costruzione, che deve essere sulla posizione della prima e non essere una cupola
         gameMessage.setSpace1(spaceToBuild);
@@ -527,7 +527,7 @@ public class BuildStateTest {
         gameMessage.setLevel(1);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -536,7 +536,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         //ora il worker corrente dovrebbe essere il worker2
         assertEquals(backEnd.getCurrWorker(), backEnd.getCurrPlayer().getWorker2());
@@ -554,7 +554,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         spaceToBuild = new int[]{2,2};
         gameMessage.setSpace1(spaceToBuild);
@@ -568,7 +568,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         spaceToBuild = new int[]{2,2};
         gameMessage.setSpace1(spaceToBuild);
@@ -582,7 +582,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         //provo una quarta volta, ma senza successo
         spaceToBuild = new int[]{2,2};
@@ -597,7 +597,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
     }
 
@@ -648,7 +648,7 @@ public class BuildStateTest {
         gameMessage.setLevel(1);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -657,7 +657,7 @@ public class BuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
         assertEquals( backEnd.removePlayerState,backEnd.getCurrState());
     }
 }

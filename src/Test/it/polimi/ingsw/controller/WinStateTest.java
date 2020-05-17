@@ -71,7 +71,7 @@ public class WinStateTest {
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -120,7 +120,7 @@ public class WinStateTest {
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);

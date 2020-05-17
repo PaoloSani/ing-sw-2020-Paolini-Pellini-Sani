@@ -118,7 +118,7 @@ public class PrometheusBuildStateTest {
         gameMessage.setLevel(1);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         int height = game.getSpace(1,4).getHeight();
         //Mando la notify al controller
@@ -126,7 +126,7 @@ public class PrometheusBuildStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
         assertFalse(backEnd.getLastExecute());
         assertEquals(height, game.getSpace(1,4).getHeight());
 

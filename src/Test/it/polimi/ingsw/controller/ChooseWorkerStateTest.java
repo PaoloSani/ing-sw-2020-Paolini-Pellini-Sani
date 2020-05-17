@@ -131,7 +131,7 @@ public class ChooseWorkerStateTest {
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
 
@@ -139,7 +139,7 @@ public class ChooseWorkerStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         assertEquals(backEnd.getCurrWorker().getSpace(), game.getSpace(2, 1));
         assertEquals(backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrPlayer().getWorker1()), backEnd.getPlayer2().getWorker2());

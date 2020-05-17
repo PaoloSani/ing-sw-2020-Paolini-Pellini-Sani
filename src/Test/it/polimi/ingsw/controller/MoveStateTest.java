@@ -372,7 +372,7 @@ public class MoveStateTest {
         gameMessage.setLevel(0);
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -381,7 +381,7 @@ public class MoveStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         assertEquals(backEnd.getCurrState(),backEnd.moveState);
 
