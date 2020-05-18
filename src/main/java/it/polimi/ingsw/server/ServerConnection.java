@@ -89,8 +89,9 @@ public class ServerConnection implements Runnable {
              out.flush();
              in = new ObjectInputStream(socket.getInputStream());
              send("Welcome, server ready!\n");
-             sendPing();
-             new Thread (this::read).start();
+             //sendPing();
+             Thread read = new Thread(this::read);
+             read.start();
 
              while (active) {
                  Object toSend = messageOutQueue.poll();
@@ -120,10 +121,12 @@ public class ServerConnection implements Runnable {
                              if (gameID != -1) {
                                  server.endGame(gameID, this);
                                  active = false;
+                                 read.interrupt();
                              } else {
                                  server.removeFromWaitingList(this);
                                  server.removeNickname(name);
                                  active = false;
+                                 read.interrupt();
                              }
                          } else if (message.equals(Message.PONG)) {
                              System.out.println("Pong from : " + socket);
