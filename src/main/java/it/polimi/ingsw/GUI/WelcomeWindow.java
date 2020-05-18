@@ -19,9 +19,8 @@ public class WelcomeWindow extends GameWindow {
 
     public void goFurther(ActionEvent actionEvent) {
 
-
-        if (guiHandler.setClientConnection()) ;
-        {
+        boolean connectionAlive = guiHandler.setClientConnection();
+        if (connectionAlive) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUIScenes/nicknameWindow.fxml"));
             try {
                 Parent root = fxmlLoader.load();
@@ -32,7 +31,6 @@ public class WelcomeWindow extends GameWindow {
                 Stage toClose = (Stage) nextButton.getScene().getWindow();
                 toClose.close();
                 nextStage.show();
-                nextStage.setIconified(true);
             } catch (IOException e) {
                 e.printStackTrace();
             }

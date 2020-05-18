@@ -22,9 +22,7 @@ public class GUIHandler implements Observer<MessageHandler> {
     }
 
     public boolean setClientConnection(){
-
         new Thread (clientConnection::run).start();
-
         messageFromServer = readString();
         if (messageFromServer.equals("Welcome, server ready!\n")) return true;
         else return false;

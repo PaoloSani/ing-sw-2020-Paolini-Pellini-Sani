@@ -100,12 +100,16 @@ public class ClientConnection implements Runnable{
             }
         }
         catch ( IOException e) {
-                e.printStackTrace();
+            messageHandler.setStringRead(true);
+            messageHandler.setMessage("Error!");
+            e.printStackTrace();
         } finally {
             try {
                 closeConnection();
             } catch (IOException e) {
                 e.printStackTrace();
+                messageHandler.setStringRead(true);
+                messageHandler.setMessage("Error!");
             }
         }
 
