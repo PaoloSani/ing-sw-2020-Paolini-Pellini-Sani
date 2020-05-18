@@ -18,6 +18,7 @@ public class GUILauncher extends Application {
         stage.setOnCloseRequest(event -> System.exit(0));
         stage.setResizable(false);
         stage.show();
+
     }
 
     public static void launchGUI(){

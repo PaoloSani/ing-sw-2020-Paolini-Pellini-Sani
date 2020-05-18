@@ -25,7 +25,7 @@ public  class NicknameWindow extends GameWindow {
     private Button nextButton;
 
     private String nickname;
-    private Stage modeStage = new Stage();
+    private Stage nextStage = new Stage();
     private boolean nicknameAccepted = false;
 
     @FXML
@@ -34,20 +34,8 @@ public  class NicknameWindow extends GameWindow {
         nickname = fieldNickname.getText().toUpperCase();
         nicknameAccepted = guiHandler.askNameAvailability(nickname);
         if (nicknameAccepted) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUIScenes/modeWindow.fxml"));
-            try {
-                Parent root = fxmlLoader.load();
-                modeStage.setScene(new Scene(root));
-                modeStage.setTitle("SANTORINI");
-                modeStage.setResizable(false);
-                modeStage.setOnCloseRequest(event -> System.exit(0));
-                Stage toClose = (Stage) nextButton.getScene().getWindow();
-                toClose.close();
-                modeStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            guiHandler.loadFXMLFile(nextButton,nextStage,"/GUIScenes/modeWindow.fxml");
         }
-        else adviseLabel.setText("Please retype");
+        else adviseLabel.setText("Please retype a valid nickname");
     }
 }

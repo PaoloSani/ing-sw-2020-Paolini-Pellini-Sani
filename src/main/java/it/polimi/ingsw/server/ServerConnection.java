@@ -190,12 +190,12 @@ public class ServerConnection implements Runnable {
                 // per iniziare la partita corrispondente al gameID considerato
                 if (server.checkMatch(gameID)) {
                     server.startGame(gameID);
-                    send("Beginning new match");
+                    send(Message.BEGIN.toString());
                 } else {
-                    send("Waiting for other players");
+                    send(Message.WAIT.toString());
                 }
             } else {
-                send("Insert valid gameID");
+                send(Message.INVALID_ID.toString());
             }
         }
 

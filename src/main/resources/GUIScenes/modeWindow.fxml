@@ -21,13 +21,8 @@
                 <Image url="@../TitleGraphics/santorini-logo.png" />
             </image>
         </ImageView>
-        <Label layoutX="355.0" layoutY="340.0" prefHeight="44.0" prefWidth="275.0" stylesheets="@CSSFiles/Labels.css" text="WELCOME TO SANTORINI!" textAlignment="CENTER" textFill="#005bb5">
-            <font>
-                <Font name="Herculanum" size="22.0" />
-            </font>
-        </Label>
-      <Button layoutX="117.0" layoutY="418.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="160.0" stylesheets="@CSSFiles/Buttons.css" text="NEW GAME" />
-      <Button layoutX="407.0" layoutY="415.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="160.0" stylesheets="@CSSFiles/Buttons.css" text="PLAY WITH FRIENDS" />
-      <Button layoutX="679.0" layoutY="417.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="160.0" stylesheets="@CSSFiles/Buttons.css" text="RANDOM GAME" />
+      <Button fx:id="newGameButton" layoutX="119.0" layoutY="360.0" mnemonicParsing="false" onAction="#newGame" prefHeight="44.0" prefWidth="160.0" stylesheets="@CSSFiles/Buttons.css" text="NEW GAME" />
+      <Button fx:id="friendsButton" layoutX="400.0" layoutY="360.0" mnemonicParsing="false" onAction="#playWithFriends" prefHeight="44.0" prefWidth="160.0" stylesheets="@CSSFiles/Buttons.css" text="PLAY WITH FRIENDS" />
+      <Button fx:id="randomGameButton" layoutX="681.0" layoutY="359.0" mnemonicParsing="false" onAction="#randomGame" prefHeight="44.0" prefWidth="160.0" stylesheets="@CSSFiles/Buttons.css" text="RANDOM GAME" />
     </children>
 </AnchorPane>

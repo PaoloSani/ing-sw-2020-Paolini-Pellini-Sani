@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.ExistingGameWindow">
+    <children>
+        <ImageView fitHeight="535.0" fitWidth="1018.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Backgrounds/bg_modeselect.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="160.0" fitWidth="364.0" layoutX="291.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../TitleGraphics/santorini-logo.png" />
+            </image>
+        </ImageView>
+      <TextField fx:id="IDField" alignment="CENTER" layoutX="393.0" layoutY="364.0" text="INSERT A VALID ID">
+         <font>
+            <Font name="Herculanum" size="13.0" />
+         </font>
+      </TextField>
+      <Button fx:id="nextButton" layoutX="443.0" layoutY="433.0" mnemonicParsing="false" onAction="#goFurther" stylesheets="@CSSFiles/Buttons.css" text="PLAY" />
+    </children>
+</AnchorPane>
