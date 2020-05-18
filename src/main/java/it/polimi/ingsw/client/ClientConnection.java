@@ -92,7 +92,7 @@ public class ClientConnection implements Runnable{
                         } else if (message instanceof Message) {
                             if (message.equals(Message.CLOSE)) {
                                 active = false;
-                                read.;
+                                read.interrupt();
                             }
                         }
                     }
