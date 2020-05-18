@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Herculanum';
+    src: url('Herculanum.ttf');
+}
+
 .label {
     -fx-text-alignment: center;
     -fx-font-family: Herculanum;
