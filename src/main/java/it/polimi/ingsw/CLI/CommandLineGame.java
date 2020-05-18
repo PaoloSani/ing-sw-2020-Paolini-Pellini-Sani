@@ -448,8 +448,8 @@ public class CommandLineGame implements Observer<MessageHandler> {
     public synchronized void  buildGameTable(){
         String[][] gameTable = serializableLiteGame.getTable();
         System.out.println("                                                             ");
-        System.out.println("        1        2        3        4        5                " +  ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET);
-        System.out.println("    + = = = ++ = = = ++ = = = ++ = = = ++ = = = +            " + "  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET );
+        System.out.println("                                  1        2        3        4        5                " +  ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET);
+        System.out.println("                              + = = = ++ = = = ++ = = = ++ = = = ++ = = = +            " + "  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET );
         for (int i = 0; i < 5; i++){
             buildTableRow(gameTable[i],i+1);
         }
@@ -464,10 +464,10 @@ public class CommandLineGame implements Observer<MessageHandler> {
         String[] newRow;
         if (row == 1){
             newRow = new String[]{
-                    "    "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0]+"            "+"  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET,
-                    " "+row+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1]+"            "+"  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET,
-                    "    "+space1[2]+space2[2]+space3[2]+space4[2]+space5[2]+"            "+"  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET,
-                    "    "+space1[3]+space2[3]+space3[3]+space4[3]+space5[3]+"            "+"  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET
+                    "                              "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0]+"            "+"  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET,
+                    "                           "+row+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1]+"            "+"  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET,
+                    "                              "+space1[2]+space2[2]+space3[2]+space4[2]+space5[2]+"            "+"  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET,
+                    "                              "+space1[3]+space2[3]+space3[3]+space4[3]+space5[3]+"            "+"  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET
             };
         }
 
@@ -492,18 +492,18 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
             if (this.serializableLiteGame.getName3() != null) {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - PLAYER C: " + ColourFont.getGodColour(serializableLiteGame.getGod3()) + name3 + ColourFont.ANSI_RESET
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - PLAYER C: " + ColourFont.getGodColour(serializableLiteGame.getGod3()) + name3 + ColourFont.ANSI_RESET
                 };
             }
             else {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
                 };
             }
         }
@@ -511,18 +511,18 @@ public class CommandLineGame implements Observer<MessageHandler> {
         else if (row == 3){
             if (this.serializableLiteGame.getName3() != null) {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
                 };
             }
             else {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
                 };
             }
         }
@@ -530,27 +530,27 @@ public class CommandLineGame implements Observer<MessageHandler> {
         else if (row == 4) {
             if (this.serializableLiteGame.getName3() != null) {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0] + "            " + "  - GOD B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getGod2() + ColourFont.ANSI_RESET,
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - GOD C: "  + ColourFont.getGodColour(serializableLiteGame.getGod3()) + serializableLiteGame.getGod3() + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0] + "            " + "  - GOD B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getGod2() + ColourFont.ANSI_RESET,
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - GOD C: "  + ColourFont.getGodColour(serializableLiteGame.getGod3()) + serializableLiteGame.getGod3() + ColourFont.ANSI_RESET,
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
                 };
             }
             else {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0] + "            " + "  - GOD B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getGod2() + ColourFont.ANSI_RESET,
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1],
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0] + "            " + "  - GOD B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getGod2() + ColourFont.ANSI_RESET,
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1],
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
                 };
             }
         }
         else {
             newRow = new String[]{
-                    "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                    " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1],
-                    "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                    "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                    "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                    "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1],
+                    "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                    "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
             };
         }
         for (String s : newRow){

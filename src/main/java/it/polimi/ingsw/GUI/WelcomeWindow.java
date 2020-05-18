@@ -10,28 +10,33 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class WelcomeWindow {
+public class WelcomeWindow extends GameWindow {
 
     @FXML
     private Button nextButton;
 
-    private Stage welcomeStage = new Stage();
+    private Stage nextStage = new Stage();
 
     public void goFurther(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUIScenes/nicknameWindow.fxml"));
-        try {
-            Parent root = fxmlLoader.load();
-            welcomeStage.setScene(new Scene(root));
-            welcomeStage.setTitle("SANTORINI");
-            welcomeStage.setResizable(false);
-            welcomeStage.setOnCloseRequest( event -> System.exit(0));
-            Stage toClose = (Stage) nextButton.getScene().getWindow();
-            toClose.close();
-            welcomeStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
+
+        if (guiHandler.setClientConnection()) ;
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUIScenes/nicknameWindow.fxml"));
+            try {
+                Parent root = fxmlLoader.load();
+                nextStage.setScene(new Scene(root));
+                nextStage.setTitle("SANTORINI");
+                nextStage.setResizable(false);
+                nextStage.setOnCloseRequest(event -> System.exit(0));
+                Stage toClose = (Stage) nextButton.getScene().getWindow();
+                toClose.close();
+                nextStage.show();
+                nextStage.setIconified(true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.CLI.CommandLineGame;
+import it.polimi.ingsw.GUI.GUIHandler;
 import it.polimi.ingsw.model.SerializableLiteGame;
 import it.polimi.ingsw.util.Observable;
 
@@ -8,12 +9,17 @@ public class MessageHandler extends Observable<MessageHandler>{
     private String message;
     private SerializableLiteGame liteGameFromServer;
     private CommandLineGame cliToNotify;
+    private GUIHandler guiToNotify;
     //true se ho letto una stringa, false se ho letto un liteGame
     private boolean stringRead;
     private boolean LGRead;
 
     public MessageHandler(CommandLineGame cli) {
         cliToNotify = cli;
+    }
+
+    public MessageHandler(GUIHandler guiHandler) {
+        this.guiToNotify = guiHandler;
     }
 
 
@@ -44,7 +50,8 @@ public class MessageHandler extends Observable<MessageHandler>{
     }
 
     public void notify(MessageHandler message){
-        cliToNotify.update(message);
+        if (cliToNotify != null) cliToNotify.update(message);
+        else if (guiToNotify != null) guiToNotify.update(message);
     }
 
     public boolean isLGRead() {
