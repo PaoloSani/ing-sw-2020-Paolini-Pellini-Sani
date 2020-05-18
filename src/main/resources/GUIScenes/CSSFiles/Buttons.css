@@ -1,7 +1,7 @@
 .button {
     -fx-padding: 15px 15px;
     -fx-background-color: #005bb5;
-    -fx-text-fill: aliceblue;
+    -fx-text-fill: #f0f8ff;
     -fx-font-family: Herculanum;
 }
 
