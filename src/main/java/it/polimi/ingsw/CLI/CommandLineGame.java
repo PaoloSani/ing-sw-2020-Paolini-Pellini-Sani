@@ -154,6 +154,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                         if ( god == God.ATLAS ) {
                             System.out.println("  Do you want to build a dome? (yes/no)");
                             if(in.nextLine().equals("yes")) clientMessage.setLevelToBuild(4);
+                            else clientMessage.setLevelToBuild(getHeight(clientMessage.getSpace1())+1);
                         }
                         else clientMessage.setLevelToBuild(getHeight(clientMessage.getSpace1())+1);
                         if ( buildCounter == 1 ) {

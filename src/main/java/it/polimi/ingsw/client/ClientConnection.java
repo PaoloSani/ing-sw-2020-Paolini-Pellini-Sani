@@ -6,11 +6,8 @@ import it.polimi.ingsw.server.Message;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class ClientConnection implements Runnable{
@@ -49,7 +46,7 @@ public class ClientConnection implements Runnable{
         try {
             while ( active ) {
                 Object newMessage = in.readObject();
-                if ( newMessage instanceof Message && Message.PING.equals((Message) newMessage)){
+                if ( newMessage instanceof Message && Message.PING.equals(newMessage)){
                     send(Message.PONG);
                 }
                 else {
@@ -71,9 +68,10 @@ public class ClientConnection implements Runnable{
             System.out.println("Connection established");
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
-            new Thread (this::read).start();
+            Thread read = new Thread(this::read);
+            read.start();
 
-            while (active) {
+            while ( active || messageInQueue.peek() != null ) {
                 Object toSend = messageOutQueue.poll();
                 while ( toSend != null ) {
                     out.reset();
@@ -94,6 +92,7 @@ public class ClientConnection implements Runnable{
                         } else if (message instanceof Message) {
                             if (message.equals(Message.CLOSE)) {
                                 active = false;
+                                read.interrupt();
                             }
                         }
                     }
