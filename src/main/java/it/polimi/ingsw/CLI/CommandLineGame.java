@@ -1,5 +1,6 @@
 package it.polimi.ingsw.CLI;
 
+import it.polimi.ingsw.GUI.Mode;
 import it.polimi.ingsw.client.ClientConnection;
 import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.MessageHandler;
@@ -22,7 +23,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private final Scanner in = new Scanner(System.in);
     private String nickname;
     private God god;
-    private String mode = "start";
+    private Mode mode = Mode.DEFAULT;
     private int numOfPlayers;
     private int gameID;
     private SettingGameMessage settingGameMessage = new SettingGameMessage();
@@ -215,17 +216,19 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
             while (quit) {
                 quit = false;
-                while (!mode.equals("A") && !mode.equals("B") && !mode.equals("C")) {
+                while ((mode != Mode.NEW_GAME) && (mode != Mode.EXISTING_MATCH) && (mode != Mode.RANDOM_MATCH)) {
+                    String tempMode;
                     System.out.println(ColourFont.ANSI_BLUE_BACKGROUND + "\nPlease " + nickname + ", type A, B or C to choose different options:\n");
                     System.out.println(" - A) CREATE A NEW MATCH\n      Be the challenger of the isle!\n");
                     System.out.println(" - B) PLAY WITH YOUR FRIENDS\n      Play an already existing game!\n");
                     System.out.println(" - C) PLAY WITH STRANGERS\n      Challenge yourself with randomly chosen players!\n");
-                    mode = in.nextLine().toUpperCase();
-                    if (!mode.equals("A") && !mode.equals("B") && !mode.equals("C"))
+                    tempMode = in.nextLine().toUpperCase();
+                    if (!(tempMode.equals("A")) && !(tempMode.equals("B")) && !(tempMode.equals("C")))
                         System.out.println("Dare you challenge the Olympus?? Retry\n ");
+                    else mode = Mode.fromText(tempMode);
                 }
                 switch (mode) {
-                    case "A":
+                    case NEW_GAME:
                         settingGameMessage.setCreatingNewGame(true);
                         settingGameMessage.setPlayingExistingMatch(false);
                         settingGameMessage.setGameID(0);
@@ -236,7 +239,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                             actionA = actionA.toUpperCase();
                             if (actionA.equals("QUIT")) {
                                 quit = true;
-                                mode = "start";
+                                mode = Mode.DEFAULT;
                             } else if (!actionA.equals("2") && !actionA.equals("3"))
                                 System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                             else numOfPlayers = Integer.parseInt(actionA);
@@ -244,10 +247,11 @@ public class CommandLineGame implements Observer<MessageHandler> {
                         if ( !quit ) {
                             settingGameMessage.setNumberOfPlayer(numOfPlayers);
                             clientConnection.send(settingGameMessage);
+                            System.out.println("  Waiting for other players");
                             System.out.println("  The gameID is " + readString() + "\n");
                         }
                         break;
-                    case "B":
+                    case EXISTING_MATCH:
                         settingGameMessage.setPlayingExistingMatch(true);
                         settingGameMessage.setCreatingNewGame(false);
                         System.out.println("  Type the game ID");
@@ -258,7 +262,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                             actionB = actionB.toUpperCase();
                             if (actionB.equals("QUIT")) {
                                 quit = true;
-                                mode = "start";
+                                mode = Mode.DEFAULT;
                             } else {
                                 gameID = Integer.parseInt(actionB);
                                 settingGameMessage.setGameID(gameID);
@@ -273,7 +277,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                             }
                         }
                         break;
-                    case "C":
+                    case RANDOM_MATCH:
                         settingGameMessage.setCreatingNewGame(false);
                         settingGameMessage.setPlayingExistingMatch(false);
                         settingGameMessage.setGameID(0);
@@ -284,7 +288,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                             actionC = actionC.toUpperCase();
                             if (actionC.equals("QUIT")) {
                                 quit = true;
-                                mode = "start";
+                                mode = Mode.DEFAULT;
                             } else if (!actionC.equals("2") && !actionC.equals("3"))
                                 System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                             else numOfPlayers = Integer.parseInt(actionC);
@@ -296,7 +300,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                             messageFromServer = readString();
                             System.out.println("  Server says: " + messageFromServer + "\n");
                             if ( messageFromServer.contains("You are")){
-                                mode = "A";
+                                mode = Mode.NEW_GAME;
                             }
                         }
                         break;
@@ -312,7 +316,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
      */
 
     void challengerChoosesGods(){
-        if(mode.equals("A")) {
+        if(mode == Mode.NEW_GAME) {
             List<God> chosenGods = new ArrayList<>();
             while (chosenGods.size() < numOfPlayers) {
                 System.out.println("  Challenger of the Olympus, choose the Gods who will lead you to the glory\n");
@@ -345,7 +349,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private void chooseCard() {
 
         messageFromFrontEnd = readString();
-        if ( mode.equals("A") ){
+        if ( mode == Mode.NEW_GAME ){
             god = God.valueOf(messageFromFrontEnd);
             System.out.println("  Your god is " + messageFromFrontEnd + ColourFont.ANSI_RESET);
         }
