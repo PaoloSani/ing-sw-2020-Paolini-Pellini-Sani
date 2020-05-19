@@ -33,32 +33,16 @@ public class Game {
         return constraint;
     }
 
-    public int getLevel1() {
-        return level1;
-    }
-
     public void setLevel1(int level1) {
         this.level1 = level1;
-    }
-
-    public int getLevel2() {
-        return level2;
     }
 
     public void setLevel2(int level2) {
         this.level2 = level2;
     }
 
-    public int getLevel3() {
-        return level3;
-    }
-
     public void setLevel3(int level3) {
         this.level3 = level3;
-    }
-
-    public int getDome() {
-        return dome;
     }
 
     public void setDome(int dome) {
@@ -97,8 +81,10 @@ public class Game {
         liteGame.setGod1(player1.getGod());
         liteGame.setName2(player2.getNickname());
         liteGame.setGod2(player2.getGod());
-        liteGame.setName3(player3.getNickname());
-        liteGame.setGod3(player3.getGod());
+        if ( player3 != null ) {
+            liteGame.setName3(player3.getNickname());
+            liteGame.setGod3(player3.getGod());
+        }
     }
 
 
@@ -154,16 +140,14 @@ public class Game {
         currX = worker.getSpace().getX();
         currY = worker.getSpace().getY();
 
-        if( ( 0 <= currX && currX <= 4 ) && ( 0 <= currY && currY <= 4 ) ){
             for( int i = currX - 1; i < currX + 2; i++ ){
                 for( int j = currY - 1; j < currY + 2; j++ ){
                     if( !( i == currX && j == currY ) && ( i >= 0 && i <= 4 && j >= 0 && j <= 4 ) ){
-                        if( table[i][j].getWorker() == null && ( table[i][j].getHeight() < 4 ) ) return true;
+                        if( table[i][j].getWorker() == null && ( table[i][j].getHeight() < 4 ) && !table[i][j].isDomed() ) return true;
                     }
                 }
             }
-        }
-        return false;
+          return false;
        }
 
 
@@ -200,7 +184,8 @@ public class Game {
         //ora che ho le nuove coordinate, controllo eventuali anomalie
         if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
              this.table[newX][newY].isDomed()             ||        //la space non è occupate da una cupola
-             this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
+                myWorker.getPlayer() == oppWorker.getPlayer()   ||
+                this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
              return false;
 
         //se i controlli sono stati superati allora effettuo lo scambio
@@ -243,6 +228,7 @@ public class Game {
         //ora che ho le nuove coordinate, controllo eventuali anomalie
         if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
                 this.table[newX][newY].isDomed()          ||        //la space non è occupate da una cupola
+                myWorker.getPlayer() == oppWorker.getPlayer()   ||
                 this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
             return false;
 
@@ -310,7 +296,7 @@ public class Game {
             case 4:
                 if (this.dome > 0) {
                     if (isAtlas) {
-                        space.setHeight(space.getHeight() + 1);
+                        space.setHeight(space.getHeight());
                         space.setDome();
                     } else space.setHeight(level);
                     this.dome--;
@@ -319,8 +305,8 @@ public class Game {
 
             default:
                 return false;
-
         }
         return true;
     }
+
 }

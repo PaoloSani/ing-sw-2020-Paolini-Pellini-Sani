@@ -2,14 +2,18 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.God;
 
-public class clientMessage {
+
+import java.io.Serializable;
+
+public class ClientMessage implements Serializable {
     String name;
     God god;
     String action;
 
-    //TODO: controlla che siano diverse!
+    //TODO: controlla che siano diverse quando fai PlacingWorkers!
     int [] space1;
     int [] space2;
+    int levelToBuild;
 
     public String getName() {
         return name;
@@ -43,4 +47,21 @@ public class clientMessage {
     public int[] getSpace2() {
         return space2;
     }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public int getLevelToBuild() {
+        return levelToBuild;
+    }
+
+    public void setLevelToBuild(int levelToBuild) {
+        this.levelToBuild = levelToBuild;
+    }
+
 }

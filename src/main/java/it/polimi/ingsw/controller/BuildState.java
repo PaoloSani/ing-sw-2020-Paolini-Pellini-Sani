@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.God;
-import it.polimi.ingsw.model.IllegalSpaceException;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
@@ -76,8 +75,9 @@ public class BuildState implements GameState {
 
                 if ( result ) {
                     if (backEnd.getCurrPlayer().getGod() == God.POSEIDON && counterPoseidon == -1) {    //se il counter è -1 significa che ho costruito con il worker di partenza senza usare il suo potere
-                        backEnd.setCurrWorker(backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrWorker()));        //cambio lavoratore
-                        if (backEnd.getCurrWorker().getSpace().getHeight() == 0) {
+                        if (backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrWorker()).getSpace().getHeight() == 0) {
+                            backEnd.setCurrWorker(backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrWorker()));//cambio lavoratore
+                            backEnd.getGame().setCurrWorker(backEnd.getCurrWorker()); //lo scrivo nel lite game
                             counterPoseidon++;      //lo aggiorno già a 0 così mi accorgo che ho attivato il suo potere e sto costruendo col secondo worker
                         } else {                      //se non è a terra il suo potere non vale
                             setToReset(true);
@@ -92,6 +92,19 @@ public class BuildState implements GameState {
                 }
             }
         }
+
+        //le righe che seguono (97-104) sono per il caso sfigatissimo
+        boolean saveAthena = backEnd.getGame().getConstraint().athenaBlocks();
+        backEnd.getGame().getConstraint().setAthena(false);
+        //TODO da vedere
+        //CASO SFIGATISSIMO: il currWorker si è appena bloccato e l'altro worker è già bloccato tra un cerchio di cupole
+        /*if ( !backEnd.getGame().isFreeToMove(backEnd.getCurrWorker()) && !backEnd.getGame().isFreeToMove(backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrWorker())) ){
+            backEnd.setToRemove(backEnd.getCurrPlayer());
+            backEnd.getGame().setCurrWorker(null);
+        }*/
+        backEnd.getGame().getConstraint().setAthena(saveAthena);
+
+
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la View

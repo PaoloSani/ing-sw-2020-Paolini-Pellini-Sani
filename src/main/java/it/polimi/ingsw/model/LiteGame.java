@@ -4,11 +4,12 @@ import it.polimi.ingsw.util.Observable;
 import it.polimi.ingsw.util.Observer;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 //Classe da passare come messaggio alla virtual view
-public class LiteGame extends Observable<LiteGame> {
+public class LiteGame extends Observable<LiteGame>  {
 
     private String name1;       // Challenger: sceglie le carte e gioca per ultimo
     private String name2;       // Start Player: giocatore che gioca per primo il turno e pesca per primo la carta
@@ -104,6 +105,7 @@ public class LiteGame extends Observable<LiteGame> {
         newLG.level3 = this.level3;
         newLG.dome = this.dome;
         newLG.table = new String[5][5];
+        newLG.setWinner(this.isWinner);
         newLG.observers = this.observers;       //Posso usare sempre la stessa lista perché NON CAMBIA MAI!
 
         for (int i = 0 ; i < 5 ; i++){
@@ -127,15 +129,27 @@ public class LiteGame extends Observable<LiteGame> {
         if ( liteGame.god1 == null ){
             return false;
         }
-        else return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2)   &&
-                liteGame.god3.equals(this.god3) && liteGame.name1.equals(this.name1)            &&
-                liteGame.name2.equals(this.name2) && liteGame.name3.equals(this.name3)          &&
-                //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&
-                liteGame.currWorker[0] == this.currWorker[0]                                    &&
-                liteGame.currWorker[1] == this.currWorker[1]                                    &&
-                liteGame.level1 == this.level1 && liteGame.level2 == this.level2                &&
-                liteGame.level3 == this.level3 && liteGame.dome == this.dome                    &&
-                liteGame.isWinner == this.isWinner                                              );
+        else {
+            if ( name3 == null )
+            return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2)   &&
+                    liteGame.name1.equals(this.name1)                                              &&
+                    liteGame.name2.equals(this.name2)                                               &&
+                    //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&
+                    liteGame.currWorker[0] == this.currWorker[0]                                    &&
+                    liteGame.currWorker[1] == this.currWorker[1]                                    &&
+                    liteGame.level1 == this.level1 && liteGame.level2 == this.level2                &&
+                    liteGame.level3 == this.level3 && liteGame.dome == this.dome                    &&
+                    liteGame.isWinner == this.isWinner                                              );
+            else return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2)   &&
+                    liteGame.god3.equals(this.god3) && liteGame.name1.equals(this.name1)            &&
+                    liteGame.name2.equals(this.name2) && liteGame.name3.equals(this.name3)          &&
+                    //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&
+                    liteGame.currWorker[0] == this.currWorker[0]                                    &&
+                    liteGame.currWorker[1] == this.currWorker[1]                                    &&
+                    liteGame.level1 == this.level1 && liteGame.level2 == this.level2                &&
+                    liteGame.level3 == this.level3 && liteGame.dome == this.dome                    &&
+                    liteGame.isWinner == this.isWinner                                              );
+        }
 
 
     }
@@ -154,6 +168,10 @@ public class LiteGame extends Observable<LiteGame> {
 
 
     protected void setName1(String name1) {
+        this.name1 = name1;
+    }
+    //per i test di winner state
+    public void setName1Test(String name1) {
         this.name1 = name1;
     }
 
@@ -221,7 +239,7 @@ public class LiteGame extends Observable<LiteGame> {
     }
 
 
-    protected void setCurrWorker(int x, int y) {
+    public void setCurrWorker(int x, int y) {
         if ( x < 0 ){   //se il giocatore ha perso, setto una cella non valida nella tabella
             this.currWorker = null;
         }
@@ -265,4 +283,25 @@ public class LiteGame extends Observable<LiteGame> {
     }
 
 
+    public SerializableLiteGame makeSerializable() {
+        SerializableLiteGame newSLG = new SerializableLiteGame();
+
+        newSLG.setName1(this.name1);
+        newSLG.setName2(this.name2);
+        newSLG.setName3(this.name3);
+        newSLG.setGod1(this.god1);
+        newSLG.setGod2(this.god2);
+        newSLG.setGod3(this.god3);
+        newSLG.setCurrPlayer(this.currPlayer);
+        if (this.currWorker != null ) newSLG.setCurrWorker(this.currWorker[0], this.currWorker[1]);
+        else newSLG.setCurrWorker(-1, 0);
+        newSLG.setLevel1(this.level1);
+        newSLG.setLevel2(this.level2);
+        newSLG.setLevel3(this.level3);
+        newSLG.setDome(this.dome);
+        newSLG.setWinner(this.isWinner);
+        newSLG.setTable(this.table.clone());
+
+        return newSLG;
+    }
 }

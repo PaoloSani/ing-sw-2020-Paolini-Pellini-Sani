@@ -1,9 +1,38 @@
 package it.polimi.ingsw.model;
 
 public enum God {
-    APOLLO, ARTEMIS, ATHENA, ATLAS, CHARON, DEMETER, HEPHAESTUS, HYPNUS, MINOTAUR, MORTAL, PAN, POSEIDON, PROMETHEUS, TRITON, ZEUS;
+    APOLLO("APOLLO",""),
+    ARTEMIS("ARTEMIS",""), 
+    ATHENA("ATHENA",""), 
+    ATLAS("ATLAS",""), 
+    CHARON("CHARON",""), 
+    DEMETER("DEMETER",""), 
+    HEPHAESTUS("HEPHAESTUS",""),
+    HYPNUS("HYPNUS",""),
+    MINOTAUR("MINOTAUR",""),
+    MORTAL("MORTAL",""),
+    PAN("PAN",""),
+    POSEIDON("POSEIDON",""),
+    PROMETHEUS("PROMETHEUS",""),
+    TRITON("TRITON",""),
+    ZEUS("ZEUS","");
 
-    //private String description;
+    God(String godName, String power){
+        this.godName = godName;
+        this.power = power;
+    }
+
+    @Override
+    public String toString(){
+        return godName;
+    }
+
+    public String getPower(){
+        return power;
+    }
+
+    private String godName;
+    private String power;
     //private image;
 
 }

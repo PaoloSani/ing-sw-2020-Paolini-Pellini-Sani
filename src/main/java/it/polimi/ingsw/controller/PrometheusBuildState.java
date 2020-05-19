@@ -30,7 +30,7 @@ public class PrometheusBuildState implements GameState {
 
         backEnd.getGame().refreshLiteGame();
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
-        return true;
+        return result;
     }
 
 

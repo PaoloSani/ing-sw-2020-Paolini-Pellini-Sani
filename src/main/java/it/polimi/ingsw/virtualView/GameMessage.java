@@ -13,6 +13,7 @@ public class GameMessage extends Observable <GameMessage> {
     private int numOfPlayers;
 
     //Utilizzati per settare i due workers di ogni players
+    // il valore {-1,0} serve per l'inizio della partita nel backend
     private int[] space1 = new int[]{-1,0};
     private int[] space2 = new int[]{0,0};
 
@@ -153,5 +154,10 @@ public class GameMessage extends Observable <GameMessage> {
         newMessage.observers = this.observers;
 
         return newMessage;
+    }
+
+    protected void resetGameMessage(){
+        charonSwitching = false;
+        level = 0;
     }
 }

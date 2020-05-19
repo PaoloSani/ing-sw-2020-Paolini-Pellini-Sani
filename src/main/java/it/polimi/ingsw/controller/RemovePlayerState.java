@@ -25,7 +25,7 @@ public class RemovePlayerState implements GameState {
         else backEnd.setPlayer3(null);
 
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la View
         return true;
     }
 

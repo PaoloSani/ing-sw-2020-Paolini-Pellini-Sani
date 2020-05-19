@@ -15,7 +15,8 @@ public class WinState implements GameState {
     public boolean execute() {
         backEnd.getGame().setWinner(true);
         backEnd.getGame().refreshLiteGame();
-        backEnd.getGame().getLiteGame().notify();
+        //todo ho modificato questo .notify(backEnd.getGame().getLiteGame())
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());
         return true;
     }
 

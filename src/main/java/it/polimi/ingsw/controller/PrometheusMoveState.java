@@ -26,6 +26,7 @@ public class PrometheusMoveState implements GameState {
         }
         else result = false;
 
+        backEnd.getGame().setCurrWorker(backEnd.getCurrWorker());
         backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return result;
