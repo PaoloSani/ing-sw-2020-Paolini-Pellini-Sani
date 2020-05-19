@@ -148,4 +148,5 @@ public class GUIHandler implements Observer<MessageHandler> {
         settingGameMessage.setNumberOfPlayer(numOfPlayers);
         clientConnection.send(settingGameMessage);
     }
+
 }

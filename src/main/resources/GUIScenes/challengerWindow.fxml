@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.ChallengerWindow">
+    <children>
+        <ImageView fitHeight="535.0" fitWidth="1018.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Backgrounds/bg_modeselect.png" />
+            </image>
+        </ImageView>
+      <ImageView fitHeight="536.0" fitWidth="321.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Backgrounds/bg_panelEdgeLeft.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="godCard" fitHeight="284.0" fitWidth="169.0" layoutX="46.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../GodCards/01.png" />
+         </image>
+      </ImageView>
+      <Pagination fx:id="selectorPagination" layoutX="29.0" layoutY="104.0" maxPageIndicatorCount="14" pageCount="14" prefHeight="372.0" prefWidth="204.0" stylesheets="@CSSFiles/Buttons.css" />
+    </children>
+</AnchorPane>
