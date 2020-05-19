@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 public class BuildDefault implements Build {
-
     public boolean execute( Worker worker, Space space, int level ) {
         int currX,currY, newH;
         currX = worker.getSpace().getX();

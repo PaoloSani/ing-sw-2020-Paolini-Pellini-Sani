@@ -56,6 +56,8 @@ public class BuildDefaultTest {
 
     @Test
     public void positiveNotNeighbouringX() {
+        buildDefault = new BuildDefault();
+        game = new Game();
         currSpace = new Space(2,4);
         space = new Space(0, 4);
         myWorker = new Worker(player);
@@ -85,7 +87,7 @@ public class BuildDefaultTest {
     }
 
     @Test
-    public void negativeNotNeighbouringY() throws IllegalSpaceException {
+    public void negativeNotNeighbouringY() {
         currSpace = new Space(0,2);
         space = new Space(0, 4);
         myWorker = new Worker(player);

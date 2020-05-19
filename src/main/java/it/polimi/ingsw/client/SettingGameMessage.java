@@ -3,12 +3,14 @@ package it.polimi.ingsw.client;
 import java.io.Serializable;
 
 public class SettingGameMessage implements Serializable {
+    private static final long ID = 1L;
     private String nickname;
+
     private int numberOfPlayer;
+
     private boolean creatingNewGame;
     private boolean playingExistingMatch;
     private int gameID;
-
     public String getNickname() {
         return nickname;
     }
@@ -31,6 +33,14 @@ public class SettingGameMessage implements Serializable {
 
     public void setPlayingExistingMatch(boolean playingExistingMatch) {
         this.playingExistingMatch = playingExistingMatch;
+    }
+
+    public int getNumberOfPlayer() {
+        return numberOfPlayer;
+    }
+
+    public void setNumberOfPlayer(int numberOfPlayer) {
+        this.numberOfPlayer = numberOfPlayer;
     }
 
     public int getGameID() {

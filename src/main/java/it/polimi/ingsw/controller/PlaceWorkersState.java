@@ -14,6 +14,7 @@ public class PlaceWorkersState implements GameState {
     }
 
     //TODO: da correggere, poiché non avrò mai null in una delle due celle (nullPointerException)
+    //TODO Sistemare caso tre giocatore durante il placing workers, se il terzo client mette workers in cella sbagliata poi si chiude
     @Override
     public boolean execute() {
         boolean result = true;
@@ -48,16 +49,6 @@ public class PlaceWorkersState implements GameState {
     /////////////////////
     // Metodi per Test //
     /////////////////////
-
-    public void setSpace1(Space s)
-    {
-        space1 = s;
-    }
-
-    public void setSpace2(Space s)
-    {
-        space2 = s;
-    }
 
     //update: il currPlayer del Server ha scelto dove piazzare i suoi giocatori
     // lancio execute che agisce sul model

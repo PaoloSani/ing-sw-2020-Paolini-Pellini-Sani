@@ -51,8 +51,8 @@ public class MoveState implements GameState {
                 } else result = false;
 
 
-                if ((backEnd.getCurrPlayer().getGod() != God.TRITON && backEnd.getCurrPlayer().getGod() != God.ARTEMIS) ||
-                        (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2) && result) {
+                if (((backEnd.getCurrPlayer().getGod() != God.TRITON && backEnd.getCurrPlayer().getGod() != God.ARTEMIS) ||
+                        (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 2)) && result) {
                     setToReset(true);
                 }
 
@@ -68,6 +68,7 @@ public class MoveState implements GameState {
             }
         }
         //Aggiorno il LiteGame
+        backEnd.getGame().setCurrWorker(backEnd.getCurrWorker());
         backEnd.getGame().refreshLiteGame();
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
         return result;

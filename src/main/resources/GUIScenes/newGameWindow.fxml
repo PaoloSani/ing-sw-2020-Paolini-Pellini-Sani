@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.NewGameWindow">
+    <children>
+        <ImageView fitHeight="535.0" fitWidth="1018.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Backgrounds/bg_modeselect.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="160.0" fitWidth="364.0" layoutX="291.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../TitleGraphics/santorini-logo.png" />
+            </image>
+        </ImageView>
+      <Accordion layoutX="492.0" layoutY="381.0" />
+      <RadioButton fx:id="threePlayersButton" layoutX="430.0" layoutY="397.0" mnemonicParsing="false" onAction="#uncheckTwoPlayersButton" text="3 players">
+         <font>
+            <Font name="Herculanum" size="13.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="twoPlayersButton" layoutX="429.0" layoutY="355.0" mnemonicParsing="false" onAction="#uncheckThreePlayersButton" text="2 players">
+         <font>
+            <Font name="Herculanum" size="13.0" />
+         </font>
+      </RadioButton>
+      <Button fx:id="nextButton" layoutX="440.0" layoutY="443.0" mnemonicParsing="false" onAction="#goFurther" stylesheets="@CSSFiles/Buttons.css" text="PLAY!" />
+      <Label fx:id="waitLabel" alignment="CENTER" layoutX="231.0" layoutY="359.0" prefHeight="44.0" prefWidth="487.0" stylesheets="@CSSFiles/Labels.css" text="WAIT FOR OTHER PLAYERS" visible="false">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="IDLabel" alignment="CENTER" layoutX="258.0" layoutY="415.0" prefHeight="21.0" prefWidth="434.0" stylesheets="@CSSFiles/Labels.css" text="The game ID is: " visible="false" />
+    </children>
+</AnchorPane>

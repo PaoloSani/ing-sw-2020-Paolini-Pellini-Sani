@@ -36,9 +36,9 @@ public class ChooseWorkerStateTest {
         //esegue la execute dello stato ChooseWorkerState
         //currPlayer's God -> TRITON
         //inizializzo i player
-        backEnd.setChallenger(new Player("giuseppe", God.CHARON, game) );
-        backEnd.setPlayer2(new Player("paolo", God.TRITON, game) );
-        backEnd.setPlayer3(new Player("riccardo", God.ATHENA, game) );
+        backEnd.setChallenger(new Player("giuseppe", God.CHARON, game));
+        backEnd.setPlayer2(new Player("paolo", God.TRITON, game));
+        backEnd.setPlayer3(new Player("riccardo", God.ATHENA, game));
 
         //inizializzo il contenuto di GameMessage perché non sono passato dallo stato setPlayersState ma sono andato direttamente nel CharonSwitchState
         gameMessage.setName1("giuseppe");
@@ -64,16 +64,16 @@ public class ChooseWorkerStateTest {
         backEnd.setCurrPlayer(backEnd.getChallenger());
 
         //setto le posizioni del mio worker
-        backEnd.getCurrPlayer().getWorker1().setSpace(game.getSpace(1,1));
-        backEnd.getCurrPlayer().getWorker2().setSpace(game.getSpace(2,1));
+        backEnd.getPlayer2().getWorker1().setSpace(game.getSpace(1, 1));
+        backEnd.getPlayer2().getWorker2().setSpace(game.getSpace(2, 1));
 
         //scrivo nel game message la posizione del worker che voglio scegliere
-        int[] spaceOfMyChoice = {1,1};
+        int[] spaceOfMyChoice = {1, 1};
         gameMessage.setSpace1(spaceOfMyChoice);
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -82,9 +82,67 @@ public class ChooseWorkerStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
         int[] position = game.getLiteGame().getCurrWorker();
         assertArrayEquals(spaceOfMyChoice, position);
+    }
+
+    @Test
+    public void hypnusBlockTest() {
+        //esegue la execute dello stato ChooseWorkerState
+        //currPlayer's God -> TRITON
+        //inizializzo i player
+        backEnd.setChallenger(new Player("giuseppe", God.CHARON, game));
+        backEnd.setPlayer2(new Player("paolo", God.TRITON, game));
+        backEnd.setPlayer3(new Player("riccardo", God.ATHENA, game));
+
+        //inizializzo il contenuto di GameMessage perché non sono passato dallo stato setPlayersState ma sono andato direttamente nel CharonSwitchState
+        gameMessage.setName1("giuseppe");
+        gameMessage.setName2("paolo");
+        gameMessage.setName3("riccardo");
+        gameMessage.setGod1(God.CHARON);
+        gameMessage.setGod2(God.TRITON);
+        gameMessage.setGod3(God.HYPNUS);
+
+        gameMessage.setCharonSwitching(false);
+
+        //setto che lo stato precedente era PlaceWorkerState così lo aggiorno con l'update
+        backEnd.setState(backEnd.placeWorkersState);
+
+        //setto l'observer del litegame ( anche qui, lo faccio perché non sono passato da setPlayersState )
+        game.getLiteGame().addObservers(frontEnd);
+
+        //setto i giocatori nella classe LiteGame passando per il Game
+        game.setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
+
+        //siccome non passo dallo stato placeWorkerState inizializzo il giocatore corrente
+        //questo deve per forza di cose essere il challenger se voglio cambiare stato perché nello stato di PlaceWorkerState ciclo tre volte
+        backEnd.setCurrPlayer(backEnd.getChallenger());
+
+        //setto le posizioni del mio worker
+        backEnd.getPlayer2().getWorker1().setSpace(game.getSpace(1, 1));
+        backEnd.getPlayer2().getWorker2().setSpace(game.getSpace(2, 1));
+        game.getSpace(1, 1).setHeight(2);
+        game.getSpace(2, 1).setHeight(1);
+        game.getConstraint().setHypnus(true);
+        //scrivo nel game message la posizione del worker che voglio scegliere
+        int[] spaceOfMyChoice = {1, 1};
+        gameMessage.setSpace1(spaceOfMyChoice);
+
+
+        //all'inizio il frontEnd non ha ricevuto nessuna notifica
+        assertFalse(frontEnd.getUpdateModel());
+        //Mando la notify al controller
+        gameMessage.notify(gameMessage);
+
+        //il programma esegue la build e infine manda la notifica al frontEnd
+
+        //Il frontEnd è stato notificato
+        //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
+        assertTrue(frontEnd.getUpdateModel());
+
+        assertEquals(backEnd.getCurrWorker().getSpace(), game.getSpace(2, 1));
+        assertEquals(backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrPlayer().getWorker1()), backEnd.getPlayer2().getWorker2());
     }
 
     @Test
@@ -139,7 +197,7 @@ public class ChooseWorkerStateTest {
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -148,7 +206,7 @@ public class ChooseWorkerStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
         int[] newPosition = {2,1};
         int[] position = game.getLiteGame().getCurrWorker();
         assertArrayEquals(newPosition, position);
@@ -213,7 +271,7 @@ public class ChooseWorkerStateTest {
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -222,7 +280,7 @@ public class ChooseWorkerStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
         int[] position = game.getLiteGame().getCurrWorker();
         assertArrayEquals(null, position);

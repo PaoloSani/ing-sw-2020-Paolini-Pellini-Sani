@@ -11,7 +11,7 @@ public class BuildZeusTest {
     private Worker myWorker;
     private BuildZeus buildZeus = new BuildZeus();
     private Game game = new Game();
-    private Player player = new Player("test", God.ZEUS, game);
+    private Player  player = new Player("test", God.ZEUS, game);
     private int level;
 
 

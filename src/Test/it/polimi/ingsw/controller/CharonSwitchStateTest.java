@@ -28,6 +28,7 @@ public class CharonSwitchStateTest {
         game = backEnd.getGame();
         //il game message deve essere del frontEnd
         gameMessage = new GameMessage(frontEnd);
+        backEnd.charonSwitchState.reset();
 
     }
 
@@ -77,7 +78,7 @@ public class CharonSwitchStateTest {
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -88,7 +89,7 @@ public class CharonSwitchStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
     }
 
@@ -138,7 +139,7 @@ public class CharonSwitchStateTest {
 
 
         //all'inizio il frontEnd non ha ricevuto nessuna notifica
-        assertFalse(frontEnd.getUpdate());
+        assertFalse(frontEnd.getUpdateModel());
 
         //Mando la notify al controller
         gameMessage.notify(gameMessage);
@@ -147,7 +148,7 @@ public class CharonSwitchStateTest {
 
         //Il frontEnd è stato notificato
         //se fisso qua il breakpoint posso controllare che la tabella ricevuta sia giusta
-        assertTrue(frontEnd.getUpdate());
+        assertTrue(frontEnd.getUpdateModel());
 
     }
 
