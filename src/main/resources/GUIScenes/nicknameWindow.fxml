@@ -30,7 +30,7 @@
             <Font name="Herculanum" size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="fieldNickname" layoutX="340.0" layoutY="383.0" prefHeight="27.0" prefWidth="260.0">
+      <TextField fx:id="fieldNickname" layoutX="340.0" layoutY="383.0" onAction="#goFurther" prefHeight="27.0" prefWidth="260.0">
          <font>
             <Font name="Herculanum" size="13.0" />
          </font></TextField>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.ChallengerWindow">
+    <children>
+        <ImageView fitHeight="535.0" fitWidth="1018.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Backgrounds/bg_modeselect.png" />
+            </image>
+        </ImageView>
+      <ImageView fitHeight="535.0" fitWidth="321.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Backgrounds/bg_panelEdgeLeft.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="godCard" fitHeight="282.0" fitWidth="186.0" layoutX="41.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../FullGodAvatar/full_0000s_0043_god_and_hero_cards_0013_apollo.png" />
+         </image>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="nextButtonImage" fitHeight="30.0" fitWidth="32.0" layoutX="199.0" layoutY="431.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Buttons/btn_back.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="backButtonImage" fitHeight="38.0" fitWidth="31.0" layoutX="52.0" layoutY="429.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Buttons/btn_back.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="backGodButton" layoutX="52.0" layoutY="431.0" mnemonicParsing="false" onAction="#backGod" opacity="0.0" prefHeight="20.0" prefWidth="30.0" text="Button" />
+      <Button fx:id="nextGodButton" layoutX="201.0" layoutY="434.0" mnemonicParsing="false" onAction="#nextGod" opacity="0.0" prefHeight="20.0" prefWidth="28.0" text="Button" />
+      <ImageView fitHeight="407.0" fitWidth="284.0" layoutX="540.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Backgrounds/clp_bg2.png" />
+         </image>
+         <effect>
+            <Glow />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="229.0" fitWidth="341.0" layoutX="524.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../TitleGraphics/title_FG_cloud.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="godLabel" alignment="CENTER" layoutX="564.0" layoutY="118.0" prefHeight="37.0" prefWidth="236.0" stylesheets="@CSSFiles/Labels.css" text="Apollo" />
+      <Label fx:id="powerLabel" layoutX="571.0" layoutY="178.0" prefHeight="116.0" prefWidth="222.0" stylesheets="@CSSFiles/Texts.css" text="                 God Of Music                    Your Move: Your Worker may move into an opponent Worker's space by forcing their Worker to the space yours just vacated." wrapText="true" />
+      <ImageView fx:id="chooseButtonImage" fitHeight="37.0" fitWidth="55.0" layoutX="114.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Buttons/cm_btn_blue.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="116.0" layoutY="437.0" stylesheets="@CSSFiles/ButtonTexts.css" text="CHOOSE" wrapText="true" />
+      <ImageView fx:id="playImage" fitHeight="62.0" fitWidth="146.0" layoutX="351.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../Buttons/cm_btn_blue.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="playLabel" layoutX="384.0" layoutY="440.0" stylesheets="@CSSFiles/ButtonTexts.css" text="PLAY!" visible="false" />
+      <Button fx:id="chooseButton" layoutX="113.0" layoutY="432.0" mnemonicParsing="false" onAction="#chooseGod" opacity="0.0" prefHeight="27.0" prefWidth="55.0" text="Button" />
+      <Button fx:id="nextButton" layoutX="351.0" layoutY="417.0" mnemonicParsing="false" onAction="#goFurther" opacity="0.0" prefHeight="62.0" prefWidth="112.0" text="Button" visible="false" />
+    </children>
+</AnchorPane>
