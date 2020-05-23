@@ -34,18 +34,82 @@ public class ChallengerWindow extends GameWindow {
     public void backGod(ActionEvent actionEvent) {
         switch (currGod){
             case APOLLO:{
-                currGod = God.PROMETHEUS;
+                currGod = God.ZEUS;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0014_god_and_hero_cards_0042_zeus.png"));
+                break;
+            }
+            case ARTEMIS:{
+                currGod = God.APOLLO;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0043_god_and_hero_cards_0013_apollo.png"));
+                break;
+            }
+            //
+            case ATHENA:{
+                currGod = God.ARTEMIS;
                 godCard.setImage(new Image("FullGodAvatar/full_0000s_0004_god_and_hero_cards_0052_Prometheus.png"));
                 break;
             }
-            case PROMETHEUS:{
+            case ATLAS:{
+                currGod = God.ATHENA;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0052_god_and_hero_cards_0004_Athena.png"));
+                break;
+            }
+            //
+            case CHARON:{
+                currGod = God.ATLAS;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0004_god_and_hero_cards_0052_Prometheus.png"));
+                break;
+            }
+            //
+            case DEMETER:{
+                currGod = God.CHARON;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0050_god_and_hero_cards_0006_Demeter.png"));
+                break;
+            }
+            case HEPHAESTUS:{
+                currGod = God.DEMETER;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0050_god_and_hero_cards_0006_Demeter.png"));
+                break;
+            }
+            //
+            case HYPNUS:{
+                currGod = God.HEPHAESTUS;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0004_god_and_hero_cards_0052_Prometheus.png"));
+                break;
+            }
+            case MINOTAUR:{
+                currGod = God.HYPNUS;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0019_god_and_hero_cards_0037_Hypnus.png"));
+                break;
+            }
+            case MORTAL:{
                 currGod = God.MINOTAUR;
                 godCard.setImage(new Image("FullGodAvatar/full_0000s_0008_god_and_hero_cards_0048_Minotaur.png"));
                 break;
             }
-            case MINOTAUR:{
-                currGod = God.APOLLO;
-                godCard.setImage(new Image("FullGodAvatar/full_0000s_0043_god_and_hero_cards_0013_apollo.png"));
+            case PAN:{
+                currGod = God.MORTAL;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0000_god_and_hero_cards_0057_HumanGord.png"));
+                break;
+            }
+            case POSEIDON:{
+                currGod = God.PAN;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0046_god_and_hero_cards_0010_Pan.png"));
+                break;
+            }
+            case PROMETHEUS:{
+                currGod = God.POSEIDON;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0045_god_and_hero_cards_0011_Poseidon.png"));
+                break;
+            }
+            case TRITON:{
+                currGod = God.PROMETHEUS;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0004_god_and_hero_cards_0052_Prometheus.png"));
+                break;
+            }
+            case ZEUS:{
+                currGod = God.TRITON;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0028_god_and_hero_cards_0028_triton.png"));
                 break;
             }
         }
@@ -54,18 +118,83 @@ public class ChallengerWindow extends GameWindow {
     }
 
     public void nextGod(ActionEvent actionEvent) {
-        switch (currGod){
-            case APOLLO:{
+        switch (currGod) {
+            case APOLLO: {
+                currGod = God.ARTEMIS;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0014_god_and_hero_cards_0042_zeus.png"));
+                break;
+            }
+            case ARTEMIS: {
+                currGod = God.ATHENA;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0052_god_and_hero_cards_0004_Athena.png"));
+                break;
+            }
+            //
+            case ATHENA: {
+                currGod = God.ATLAS;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0004_god_and_hero_cards_0052_Prometheus.png"));
+                break;
+            }
+            case ATLAS: {
+                currGod = God.CHARON;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0052_god_and_hero_cards_0004_Athena.png"));
+                break;
+            }
+            //
+            case CHARON: {
+                currGod = God.DEMETER;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0050_god_and_hero_cards_0006_Demeter.png"));
+                break;
+            }
+            //
+            case DEMETER: {
+                currGod = God.HEPHAESTUS;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0050_god_and_hero_cards_0006_Demeter.png"));
+                break;
+            }
+            case HEPHAESTUS: {
+                currGod = God.HYPNUS;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0019_god_and_hero_cards_0037_Hypnus.png"));
+                break;
+            }
+            //
+            case HYPNUS: {
                 currGod = God.MINOTAUR;
                 godCard.setImage(new Image("FullGodAvatar/full_0000s_0008_god_and_hero_cards_0048_Minotaur.png"));
                 break;
             }
-            case MINOTAUR:{
+
+            case MINOTAUR: {
+                currGod = God.MORTAL;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0000_god_and_hero_cards_0057_HumanGord.png"));
+                break;
+            }
+            case MORTAL: {
+                currGod = God.PAN;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0046_god_and_hero_cards_0010_Pan.png"));
+                break;
+            }
+            case PAN: {
+                currGod = God.POSEIDON;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0045_god_and_hero_cards_0011_Poseidon.png"));
+                break;
+            }
+            case POSEIDON: {
                 currGod = God.PROMETHEUS;
                 godCard.setImage(new Image("FullGodAvatar/full_0000s_0004_god_and_hero_cards_0052_Prometheus.png"));
                 break;
             }
-            case PROMETHEUS:{
+            case PROMETHEUS: {
+                currGod = God.TRITON;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0028_god_and_hero_cards_0028_triton.png"));
+                break;
+            }
+            case TRITON: {
+                currGod = God.ZEUS;
+                godCard.setImage(new Image("FullGodAvatar/full_0000s_0014_god_and_hero_cards_0042_zeus.png"));
+                break;
+            }
+            case ZEUS: {
                 currGod = God.APOLLO;
                 godCard.setImage(new Image("FullGodAvatar/full_0000s_0043_god_and_hero_cards_0013_apollo.png"));
                 break;
@@ -73,7 +202,7 @@ public class ChallengerWindow extends GameWindow {
         }
         godLabel.setText(currGod.toString());
         powerLabel.setText(currGod.getPower());
-    }
+        }
 
     public void chooseGod(ActionEvent actionEvent) {
         guiHandler.addGod(currGod);
