@@ -40,12 +40,15 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private boolean updateLG = false;
     private String fromClient;
     private int[] spaceFromInput;
-    private boolean enableInput;
+    private boolean enableInputString, enableInputChoice, enableInputSpace,enableInputClose;
 
     public CommandLineGame() {
         this.messageHandler = new MessageHandler(this);
         this.clientConnection = new ClientConnection("127.0.0.1", 4702, messageHandler);
-        enableInput = false;
+        enableInputString = false;
+        enableInputChoice = false;
+        enableInputSpace= false;
+        enableInputClose = false;
     }
 
     public void runCLI() {
@@ -75,13 +78,13 @@ public class CommandLineGame implements Observer<MessageHandler> {
                     else if (lastAction.equals("Choose Worker")) {
                         if (god == God.CHARON) {
                             System.out.println("  Do you want to use Charon power? (type yes/no)");
-                            if (in.nextLine().equalsIgnoreCase("YES")) {
+                            if (readStringFromInput().equalsIgnoreCase("YES")) {
                                 lastAction = "Charon Switch";
                                 messageToPrint = "  Please select a space occupied by an opponent worker (ROW-COL)";
                             }
                         } else if (god == God.PROMETHEUS) {
                             System.out.println("  Do you want to use Prometheus power? (yes/no)");
-                            if (in.nextLine().equalsIgnoreCase("YES")) {
+                            if (readChoiceFromInput().equalsIgnoreCase("YES")) {
                                 lastAction = "Prometheus Build";
                                 messageToPrint = "  Please select the space where you want to build (ROW-COL)";
                             }
@@ -105,7 +108,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                     else if (lastAction.equals("Move")) {
                         if ((god == God.ARTEMIS && moveCounter == 1) || (god == God.TRITON && isPerimetralSpace(lastSpace))) {
                             System.out.println("  Do you want to move again? (yes/no)");
-                            if (in.nextLine().equalsIgnoreCase("YES")) {
+                            if (readChoiceFromInput().equalsIgnoreCase("YES")) {
                                 lastAction = "Move";
                                 messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
                                 moveCounter++;
@@ -125,7 +128,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                              !Arrays.equals(firstWorker, serializableLiteGame.getCurrWorker()))           ){       // sta giocando con il suo secondo worker
 
                             System.out.println("  Do you want to build again? (yes/no)");
-                            if (in.nextLine().equalsIgnoreCase("YES") ) {
+                            if (readChoiceFromInput().equalsIgnoreCase("YES") ) {
                                 lastAction = "Build";
                                 messageToPrint = "  Please select the space where you want to build (ROW-COL)";
                                 buildCounter++;
@@ -153,7 +156,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                     if (lastAction.contains("Build")) {
                         if ( god == God.ATLAS ) {
                             System.out.println("  Do you want to build a dome? (yes/no)");
-                            if(in.nextLine().equals("yes")) clientMessage.setLevelToBuild(4);
+                            if(readChoiceFromInput().equals("YES")) clientMessage.setLevelToBuild(4);
                         }
                         else clientMessage.setLevelToBuild(getHeight(clientMessage.getSpace1())+1);
                         if ( buildCounter == 1 ) {
@@ -203,7 +206,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
             System.out.println("  What's your name?\n\n" + ColourFont.ANSI_RESET);
             while (!messageFromServer.equals("Nickname accepted")) {
-                nickname = in.nextLine().toUpperCase();
+                nickname = readStringFromInput().toUpperCase();
                 clientConnection.send(nickname);
                 messageFromServer = readString();
                 if (messageFromServer.equals("Invalid Nickname")) {
@@ -218,7 +221,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                     System.out.println(" - A) CREATE A NEW MATCH\n      Be the challenger of the isle!\n");
                     System.out.println(" - B) PLAY WITH YOUR FRIENDS\n      Play an already existing game!\n");
                     System.out.println(" - C) PLAY WITH STRANGERS\n      Challenge yourself with randomly chosen players!\n");
-                    mode = in.nextLine().toUpperCase();
+                    mode = readStringFromInput().toUpperCase();
                     if (!mode.equals("A") && !mode.equals("B") && !mode.equals("C"))
                         System.out.println("Dare you challenge the Olympus?? Retry\n ");
                 }
@@ -230,7 +233,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                         while (numOfPlayers != 2 && numOfPlayers != 3 && !quit) {
                             System.out.println("\n  Choose the number of players (2 or 3)");
                             System.out.println("  Type quit to return back!\n");
-                            String actionA = in.nextLine();
+                            String actionA = readStringFromInput();
                             actionA = actionA.toUpperCase();
                             if (actionA.equals("QUIT")) {
                                 quit = true;
@@ -252,7 +255,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                         System.out.println("  Type quit to return back!\n");
                         boolean validGameId = false;
                         while (!validGameId && !quit){
-                            String actionB = in.nextLine();
+                            String actionB = readStringFromInput();
                             actionB = actionB.toUpperCase();
                             if (actionB.equals("QUIT")) {
                                 quit = true;
@@ -278,7 +281,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                         while (numOfPlayers != 2 && numOfPlayers != 3 && !quit) {
                             System.out.println("  Choose the number of players (2 or 3)");
                             System.out.println("  Type quit to return back!");
-                            String actionC = in.nextLine();
+                            String actionC = readStringFromInput();
                             actionC = actionC.toUpperCase();
                             if (actionC.equals("QUIT")) {
                                 quit = true;
@@ -319,7 +322,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                 }
                 System.out.println();
                 System.out.println("  Please,choose a God\n");
-                String singleChosenGod = in.nextLine().toUpperCase();
+                String singleChosenGod = readStringFromInput();
                 try {
                     chosenGods.add(God.valueOf(singleChosenGod));
                 } catch (IllegalArgumentException e) {
@@ -352,7 +355,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
             while ( !messageFromFrontEnd.contains(choice) ){
                 System.out.println("  Choose your god! Available gods: " + messageFromFrontEnd);
-                choice = in.nextLine().toUpperCase();
+                choice = readStringFromInput();
             }
             god = God.valueOf(choice);
             //in realtà settare il nickname è superfluo perché il frontend già conosce i nickname dei client
@@ -403,7 +406,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
         while ( newSpace[0] < 0 || newSpace[0] > 4 || newSpace[1] < 0 || newSpace[1] > 4 ) {
             System.out.println("  Insert the space coordinates (ROW-COL): \n ");
             for(boolean validMessage = false;!validMessage; ) {
-                String space = in.nextLine();
+                String space = readSpaceFromInput();
                 space.replace(" ","-");
                 space.replace(",","-");
                 String[] coord = space.split("-");
@@ -634,7 +637,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
     //todo: da finire
     String parseInput() {
-        String message = in.nextLine();
+        String message = readStringFromInput();
         message = message.toUpperCase();
         String[] parsedMessage = message.split(" ");
         for (String s : parsedMessage){
@@ -655,38 +658,99 @@ public class CommandLineGame implements Observer<MessageHandler> {
         this.numOfPlayers = i;
     }
 
-   /* public synchronized String readStringFromInput(){
-        fromClient = null;
-        enableInput = true;
-        while( fromClient )
-    }
-    */
+   public String readSpaceFromInput() {
+       enableInputSpace = true;
+       while (enableInputSpace) {
+           try {
+               wait();
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
+           if (!enableInputSpace) return fromClient;
+       }
+       return fromClient;
+   }
 
-    public void readInputThread() {
-        new Thread ( () ->
-        {
-            String command = "start";
-            while (!command.equals("CLOSE")) {
-                if (in.hasNext()) {
-                    command = in.nextLine().toUpperCase();
-                    if ( enableInput ){
-                        fromClient = command;
-                    }
-
-                    //processo la stringa
-                    //se non è il suo turno non riceve NEXT ACTION dal front end, quindi non fa niente se l'utente scrive un comando valido
-
-                }
+    public String readChoiceFromInput() {
+        enableInputChoice = true;
+        while (enableInputChoice) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            clientConnection.send(Message.CLOSE);
-            clientConnection.setActive(false);
+            if (!enableInputChoice) return fromClient;
         }
-        ).start();
+        return fromClient;
     }
+
+    public String readStringFromInput() {
+        enableInputString = true;
+        while (enableInputString) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (!enableInputString) return fromClient;
+        }
+        return fromClient;
+    }
+
+
+
+   public void readInputThread() {
+       new Thread(() ->
+       {
+           String command = "start";
+           while (!command.equals("CLOSE")) {
+               if (in.hasNext()) {
+                   command = in.nextLine().toUpperCase();
+                   while (enableInputString || enableInputChoice || enableInputSpace || !enableInputClose) {
+                       // se valido
+                       if (command.equals("CLOSE")) enableInputClose = true;
+
+                       if (enableInputSpace) {
+                           command.replace(" ", "-");
+                           command.replace(",", "-");
+                           String[] coord = command.split("-");
+                           if (coord.length == 2) {
+                               enableInputSpace = false;
+                               fromClient = command; //ok space valida
+                               notifyAll();
+                           } else System.out.println("  Invalid space!");
+                       } else if (enableInputChoice) {
+                           if (command.equals("YES") || command.equals("NO")) {
+                               enableInputChoice = false;
+                               fromClient = command;
+                               notifyAll();
+                           } else System.out.println("  Invalid choice!");
+                       } else if (enableInputString) {
+                           command.replace(" ", "-");
+                           command.replace(",", "-");
+                           String[] coord = command.split("-");
+                           if (coord.length == 1) {
+                               enableInputString = false;
+                               fromClient = command; //ok stringa valida
+                               notifyAll();
+                           } else System.out.println("  Invalid choice!");
+                       }
+                   }
+               }
+               if (enableInputClose) {
+                   clientConnection.send(Message.CLOSE);
+                   clientConnection.setActive(false);
+               }
+               //processo la stringa
+               //se non è il suo turno non riceve NEXT ACTION dal front end, quindi non fa niente se l'utente scrive un comando valido
+           }
+       }
+       ).start();
+   }
 
     //Legge stringhe dal MessageHandler se la cli è stata notificata per una stringa nuova dal messageHandler
     public synchronized String readString(){
-        while ( !updateString ){
+           while ( !updateString ){
             try {
                  wait();
             } catch (InterruptedException e) {

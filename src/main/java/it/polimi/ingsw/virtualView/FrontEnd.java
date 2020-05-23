@@ -228,7 +228,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     @Override
-    public synchronized void update(LiteGame message) {
+    public void update(LiteGame message) {
         //update riceve litegame
         // TODO: se il messaggio è uguale al precedente o se liteGame è vuoto, ok
 
@@ -244,7 +244,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
     }
 
-    public synchronized void resetUpdate() { this.updateModel = false; }
+    public  void resetUpdate() { this.updateModel = false; }
 
     public void sendLiteGame(){
         SerializableLiteGame toSend = liteGame.makeSerializable();
@@ -288,7 +288,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
 
-    public synchronized String[] readChallengerMessage() {
+    public String[] readChallengerMessage() {
         while ( client1.getChallengerChoice() == null ){
             try {
                 wait();
@@ -299,7 +299,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         return client1.getChallengerChoice();
     }
 
-    public synchronized ClientMessage readClientMessage(){
+    public ClientMessage readClientMessage(){
         while ( !currClient.isUpdateClientMessage() ) {
             try {
                 wait();
