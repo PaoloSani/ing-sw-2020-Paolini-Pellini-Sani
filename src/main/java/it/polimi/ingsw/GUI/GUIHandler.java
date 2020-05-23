@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -157,9 +158,34 @@ public class GUIHandler implements Observer<MessageHandler> {
         clientConnection.send(settingGameMessage);
     }
 
-    public void addGod(God currGod) {
-        if (gods.contains(currGod)) gods.remove(currGod);
-        else if (numOfPlayers <= gods.size()) gods.add(currGod);
+    public void addGod(God currGod, Label label1, Label label2, Label label3) {
+        numOfPlayers = 2;
+        if (gods.contains(currGod)) {
+            gods.remove(currGod);
+        }
+        else if (numOfPlayers > gods.size()) {
+            gods.add(currGod);
+        }
+        if (gods.size() == 0) label1.setVisible(false);
+
+        else if (gods.size() == 1) {
+            label1.setText(gods.get(0).toString());
+            label1.setVisible(true);
+            label2.setVisible(false);
+        }
+        else if(gods.size() == 2) {
+            label1.setText(gods.get(0).toString());
+            label2.setText(gods.get(1).toString());
+            label2.setVisible(true);
+            label3.setVisible(false);
+        }
+        else if (gods.size() == 3) {
+            label1.setText(gods.get(0).toString());
+            label2.setText(gods.get(1).toString());
+            label3.setText(gods.get(2).toString());
+            label3.setVisible(true);
+        }
+
     }
 
     public List<God> getGods(){

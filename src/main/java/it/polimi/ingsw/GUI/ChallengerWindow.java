@@ -205,29 +205,9 @@ public class ChallengerWindow extends GameWindow {
         }
 
     public void chooseGod(ActionEvent actionEvent) {
-        guiHandler.addGod(currGod);
+        guiHandler.addGod(currGod,firstGodLabel,secondGodLabel,thirdGodLabel);
         List<God> gods = guiHandler.getGods();
-        int size = gods.size();
-        switch (size){
-            case 0:
-                firstGodLabel.setVisible(false);
-                break;
-            case 1:
-                firstGodLabel.setText(currGod.toString());
-                firstGodLabel.setVisible(true);
-                secondGodLabel.setVisible(false);
-                break;
-            case 2:
-                secondGodLabel.setText(currGod.toString());
-                secondGodLabel.setVisible(true);
-                thirdGodLabel.setVisible(false);
-                break;
-            case 3:
-                thirdGodLabel.setText(currGod.toString());
-                thirdGodLabel.setVisible(true);
-                break;
-        }
-        isVisible = (guiHandler.getNumOfPlayers() == size);
+        isVisible = (guiHandler.getNumOfPlayers() == guiHandler.getGods().size());
         if (isVisible){
             playImage.setVisible(true);
             playLabel.setVisible(true);
