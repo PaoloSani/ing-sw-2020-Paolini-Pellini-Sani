@@ -4,10 +4,12 @@ import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.SettingGameMessage;
 import it.polimi.ingsw.virtualView.FrontEnd;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -25,6 +27,7 @@ public class ServerConnection implements Runnable {
     private Socket socket;
     private Server server;
     private boolean active = true;
+    private boolean clientIsActive = true;
     private String name = null;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -59,14 +62,15 @@ public class ServerConnection implements Runnable {
 
     public void read(){
         try {
-            while ( active ) {
+            while (clientIsActive) {
                 Object newMessage = in.readObject();
                 messageInQueue.add(newMessage);
             }
-        } catch (SocketTimeoutException s){
-            active = false;
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch(SocketException | EOFException | SocketTimeoutException s ){
+            clientIsActive = false;
+            messageInQueue.add(Message.CLOSE);
+        } catch ( IOException | ClassNotFoundException e) {
+                e.printStackTrace();
         }
     }
 
@@ -88,6 +92,7 @@ public class ServerConnection implements Runnable {
              out = new ObjectOutputStream(socket.getOutputStream());
              out.flush();
              in = new ObjectInputStream(socket.getInputStream());
+             out.reset();
              send("Welcome, server ready!\n");
              sendPing();
              Thread read = new Thread(this::read);
@@ -95,8 +100,7 @@ public class ServerConnection implements Runnable {
 
              while (active) {
                  Object toSend = messageOutQueue.poll();
-                 while ( toSend != null ) {
-                     out.reset();
+                 while ( toSend != null && clientIsActive ) {
                      out.writeObject(toSend);
                      out.flush();
                      toSend = messageOutQueue.poll();
@@ -141,7 +145,17 @@ public class ServerConnection implements Runnable {
                  out.flush();
                  toSend = messageOutQueue.poll();
              }
+             closeConnection();
              //controllo se la connessione cade o se il client si disconnette
+         }
+         catch ( SocketException s){
+             clientIsActive = false;
+             if (gameID != -1) {
+                 server.endGame(gameID, this);
+             } else {
+                 server.removeFromWaitingList(this);
+                 server.removeNickname(name);
+             }
          }
          catch ( SocketTimeoutException s ){
              active = false;
@@ -150,9 +164,6 @@ public class ServerConnection implements Runnable {
             e.printStackTrace();
          }
 
-         finally{
-             closeConnection();
-         }
     }
 
     public void setNickname(String name){

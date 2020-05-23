@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static java.lang.Thread.sleep;
+
 public class Server {
     public static final int PORT = 4702;
     private ServerSocket serverSocket;
@@ -37,6 +39,7 @@ public class Server {
                 Socket newSocket = serverSocket.accept();
                 ServerConnection serverConnection = new ServerConnection(newSocket, this);
                 executor.submit(serverConnection);
+                printNicknames();
             } catch (IOException e) {
                 System.out.println("Connection Error!");
             }
@@ -82,6 +85,7 @@ public class Server {
                 playingConnection3Players.put(currMatch, list);
                 waitingConnection3Players.clear();
                 client.send("Starting new game.");
+
                 startGame(currMatch);
             }
             else {
@@ -166,12 +170,12 @@ public class Server {
     public void endGame(int gameID, ServerConnection closingPlayer) {
         if ( playingConnection2Players.containsKey(gameID) ){
             for ( ServerConnection s : playingConnection2Players.get(gameID) ){
+                s.setGameID(-1);
                 if ( closingPlayer != null ) {
                     s.send("Ending game: " + closingPlayer.getName() + " has left");
                 }
                 if ( s != closingPlayer ) {
                     s.send(Message.CLOSE);
-                    s.setActive(false);
                 }
                 removeNickname(s.getName());
             }
@@ -184,7 +188,6 @@ public class Server {
                 }
                 if ( s != closingPlayer ) {
                     s.send(Message.CLOSE);
-                    s.setActive(false);
                 }
                 removeNickname(s.getName());
             }
@@ -204,5 +207,22 @@ public class Server {
     public void removeNickname(String nameToRemove) {
         //Firstly, I must check the player is not waiting in a list. In that case I'll remove him
         nicknames.remove(nameToRemove);
+    }
+
+    public void printNicknames(){
+        new Thread ( () ->{
+            while( true ){
+                try {
+                    sleep(5000);
+                    for ( String name : nicknames ){
+                        System.out.print(name + "\t");
+                    }
+                    if (nicknames.size() > 0 ) System.out.println();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        ).start();
     }
 }

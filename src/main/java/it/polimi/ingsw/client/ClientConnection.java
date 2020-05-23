@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.Message;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -29,6 +30,7 @@ public class ClientConnection implements Runnable{
     }
 
     private boolean active = true; /////////////
+    private boolean serverIsActive = true;
 
     public synchronized boolean isActive(){
         return active;
@@ -44,18 +46,24 @@ public class ClientConnection implements Runnable{
 
     public void read(){
         try {
-            while ( active ) {
+            while ( serverIsActive ) {
                 Object newMessage = in.readObject();
                 if ( newMessage instanceof Message && Message.PING.equals(newMessage)){
                     send(Message.PONG);
                 }
                 else {
+                    if ( newMessage instanceof Message && newMessage.equals(Message.CLOSE)){
+                        serverIsActive = false;
+                    }
                     messageInQueue.add(newMessage);
                 }
             }
-        } catch (SocketTimeoutException s){
+        }
+        catch(SocketException | EOFException | SocketTimeoutException s ){
+            serverIsActive = false;
             active = false;
-        } catch (IOException | ClassNotFoundException e) {
+        }
+        catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -73,7 +81,7 @@ public class ClientConnection implements Runnable{
 
             while ( active || messageInQueue.peek() != null ) {
                 Object toSend = messageOutQueue.poll();
-                while ( toSend != null ) {
+                while ( toSend != null && serverIsActive ) {
                     out.reset();
                     out.writeObject(toSend);
                     out.flush();
@@ -84,15 +92,19 @@ public class ClientConnection implements Runnable{
                     Object message = messageInQueue.poll();
                     if (message != null) {
                         if ( message instanceof String ) {
-                            messageHandler.setStringRead(true);
-                            messageHandler.setMessage((String) message);
+                            if ( ((String) message).contains("Ending")){
+                                System.out.println("  " + message);
+                            }
+                            else {
+                                messageHandler.setStringRead(true);
+                                messageHandler.setMessage((String) message);
+                            }
                         } else if (message instanceof SerializableLiteGame) {
                             messageHandler.setLGRead(true);
                             messageHandler.setLiteGameFromServer((SerializableLiteGame) message);
                         } else if (message instanceof Message) {
                             if (message.equals(Message.CLOSE)) {
                                 active = false;
-                                read.interrupt();
                             }
                         }
                     }
@@ -121,6 +133,7 @@ public class ClientConnection implements Runnable{
         in.close();
         out.close();
         socket.close();
+        System.out.println("  End of the game.");
     }
 
     public String readString(){
