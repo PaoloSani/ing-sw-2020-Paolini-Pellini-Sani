@@ -191,4 +191,6 @@ public class GUIHandler implements Observer<MessageHandler> {
     public List<God> getGods(){
         return gods;
     }
+
+
 }

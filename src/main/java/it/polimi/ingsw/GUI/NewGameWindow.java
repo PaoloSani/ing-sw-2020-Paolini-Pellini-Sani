@@ -55,7 +55,16 @@ public class NewGameWindow extends GameWindow {
                     IDLabel.setVisible(true);
                 }
             }
+                //TODO:impostare questo metodo con dei thread! (O loading)
+                String message = guiHandler.readString();
+                if(message.contains("Game has started")) {
+                    if (guiHandler.getMode() == Mode.NEW_GAME){
+                        guiHandler.loadFXMLFile(nextButton, nextStage, "/GUIScenes/challengerWindow.fxml");
+                    }
+                    else{
+                        guiHandler.loadFXMLFile(nextButton,nextStage,"/GUIScenes/waitingWindow.fxml");
+                    }
+                }
         }
-
     }
 }

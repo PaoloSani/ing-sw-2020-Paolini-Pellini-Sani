@@ -30,12 +30,33 @@ public class ExistingGameWindow extends GameWindow {
             nextButton.setVisible(false);
             waitLabel.setText("THE CHALLENGER IS CHOOSING THE GODS");
             waitLabel.setVisible(true);
-            //guiHandler.loadFXMLFile(nextButton, nextStage, "/GUIScenes/beginningMatchWindow.fxml");
+
+                String message = guiHandler.readString();
+                if(message.contains("Game has started")) {
+                    if (guiHandler.getMode() == Mode.NEW_GAME){
+                        guiHandler.loadFXMLFile(nextButton, nextStage, "/GUIScenes/challengerWindow.fxml");
+                    }
+                    else{
+                        guiHandler.loadFXMLFile(nextButton,nextStage,"/GUIScenes/waitingWindow.fxml");
+                    }
+                }
+
         } else if (messageFromServer.equals(Message.WAIT.toString())){
             IDField.setVisible(false);
             nextButton.setVisible(false);
             waitLabel.setText("WAITING FOR AN OTHER PLAYER");
             waitLabel.setVisible(true);
+
+                String message = guiHandler.readString();
+                if(message.contains("Game has started")) {
+                    if (guiHandler.getMode() == Mode.NEW_GAME){
+                        guiHandler.loadFXMLFile(nextButton, nextStage, "/GUIScenes/challengerWindow.fxml");
+                    }
+                    else{
+                        guiHandler.loadFXMLFile(nextButton,nextStage,"/GUIScenes/waitingWindow.fxml");
+                    }
+                }
+
         } else if (messageFromServer.equals(Message.INVALID_ID.toString())){
             IDField.setText("PLEASE, TYPE A VALID ID");
         }
