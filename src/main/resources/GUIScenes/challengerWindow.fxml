@@ -41,8 +41,8 @@
             <Image url="@../Buttons/btn_back.png" />
          </image>
       </ImageView>
-      <Button fx:id="backGodButton" layoutX="52.0" layoutY="431.0" mnemonicParsing="false" onAction="#backGod" opacity="0.0" prefHeight="20.0" prefWidth="30.0" text="Button" />
-      <Button fx:id="nextGodButton" layoutX="201.0" layoutY="434.0" mnemonicParsing="false" onAction="#nextGod" opacity="0.0" prefHeight="20.0" prefWidth="28.0" text="Button" />
+      <Button fx:id="backGodButton" layoutX="52.0" layoutY="431.0" mnemonicParsing="false" onAction="#backGod" onMousePressed="#clickBack" onMouseReleased="#releaseBack" opacity="0.0" prefHeight="20.0" prefWidth="30.0" text="Button" />
+      <Button fx:id="nextGodButton" layoutX="201.0" layoutY="434.0" mnemonicParsing="false" onAction="#nextGod" onMousePressed="#clickNext" onMouseReleased="#releaseNext" opacity="0.0" prefHeight="20.0" prefWidth="28.0" text="Button" />
       <ImageView fitHeight="407.0" fitWidth="284.0" layoutX="540.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Backgrounds/clp_bg2.png" />
@@ -70,7 +70,10 @@
          </image>
       </ImageView>
       <Label fx:id="playLabel" layoutX="384.0" layoutY="440.0" stylesheets="@CSSFiles/ButtonTexts.css" text="PLAY!" visible="false" />
-      <Button fx:id="chooseButton" layoutX="113.0" layoutY="432.0" mnemonicParsing="false" onAction="#chooseGod" opacity="0.0" prefHeight="27.0" prefWidth="55.0" text="Button" />
-      <Button fx:id="nextButton" layoutX="351.0" layoutY="417.0" mnemonicParsing="false" onAction="#goFurther" opacity="0.0" prefHeight="62.0" prefWidth="112.0" text="Button" visible="false" />
+      <Button fx:id="chooseButton" layoutX="113.0" layoutY="432.0" mnemonicParsing="false" onAction="#chooseGod" onMousePressed="#clickChoose" onMouseReleased="#releaseChoose" opacity="0.0" prefHeight="27.0" prefWidth="55.0" text="Button" />
+      <Button fx:id="nextButton" layoutX="351.0" layoutY="417.0" mnemonicParsing="false" onAction="#goFurther" onMousePressed="#clickPlay" onMouseReleased="#releasePlay" opacity="0.0" prefHeight="62.0" prefWidth="112.0" text="Button" visible="false" />
+      <Label fx:id="firstGodLabel" layoutX="390.0" layoutY="215.0" stylesheets="@CSSFiles/Labels.css" text="Label" visible="false" />
+      <Label fx:id="secondGodLabel" layoutX="390.0" layoutY="268.0" stylesheets="@CSSFiles/Labels.css" text="Label" visible="false" />
+      <Label fx:id="thirdGodLabel" layoutX="390.0" layoutY="317.0" stylesheets="@CSSFiles/Labels.css" text="Label" visible="false" />
     </children>
 </AnchorPane>

@@ -4,6 +4,7 @@ import it.polimi.ingsw.CLI.ColourFont;
 import it.polimi.ingsw.client.ClientConnection;
 import it.polimi.ingsw.client.MessageHandler;
 import it.polimi.ingsw.client.SettingGameMessage;
+import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
 import it.polimi.ingsw.util.Observer;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GUIHandler implements Observer<MessageHandler> {
 
@@ -26,6 +29,7 @@ public class GUIHandler implements Observer<MessageHandler> {
     private SettingGameMessage settingGameMessage;
     private int gameID;
     private Mode mode;
+    public List<God> gods = new ArrayList<>();
 
 
     public GUIHandler(){
@@ -115,6 +119,10 @@ public class GUIHandler implements Observer<MessageHandler> {
         this.numOfPlayers = numToSet;
     }
 
+    public int getNumOfPlayers() {
+        return numOfPlayers;
+    }
+
     public void setGameID(int gameID){
         this.gameID = gameID;
     }
@@ -149,4 +157,12 @@ public class GUIHandler implements Observer<MessageHandler> {
         clientConnection.send(settingGameMessage);
     }
 
+    public void addGod(God currGod) {
+        if (gods.contains(currGod)) gods.remove(currGod);
+        else if (numOfPlayers <= gods.size()) gods.add(currGod);
+    }
+
+    public List<God> getGods(){
+        return gods;
+    }
 }
