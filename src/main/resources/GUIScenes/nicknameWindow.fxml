@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.NicknameWindow">
    <children>
@@ -20,17 +25,18 @@
             <Image url="@../TitleGraphics/santorini-logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="336.0" layoutY="328.0" prefHeight="55.0" prefWidth="295.0" text="Choose your nickname" textAlignment="CENTER" textFill="#005bb5">
+      <Label fx:id="adviseLabel" alignment="CENTER" layoutX="274.0" layoutY="328.0" prefHeight="55.0" prefWidth="398.0" stylesheets="@CSSFiles/Labels.css" text="Choose your nickname" textAlignment="CENTER" textFill="#005bb5">
          <font>
             <Font name="Herculanum" size="22.0" />
          </font>
       </Label>
-      <TextField layoutX="340.0" layoutY="383.0" prefHeight="27.0" prefWidth="260.0" />
-      <ImageView fitHeight="27.0" fitWidth="55.0" layoutX="452.0" layoutY="434.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Buttons/btn_back.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="nextButton" layoutX="452.0" layoutY="434.0" mnemonicParsing="false" onAction="#goFurther" prefHeight="27.0" prefWidth="27.0" visible="false" />
+      <TextField fx:id="fieldNickname" layoutX="340.0" layoutY="383.0" prefHeight="27.0" prefWidth="260.0">
+         <font>
+            <Font name="Herculanum" size="13.0" />
+         </font></TextField>
+      <Button fx:id="nextButton" layoutX="431.0" layoutY="435.0" mnemonicParsing="false" onAction="#goFurther" prefHeight="27.0" prefWidth="84.0" stylesheets="@CSSFiles/Buttons.css" text="NEXT">
+         <font>
+            <Font name="Herculanum" size="13.0" />
+         </font></Button>
    </children>
 </AnchorPane>

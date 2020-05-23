@@ -4,15 +4,19 @@ import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.SettingGameMessage;
 import it.polimi.ingsw.virtualView.FrontEnd;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Vector;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -23,6 +27,7 @@ public class ServerConnection implements Runnable {
     private Socket socket;
     private Server server;
     private boolean active = true;
+    private boolean clientIsActive = true;
     private String name = null;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -31,8 +36,8 @@ public class ServerConnection implements Runnable {
     private volatile boolean updateClientMessage;
     private int gameID;
     private FrontEnd frontEnd;
-    private Queue<Object> messageInQueue;
-    private Queue<Object> messageOutQueue;
+    private BlockingQueue<Object> messageInQueue;
+    private BlockingQueue<Object> messageOutQueue;
 
 
     public ServerConnection(Socket socket, Server server) {
@@ -43,39 +48,40 @@ public class ServerConnection implements Runnable {
         this.updateClientMessage = false;
         this.gameID = -1;
         frontEnd = null;
-        messageInQueue = new LinkedBlockingQueue<>();
-        messageOutQueue = new LinkedBlockingQueue<>();
+        messageInQueue = new LinkedBlockingDeque<>();
+        messageOutQueue = new LinkedBlockingDeque<>();
     }
 
     private synchronized boolean isActive(){
         return active;
     }
 
-    public void send(Object message) {
+    public synchronized void send(Object message) {
         messageOutQueue.add(message);
     }
 
     public synchronized void read(){
         try {
-            while ( active ) {
+            while (clientIsActive) {
                 Object newMessage = in.readObject();
                 messageInQueue.add(newMessage);
             }
-        } catch (SocketTimeoutException s){
-            active = false;
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch(SocketException | EOFException | SocketTimeoutException s ){
+            clientIsActive = false;
+            messageInQueue.add(Message.CLOSE);
+        } catch ( IOException | ClassNotFoundException e) {
+                e.printStackTrace();
         }
     }
 
     public synchronized void closeConnection() {
-        send("Connection closed!");
         try {
+            in.close();
+            out.close();
             socket.close();
         } catch (IOException e) {
             System.err.println("Error when closing socket!");
         }
-        active = false;
     }
 
     @Override
@@ -86,14 +92,15 @@ public class ServerConnection implements Runnable {
              out = new ObjectOutputStream(socket.getOutputStream());
              out.flush();
              in = new ObjectInputStream(socket.getInputStream());
+             out.reset();
              send("Welcome, server ready!\n");
              sendPing();
-             new Thread (this::read).start();
+             Thread read = new Thread(this::read);
+             read.start();
 
              while (active) {
                  Object toSend = messageOutQueue.poll();
-                 while ( toSend != null ) {
-                     out.reset();
+                 while ( toSend != null && clientIsActive ) {
                      out.writeObject(toSend);
                      out.flush();
                      toSend = messageOutQueue.poll();
@@ -118,10 +125,12 @@ public class ServerConnection implements Runnable {
                              if (gameID != -1) {
                                  server.endGame(gameID, this);
                                  active = false;
+                                 read.interrupt();
                              } else {
                                  server.removeFromWaitingList(this);
                                  server.removeNickname(name);
                                  active = false;
+                                 read.interrupt();
                              }
                          } else if (message.equals(Message.PONG)) {
                              System.out.println("Pong from : " + socket);
@@ -129,7 +138,24 @@ public class ServerConnection implements Runnable {
                      }
                  }
              }
+             Object toSend = messageOutQueue.poll();
+             while ( toSend != null ) {
+                 out.reset();
+                 out.writeObject(toSend);
+                 out.flush();
+                 toSend = messageOutQueue.poll();
+             }
+             closeConnection();
              //controllo se la connessione cade o se il client si disconnette
+         }
+         catch ( SocketException s){
+             clientIsActive = false;
+             if (gameID != -1) {
+                 server.endGame(gameID, this);
+             } else {
+                 server.removeFromWaitingList(this);
+                 server.removeNickname(name);
+             }
          }
          catch ( SocketTimeoutException s ){
              active = false;
@@ -138,9 +164,6 @@ public class ServerConnection implements Runnable {
             e.printStackTrace();
          }
 
-         finally{
-             closeConnection();
-         }
     }
 
     public void setNickname(String name){
@@ -178,12 +201,12 @@ public class ServerConnection implements Runnable {
                 // per iniziare la partita corrispondente al gameID considerato
                 if (server.checkMatch(gameID)) {
                     server.startGame(gameID);
-                    send("Beginning new match");
+                    send(Message.BEGIN.toString());
                 } else {
-                    send("Waiting for other players");
+                    send(Message.WAIT.toString());
                 }
             } else {
-                send("Insert valid gameID");
+                send(Message.INVALID_ID.toString());
             }
         }
 
@@ -196,19 +219,9 @@ public class ServerConnection implements Runnable {
         }
     }
 
-    public String readString(){
-        String message = null;
-        try {
-            message = (String) in.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        //restituisce un array di stringhe, separando in modo opportuno message secondo la presenza di virgole
-        return message;
+    public void setActive(boolean active) {
+        this.active = active;
     }
-
 
     public void sendPing(){
         new Thread ( () ->{

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.CLI;
 
+import it.polimi.ingsw.GUI.Mode;
 import it.polimi.ingsw.client.ClientConnection;
 import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.MessageHandler;
@@ -22,7 +23,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private final Scanner in = new Scanner(System.in);
     private String nickname;
     private God god;
-    private String mode = "start";
+    private Mode mode = Mode.DEFAULT;
     private int numOfPlayers;
     private int gameID;
     private SettingGameMessage settingGameMessage = new SettingGameMessage();
@@ -40,15 +41,12 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private boolean updateLG = false;
     private String fromClient;
     private int[] spaceFromInput;
-    private boolean enableInputString, enableInputChoice, enableInputSpace,enableInputClose;
+    private boolean enableInput;
 
     public CommandLineGame() {
         this.messageHandler = new MessageHandler(this);
         this.clientConnection = new ClientConnection("127.0.0.1", 4702, messageHandler);
-        enableInputString = false;
-        enableInputChoice = false;
-        enableInputSpace= false;
-        enableInputClose = false;
+        enableInput = false;
     }
 
     public void runCLI() {
@@ -78,13 +76,13 @@ public class CommandLineGame implements Observer<MessageHandler> {
                     else if (lastAction.equals("Choose Worker")) {
                         if (god == God.CHARON) {
                             System.out.println("  Do you want to use Charon power? (type yes/no)");
-                            if (readStringFromInput().equalsIgnoreCase("YES")) {
+                            if (in.nextLine().equalsIgnoreCase("YES")) {
                                 lastAction = "Charon Switch";
                                 messageToPrint = "  Please select a space occupied by an opponent worker (ROW-COL)";
                             }
                         } else if (god == God.PROMETHEUS) {
                             System.out.println("  Do you want to use Prometheus power? (yes/no)");
-                            if (readChoiceFromInput().equalsIgnoreCase("YES")) {
+                            if (in.nextLine().equalsIgnoreCase("YES")) {
                                 lastAction = "Prometheus Build";
                                 messageToPrint = "  Please select the space where you want to build (ROW-COL)";
                             }
@@ -108,7 +106,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                     else if (lastAction.equals("Move")) {
                         if ((god == God.ARTEMIS && moveCounter == 1) || (god == God.TRITON && isPerimetralSpace(lastSpace))) {
                             System.out.println("  Do you want to move again? (yes/no)");
-                            if (readChoiceFromInput().equalsIgnoreCase("YES")) {
+                            if (in.nextLine().equalsIgnoreCase("YES")) {
                                 lastAction = "Move";
                                 messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
                                 moveCounter++;
@@ -128,7 +126,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                              !Arrays.equals(firstWorker, serializableLiteGame.getCurrWorker()))           ){       // sta giocando con il suo secondo worker
 
                             System.out.println("  Do you want to build again? (yes/no)");
-                            if (readChoiceFromInput().equalsIgnoreCase("YES") ) {
+                            if (in.nextLine().equalsIgnoreCase("YES") ) {
                                 lastAction = "Build";
                                 messageToPrint = "  Please select the space where you want to build (ROW-COL)";
                                 buildCounter++;
@@ -156,7 +154,8 @@ public class CommandLineGame implements Observer<MessageHandler> {
                     if (lastAction.contains("Build")) {
                         if ( god == God.ATLAS ) {
                             System.out.println("  Do you want to build a dome? (yes/no)");
-                            if(readChoiceFromInput().equals("YES")) clientMessage.setLevelToBuild(4);
+                            if(in.nextLine().equals("yes")) clientMessage.setLevelToBuild(4);
+                            else clientMessage.setLevelToBuild(getHeight(clientMessage.getSpace1())+1);
                         }
                         else clientMessage.setLevelToBuild(getHeight(clientMessage.getSpace1())+1);
                         if ( buildCounter == 1 ) {
@@ -202,11 +201,12 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
             String messageFromServer = "Beginning";
             //welcoming client
+
             System.out.println(readString());
 
             System.out.println("  What's your name?\n\n" + ColourFont.ANSI_RESET);
             while (!messageFromServer.equals("Nickname accepted")) {
-                nickname = readStringFromInput().toUpperCase();
+                nickname = in.nextLine().toUpperCase();
                 clientConnection.send(nickname);
                 messageFromServer = readString();
                 if (messageFromServer.equals("Invalid Nickname")) {
@@ -216,28 +216,30 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
             while (quit) {
                 quit = false;
-                while (!mode.equals("A") && !mode.equals("B") && !mode.equals("C")) {
+                while ((mode != Mode.NEW_GAME) && (mode != Mode.EXISTING_MATCH) && (mode != Mode.RANDOM_MATCH)) {
+                    String tempMode;
                     System.out.println(ColourFont.ANSI_BLUE_BACKGROUND + "\nPlease " + nickname + ", type A, B or C to choose different options:\n");
                     System.out.println(" - A) CREATE A NEW MATCH\n      Be the challenger of the isle!\n");
                     System.out.println(" - B) PLAY WITH YOUR FRIENDS\n      Play an already existing game!\n");
                     System.out.println(" - C) PLAY WITH STRANGERS\n      Challenge yourself with randomly chosen players!\n");
-                    mode = readStringFromInput().toUpperCase();
-                    if (!mode.equals("A") && !mode.equals("B") && !mode.equals("C"))
+                    tempMode = in.nextLine().toUpperCase();
+                    if (!(tempMode.equals("A")) && !(tempMode.equals("B")) && !(tempMode.equals("C")))
                         System.out.println("Dare you challenge the Olympus?? Retry\n ");
+                    else mode = Mode.fromText(tempMode);
                 }
                 switch (mode) {
-                    case "A":
+                    case NEW_GAME:
                         settingGameMessage.setCreatingNewGame(true);
                         settingGameMessage.setPlayingExistingMatch(false);
                         settingGameMessage.setGameID(0);
                         while (numOfPlayers != 2 && numOfPlayers != 3 && !quit) {
                             System.out.println("\n  Choose the number of players (2 or 3)");
                             System.out.println("  Type quit to return back!\n");
-                            String actionA = readStringFromInput();
+                            String actionA = in.nextLine();
                             actionA = actionA.toUpperCase();
                             if (actionA.equals("QUIT")) {
                                 quit = true;
-                                mode = "start";
+                                mode = Mode.DEFAULT;
                             } else if (!actionA.equals("2") && !actionA.equals("3"))
                                 System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                             else numOfPlayers = Integer.parseInt(actionA);
@@ -245,21 +247,22 @@ public class CommandLineGame implements Observer<MessageHandler> {
                         if ( !quit ) {
                             settingGameMessage.setNumberOfPlayer(numOfPlayers);
                             clientConnection.send(settingGameMessage);
+                            System.out.println("  Waiting for other players");
                             System.out.println("  The gameID is " + readString() + "\n");
                         }
                         break;
-                    case "B":
+                    case EXISTING_MATCH:
                         settingGameMessage.setPlayingExistingMatch(true);
                         settingGameMessage.setCreatingNewGame(false);
                         System.out.println("  Type the game ID");
                         System.out.println("  Type quit to return back!\n");
                         boolean validGameId = false;
                         while (!validGameId && !quit){
-                            String actionB = readStringFromInput();
+                            String actionB = in.nextLine();
                             actionB = actionB.toUpperCase();
                             if (actionB.equals("QUIT")) {
                                 quit = true;
-                                mode = "start";
+                                mode = Mode.DEFAULT;
                             } else {
                                 gameID = Integer.parseInt(actionB);
                                 settingGameMessage.setGameID(gameID);
@@ -274,18 +277,18 @@ public class CommandLineGame implements Observer<MessageHandler> {
                             }
                         }
                         break;
-                    case "C":
+                    case RANDOM_MATCH:
                         settingGameMessage.setCreatingNewGame(false);
                         settingGameMessage.setPlayingExistingMatch(false);
                         settingGameMessage.setGameID(0);
                         while (numOfPlayers != 2 && numOfPlayers != 3 && !quit) {
                             System.out.println("  Choose the number of players (2 or 3)");
                             System.out.println("  Type quit to return back!");
-                            String actionC = readStringFromInput();
+                            String actionC = in.nextLine();
                             actionC = actionC.toUpperCase();
                             if (actionC.equals("QUIT")) {
                                 quit = true;
-                                mode = "start";
+                                mode = Mode.DEFAULT;
                             } else if (!actionC.equals("2") && !actionC.equals("3"))
                                 System.out.println("  Dare you challenge the Olympus?? Retry\n ");
                             else numOfPlayers = Integer.parseInt(actionC);
@@ -297,7 +300,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                             messageFromServer = readString();
                             System.out.println("  Server says: " + messageFromServer + "\n");
                             if ( messageFromServer.contains("You are")){
-                                mode = "A";
+                                mode = Mode.NEW_GAME;
                             }
                         }
                         break;
@@ -313,7 +316,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
      */
 
     void challengerChoosesGods(){
-        if(mode.equals("A")) {
+        if(mode == Mode.NEW_GAME) {
             List<God> chosenGods = new ArrayList<>();
             while (chosenGods.size() < numOfPlayers) {
                 System.out.println("  Challenger of the Olympus, choose the Gods who will lead you to the glory\n");
@@ -322,7 +325,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                 }
                 System.out.println();
                 System.out.println("  Please,choose a God\n");
-                String singleChosenGod = readStringFromInput();
+                String singleChosenGod = in.nextLine().toUpperCase();
                 try {
                     chosenGods.add(God.valueOf(singleChosenGod));
                 } catch (IllegalArgumentException e) {
@@ -346,7 +349,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private void chooseCard() {
 
         messageFromFrontEnd = readString();
-        if ( mode.equals("A") ){
+        if ( mode == Mode.NEW_GAME ){
             god = God.valueOf(messageFromFrontEnd);
             System.out.println("  Your god is " + messageFromFrontEnd + ColourFont.ANSI_RESET);
         }
@@ -355,7 +358,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
             while ( !messageFromFrontEnd.contains(choice) ){
                 System.out.println("  Choose your god! Available gods: " + messageFromFrontEnd);
-                choice = readStringFromInput();
+                choice = in.nextLine().toUpperCase();
             }
             god = God.valueOf(choice);
             //in realtà settare il nickname è superfluo perché il frontend già conosce i nickname dei client
@@ -393,20 +396,13 @@ public class CommandLineGame implements Observer<MessageHandler> {
         }
     }
 
-    private void chooseWorker() {
-        clientMessage.setSpace1(getSpaceFromClient());
-        lastAction = "Choose Worker";
-        clientMessage.setAction(lastAction);
-        clientConnection.send(clientMessage);
-    }
-
     private int[] getSpaceFromClient(){
         int[] newSpace = new int[]{5,5};
         //TODO: migliorare controlli sulle celle disponibili e messaggio di errore al client
         while ( newSpace[0] < 0 || newSpace[0] > 4 || newSpace[1] < 0 || newSpace[1] > 4 ) {
             System.out.println("  Insert the space coordinates (ROW-COL): \n ");
             for(boolean validMessage = false;!validMessage; ) {
-                String space = readSpaceFromInput();
+                String space = in.nextLine();
                 space.replace(" ","-");
                 space.replace(",","-");
                 String[] coord = space.split("-");
@@ -450,8 +446,8 @@ public class CommandLineGame implements Observer<MessageHandler> {
     public synchronized void  buildGameTable(){
         String[][] gameTable = serializableLiteGame.getTable();
         System.out.println("                                                             ");
-        System.out.println("        1        2        3        4        5                " +  ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET);
-        System.out.println("    + = = = ++ = = = ++ = = = ++ = = = ++ = = = +            " + "  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET );
+        System.out.println("                                  1        2        3        4        5                " +  ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET);
+        System.out.println("                              + = = = ++ = = = ++ = = = ++ = = = ++ = = = +            " + "  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET );
         for (int i = 0; i < 5; i++){
             buildTableRow(gameTable[i],i+1);
         }
@@ -466,10 +462,10 @@ public class CommandLineGame implements Observer<MessageHandler> {
         String[] newRow;
         if (row == 1){
             newRow = new String[]{
-                    "    "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0]+"            "+"  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET,
-                    " "+row+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1]+"            "+"  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET,
-                    "    "+space1[2]+space2[2]+space3[2]+space4[2]+space5[2]+"            "+"  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET,
-                    "    "+space1[3]+space2[3]+space3[3]+space4[3]+space5[3]+"            "+"  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET
+                    "                              "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0]+"            "+"  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET,
+                    "                           "+row+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1]+"            "+"  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET,
+                    "                              "+space1[2]+space2[2]+space3[2]+space4[2]+space5[2]+"            "+"  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET,
+                    "                              "+space1[3]+space2[3]+space3[3]+space4[3]+space5[3]+"            "+"  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET
             };
         }
 
@@ -494,18 +490,18 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
             if (this.serializableLiteGame.getName3() != null) {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - PLAYER C: " + ColourFont.getGodColour(serializableLiteGame.getGod3()) + name3 + ColourFont.ANSI_RESET
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - PLAYER C: " + ColourFont.getGodColour(serializableLiteGame.getGod3()) + name3 + ColourFont.ANSI_RESET
                 };
             }
             else {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - PLAYER A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + name1 + ColourFont.ANSI_RESET,
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2] + "            " + "  - PLAYER B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + name2 + ColourFont.ANSI_RESET,
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
                 };
             }
         }
@@ -513,18 +509,18 @@ public class CommandLineGame implements Observer<MessageHandler> {
         else if (row == 3){
             if (this.serializableLiteGame.getName3() != null) {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
                 };
             }
             else {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - CURRENT WORKER: " + ColourFont.ANSI_WORKER + "    " + ColourFont.ANSI_RESET,
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3] + "            " + "  - GOD A: " + ColourFont.getGodColour(serializableLiteGame.getGod1()) + serializableLiteGame.getGod1() + ColourFont.ANSI_RESET,
                 };
             }
         }
@@ -532,27 +528,27 @@ public class CommandLineGame implements Observer<MessageHandler> {
         else if (row == 4) {
             if (this.serializableLiteGame.getName3() != null) {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0] + "            " + "  - GOD B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getGod2() + ColourFont.ANSI_RESET,
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - GOD C: "  + ColourFont.getGodColour(serializableLiteGame.getGod3()) + serializableLiteGame.getGod3() + ColourFont.ANSI_RESET,
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0] + "            " + "  - GOD B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getGod2() + ColourFont.ANSI_RESET,
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1] + "            " + "  - GOD C: "  + ColourFont.getGodColour(serializableLiteGame.getGod3()) + serializableLiteGame.getGod3() + ColourFont.ANSI_RESET,
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
                 };
             }
             else {
                 newRow = new String[]{
-                        "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0] + "            " + "  - GOD B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getGod2() + ColourFont.ANSI_RESET,
-                        " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1],
-                        "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                        "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                        "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0] + "            " + "  - GOD B: " + ColourFont.getGodColour(serializableLiteGame.getGod2()) + serializableLiteGame.getGod2() + ColourFont.ANSI_RESET,
+                        "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1],
+                        "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                        "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
                 };
             }
         }
         else {
             newRow = new String[]{
-                    "    " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
-                    " " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1],
-                    "    " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
-                    "    " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
+                    "                              " + space1[0] + space2[0] + space3[0] + space4[0] + space5[0],
+                    "                           " + row + "  " + space1[1] + space2[1] + space3[1] + space4[1] + space5[1],
+                    "                              " + space1[2] + space2[2] + space3[2] + space4[2] + space5[2],
+                    "                              " + space1[3] + space2[3] + space3[3] + space4[3] + space5[3],
             };
         }
         for (String s : newRow){
@@ -631,13 +627,9 @@ public class CommandLineGame implements Observer<MessageHandler> {
         return gameSpace;
     }
 
-    SettingGameMessage getSettingGameMessage() {
-        return settingGameMessage;
-    }
-
     //todo: da finire
     String parseInput() {
-        String message = readStringFromInput();
+        String message = in.nextLine();
         message = message.toUpperCase();
         String[] parsedMessage = message.split(" ");
         for (String s : parsedMessage){
@@ -658,99 +650,38 @@ public class CommandLineGame implements Observer<MessageHandler> {
         this.numOfPlayers = i;
     }
 
-   public String readSpaceFromInput() {
-       enableInputSpace = true;
-       while (enableInputSpace) {
-           try {
-               wait();
-           } catch (InterruptedException e) {
-               e.printStackTrace();
-           }
-           if (!enableInputSpace) return fromClient;
-       }
-       return fromClient;
-   }
-
-    public String readChoiceFromInput() {
-        enableInputChoice = true;
-        while (enableInputChoice) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (!enableInputChoice) return fromClient;
-        }
-        return fromClient;
+   /* public synchronized String readStringFromInput(){
+        fromClient = null;
+        enableInput = true;
+        while( fromClient )
     }
+    */
 
-    public String readStringFromInput() {
-        enableInputString = true;
-        while (enableInputString) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    public void readInputThread() {
+        new Thread ( () ->
+        {
+            String command = "start";
+            while (!command.equals("CLOSE")) {
+                if (in.hasNext()) {
+                    command = in.nextLine().toUpperCase();
+                    if ( enableInput ){
+                        fromClient = command;
+                    }
+
+                    //processo la stringa
+                    //se non è il suo turno non riceve NEXT ACTION dal front end, quindi non fa niente se l'utente scrive un comando valido
+
+                }
             }
-            if (!enableInputString) return fromClient;
+            clientConnection.send(Message.CLOSE);
+            clientConnection.setActive(false);
         }
-        return fromClient;
+        ).start();
     }
-
-
-
-   public void readInputThread() {
-       new Thread(() ->
-       {
-           String command = "start";
-           while (!command.equals("CLOSE")) {
-               if (in.hasNext()) {
-                   command = in.nextLine().toUpperCase();
-                   while (enableInputString || enableInputChoice || enableInputSpace || !enableInputClose) {
-                       // se valido
-                       if (command.equals("CLOSE")) enableInputClose = true;
-
-                       if (enableInputSpace) {
-                           command.replace(" ", "-");
-                           command.replace(",", "-");
-                           String[] coord = command.split("-");
-                           if (coord.length == 2) {
-                               enableInputSpace = false;
-                               fromClient = command; //ok space valida
-                               notifyAll();
-                           } else System.out.println("  Invalid space!");
-                       } else if (enableInputChoice) {
-                           if (command.equals("YES") || command.equals("NO")) {
-                               enableInputChoice = false;
-                               fromClient = command;
-                               notifyAll();
-                           } else System.out.println("  Invalid choice!");
-                       } else if (enableInputString) {
-                           command.replace(" ", "-");
-                           command.replace(",", "-");
-                           String[] coord = command.split("-");
-                           if (coord.length == 1) {
-                               enableInputString = false;
-                               fromClient = command; //ok stringa valida
-                               notifyAll();
-                           } else System.out.println("  Invalid choice!");
-                       }
-                   }
-               }
-               if (enableInputClose) {
-                   clientConnection.send(Message.CLOSE);
-                   clientConnection.setActive(false);
-               }
-               //processo la stringa
-               //se non è il suo turno non riceve NEXT ACTION dal front end, quindi non fa niente se l'utente scrive un comando valido
-           }
-       }
-       ).start();
-   }
 
     //Legge stringhe dal MessageHandler se la cli è stata notificata per una stringa nuova dal messageHandler
     public synchronized String readString(){
-           while ( !updateString ){
+        while ( !updateString ){
             try {
                  wait();
             } catch (InterruptedException e) {

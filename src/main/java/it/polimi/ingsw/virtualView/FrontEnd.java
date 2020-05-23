@@ -244,7 +244,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
     }
 
-    public  void resetUpdate() { this.updateModel = false; }
+    public void resetUpdate() { this.updateModel = false; }
 
     public void sendLiteGame(){
         SerializableLiteGame toSend = liteGame.makeSerializable();
@@ -288,7 +288,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
 
-    public String[] readChallengerMessage() {
+    public synchronized String[] readChallengerMessage() {
         while ( client1.getChallengerChoice() == null ){
             try {
                 wait();
@@ -299,7 +299,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         return client1.getChallengerChoice();
     }
 
-    public ClientMessage readClientMessage(){
+    public synchronized ClientMessage readClientMessage(){
         while ( !currClient.isUpdateClientMessage() ) {
             try {
                 wait();
@@ -313,7 +313,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     public synchronized void updating(){
-        notifyAll();
+        notify();
     }
 
     /////////////////////
