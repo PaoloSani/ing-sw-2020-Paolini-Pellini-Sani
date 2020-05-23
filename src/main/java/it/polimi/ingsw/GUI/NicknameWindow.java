@@ -36,6 +36,9 @@ public  class NicknameWindow extends GameWindow {
         if (nicknameAccepted) {
             guiHandler.loadFXMLFile(nextButton,nextStage,"/GUIScenes/modeWindow.fxml");
         }
-        else adviseLabel.setText("Please retype a valid nickname");
+        else {
+            fieldNickname.clear();
+            adviseLabel.setText("Please retype a valid nickname");
+        }
     }
 }
