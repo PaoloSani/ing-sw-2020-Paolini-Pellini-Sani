@@ -396,13 +396,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
         }
     }
 
-    private void chooseWorker() {
-        clientMessage.setSpace1(getSpaceFromClient());
-        lastAction = "Choose Worker";
-        clientMessage.setAction(lastAction);
-        clientConnection.send(clientMessage);
-    }
-
     private int[] getSpaceFromClient(){
         int[] newSpace = new int[]{5,5};
         //TODO: migliorare controlli sulle celle disponibili e messaggio di errore al client
@@ -632,10 +625,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
             };
         }
         return gameSpace;
-    }
-
-    SettingGameMessage getSettingGameMessage() {
-        return settingGameMessage;
     }
 
     //todo: da finire

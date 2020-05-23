@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.SettingGameMessage;
 import it.polimi.ingsw.virtualView.FrontEnd;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -65,14 +66,11 @@ public class ServerConnection implements Runnable {
                 Object newMessage = in.readObject();
                 messageInQueue.add(newMessage);
             }
-        } catch(SocketException s){
+        } catch(SocketException | EOFException | SocketTimeoutException s ){
             clientIsActive = false;
             messageInQueue.add(Message.CLOSE);
-        } catch (SocketTimeoutException s){
-            clientIsActive = false;
-            messageInQueue.add(Message.CLOSE);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch ( IOException | ClassNotFoundException e) {
+                e.printStackTrace();
         }
     }
 
@@ -151,6 +149,7 @@ public class ServerConnection implements Runnable {
              //controllo se la connessione cade o se il client si disconnette
          }
          catch ( SocketException s){
+             clientIsActive = false;
              if (gameID != -1) {
                  server.endGame(gameID, this);
              } else {

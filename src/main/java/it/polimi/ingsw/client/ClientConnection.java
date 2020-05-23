@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.Message;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -57,10 +58,12 @@ public class ClientConnection implements Runnable{
                     messageInQueue.add(newMessage);
                 }
             }
-        } catch (SocketTimeoutException s){
-            active = false;
+        }
+        catch(SocketException | EOFException | SocketTimeoutException s ){
             serverIsActive = false;
-        } catch (IOException | ClassNotFoundException e) {
+            active = false;
+        }
+        catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -89,8 +92,13 @@ public class ClientConnection implements Runnable{
                     Object message = messageInQueue.poll();
                     if (message != null) {
                         if ( message instanceof String ) {
-                            messageHandler.setStringRead(true);
-                            messageHandler.setMessage((String) message);
+                            if ( ((String) message).contains("Ending")){
+                                System.out.println("  " + message);
+                            }
+                            else {
+                                messageHandler.setStringRead(true);
+                                messageHandler.setMessage((String) message);
+                            }
                         } else if (message instanceof SerializableLiteGame) {
                             messageHandler.setLGRead(true);
                             messageHandler.setLiteGameFromServer((SerializableLiteGame) message);
@@ -122,10 +130,10 @@ public class ClientConnection implements Runnable{
 
 
     public void closeConnection() throws IOException {
-        System.out.println("End");
         in.close();
         out.close();
         socket.close();
+        System.out.println("  End of the game.");
     }
 
     public String readString(){

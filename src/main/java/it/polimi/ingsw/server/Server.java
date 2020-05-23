@@ -170,6 +170,7 @@ public class Server {
     public void endGame(int gameID, ServerConnection closingPlayer) {
         if ( playingConnection2Players.containsKey(gameID) ){
             for ( ServerConnection s : playingConnection2Players.get(gameID) ){
+                s.setGameID(-1);
                 if ( closingPlayer != null ) {
                     s.send("Ending game: " + closingPlayer.getName() + " has left");
                 }
