@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GUI;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -56,15 +57,17 @@ public class NewGameWindow extends GameWindow {
                 }
             }
                 //TODO:impostare questo metodo con dei thread! (O loading)
-                String message = guiHandler.readString();
-                if(message.contains("Game has started")) {
-                    if (guiHandler.getMode() == Mode.NEW_GAME){
-                        guiHandler.loadFXMLFile(nextButton, nextStage, "/GUIScenes/challengerWindow.fxml");
-                    }
-                    else{
-                        guiHandler.loadFXMLFile(nextButton,nextStage,"/GUIScenes/waitingWindow.fxml");
+                Platform.runLater( () -> {
+                    String message = guiHandler.readString();
+                    if (message.contains("Game has started")) {
+                        if (guiHandler.getMode() == Mode.NEW_GAME) {
+                            guiHandler.loadFXMLFile(nextButton, nextStage, "/GUIScenes/challengerWindow.fxml");
+                        } else {
+                            guiHandler.loadFXMLFile(nextButton, nextStage, "/GUIScenes/waitingWindow.fxml");
+                        }
                     }
                 }
+                );
         }
     }
 }
