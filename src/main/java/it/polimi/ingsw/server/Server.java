@@ -183,6 +183,7 @@ public class Server {
         }
         else {
             for ( ServerConnection s : playingConnection3Players.get(gameID) ){
+                s.setGameID(-1);
                 if ( closingPlayer != null ) {
                     s.send("Ending game: " + closingPlayer.getName() + " has left");
                 }

@@ -59,11 +59,11 @@ public class ClientConnection implements Runnable{
                 }
             }
         }
-        catch(SocketException | EOFException | SocketTimeoutException s ){
+        catch( SocketException | EOFException | SocketTimeoutException s ){
             serverIsActive = false;
             active = false;
         }
-        catch (IOException | ClassNotFoundException e) {
+        catch ( IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
