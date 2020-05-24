@@ -35,6 +35,7 @@ public class GUIHandler implements Observer<MessageHandler> {
     private Mode mode;
     private List<God> gods = new ArrayList<>();
     private String messageFromFrontend;
+    private SerializableLiteGame serializableLiteGame;
 
 
     public GUIHandler(){
@@ -235,5 +236,9 @@ public class GUIHandler implements Observer<MessageHandler> {
         clientMessage.setName(nickname);
         clientMessage.setGod(currGod);
         clientConnection.send(clientMessage);
+    }
+
+    public void setSerializableLiteGame(SerializableLiteGame serializableLiteGame) {
+        this.serializableLiteGame = serializableLiteGame;
     }
 }
