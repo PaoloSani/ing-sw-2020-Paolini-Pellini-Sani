@@ -35,11 +35,5 @@
          </font>
       </RadioButton>
       <Button fx:id="nextButton" layoutX="440.0" layoutY="443.0" mnemonicParsing="false" onAction="#goFurther" stylesheets="@CSSFiles/Buttons.css" text="PLAY!" />
-      <Label fx:id="waitLabel" alignment="CENTER" layoutX="231.0" layoutY="359.0" prefHeight="44.0" prefWidth="487.0" stylesheets="@CSSFiles/Labels.css" text="WAIT FOR OTHER PLAYERS" visible="false">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
-      <Label fx:id="IDLabel" alignment="CENTER" layoutX="258.0" layoutY="415.0" prefHeight="21.0" prefWidth="434.0" stylesheets="@CSSFiles/Labels.css" text="The game ID is: " visible="false" />
-    </children>
+      </children>
 </AnchorPane>

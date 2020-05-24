@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.MessageHandler;
 import it.polimi.ingsw.client.SettingGameMessage;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
+import it.polimi.ingsw.server.Message;
 import it.polimi.ingsw.util.Observer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,7 +31,7 @@ public class GUIHandler implements Observer<MessageHandler> {
     private SettingGameMessage settingGameMessage;
     private int gameID;
     private Mode mode;
-    public List<God> gods = new ArrayList<>();
+    private List<God> gods = new ArrayList<>();
 
 
     public GUIHandler(){
@@ -39,7 +40,7 @@ public class GUIHandler implements Observer<MessageHandler> {
         settingGameMessage = new SettingGameMessage();
     }
 
-    public void loadFXMLFile(Button nextButton, Stage nextStage, String fileToLoad){
+    public synchronized void loadFXMLFile(Button nextButton, Stage nextStage, String fileToLoad){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fileToLoad));
         try {
             Parent root = fxmlLoader.load();
@@ -128,6 +129,10 @@ public class GUIHandler implements Observer<MessageHandler> {
         this.gameID = gameID;
     }
 
+    public int getGameID(){
+        return gameID;
+    }
+
     public void setMode(Mode mode){
         this.mode = mode;
     }
@@ -136,6 +141,13 @@ public class GUIHandler implements Observer<MessageHandler> {
         return this.mode;
     }
 
+    public void setMessageFromServer(String message){
+        this.messageFromServer = message;
+    }
+
+    public String getMessageFromServer(){
+        return messageFromServer;
+    }
 
     public void createNewGame() {
         settingGameMessage.setNumberOfPlayer(numOfPlayers);

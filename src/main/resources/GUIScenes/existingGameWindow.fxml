@@ -27,11 +27,6 @@
             <Font name="Herculanum" size="13.0" />
          </font>
       </TextField>
-        <Label fx:id="waitLabel" alignment="CENTER" layoutX="231.0" layoutY="359.0" prefHeight="44.0" prefWidth="487.0" stylesheets="@CSSFiles/Labels.css" text="WAIT FOR OTHER PLAYERS" visible="false">
-            <font>
-                <Font size="23.0" />
-            </font>
-        </Label>
       <Button fx:id="nextButton" layoutX="443.0" layoutY="433.0" mnemonicParsing="false" onAction="#goFurther" stylesheets="@CSSFiles/Buttons.css" text="PLAY" />
     </children>
 </AnchorPane>
