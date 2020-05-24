@@ -65,7 +65,11 @@ public class WaitingWindow extends GameWindow implements Initializable{
                     if (guiHandler.getMode() == Mode.NEW_GAME) {
                         return "/GUIScenes/challengerWindow.fxml";
                     } else {
-                        while (!guiHandler.readString().contains("Choose your god")) ;
+                        String messageFromFrontend = guiHandler.readString();
+                        while (!messageFromFrontend.contains("[")){
+                            messageFromFrontend = guiHandler.readString();
+                        }
+                        guiHandler.setMessageFromFrontend(messageFromFrontend);
                         return "/GUIScenes/chooseGodWindow.fxml";
                     }
                 }

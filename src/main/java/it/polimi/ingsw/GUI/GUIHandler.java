@@ -2,6 +2,7 @@ package it.polimi.ingsw.GUI;
 
 import it.polimi.ingsw.CLI.ColourFont;
 import it.polimi.ingsw.client.ClientConnection;
+import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.MessageHandler;
 import it.polimi.ingsw.client.SettingGameMessage;
 import it.polimi.ingsw.model.God;
@@ -22,6 +23,7 @@ import java.util.List;
 public class GUIHandler implements Observer<MessageHandler> {
 
     private final ClientConnection clientConnection;
+    private ClientMessage clientMessage;
     private MessageHandler messageHandler;
     private boolean updateString = false;
     private boolean updateLG = false;
@@ -32,11 +34,13 @@ public class GUIHandler implements Observer<MessageHandler> {
     private int gameID;
     private Mode mode;
     private List<God> gods = new ArrayList<>();
+    private String messageFromFrontend;
 
 
     public GUIHandler(){
         this.messageHandler = new MessageHandler(this);
         this.clientConnection = new ClientConnection("127.0.0.1",4702, this.messageHandler);
+        this.clientMessage = new ClientMessage();
         settingGameMessage = new SettingGameMessage();
     }
 
@@ -205,4 +209,32 @@ public class GUIHandler implements Observer<MessageHandler> {
     }
 
 
+    public void sendChallengerMessage() {
+        String[] challengerMessage;
+        if (numOfPlayers == 2) {
+            challengerMessage =
+                    new String[]{gods.get(0).toString(), gods.get(1).toString()};
+        } else {
+            challengerMessage =
+                    new String[]{gods.get(0).toString(), gods.get(1).toString(), gods.get(2).toString()};
+        }
+        clientConnection.send(challengerMessage);
+    }
+
+    public void setMessageFromFrontend(String messageFromFrontend) {
+        this.messageFromFrontend = messageFromFrontend;             //  god1-god2-god3   [god1, god2]
+        String stringGods = messageFromFrontend.replace(", ","-");
+        stringGods = stringGods.replace("[","");
+        stringGods = stringGods.replace("]","");
+        String[] godArray = stringGods.split("-");
+        for (int i = 0; i < godArray.length; i++){
+            gods.add(God.valueOf(godArray[i]));
+        }
+    }
+
+    public void setClientMessage(God currGod) {
+        clientMessage.setName(nickname);
+        clientMessage.setGod(currGod);
+        clientConnection.send(clientMessage);
+    }
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.Pagination;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,9 @@ public class ChallengerWindow extends GameWindow {
     public Label firstGodLabel;
     public Label secondGodLabel;
     public Label thirdGodLabel;
+    private Stage nextStage = new Stage();
     private God currGod = God.APOLLO;
+
 
     public void backGod(ActionEvent actionEvent) {
         switch (currGod){
@@ -216,7 +219,8 @@ public class ChallengerWindow extends GameWindow {
     }
 
     public void goFurther(ActionEvent actionEvent) {
-        System.out.println("OK");
+        guiHandler.sendChallengerMessage();
+        guiHandler.loadFXMLFile(nextButton,nextStage,"/GUIScenes/beginningMatchWindow.fxml");
     }
 
     public void clickBack(MouseEvent mouseEvent) {
