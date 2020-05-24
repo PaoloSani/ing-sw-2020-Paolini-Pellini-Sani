@@ -12,7 +12,7 @@ public class GUILauncher extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/GUIScenes/challengerWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/GUIScenes/welcomeWindow.fxml"));
         stage.setScene(new Scene(root));
         stage.setTitle("SANTORINI");
         stage.setOnCloseRequest(event -> System.exit(0));
