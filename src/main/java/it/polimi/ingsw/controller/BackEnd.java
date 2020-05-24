@@ -103,7 +103,6 @@ public class BackEnd implements Observer<GameMessage> {
 
     public void changeState(){
         if (setPlayersState == currState) {
-            //TODO: perché (gameMessage.getSpace1() == null) ??
             if ( (gameMessage.getSpace1()[0] != -1 ) || (gameMessage.getSpace1() == null) ) {
                 currPlayer = this.player2;      //perché il primo è il challenger
                 currState.reset();

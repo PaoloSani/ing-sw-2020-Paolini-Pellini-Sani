@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,42 +27,41 @@ public class WaitingWindow extends GameWindow implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        Platform.runLater(() -> {
             if (guiHandler.getMode() == Mode.NEW_GAME) {
-                        guiHandler.createNewGame();
-                        int gameID = Integer.parseInt(guiHandler.readString());
-                        guiHandler.setGameID(gameID);
-                        waitLabel.setText("WAITING FOR OTHER PLAYERS");
-                        waitLabel.setVisible(true);
-                        IDLabel.setText("THE GAME ID IS: " + guiHandler.getGameID());
-                        IDLabel.setVisible(true);
-                    } else if (guiHandler.getMode() == Mode.RANDOM_MATCH) {
-                        guiHandler.randomMatch();
-                        waitLabel.setText("WAITING FOR OTHER PLAYERS");
-                        waitLabel.setVisible(true);
-                        String messageFromServer = guiHandler.readString();
-                        System.out.println("  Server says: " + messageFromServer + "\n");
-                        if ( messageFromServer.contains("You are")) {
-                            guiHandler.setMode(Mode.NEW_GAME);
-                            IDLabel.setText("YOU ARE THE CHALLENGER");
-                            IDLabel.setVisible(true);
-                        }
-                    } else if (guiHandler.getMode() == Mode.EXISTING_MATCH) {
-                        if (guiHandler.getMessageFromServer().equals(Message.BEGIN.toString())) {
-                            waitLabel.setText("THE CHALLENGER IS CHOOSING THE GODS");
-                            waitLabel.setVisible(true);
-                        }
-                        else if (guiHandler.getMessageFromServer().equals(Message.WAIT.toString())){
-                            waitLabel.setText("WAITING FOR AN OTHER PLAYER");
-                            waitLabel.setVisible(true);
-                        }
-                    }
-                });
+                guiHandler.createNewGame();
+                String stringID = guiHandler.readString();
+                int gameID = Integer.parseInt(stringID);
+                guiHandler.setGameID(gameID);
+                waitLabel.setText("WAITING FOR OTHER PLAYERS");
+                waitLabel.setVisible(true);
+                IDLabel.setText("THE GAME ID IS: " + guiHandler.getGameID());
+                IDLabel.setVisible(true);
+            } else if (guiHandler.getMode() == Mode.RANDOM_MATCH) {
+                guiHandler.randomMatch();
+                waitLabel.setText("WAITING FOR OTHER PLAYERS");
+                waitLabel.setVisible(true);
+                String messageFromServer = guiHandler.readString();
+                System.out.println("  Server says: " + messageFromServer + "\n");
+                if ( messageFromServer.contains("You are")) {
+                    guiHandler.setMode(Mode.NEW_GAME);
+                    IDLabel.setText("YOU ARE THE CHALLENGER");
+                    IDLabel.setVisible(true);
+                }
+            } else if (guiHandler.getMode() == Mode.EXISTING_MATCH) {
+                if (guiHandler.getMessageFromServer().equals(Message.BEGIN.toString())) {
+                    waitLabel.setText("THE CHALLENGER IS CHOOSING THE GODS");
+                    waitLabel.setVisible(true);
+                }
+                else if (guiHandler.getMessageFromServer().equals(Message.WAIT.toString())){
+                    waitLabel.setText("WAITING FOR AN OTHER PLAYER");
+                    waitLabel.setVisible(true);
+                }
+            }
 
         Task<String> task = new Task<String>() {
             @Override
             protected String call() throws Exception {
-                if (guiHandler.readString().equals("Game has started")) {
+                if (guiHandler.readString().contains("Game has started")) {
                     if (guiHandler.getMode() == Mode.NEW_GAME) {
                         return "/GUIScenes/challengerWindow.fxml";
                     } else {
@@ -83,7 +83,5 @@ public class WaitingWindow extends GameWindow implements Initializable{
 
         Thread thread = new Thread(task);
         thread.start();
-
-
     }
 }

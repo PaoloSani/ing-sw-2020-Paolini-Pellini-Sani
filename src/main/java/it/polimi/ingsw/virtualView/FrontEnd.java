@@ -65,11 +65,11 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         for( ServerConnection c : clients ) {
             if ( c != null ){
                 if ( client3 == null ){
-                    c.send("Game has started with code " + gameID + "\n" + "Current players are " +
+                    c.send("Game has started with code:" + gameID + ".\n" + "Current players are " +
                             client1.getName() + ", " + client2.getName());
                 }
                 else {
-                    c.send("Game has started with code " + gameID + "\n" + "Current players are " +
+                    c.send("Game has started with code:" + gameID + ".\n" + "Current players are " +
                             client1.getName() + ", " + client2.getName() + ", " + client3.getName());
                 }
                 c.setGameID(gameID);

@@ -41,7 +41,6 @@ public class SerializableLiteGame implements Serializable {
         currWorker = new int[]{5,5};    // 5,5 è una posizione fuori dalla tabella indicata come posizione default all'inizio del gioco
     }
 
-    //TODO non ci sono controlli sul current player, servono?
     public boolean equalsSLG(SerializableLiteGame newOne){
         if( newOne.getTable() == null ) return false;
         boolean isEqual = true;
