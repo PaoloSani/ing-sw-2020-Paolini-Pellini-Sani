@@ -175,7 +175,6 @@ public class GUIHandler implements Observer<MessageHandler> {
     }
 
     public void addGod(God currGod, Label label1, Label label2, Label label3) {
-        numOfPlayers = 2;
         if (gods.contains(currGod)) {
             gods.remove(currGod);
         }
