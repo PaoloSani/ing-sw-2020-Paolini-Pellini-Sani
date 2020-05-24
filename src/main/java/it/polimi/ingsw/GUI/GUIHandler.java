@@ -241,4 +241,16 @@ public class GUIHandler implements Observer<MessageHandler> {
     public void setSerializableLiteGame(SerializableLiteGame serializableLiteGame) {
         this.serializableLiteGame = serializableLiteGame;
     }
+
+    public ClientMessage getClientMessage() {
+        return clientMessage;
+    }
+
+    public ClientConnection getClientConnection() {
+        return clientConnection;
+    }
+
+    public SerializableLiteGame getSerializableLiteGame() {
+        return serializableLiteGame;
+    }
 }
