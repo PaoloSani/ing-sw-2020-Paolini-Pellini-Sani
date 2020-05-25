@@ -3,6 +3,7 @@ package it.polimi.ingsw.GUI;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 public class TableWindow {
     public Button button00;
@@ -55,9 +56,9 @@ public class TableWindow {
     public ImageView image42;
     public ImageView image43;
     public ImageView image44;
+    public GridPane gameTable;
 
 
     public void doSomething(ActionEvent actionEvent) {
-
     }
 }
