@@ -1,11 +1,18 @@
 package it.polimi.ingsw.GUI;
 
+import it.polimi.ingsw.model.God;
+import it.polimi.ingsw.model.SerializableLiteGame;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-public class TableWindow {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class TableWindow extends GameWindow implements Initializable {
     public Button button00;
     public Button button01;
     public Button button02;
@@ -58,7 +65,54 @@ public class TableWindow {
     public ImageView image44;
     public GridPane gameTable;
 
+    private SerializableLiteGame newSLG;
 
     public void doSomething(ActionEvent actionEvent) {
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                String messageFromFrontEnd = guiHandler.readString();
+                if( guiHandler.getMode() == Mode.NEW_GAME ) {
+                    guiHandler.setClientMessage(God.valueOf(messageFromFrontEnd));
+                }
+                guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
+                return null;
+            }
+        };
+        task.setOnSucceeded( event -> {
+            guiHandler.loadFXMLFile(nextButton, stage , "/GUIScenes/table.fxml");
+        });
+        new Thread(task).start();
+    }
+
+    public void placingWorker() {
+        String messageFromFrontEnd = "none";
+        while (!messageFromFrontEnd.equals("Placing workers")) {
+            messageFromFrontEnd = guiHandler.readString();
+            System.out.println("  " + messageFromFrontEnd);
+            if (messageFromFrontEnd.contains("Wait")) {
+                guiHandler.setSerializableLiteGame(guiHandler.getSerializableLiteGame());
+                buildGameTable();
+            }
+        }
+        boolean validPlacing = false;
+        while (!validPlacing) {
+            guiHandler.getClientMessage().setSpace1(getSpaceFromClient());
+            guiHandler.getClientMessage().setSpace2(getSpaceFromClient());
+            guiHandler.getClientConnection().send(guiHandler.getClientMessage());
+            newSLG = guiHandler.readSerializableLG();
+            if (!newSLG.equalsSLG(guiHandler.getSerializableLiteGame())) {
+                validPlacing = true;
+                guiHandler.setSerializableLiteGame(newSLG);
+            }
+            buildGameTable();
+            if (!validPlacing) System.out.println("  Please retype two correct spaces!");
+
+        }
     }
 }
