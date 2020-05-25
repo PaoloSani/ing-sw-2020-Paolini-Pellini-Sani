@@ -1,6 +1,5 @@
 package it.polimi.ingsw.GUI;
 
-import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -12,32 +11,9 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static java.lang.Integer.parseInt;
+
 public class TableWindow extends GameWindow implements Initializable {
-    public Button button00;
-    public Button button01;
-    public Button button02;
-    public Button button03;
-    public Button button04;
-    public Button button10;
-    public Button button11;
-    public Button button12;
-    public Button button13;
-    public Button button14;
-    public Button button20;
-    public Button button21;
-    public Button button22;
-    public Button button23;
-    public Button button24;
-    public Button button30;
-    public Button button31;
-    public Button button32;
-    public Button button33;
-    public Button button34;
-    public Button button40;
-    public Button button41;
-    public Button button42;
-    public Button button43;
-    public Button button44;
     public ImageView image00;
     public ImageView image01;
     public ImageView image02;
@@ -64,30 +40,44 @@ public class TableWindow extends GameWindow implements Initializable {
     public ImageView image43;
     public ImageView image44;
     public GridPane gameTable;
-
+    private int[] coordinates;
     private SerializableLiteGame newSLG;
 
     public void doSomething(ActionEvent actionEvent) {
+        Button clickedButton = (Button) actionEvent.getSource();
+        String coordToSplit = clickedButton.getText();
+        String[] coordToParse = coordToSplit.split("-");
+        coordinates = new int[]{Integer.parseInt(coordToParse[0]),Integer.parseInt(coordToParse[1])};
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        for (int row = 0; row < 5; row++){
+            for (int col = 0; col <5; col++){
+                Button button = new Button();
+                button.setOpacity(1.0);
+                button.setText(row+"-"+col);
+                button.setPrefSize(82,80);
+                button.setOnAction(this::doSomething);
+                gameTable.add(button,col,row);
+            }
+        }
+
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                String messageFromFrontEnd = guiHandler.readString();
-                if( guiHandler.getMode() == Mode.NEW_GAME ) {
-                    guiHandler.setClientMessage(God.valueOf(messageFromFrontEnd));
-                }
+                placingWorker();
                 guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
                 return null;
             }
         };
         task.setOnSucceeded( event -> {
-            guiHandler.loadFXMLFile(nextButton, stage , "/GUIScenes/table.fxml");
+           //guiHandler.loadFXMLFile(nextButton, stage , "/GUIScenes/table.fxml");
         });
-        new Thread(task).start();
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
     }
 
     public void placingWorker() {
@@ -97,22 +87,26 @@ public class TableWindow extends GameWindow implements Initializable {
             System.out.println("  " + messageFromFrontEnd);
             if (messageFromFrontEnd.contains("Wait")) {
                 guiHandler.setSerializableLiteGame(guiHandler.getSerializableLiteGame());
-                buildGameTable();
             }
         }
         boolean validPlacing = false;
         while (!validPlacing) {
-            guiHandler.getClientMessage().setSpace1(getSpaceFromClient());
-            guiHandler.getClientMessage().setSpace2(getSpaceFromClient());
+            while(coordinates == null);
+            System.out.println("space1 ok");
+            guiHandler.getClientMessage().setSpace1(coordinates);
+            coordinates = null;
+            while(coordinates == null);
+            System.out.println("space2 ok");
+            guiHandler.getClientMessage().setSpace2(coordinates);
             guiHandler.getClientConnection().send(guiHandler.getClientMessage());
             newSLG = guiHandler.readSerializableLG();
             if (!newSLG.equalsSLG(guiHandler.getSerializableLiteGame())) {
                 validPlacing = true;
                 guiHandler.setSerializableLiteGame(newSLG);
             }
-            buildGameTable();
             if (!validPlacing) System.out.println("  Please retype two correct spaces!");
 
         }
     }
+
 }
