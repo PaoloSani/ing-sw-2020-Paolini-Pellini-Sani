@@ -11,8 +11,8 @@ public class ClientMessage implements Serializable {
     String action;
 
     //TODO: controlla che siano diverse quando fai PlacingWorkers!
-    int [] space1;
-    int [] space2;
+    int [] space1 = null;
+    int [] space2 = null;
     int levelToBuild;
 
     public String getName() {

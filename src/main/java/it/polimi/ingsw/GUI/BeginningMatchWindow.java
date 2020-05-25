@@ -35,7 +35,9 @@ public class BeginningMatchWindow extends GameWindow implements Initializable {
         };
         task.setOnSucceeded( event -> {
             guiHandler.loadFXMLFile(nextButton, stage , "/GUIScenes/table.fxml");
+            task.cancel();
         });
+
         new Thread(task).start();
     }
 }
