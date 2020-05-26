@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GUI;
 
+import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -7,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -52,13 +54,17 @@ public class TableWindow extends GameWindow implements Initializable {
     private String lastAction;
     private boolean answerYes;
 
-    public void doSomething(ActionEvent actionEvent) {
-        Button clickedButton = (Button) actionEvent.getSource();
-        String coordToSplit = clickedButton.getText();
-        String[] coordToParse = coordToSplit.split("-");
-        if (coordinates1 == null) coordinates1 = new int[]{Integer.parseInt(coordToParse[0]),Integer.parseInt(coordToParse[1])};
-        else if (coordinates2 == null) coordinates2 = new int[]{Integer.parseInt(coordToParse[0]),Integer.parseInt(coordToParse[1])};
-        countDownLatch.countDown();
+    public void mouseClicking(ActionEvent actionEvent) {
+        if ( !messageLabel.getText().contains("Wait") ) {
+            Button clickedButton = (Button) actionEvent.getSource();
+            String coordToSplit = clickedButton.getText();
+            String[] coordToParse = coordToSplit.split("-");
+            if (coordinates1 == null)
+                coordinates1 = new int[]{Integer.parseInt(coordToParse[0]), Integer.parseInt(coordToParse[1])};
+            else if (coordinates2 == null)
+                coordinates2 = new int[]{Integer.parseInt(coordToParse[0]), Integer.parseInt(coordToParse[1])};
+            countDownLatch.countDown();
+        }
     }
 
     @Override
@@ -70,7 +76,7 @@ public class TableWindow extends GameWindow implements Initializable {
                 button.setOpacity(1.0);
                 button.setText(row+"-"+col);
                 button.setPrefSize(82,80);
-                button.setOnAction(this::doSomething);
+                button.setOnAction(this::mouseClicking);
                 gameTable.add(button,col,row);
             }
         }
@@ -80,7 +86,6 @@ public class TableWindow extends GameWindow implements Initializable {
         Thread currThread;
 
         Task<String> readStringTask = new Task<String>() {
-
             @Override
             protected String call() throws Exception {
                 String messageFromFrontEnd = guiHandler.readString();
@@ -113,11 +118,22 @@ public class TableWindow extends GameWindow implements Initializable {
             }
         };
 
-        readStringTask.setOnSucceeded( event -> {
-            if (coordinates2 == null){
+        getSpaceClickedTask.setOnSucceeded( event -> {
+            if ( lastAction.equals("Build") ){
+                if ( guiHandler.getClientMessage().getGod() == God.ATLAS ){
 
+                }
             }
         });
+
+        /*Task<String> readChoiceTask = new Task<String>() {
+            @Override
+            protected String call() throws Exception {
+
+                return ;
+            }
+        };*/
+
 
 
         currThread = new Thread(readStringTask);

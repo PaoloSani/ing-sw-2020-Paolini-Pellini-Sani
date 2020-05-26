@@ -39,8 +39,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private MessageHandler messageHandler;
     private boolean updateString = false;
     private boolean updateLG = false;
-    private String fromClient;
-    private int[] spaceFromInput;
     private boolean enableInput;
 
     public CommandLineGame() {
@@ -104,7 +102,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                         messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
                     }
                     else if (lastAction.equals("Move")) {
-                        if ((god == God.ARTEMIS && moveCounter == 1) || (god == God.TRITON && isPerimetralSpace(lastSpace))) {
+                        if ((god == God.ARTEMIS && moveCounter == 1) || ( god == God.TRITON && serializableLiteGame.isPerimetralSpace(lastSpace) )) {
                             System.out.println("  Do you want to move again? (yes/no)");
                             if (in.nextLine().equalsIgnoreCase("YES")) {
                                 lastAction = "Move";
@@ -155,9 +153,9 @@ public class CommandLineGame implements Observer<MessageHandler> {
                         if ( god == God.ATLAS ) {
                             System.out.println("  Do you want to build a dome? (yes/no)");
                             if(in.nextLine().equals("yes")) clientMessage.setLevelToBuild(4);
-                            else clientMessage.setLevelToBuild(getHeight(clientMessage.getSpace1())+1);
+                            else clientMessage.setLevelToBuild(serializableLiteGame.getHeight(clientMessage.getSpace1())+1);
                         }
-                        else clientMessage.setLevelToBuild(getHeight(clientMessage.getSpace1())+1);
+                        else clientMessage.setLevelToBuild(serializableLiteGame.getHeight(clientMessage.getSpace1())+1);
                         if ( buildCounter == 1 ) {
                             firstWorker = serializableLiteGame.getCurrWorker();
                         }
@@ -419,16 +417,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
         return newSpace;
     }
 
-    private boolean isPerimetralSpace(int[] space){
-        return space[0]== 0 || space[1] == 0 || space[0]== 4 || space[1] == 4;
-    }
-
-    private int getHeight(int[] space) {
-        return Integer.parseInt(serializableLiteGame.getTable()[space[0]][space[1]].substring(1,2));
-    }
-
-
-
     /**
      * It prints on mirror the gametable from the litegame
      */
@@ -665,7 +653,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                 if (in.hasNext()) {
                     command = in.nextLine().toUpperCase();
                     if ( enableInput ){
-                        fromClient = command;
+                        String fromClient = command;
                     }
 
                     //processo la stringa

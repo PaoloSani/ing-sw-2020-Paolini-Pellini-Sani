@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
+<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
    <children>
       <ImageView fitHeight="544.0" fitWidth="972.0">
          <image>
@@ -61,11 +60,24 @@
              <ImageView fx:id="image44" fitHeight="80.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <ImageView fitHeight="235.0" fitWidth="324.0" layoutX="691.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Decorations/SendLog.png" />
-         </image>
-      </ImageView>
       <Label fx:id="messageLabel" layoutX="812.0" layoutY="401.0" text="Label" visible="false" />
+      <ImageView fitHeight="257.0" fitWidth="202.0" layoutX="744.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Decorations/ps_backing_stone.png" />
+         </image>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="803.0" layoutY="392.0" prefHeight="18.0" prefWidth="82.0" text="Message" />
+      <ToggleButton layoutX="801.0" layoutY="458.0" mnemonicParsing="false" text="ToggleButton" />
+      <ImageView fitHeight="544.0" fitWidth="193.0" layoutX="3.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Decorations/cm_backingstone.png" />
+         </image>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </ImageView>
    </children>
 </AnchorPane>
