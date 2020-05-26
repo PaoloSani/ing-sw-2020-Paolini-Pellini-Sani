@@ -53,6 +53,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
         int [] lastSpace = new int[]{5,5};
         int[] firstWorker = new int[]{5,5};
         String messageToPrint = "none";             //TODO: stampo questo invece che lastAction
+        int charonSwitch = 0;
 
         new Thread ( () -> clientConnection.run()).start();
         welcomeMirror();
@@ -73,12 +74,10 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
                     else if (lastAction.equals("Choose Worker")) {
                         if (god == God.CHARON) {
-                            System.out.println("  Do you want to use Charon power? (type yes/no)");
-                            if (in.nextLine().equalsIgnoreCase("YES")) {
-                                lastAction = "Charon Switch";
-                                messageToPrint = "  Please select a space occupied by an opponent worker (ROW-COL)";
-                            }
-                        } else if (god == God.PROMETHEUS) {
+                            charonSwitch++;
+                            messageToPrint = "  Please select a space(ROW-COL)";
+                        }
+                        else if (god == God.PROMETHEUS) {
                             System.out.println("  Do you want to use Prometheus power? (yes/no)");
                             if (in.nextLine().equalsIgnoreCase("YES")) {
                                 lastAction = "Prometheus Build";
@@ -93,7 +92,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
                             lastAction = "Move";
                             moveCounter++;
                             messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
-
                         }
 
                     } else if (lastAction.equals("Charon Switch") || lastAction.equals("Prometheus Build")){
@@ -149,6 +147,16 @@ public class CommandLineGame implements Observer<MessageHandler> {
                     System.out.println(messageToPrint);
                     lastSpace = getSpaceFromClient();
                     clientMessage.setSpace1(lastSpace);
+                    if ( god == God.CHARON && charonSwitch == 1 ){
+                        String space = serializableLiteGame.getStringValue(lastSpace[0], lastSpace[1]);
+                        if ( !space.contains("V") ){
+                            lastAction = "Charon Switch";
+                        }
+                        else {
+                            lastAction = "Move";
+                            moveCounter++;
+                        }
+                    }
                     if (lastAction.contains("Build")) {
                         if ( god == God.ATLAS ) {
                             System.out.println("  Do you want to build a dome? (yes/no)");
@@ -177,15 +185,14 @@ public class CommandLineGame implements Observer<MessageHandler> {
             if ( messageFromFrontEnd.equals("Next action") && !lastAction.equals("End") ) {
                 messageFromFrontEnd = readString();
 
-                if (messageFromFrontEnd.equals("Invalid action")) {
+                if ( messageFromFrontEnd.equals("Invalid action") ) {
                     repeat = true;
                     System.out.println("  " + messageFromFrontEnd);
                 }
+                else charonSwitch = 0;
             }
         }
         System.out.println(messageFromFrontEnd);
-        serializableLiteGame = readSerializableLG();
-        buildGameTable();
     }
 
 
@@ -450,10 +457,10 @@ public class CommandLineGame implements Observer<MessageHandler> {
         String[] newRow;
         if (row == 1){
             newRow = new String[]{
-                    "                              "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0]+"            "+"  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET,
-                    "                           "+row+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1]+"            "+"  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET,
-                    "                              "+space1[2]+space2[2]+space3[2]+space4[2]+space5[2]+"            "+"  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET,
-                    "                              "+space1[3]+space2[3]+space3[3]+space4[3]+space5[3]+"            "+"  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET
+                    "                              "+space1[0]+space2[0]+space3[0]+space4[0]+space5[0]+"            "+"  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET + " x"+serializableLiteGame.getLevel1(),
+                    "                           "+row+"  "+space1[1]+space2[1]+space3[1]+space4[1]+space5[1]+"            "+"  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET + " x"+serializableLiteGame.getLevel2(),
+                    "                              "+space1[2]+space2[2]+space3[2]+space4[2]+space5[2]+"            "+"  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET + " x"+serializableLiteGame.getLevel3(),
+                    "                              "+space1[3]+space2[3]+space3[3]+space4[3]+space5[3]+"            "+"  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET + " x"+serializableLiteGame.getDome()
             };
         }
 

@@ -107,7 +107,6 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         //I giocatori settano a turno le posizioni dei loro Workers
         for( ServerConnection c : clients ) {
             resetUpdate();
-
             if ( c != null ) {
                 while ( !updateModel) {
                     sendToCurrClient("Placing workers");
@@ -120,8 +119,8 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
                 }
                 updateCurrClient();
             }
-
         }
+
 
         while ( !endOfTheGame ) {
             //chiedo al client di eseguire una mossa
@@ -159,8 +158,6 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         }
 
         sendToCurrClient("You won the match.");
-        sendLiteGame();
-
         server.endGame(gameID, null);
     }
 
