@@ -374,7 +374,7 @@ public class GameTest {
     @Test
     public void godTest(){
         assertEquals(God.TRITON.toString(),"TRITON");
-        assertEquals(God.TRITON.getPower(),"");
+        assertEquals(God.TRITON.getPower(),"Your Move: Each time your Worker moves into a perimeter space, it may immediately move again.");
 
     }
 

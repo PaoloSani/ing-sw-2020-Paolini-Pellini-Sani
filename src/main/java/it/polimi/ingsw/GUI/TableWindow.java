@@ -177,5 +177,4 @@ public class TableWindow extends GameWindow implements Initializable {
 
         }
     }
-
 }
