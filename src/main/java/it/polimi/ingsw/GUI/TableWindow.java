@@ -1,12 +1,15 @@
 package it.polimi.ingsw.GUI;
 
+import it.polimi.ingsw.CLI.ColourFont;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -79,7 +82,7 @@ public class TableWindow extends GameWindow implements Initializable {
         for (int row = 0; row < 5; row++){
             for (int col = 0; col <5; col++){
                 Button button = new Button();
-                button.setOpacity(1.0);
+                button.setOpacity(0.0);
                 button.setText(row+"-"+col);
                 button.setPrefSize(82,80);
                 button.setOnAction(this::mouseClicking);
@@ -143,7 +146,7 @@ public class TableWindow extends GameWindow implements Initializable {
             }
         };
 
-        readStringTask.setOnSucceeded( event -> {
+        readLitegameTask.setOnSucceeded( event -> {
             newSLG = readLitegameTask.getValue();
         });
 
@@ -174,7 +177,7 @@ public class TableWindow extends GameWindow implements Initializable {
         currThread.start();
 
 
-       /* while(!endOfTheGame) {
+        while(!endOfTheGame) {
             boolean repeat = false;
             String messageToPrint = "none";
 
@@ -312,6 +315,70 @@ public class TableWindow extends GameWindow implements Initializable {
             buildGameTable();
         }
         */
+
+    }
+
+    private void buildGameTable() {
+        gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
+        for( int i = 0; i < 5; i++){
+            for( int j = 0; j < 5; j++ ){
+                buildGameSpace(i,j);
+            }
+        }
+    }
+
+    private void buildGameSpace(int i, int j) {
+        char[] spaceToPrint;
+        ImageView building = new ImageView(), worker = new ImageView(), currWorker = new ImageView();
+        spaceToPrint = newSLG.getTable()[i][j].toCharArray();
+
+
+        if (spaceToPrint[1] == '0' && spaceToPrint[2] == 'D' ) building.setImage(new Image("/Table/4.png"));
+        else if (spaceToPrint[1] == '1') {
+            if (spaceToPrint[2] == 'D') {
+                building.setImage(new Image("/Table/1+4.png"));
+            }
+            else building.setImage(new Image("/Table/1.png"));
+
+        }
+        else if (spaceToPrint[1] == '2') {
+            if (spaceToPrint[2] == 'D') {
+                building.setImage(new Image("/Table/1+2+4.png"));
+            }
+            else building.setImage(new Image("/Table/1+2.png"));
+
+        }
+        else if (spaceToPrint[1] == '3') {
+            if (spaceToPrint[2] == 'D') {
+                building.setImage(new Image("/Table/1+2+3+4.png"));
+            }
+            else building.setImage(new Image("/Table/1+2+3.png"));
+        }
+        switch(spaceToPrint[0]){
+            case 'A':
+                worker.setImage(new Image("/Table/male3"));
+                break;
+
+            case 'B':
+                worker.setImage(new Image("/Table/male5"));
+                break;
+
+            case 'C':
+                worker.setImage(new Image("/Table/male1"));
+                break;
+
+            default:
+                worker.setImage(null);
+                break;
+        }
+
+        if (newSLG.getCurrWorker()[0] == i && newSLG.getCurrWorker()[1] == j){
+            currWorker.setImage(new Image("/Table/playermoveindicator_blue.png"));
+        }
+
+        gameTable.add(building, j , i );
+        gameTable.add(worker, j , i );
+        gameTable.add(currWorker, j , i );
 
     }
 
