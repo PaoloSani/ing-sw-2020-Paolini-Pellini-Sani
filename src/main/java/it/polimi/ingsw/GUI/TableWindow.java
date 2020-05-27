@@ -14,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -23,31 +25,7 @@ import java.util.concurrent.ExecutorService;
 import static java.lang.Integer.parseInt;
 
 public class TableWindow extends GameWindow implements Initializable {
-    public ImageView image00;
-    public ImageView image01;
-    public ImageView image02;
-    public ImageView image03;
-    public ImageView image04;
-    public ImageView image10;
-    public ImageView image11;
-    public ImageView image12;
-    public ImageView image13;
-    public ImageView image14;
-    public ImageView image20;
-    public ImageView image21;
-    public ImageView image22;
-    public ImageView image23;
-    public ImageView image24;
-    public ImageView image30;
-    public ImageView image31;
-    public ImageView image32;
-    public ImageView image33;
-    public ImageView image34;
-    public ImageView image40;
-    public ImageView image41;
-    public ImageView image42;
-    public ImageView image43;
-    public ImageView image44;
+
     public GridPane gameTable;
     public Label messageLabel;
 
@@ -177,7 +155,7 @@ public class TableWindow extends GameWindow implements Initializable {
         currThread.start();
 
 
-        while(!endOfTheGame) {
+        /*while(!endOfTheGame) {
             boolean repeat = false;
             String messageToPrint = "none";
 
@@ -318,8 +296,8 @@ public class TableWindow extends GameWindow implements Initializable {
 
     }
 
-    private void buildGameTable() {
-        gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
+    public void buildGameTable() throws FileNotFoundException {
+        //gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
         for( int i = 0; i < 5; i++){
             for( int j = 0; j < 5; j++ ){
                 buildGameSpace(i,j);
@@ -327,7 +305,7 @@ public class TableWindow extends GameWindow implements Initializable {
         }
     }
 
-    private void buildGameSpace(int i, int j) {
+    public void buildGameSpace(int i, int j) throws FileNotFoundException {
         char[] spaceToPrint;
         ImageView building = new ImageView(), worker = new ImageView(), currWorker = new ImageView();
         spaceToPrint = newSLG.getTable()[i][j].toCharArray();
@@ -336,44 +314,66 @@ public class TableWindow extends GameWindow implements Initializable {
         if (spaceToPrint[1] == '0' && spaceToPrint[2] == 'D' ) building.setImage(new Image("/Table/4.png"));
         else if (spaceToPrint[1] == '1') {
             if (spaceToPrint[2] == 'D') {
-                building.setImage(new Image("/Table/1+4.png"));
+                FileInputStream toLoad = new FileInputStream("/Table/1+4.png");
+                Image image = new Image(toLoad);
+                building = new ImageView(image);
             }
-            else building.setImage(new Image("/Table/1.png"));
+            else {
+                FileInputStream toLoad = new FileInputStream("/Table/1.png");
+                Image image = new Image(toLoad);
+                building = new ImageView(image);
+            }
 
         }
         else if (spaceToPrint[1] == '2') {
             if (spaceToPrint[2] == 'D') {
-                building.setImage(new Image("/Table/1+2+4.png"));
+                FileInputStream toLoad = new FileInputStream("/Table/1+2+4.png");
+                Image image = new Image(toLoad);
+                building = new ImageView(image);
             }
-            else building.setImage(new Image("/Table/1+2.png"));
+            else {FileInputStream toLoad = new FileInputStream("/Table/1+2.png");
+            Image image = new Image(toLoad);
+            building = new ImageView(image);}
 
         }
         else if (spaceToPrint[1] == '3') {
             if (spaceToPrint[2] == 'D') {
-                building.setImage(new Image("/Table/1+2+3+4.png"));
+                FileInputStream toLoad = new FileInputStream("/Table/1+2+3+4.png");
+                Image image = new Image(toLoad);
+                building = new ImageView(image);
             }
-            else building.setImage(new Image("/Table/1+2+3.png"));
+            else {FileInputStream toLoad = new FileInputStream("/Table/1+2+3.png");
+            Image image = new Image(toLoad);
+            building = new ImageView(image);}
         }
         switch(spaceToPrint[0]){
             case 'A':
-                worker.setImage(new Image("/Table/male3"));
+                FileInputStream toLoad = new FileInputStream("/Table/male3.png");
+                Image image = new Image(toLoad);
+                worker = new ImageView(image);
                 break;
 
             case 'B':
-                worker.setImage(new Image("/Table/male5"));
+                toLoad = new FileInputStream("/Table/male5.png");
+                image = new Image(toLoad);
+                worker = new ImageView(image);
                 break;
 
             case 'C':
-                worker.setImage(new Image("/Table/male1"));
+                toLoad = new FileInputStream("/Table/male1.png");
+                image = new Image(toLoad);
+                worker = new ImageView(image);
                 break;
 
             default:
-                worker.setImage(null);
                 break;
         }
 
         if (newSLG.getCurrWorker()[0] == i && newSLG.getCurrWorker()[1] == j){
-            currWorker.setImage(new Image("/Table/playermoveindicator_blue.png"));
+            FileInputStream toLoad = new FileInputStream("/Table/playermoveindicator_blue.png");
+            Image image = new Image(toLoad);
+            currWorker = new ImageView(image);
+
         }
 
         gameTable.add(building, j , i );
@@ -422,5 +422,9 @@ public class TableWindow extends GameWindow implements Initializable {
             if (!validPlacing) System.out.println("  Please retype two correct spaces!");
 
         }
+    }
+
+    public void setNewSLT(SerializableLiteGame serializableLiteGame) {
+        newSLG = serializableLiteGame;
     }
 }
