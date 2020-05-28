@@ -67,18 +67,6 @@ public class TableWindow extends GameWindow implements Initializable {
                 gameTable.add(button,col,row);
             }
         }
-        Scene currScene = messageLabel.getScene();
-
-        currScene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            if ( key.getCode() == KeyCode.D ) {
-                clientChoices.add(KeyCode.D.toString());
-            } else if ( key.getCode() == KeyCode.B ) {
-                clientChoices.add(KeyCode.B.toString());
-            } else if ( key.getCode() == KeyCode.E ) {
-                clientChoices.add(KeyCode.E.toString());
-            }
-        });
-
 
         Task<Void> runGUITask = new Task<Void>() {
             @Override
@@ -101,6 +89,18 @@ public class TableWindow extends GameWindow implements Initializable {
         int[] firstWorker = new int[]{5,5};
         int charonSwitch = 0;
         String messageToPrint = "none";
+
+        Scene currScene = messageLabel.getScene();
+
+        currScene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if ( key.getCode() == KeyCode.D ) {
+                clientChoices.add(KeyCode.D.toString());
+            } else if ( key.getCode() == KeyCode.B ) {
+                clientChoices.add(KeyCode.B.toString());
+            } else if ( key.getCode() == KeyCode.E ) {
+                clientChoices.add(KeyCode.E.toString());
+            }
+        });
 
         placeWorkers();
         while(!endOfTheGame) {
