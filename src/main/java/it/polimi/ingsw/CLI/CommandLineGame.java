@@ -30,11 +30,11 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private boolean quit = true;
     private ClientConnection clientConnection;
     private String[] challengerMessage;
-    private SerializableLiteGame serializableLiteGame = new SerializableLiteGame();
     private ClientMessage clientMessage = new ClientMessage();
     private boolean endOfTheGame = false;
     private String messageFromFrontEnd;
     private String lastAction = "none";
+    private SerializableLiteGame serializableLiteGame = new SerializableLiteGame();
     private SerializableLiteGame newSLG = new SerializableLiteGame();
     private MessageHandler messageHandler;
     private boolean updateString = false;

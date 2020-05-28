@@ -69,10 +69,6 @@ public class PrintTableTest {
 
         TableWindow tableWindow = fxmlLoader.getController();
         tableWindow.setNewSLT(game.getLiteGame().makeSerializable());
-        try {
-            tableWindow.buildGameTable();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        tableWindow.buildGameTable();
     }
 }

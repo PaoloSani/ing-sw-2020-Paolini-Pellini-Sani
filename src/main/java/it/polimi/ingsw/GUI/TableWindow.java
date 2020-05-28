@@ -2,20 +2,29 @@ package it.polimi.ingsw.GUI;
 
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import static java.lang.Integer.parseInt;
 
@@ -28,22 +37,18 @@ public class TableWindow extends GameWindow implements Initializable {
     private int[] coordinates2 = null;
     private SerializableLiteGame newSLG;
     private CountDownLatch countDownLatch;
-    private String messageFromServer;
     private boolean answerYes;
     private boolean endOfTheGame = false;
-    String lastAction = "none";
-
+    private String lastAction = "none";
+    private String messageFromFrontEnd = "none";
+    private BlockingQueue<Object> clientChoices = new LinkedBlockingDeque<>();
 
     public void mouseClicking(ActionEvent actionEvent) {
         if ( !messageLabel.getText().contains("Wait") ) {
             Button clickedButton = (Button) actionEvent.getSource();
             String coordToSplit = clickedButton.getText();
             String[] coordToParse = coordToSplit.split("-");
-            if (coordinates1 == null)
-                coordinates1 = new int[]{Integer.parseInt(coordToParse[0]), Integer.parseInt(coordToParse[1])};
-            else if (coordinates2 == null)
-                coordinates2 = new int[]{Integer.parseInt(coordToParse[0]), Integer.parseInt(coordToParse[1])};
-            countDownLatch.countDown();
+            clientChoices.add(new int[]{Integer.parseInt(coordToParse[0]), Integer.parseInt(coordToParse[1])});
         }
     }
 
@@ -62,6 +67,18 @@ public class TableWindow extends GameWindow implements Initializable {
                 gameTable.add(button,col,row);
             }
         }
+        Scene currScene = messageLabel.getScene();
+
+        currScene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if ( key.getCode() == KeyCode.D ) {
+                clientChoices.add(KeyCode.D.toString());
+            } else if ( key.getCode() == KeyCode.B ) {
+                clientChoices.add(KeyCode.B.toString());
+            } else if ( key.getCode() == KeyCode.E ) {
+                clientChoices.add(KeyCode.E.toString());
+            }
+        });
+
 
         Task<Void> runGUITask = new Task<Void>() {
             @Override
@@ -69,319 +86,97 @@ public class TableWindow extends GameWindow implements Initializable {
                 runGUI();
                 return null;
             }
-        }
-
-        Task<String> readStringTask = new Task<String>() {
-            @Override
-            protected String call() throws Exception {
-                String messageFromFrontEnd = guiHandler.readString();
-                return messageFromFrontEnd;
-            }
         };
 
-        Task<Void> getSpaceClickedTask = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                try {
-                    countDownLatch.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if((guiHandler.getClientMessage().getSpace1() == null) || (guiHandler.getClientMessage().getSpace2() != null)) {
-                    System.out.println("space1 ok");
-                    guiHandler.getClientMessage().setSpace1(coordinates1.clone());
-                    coordinates1 = null;
-                } else if (guiHandler.getClientMessage().getSpace2() == null){
-                    System.out.println("space2 ok");
-                    guiHandler.getClientMessage().setSpace1(coordinates2.clone());
-                }
-                countDownLatch = new CountDownLatch(1);
-                return null;
-            }
-        };
-
-        readStringTask.setOnSucceeded( event -> {
-            messageLabel.setText(readStringTask.getValue());
-            if ( messageLabel.getText().contains("Wait") ){
-                Thread newThread = new Thread(readStringTask);
-            }
-            else if ( messageLabel.getText().contains("Placing Workers")){
-                Thread newThread = new Thread(getSpaceClickedTask);
-            }
-            else if ( messageLabel.getText().contains("Next Action")){
-
-            }
-            else if ( messageLabel.getText().contains("Invalid Action") ){
-                messageLabel.setText("Repeat your" + getLastAction());
-            }
-            else {
-                //load della finestra finale
-            }
-        });
-
-        Task<SerializableLiteGame> readLitegameTask = new Task<SerializableLiteGame>() {
-            @Override
-            protected SerializableLiteGame call() throws Exception {
-                SerializableLiteGame newSLG = guiHandler.readSerializableLG();
-                return newSLG;
-            }
-        };
-
-        readLitegameTask.setOnSucceeded( event -> {
-            newSLG = readLitegameTask.getValue();
-        });
-
-
-
-
-        getSpaceClickedTask.setOnSucceeded( event -> {
-            if ( guiHandler.getClientMessage().getSpace2() == null ) {
-                messageLabel.setText("Choose the second space!");
-                Thread newThread = new Thread(getSpaceClickedTask);
-            }
-            else if ( getLastAction().equals("Build") ){
-
-            }
-            else {
-
-            }
-        });
-
-        Task<String> readChoiceTask = new Task<String>() {
-            @Override
-            protected String call() throws Exception {
-                return "none";
-            }
-        };
-
-        currThread = new Thread(readStringTask);
+        currThread = new Thread(runGUITask);
         currThread.start();
-
-
-        /*while(!endOfTheGame) {
-            boolean repeat = false;
-            String messageToPrint = "none";
-
-            while(!endOfTheGame) {
-                messageFromFrontEnd = readString();
-                if(messageFromFrontEnd.equals("Next action") ){
-                    if ( !repeat ) {
-                        if (lastAction.equals("none") || lastAction.equals("End")) {
-                            lastAction = "Choose Worker";
-                            messageToPrint = "  Select the worker you want to play with";
-                        }
-
-                        else if (lastAction.equals("Choose Worker")) {
-                            if (god == God.CHARON) {
-                                charonSwitch++;
-                                messageToPrint = "  Please select a space(ROW-COL)";
-                            }
-                            else if (god == God.PROMETHEUS) {
-                                System.out.println("  Do you want to use Prometheus power? (yes/no)");
-                                if (in.nextLine().equalsIgnoreCase("YES")) {
-                                    lastAction = "Prometheus Build";
-                                    messageToPrint = "  Please select the space where you want to build (ROW-COL)";
-                                }
-                                else {
-                                    lastAction = "Move";
-                                    messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
-                                    moveCounter++;
-                                }
-                            } else {
-                                lastAction = "Move";
-                                moveCounter++;
-                                messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
-                            }
-
-                        } else if (lastAction.equals("Charon Switch") || lastAction.equals("Prometheus Build")){
-                            lastAction = "Move";
-                            moveCounter++;
-                            messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
-                        }
-                        else if (lastAction.equals("Move")) {
-                            if ((god == God.ARTEMIS && moveCounter == 1) || ( god == God.TRITON && serializableLiteGame.isPerimetralSpace(lastSpace) )) {
-                                System.out.println("  Do you want to move again? (yes/no)");
-                                if (in.nextLine().equalsIgnoreCase("YES")) {
-                                    lastAction = "Move";
-                                    messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
-                                    moveCounter++;
-                                } else {
-                                    lastAction = "Build";
-                                    buildCounter++;
-                                    messageToPrint = "  Please select the space where you want to build (ROW-COL)";
-                                }
-                            } else {
-                                buildCounter++;
-                                lastAction = "Build";
-                                messageToPrint = "  Please select the space where you want to build (ROW-COL)";
-                            }
-                        } else if (lastAction.equals("Build")) {
-                            if ( ((god == God.HEPHAESTUS || god == God.DEMETER) && buildCounter == 1)  ||     //se Efesto o Demetra e ha già fatto una sola build
-                                    ( god == God.POSEIDON && buildCounter > 0 && buildCounter < 4 &&              // se Poseidone e ha già fatto una o più costruzioni (max 3)
-                                            !Arrays.equals(firstWorker, serializableLiteGame.getCurrWorker()))           ){       // sta giocando con il suo secondo worker
-
-                                System.out.println("  Do you want to build again? (yes/no)");
-                                if (in.nextLine().equalsIgnoreCase("YES") ) {
-                                    lastAction = "Build";
-                                    messageToPrint = "  Please select the space where you want to build (ROW-COL)";
-                                    buildCounter++;
-                                }
-                                else{
-                                    moveCounter = 0;
-                                    buildCounter = 0;
-                                    messageToPrint = "  End of the turn";
-                                    lastAction = "End";
-                                }
-                            } else {
-                                moveCounter = 0;
-                                buildCounter = 0;
-                                messageToPrint = "  End of the turn";
-                                lastAction = "End";
-                            }
-                        }
-                    }
-                    else repeat = false;
-
-                    if( !lastAction.equals("End") ) {
-                        System.out.println(messageToPrint);
-                        lastSpace = getSpaceFromClient();
-                        clientMessage.setSpace1(lastSpace);
-                        if ( god == God.CHARON && charonSwitch == 1 ){
-                            String space = serializableLiteGame.getStringValue(lastSpace[0], lastSpace[1]);
-                            if ( !space.contains("V") ){
-                                lastAction = "Charon Switch";
-                            }
-                            else {
-                                lastAction = "Move";
-                                moveCounter++;
-                            }
-                        }
-                        if (lastAction.contains("Build")) {
-                            if ( god == God.ATLAS ) {
-                                System.out.println("  Do you want to build a dome? (yes/no)");
-                                if(in.nextLine().equals("yes")) clientMessage.setLevelToBuild(4);
-                                else clientMessage.setLevelToBuild(serializableLiteGame.getHeight(clientMessage.getSpace1())+1);
-                            }
-                            else clientMessage.setLevelToBuild(serializableLiteGame.getHeight(clientMessage.getSpace1())+1);
-                            if ( buildCounter == 1 ) {
-                                firstWorker = serializableLiteGame.getCurrWorker();
-                            }
-                        }
-                    }
-                    clientMessage.setAction(lastAction);
-                    clientConnection.send(clientMessage);
-                }
-                //Siamo in caso in cui o abbiamo vinto o abbiamo perso
-                else if(!messageFromFrontEnd.contains("Wait")){
-                    endOfTheGame = true;
-                }
-
-                else System.out.println(messageFromFrontEnd);
-
-                serializableLiteGame = readSerializableLG();
-                buildGameTable();
-
-                if ( messageFromFrontEnd.equals("Next action") && !lastAction.equals("End") ) {
-                    messageFromFrontEnd = readString();
-
-                    if ( messageFromFrontEnd.equals("Invalid action") ) {
-                        repeat = true;
-                        System.out.println("  " + messageFromFrontEnd);
-                    }
-                    else charonSwitch = 0;
-                }
-            }
-            System.out.println(messageFromFrontEnd);
-            serializableLiteGame = readSerializableLG();
-            buildGameTable();
-        }
-        */
 
     }
 
     private void runGUI() {
+        God god = guiHandler.getClientMessage().getGod();
         int moveCounter =0, buildCounter = 0;
         boolean repeat = false;
         int [] lastSpace = new int[]{5,5};
         int[] firstWorker = new int[]{5,5};
-        String messageToPrint = "none";
         int charonSwitch = 0;
+        String messageToPrint = "none";
 
         placeWorkers();
         while(!endOfTheGame) {
-            messageFromFrontEnd = readString();
+            messageFromFrontEnd = guiHandler.readString();
             if(messageFromFrontEnd.equals("Next action") ){
                 if ( !repeat ) {
                     if (lastAction.equals("none") || lastAction.equals("End")) {
                         lastAction = "Choose Worker";
-                        messageToPrint = "  Select the worker you want to play with";
+                        messageToPrint = "Select the worker you want to play with";
                     }
 
                     else if (lastAction.equals("Choose Worker")) {
                         if (god == God.CHARON) {
                             charonSwitch++;
-                            messageToPrint = "  Please select a space(ROW-COL)";
+                            messageToPrint = "Please select a space";
                         }
                         else if (god == God.PROMETHEUS) {
-                            System.out.println("  Do you want to use Prometheus power? (yes/no)");
-                            if (in.nextLine().equalsIgnoreCase("YES")) {
+                            setMessageLabel("Move or press B to build");
+                            if ("B".equals(clientChoices.poll())) {
                                 lastAction = "Prometheus Build";
-                                messageToPrint = "  Please select the space where you want to build (ROW-COL)";
+                                messageToPrint = "Please select the space where you want to build";
                             }
                             else {
                                 lastAction = "Move";
-                                messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
+                                messageToPrint = "Please select the space you want to occupy";
                                 moveCounter++;
                             }
                         } else {
                             lastAction = "Move";
                             moveCounter++;
-                            messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
+                            messageToPrint = "Please select the space you want to occupy";
                         }
 
                     } else if (lastAction.equals("Charon Switch") || lastAction.equals("Prometheus Build")){
                         lastAction = "Move";
                         moveCounter++;
-                        messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
+                        messageToPrint = "Please select the space you want to occupy";
                     }
                     else if (lastAction.equals("Move")) {
-                        if ((god == God.ARTEMIS && moveCounter == 1) || ( god == God.TRITON && serializableLiteGame.isPerimetralSpace(lastSpace) )) {
-                            System.out.println("  Do you want to move again? (yes/no)");
-                            if (in.nextLine().equalsIgnoreCase("YES")) {
-                                lastAction = "Move";
-                                messageToPrint = "  Please select the space you want to occupy (ROW-COL)";
-                                moveCounter++;
-                            } else {
+                        if ((god == God.ARTEMIS && moveCounter == 1) || ( god == God.TRITON && guiHandler.getSerializableLiteGame().isPerimetralSpace(lastSpace) )) {
+                            setMessageLabel("Move again or press B to build");
+                            if ("B".equals(clientChoices.poll())) {
                                 lastAction = "Build";
                                 buildCounter++;
-                                messageToPrint = "  Please select the space where you want to build (ROW-COL)";
+                                messageToPrint = "Please select the space where you want to build";
+                            } else {
+                                lastAction = "Move";
+                                messageToPrint = "Please select the space you want to occupy";
+                                moveCounter++;
                             }
                         } else {
                             buildCounter++;
                             lastAction = "Build";
-                            messageToPrint = "  Please select the space where you want to build (ROW-COL)";
+                            messageToPrint = "Please select the space where you want to build";
                         }
                     } else if (lastAction.equals("Build")) {
                         if ( ((god == God.HEPHAESTUS || god == God.DEMETER) && buildCounter == 1)  ||     //se Efesto o Demetra e ha già fatto una sola build
                                 ( god == God.POSEIDON && buildCounter > 0 && buildCounter < 4 &&              // se Poseidone e ha già fatto una o più costruzioni (max 3)
-                                        !Arrays.equals(firstWorker, serializableLiteGame.getCurrWorker()))           ){       // sta giocando con il suo secondo worker
+                                        !Arrays.equals(firstWorker, guiHandler.getSerializableLiteGame().getCurrWorker()))){       // sta giocando con il suo secondo worker
 
-                            System.out.println("  Do you want to build again? (yes/no)");
-                            if (in.nextLine().equalsIgnoreCase("YES") ) {
-                                lastAction = "Build";
-                                messageToPrint = "  Please select the space where you want to build (ROW-COL)";
-                                buildCounter++;
-                            }
-                            else{
+                            setMessageLabel("Build again or press E to end your turn");
+                            if ("E".equals(clientChoices.poll())) {
                                 moveCounter = 0;
                                 buildCounter = 0;
-                                messageToPrint = "  End of the turn";
+                                messageToPrint = "End of the turn";
                                 lastAction = "End";
+                            }
+                            else{
+                                lastAction = "Build";
+                                messageToPrint = "Please select the space where you want to build";
+                                buildCounter++;
                             }
                         } else {
                             moveCounter = 0;
                             buildCounter = 0;
-                            messageToPrint = "  End of the turn";
+                            messageToPrint = "End of the turn";
                             lastAction = "End";
                         }
                     }
@@ -389,11 +184,11 @@ public class TableWindow extends GameWindow implements Initializable {
                 else repeat = false;
 
                 if( !lastAction.equals("End") ) {
-                    System.out.println(messageToPrint);
-                    lastSpace = getSpaceFromClient();
-                    clientMessage.setSpace1(lastSpace);
+                    setMessageLabel(messageToPrint);
+                    lastSpace = (int[]) clientChoices.poll();
+                    guiHandler.getClientMessage().setSpace1(lastSpace);
                     if ( god == God.CHARON && charonSwitch == 1 ){
-                        String space = serializableLiteGame.getStringValue(lastSpace[0], lastSpace[1]);
+                        String space = guiHandler.getSerializableLiteGame().getStringValue(lastSpace[0], lastSpace[1]);
                         if ( !space.contains("V") ){
                             lastAction = "Charon Switch";
                         }
@@ -404,49 +199,54 @@ public class TableWindow extends GameWindow implements Initializable {
                     }
                     if (lastAction.contains("Build")) {
                         if ( god == God.ATLAS ) {
-                            System.out.println("  Do you want to build a dome? (yes/no)");
-                            if(in.nextLine().equals("yes")) clientMessage.setLevelToBuild(4);
-                            else clientMessage.setLevelToBuild(serializableLiteGame.getHeight(clientMessage.getSpace1())+1);
+                            setMessageLabel("Press D to build a dome, else press B");
+                            if("D".equals(clientChoices.poll())) guiHandler.getClientMessage().setLevelToBuild(4);
+                            else guiHandler.getClientMessage().setLevelToBuild(guiHandler.getSerializableLiteGame().getHeight(guiHandler.getClientMessage().getSpace1())+1);
                         }
-                        else clientMessage.setLevelToBuild(serializableLiteGame.getHeight(clientMessage.getSpace1())+1);
+                        else guiHandler.getClientMessage().setLevelToBuild(guiHandler.getSerializableLiteGame().getHeight(guiHandler.getClientMessage().getSpace1())+1);
                         if ( buildCounter == 1 ) {
-                            firstWorker = serializableLiteGame.getCurrWorker();
+                            firstWorker = guiHandler.getSerializableLiteGame().getCurrWorker();
                         }
                     }
                 }
-                clientMessage.setAction(lastAction);
-                clientConnection.send(clientMessage);
+                guiHandler.getClientMessage().setAction(lastAction);
+                guiHandler.getClientConnection().send(guiHandler.getClientMessage());
             }
             //Siamo in caso in cui o abbiamo vinto o abbiamo perso
             else if(!messageFromFrontEnd.contains("Wait")){
                 endOfTheGame = true;
             }
 
-            else System.out.println(messageFromFrontEnd);
+            else setMessageLabel(messageFromFrontEnd);
 
-            serializableLiteGame = readSerializableLG();
+            guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
             buildGameTable();
 
             if ( messageFromFrontEnd.equals("Next action") && !lastAction.equals("End") ) {
-                messageFromFrontEnd = readString();
+                messageFromFrontEnd = guiHandler.readString();
 
                 if ( messageFromFrontEnd.equals("Invalid action") ) {
                     repeat = true;
-                    System.out.println("  " + messageFromFrontEnd);
+                    setMessageLabel(messageFromFrontEnd);
                 }
                 else charonSwitch = 0;
             }
         }
-        System.out.println(messageFromFrontEnd);
+        setMessageLabel(messageFromFrontEnd);
     }
 
-    public void buildGameTable() throws FileNotFoundException {
-        //gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
-        for( int i = 0; i < 5; i++){
-            for( int j = 0; j < 5; j++ ){
-                buildGameSpace(i,j);
+    public void buildGameTable() {
+        /*Platform.runLater(() ->{//gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
+            for( int i = 0; i < 5; i++) {
+                for (int j = 0; j < 5; j++) {
+                    try {
+                        buildGameSpace(i, j);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        }
+        });*/
     }
 
     public void buildGameSpace(int i, int j) throws FileNotFoundException {
@@ -531,41 +331,35 @@ public class TableWindow extends GameWindow implements Initializable {
     }
 
     public void placeWorkers() {
-        String messageFromFrontEnd = "none";
+        messageFromFrontEnd = "none";
         while (!messageFromFrontEnd.equals("Placing workers")) {
             messageFromFrontEnd = guiHandler.readString();
-            System.out.println("  " + messageFromFrontEnd);
+            setMessageLabel(messageFromFrontEnd);
             if (messageFromFrontEnd.contains("Wait")) {
                 guiHandler.setSerializableLiteGame(guiHandler.getSerializableLiteGame());
+                buildGameTable();
             }
         }
         boolean validPlacing = false;
         while (!validPlacing) {
-            try {
-                countDownLatch.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("space1 ok");
-            guiHandler.getClientMessage().setSpace1(coordinates1.clone());
-            countDownLatch = new CountDownLatch(1);
-            try {
-                countDownLatch.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("space2 ok");
-            guiHandler.getClientMessage().setSpace2(coordinates2.clone());
+            guiHandler.getClientMessage().setSpace1((int[])clientChoices.poll());
+            guiHandler.getClientMessage().setSpace2((int[])clientChoices.poll());
             guiHandler.getClientConnection().send(guiHandler.getClientMessage());
-            coordinates1 = null;
             newSLG = guiHandler.readSerializableLG();
             if (!newSLG.equalsSLG(guiHandler.getSerializableLiteGame())) {
                 validPlacing = true;
                 guiHandler.setSerializableLiteGame(newSLG);
             }
-            if (!validPlacing) System.out.println("  Please retype two correct spaces!");
+            buildGameTable();
+            if (!validPlacing) setMessageLabel("Please retype two correct spaces!");
 
         }
+    }
+
+    private void setMessageLabel(String messageFromFrontEnd) {
+        Platform.runLater( () -> {
+            messageLabel.setText(messageFromFrontEnd);
+        });
     }
 
     public void setNewSLT(SerializableLiteGame serializableLiteGame) {
