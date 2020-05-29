@@ -216,7 +216,7 @@ public class TableWindow extends GameWindow implements Initializable {
     }
 
     public void buildGameTable() {
-        Platform.runLater(() ->{//gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
+        Platform.runLater(() ->{gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
             for( int i = 0; i < 5; i++) {
                 for (int j = 0; j < 5; j++) {
                     try {
