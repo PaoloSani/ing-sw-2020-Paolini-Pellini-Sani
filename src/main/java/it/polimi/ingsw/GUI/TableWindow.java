@@ -256,9 +256,7 @@ public class TableWindow extends GameWindow implements Initializable {
                     }
                 }
             }
-            for (Node node : gameTable.getChildren()){
-                if (node instanceof Button) node.
-            }
+
         });
     }
 
@@ -335,7 +333,7 @@ public class TableWindow extends GameWindow implements Initializable {
             messageFromFrontEnd = guiHandler.readString();
             setMessageLabel(messageFromFrontEnd);
             if (messageFromFrontEnd.contains("Wait")) {
-                guiHandler.setSerializableLiteGame(guiHandler.getSerializableLiteGame());
+                guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
                 buildGameTable();
             }
         }
