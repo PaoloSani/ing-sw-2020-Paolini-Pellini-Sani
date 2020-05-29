@@ -26,6 +26,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 
+import static java.lang.Integer.parseInt;
+
 public class TableWindow extends GameWindow implements Initializable {
     public GridPane gameTable;
     public Label messageLabel;
@@ -73,17 +75,21 @@ public class TableWindow extends GameWindow implements Initializable {
         int charonSwitch = 0;
         String messageToPrint = "none";
 
-        Scene currScene = messageLabel.getScene();
-
-        currScene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            if ( key.getCode() == KeyCode.D ) {
-                clientChoices.add(KeyCode.D.toString());
-            } else if ( key.getCode() == KeyCode.B ) {
-                clientChoices.add(KeyCode.B.toString());
-            } else if ( key.getCode() == KeyCode.E ) {
-                clientChoices.add(KeyCode.E.toString());
-            }
+        Platform.runLater( () ->{
+            Scene currScene = messageLabel.getScene();
+            currScene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+                if ( key.getCode() == KeyCode.D ) {
+                    clientChoices.add(KeyCode.D.toString());
+                } else if ( key.getCode() == KeyCode.B ) {
+                    clientChoices.add(KeyCode.B.toString());
+                } else if ( key.getCode() == KeyCode.E ) {
+                    clientChoices.add(KeyCode.E.toString());
+                }
+            });
         });
+
+
+
 
         placeWorkers();
         while(!endOfTheGame) {
@@ -162,6 +168,7 @@ public class TableWindow extends GameWindow implements Initializable {
 
                     if (!lastAction.equals("End")) {
                         setMessageLabel(messageToPrint);
+                        clientChoices.clear();
                         lastSpace = (int[]) clientChoices.take();
                         guiHandler.getClientMessage().setSpace1(lastSpace);
                         if (god == God.CHARON && charonSwitch == 1) {
@@ -214,7 +221,8 @@ public class TableWindow extends GameWindow implements Initializable {
     }
 
     public void buildGameTable() {
-        Platform.runLater(() ->{//gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
+        Platform.runLater(() ->{
+            gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
             for( int i = 0; i < 5; i++) {
                 for (int j = 0; j < 5; j++) {
                     try {
@@ -230,71 +238,55 @@ public class TableWindow extends GameWindow implements Initializable {
     public void buildGameSpace(int i, int j) throws FileNotFoundException {
         char[] spaceToPrint;
         ImageView building = new ImageView(), worker = new ImageView(), currWorker = new ImageView();
-        spaceToPrint = newSLG.getTable()[i][j].toCharArray();
+
+        spaceToPrint = guiHandler.getSerializableLiteGame().getTable()[i][j].toCharArray();
 
 
-        if (spaceToPrint[1] == '0' && spaceToPrint[2] == 'D' ) building.setImage(new Image("/Table/4.png",true));
+        if (spaceToPrint[1] == '0' && spaceToPrint[2] == 'D' ) building.setImage(new Image("/Table/4.png"));
         else if (spaceToPrint[1] == '1') {
             if (spaceToPrint[2] == 'D') {
-                Image image = new Image("/Table/1+4.png",true);
-                building = new ImageView(image);
+                building.setImage(new Image("/Table/1+4.png"));
             }
             else {
-                Image image = new Image("/Table/1.png",true);
-                building = new ImageView(image);
+                building.setImage(new Image("/Table/1.png"));
             }
 
         }
         else if (spaceToPrint[1] == '2') {
             if (spaceToPrint[2] == 'D') {
-                Image image = new Image("/Table/1+2+4.png",true);
-                building = new ImageView(image);
-            }
-            else {
-                Image image = new Image("/Table/1+2.png",true);
-                building = new ImageView();
-                building.setImage(image);
-            }
+                building.setImage(new Image("/Table/1+2+4.png"));
 
+            } else {
+                building.setImage(new Image("/Table/1+2.png"));
+            }
         }
         else if (spaceToPrint[1] == '3') {
             if (spaceToPrint[2] == 'D') {
-                Image image = new Image("/Table/1+2+3+4.png",true);
-                building = new ImageView();
-                building.setImage(image);
-            }
-            else {
-                Image image = new Image("/Table/1+2+3.png",true);
-                building = new ImageView();
-                building.setImage(image);
+                building.setImage(new Image("/Table/1+2+3+4.png"));
+
+            } else {
+                building.setImage(new Image("/Table/1+2+3.png"));
             }
         }
         switch(spaceToPrint[0]){
             case 'A':
-                Image image1 = new Image("/Table/male3.png",true);
-                worker = new ImageView(image);
+                worker.setImage(new Image("/Table/male3.png"));
                 break;
 
             case 'B':
-                Image image2 = new Image("/Table/male5.png",true);
-                worker = new ImageView(image);
+                worker.setImage(new Image("/Table/male5.png"));
                 break;
 
             case 'C':
-                toLoad = new FileInputStream("/Table/male1.png");
-                image = new Image(toLoad);
-                worker = new ImageView(image);
+                worker.setImage(new Image("/Table/male1.png"));
                 break;
 
             default:
                 break;
         }
 
-        if (newSLG.getCurrWorker()[0] == i && newSLG.getCurrWorker()[1] == j){
-            FileInputStream toLoad = new FileInputStream("/Table/playermoveindicator_blue.png");
-            Image image = new Image(toLoad);
-            currWorker = new ImageView(image);
-
+        if (guiHandler.getSerializableLiteGame().getCurrWorker()[0] == i && guiHandler.getSerializableLiteGame().getCurrWorker()[1] == j){
+            currWorker.setImage( new Image("/Backgrounds/playermoveindicator_blue.png"));
         }
 
         gameTable.add(building, j , i );
