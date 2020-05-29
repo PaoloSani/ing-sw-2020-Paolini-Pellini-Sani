@@ -41,6 +41,10 @@ public class TableWindow extends GameWindow implements Initializable {
     public Label god1label;
     public Label god2label;
     public Label god3label;
+    public Label level1label;
+    public Label level2label;
+    public Label level3label;
+    public Label domeLabel;
     private SerializableLiteGame newSLG;
     private boolean endOfTheGame = false;
     private String lastAction = "none";
@@ -256,6 +260,10 @@ public class TableWindow extends GameWindow implements Initializable {
                     }
                 }
             }
+            level1label.setText("level 1: " + guiHandler.getSerializableLiteGame().getLevel1());
+            level2label.setText("level 2: " + guiHandler.getSerializableLiteGame().getLevel2());
+            level3label.setText("level 3: " + guiHandler.getSerializableLiteGame().getLevel3());
+            domeLabel.setText("dome: " + guiHandler.getSerializableLiteGame().getDome());
 
         });
     }
@@ -313,6 +321,7 @@ public class TableWindow extends GameWindow implements Initializable {
         if (guiHandler.getSerializableLiteGame().getCurrWorker()[0] == i && guiHandler.getSerializableLiteGame().getCurrWorker()[1] == j){
             currWorker.setImage( new Image("/Backgrounds/playermoveindicator_blue.png"));
         }
+
         building.setMouseTransparent(true);
         worker.setMouseTransparent(true);
         currWorker.setMouseTransparent(true);
@@ -329,6 +338,7 @@ public class TableWindow extends GameWindow implements Initializable {
 
     public void placeWorkers() {
         messageFromFrontEnd = "none";
+
         while (!messageFromFrontEnd.equals("Placing workers")) {
             messageFromFrontEnd = guiHandler.readString();
             setMessageLabel(messageFromFrontEnd);
@@ -337,6 +347,7 @@ public class TableWindow extends GameWindow implements Initializable {
                 buildGameTable();
             }
         }
+
         boolean validPlacing = false;
         while (!validPlacing) {
             try {
