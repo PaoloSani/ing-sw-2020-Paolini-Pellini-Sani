@@ -338,6 +338,7 @@ public class TableWindow extends GameWindow implements Initializable {
 
     public void placeWorkers() {
         messageFromFrontEnd = "none";
+
         while (!messageFromFrontEnd.equals("Placing workers")) {
             messageFromFrontEnd = guiHandler.readString();
             setMessageLabel(messageFromFrontEnd);
@@ -346,6 +347,7 @@ public class TableWindow extends GameWindow implements Initializable {
                 buildGameTable();
             }
         }
+
         boolean validPlacing = false;
         while (!validPlacing) {
             try {

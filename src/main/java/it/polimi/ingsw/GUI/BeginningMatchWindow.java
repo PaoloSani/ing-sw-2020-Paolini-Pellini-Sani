@@ -28,6 +28,8 @@ public class BeginningMatchWindow extends GameWindow implements Initializable {
                 String messageFromFrontEnd = guiHandler.readString();
                 if( guiHandler.getMode() == Mode.NEW_GAME ) {
                     guiHandler.setClientMessage(God.valueOf(messageFromFrontEnd));
+                    guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
+
                 }
                 guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
                 return null;
