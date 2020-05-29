@@ -41,6 +41,10 @@ public class TableWindow extends GameWindow implements Initializable {
     public Label god1label;
     public Label god2label;
     public Label god3label;
+    public Label level1label;
+    public Label level2label;
+    public Label level3label;
+    public Label domeLabel;
     private SerializableLiteGame newSLG;
     private boolean endOfTheGame = false;
     private String lastAction = "none";
@@ -256,9 +260,11 @@ public class TableWindow extends GameWindow implements Initializable {
                     }
                 }
             }
-            for (Node node : gameTable.getChildren()){
-                if (node instanceof Button) node.
-            }
+            level1label.setText("level 1: " + guiHandler.getSerializableLiteGame().getLevel1());
+            level2label.setText("level 2: " + guiHandler.getSerializableLiteGame().getLevel2());
+            level3label.setText("level 3: " + guiHandler.getSerializableLiteGame().getLevel3());
+            domeLabel.setText("dome: " + guiHandler.getSerializableLiteGame().getDome());
+
         });
     }
 
