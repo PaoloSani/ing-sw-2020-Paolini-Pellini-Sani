@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,6 +32,15 @@ import static java.lang.Integer.parseInt;
 public class TableWindow extends GameWindow implements Initializable {
     public GridPane gameTable;
     public Label messageLabel;
+    public Label player1label;
+    public Label player2label;
+    public Label player3label;
+    public ImageView worker1image;
+    public ImageView worker2image;
+    public ImageView worker3image;
+    public Label god1label;
+    public Label god2label;
+    public Label god3label;
     private SerializableLiteGame newSLG;
     private boolean endOfTheGame = false;
     private String lastAction = "none";
@@ -60,6 +70,20 @@ public class TableWindow extends GameWindow implements Initializable {
                 button.setOnAction(this::mouseClicking);
                 gameTable.add(button,col,row);
             }
+        }
+
+        player1label.setText(guiHandler.getSerializableLiteGame().getName1());
+        god1label.setText(guiHandler.getSerializableLiteGame().getGod1().toString());
+        player2label.setText(guiHandler.getSerializableLiteGame().getName2());
+        god2label.setText(guiHandler.getSerializableLiteGame().getGod2().toString());
+        if (guiHandler.getNumOfPlayers() == 3){
+            player3label.setText(guiHandler.getSerializableLiteGame().getName3());
+            god3label.setText(guiHandler.getSerializableLiteGame().getGod3().toString());
+        }
+        else{
+            player3label.setVisible(false);
+            god3label.setVisible(false);
+            worker3image.setVisible(false);
         }
 
         currThread = new Thread(this::runGUI);
@@ -232,6 +256,9 @@ public class TableWindow extends GameWindow implements Initializable {
                     }
                 }
             }
+            for (Node node : gameTable.getChildren()){
+                if (node instanceof Button) node.
+            }
         });
     }
 
@@ -288,6 +315,9 @@ public class TableWindow extends GameWindow implements Initializable {
         if (guiHandler.getSerializableLiteGame().getCurrWorker()[0] == i && guiHandler.getSerializableLiteGame().getCurrWorker()[1] == j){
             currWorker.setImage( new Image("/Backgrounds/playermoveindicator_blue.png"));
         }
+        building.setMouseTransparent(true);
+        worker.setMouseTransparent(true);
+        currWorker.setMouseTransparent(true);
 
         gameTable.add(building, j , i );
         gameTable.add(worker, j , i );

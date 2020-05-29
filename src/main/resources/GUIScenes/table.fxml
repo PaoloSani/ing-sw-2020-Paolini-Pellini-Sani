@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -9,7 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
+<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
    <children>
       <ImageView fitHeight="544.0" fitWidth="972.0">
          <image>
@@ -49,5 +54,31 @@
          </effect>
       </ImageView>
       <Label fx:id="messageLabel" alignment="CENTER" layoutX="761.0" layoutY="377.0" prefHeight="148.0" prefWidth="170.0" wrapText="true" />
+      <Label fx:id="player1label" alignment="CENTER" layoutX="63.0" layoutY="99.0" prefHeight="20.0" prefWidth="100.0" text="player1" />
+      <Label fx:id="player2label" alignment="CENTER" layoutX="63.0" layoutY="158.0" prefHeight="20.0" prefWidth="100.0" text="player2" />
+      <Label fx:id="player3label" alignment="CENTER" layoutX="63.0" layoutY="213.0" prefHeight="20.0" prefWidth="100.0" text="player3" />
+      <ImageView fx:id="worker1image" fitHeight="50.0" fitWidth="50.0" layoutX="34.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Table/male3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="worker2image" fitHeight="49.0" fitWidth="50.0" layoutX="34.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Table/male5.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="worker3image" fitHeight="49.0" fitWidth="50.0" layoutX="34.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Table/male1.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="god1label" alignment="CENTER" layoutX="63.0" layoutY="119.0" prefHeight="20.0" prefWidth="100.0" text="god1" />
+      <Label fx:id="god2label" alignment="CENTER" layoutX="63.0" layoutY="178.0" prefHeight="20.0" prefWidth="100.0" text="god2" />
+      <Label fx:id="god3label" alignment="CENTER" layoutX="63.0" layoutY="233.0" prefHeight="20.0" prefWidth="100.0" text="god3" />
+      <ImageView fitHeight="90.0" fitWidth="39.0" layoutX="44.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Table/1.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
