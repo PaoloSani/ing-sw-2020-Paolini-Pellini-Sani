@@ -256,9 +256,7 @@ public class TableWindow extends GameWindow implements Initializable {
                     }
                 }
             }
-            for (Node node : gameTable.getChildren()){
-                if (node instanceof Button) node.
-            }
+
         });
     }
 
@@ -315,6 +313,7 @@ public class TableWindow extends GameWindow implements Initializable {
         if (guiHandler.getSerializableLiteGame().getCurrWorker()[0] == i && guiHandler.getSerializableLiteGame().getCurrWorker()[1] == j){
             currWorker.setImage( new Image("/Backgrounds/playermoveindicator_blue.png"));
         }
+
         building.setMouseTransparent(true);
         worker.setMouseTransparent(true);
         currWorker.setMouseTransparent(true);
@@ -335,7 +334,7 @@ public class TableWindow extends GameWindow implements Initializable {
             messageFromFrontEnd = guiHandler.readString();
             setMessageLabel(messageFromFrontEnd);
             if (messageFromFrontEnd.contains("Wait")) {
-                guiHandler.setSerializableLiteGame(guiHandler.getSerializableLiteGame());
+                guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
                 buildGameTable();
             }
         }
