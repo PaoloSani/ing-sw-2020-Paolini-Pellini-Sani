@@ -29,15 +29,9 @@ import java.util.concurrent.LinkedBlockingDeque;
 import static java.lang.Integer.parseInt;
 
 public class TableWindow extends GameWindow implements Initializable {
-
     public GridPane gameTable;
     public Label messageLabel;
-
-    private int[] coordinates1 = null;
-    private int[] coordinates2 = null;
     private SerializableLiteGame newSLG;
-    private CountDownLatch countDownLatch;
-    private boolean answerYes;
     private boolean endOfTheGame = false;
     private String lastAction = "none";
     private String messageFromFrontEnd = "none";
@@ -54,11 +48,11 @@ public class TableWindow extends GameWindow implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        countDownLatch = new CountDownLatch(1);
         Thread currThread;
 
         for (int row = 0; row < 5; row++){
             for (int col = 0; col <5; col++){
+                
                 Button button = new Button();
                 button.setOpacity(0.0);
                 button.setText(row+"-"+col);
@@ -68,17 +62,8 @@ public class TableWindow extends GameWindow implements Initializable {
             }
         }
 
-        Task<Void> runGUITask = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                runGUI();
-                return null;
-            }
-        };
-
-        currThread = new Thread(runGUITask);
+        currThread = new Thread(this::runGUI);
         currThread.start();
-
     }
 
     private void runGUI() {
