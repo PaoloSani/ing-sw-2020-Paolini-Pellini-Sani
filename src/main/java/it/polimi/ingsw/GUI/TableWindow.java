@@ -26,8 +26,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 
-import static java.lang.Integer.parseInt;
-
 public class TableWindow extends GameWindow implements Initializable {
     public GridPane gameTable;
     public Label messageLabel;
@@ -235,51 +233,50 @@ public class TableWindow extends GameWindow implements Initializable {
         spaceToPrint = newSLG.getTable()[i][j].toCharArray();
 
 
-        if (spaceToPrint[1] == '0' && spaceToPrint[2] == 'D' ) building.setImage(new Image("/Table/4.png"));
+        if (spaceToPrint[1] == '0' && spaceToPrint[2] == 'D' ) building.setImage(new Image("/Table/4.png",true));
         else if (spaceToPrint[1] == '1') {
             if (spaceToPrint[2] == 'D') {
-                FileInputStream toLoad = new FileInputStream("/Table/1+4.png");
-                Image image = new Image(toLoad);
+                Image image = new Image("/Table/1+4.png",true);
                 building = new ImageView(image);
             }
             else {
-                FileInputStream toLoad = new FileInputStream("/Table/1.png");
-                Image image = new Image(toLoad);
+                Image image = new Image("/Table/1.png",true);
                 building = new ImageView(image);
             }
 
         }
         else if (spaceToPrint[1] == '2') {
             if (spaceToPrint[2] == 'D') {
-                FileInputStream toLoad = new FileInputStream("/Table/1+2+4.png");
-                Image image = new Image(toLoad);
+                Image image = new Image("/Table/1+2+4.png",true);
                 building = new ImageView(image);
             }
-            else {FileInputStream toLoad = new FileInputStream("/Table/1+2.png");
-            Image image = new Image(toLoad);
-            building = new ImageView(image);}
+            else {
+                Image image = new Image("/Table/1+2.png",true);
+                building = new ImageView();
+                building.setImage(image);
+            }
 
         }
         else if (spaceToPrint[1] == '3') {
             if (spaceToPrint[2] == 'D') {
-                FileInputStream toLoad = new FileInputStream("/Table/1+2+3+4.png");
-                Image image = new Image(toLoad);
-                building = new ImageView(image);
+                Image image = new Image("/Table/1+2+3+4.png",true);
+                building = new ImageView();
+                building.setImage(image);
             }
-            else {FileInputStream toLoad = new FileInputStream("/Table/1+2+3.png");
-            Image image = new Image(toLoad);
-            building = new ImageView(image);}
+            else {
+                Image image = new Image("/Table/1+2+3.png",true);
+                building = new ImageView();
+                building.setImage(image);
+            }
         }
         switch(spaceToPrint[0]){
             case 'A':
-                FileInputStream toLoad = new FileInputStream("/Table/male3.png");
-                Image image = new Image(toLoad);
+                Image image1 = new Image("/Table/male3.png",true);
                 worker = new ImageView(image);
                 break;
 
             case 'B':
-                toLoad = new FileInputStream("/Table/male5.png");
-                image = new Image(toLoad);
+                Image image2 = new Image("/Table/male5.png",true);
                 worker = new ImageView(image);
                 break;
 
