@@ -54,7 +54,7 @@ public class TableWindow extends GameWindow implements Initializable {
             for (int col = 0; col <5; col++){
                 
                 Button button = new Button();
-                button.setOpacity(0.0);
+                button.setBorder().setOpacity(0.0);
                 button.setText(row+"-"+col);
                 button.setPrefSize(82,80);
                 button.setOnAction(this::mouseClicking);
@@ -75,7 +75,7 @@ public class TableWindow extends GameWindow implements Initializable {
         int charonSwitch = 0;
         String messageToPrint = "none";
 
-        Scene currScene = messageLabel.getScene();
+        Scene currScene = gameTable.getScene();
 
         currScene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if ( key.getCode() == KeyCode.D ) {
