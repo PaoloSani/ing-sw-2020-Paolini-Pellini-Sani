@@ -119,6 +119,8 @@ public class TableWindow extends GameWindow implements Initializable {
 
 
 
+        /*guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
+        buildGameTable();*/
         placeWorkers();
         while(!endOfTheGame) {
             try {

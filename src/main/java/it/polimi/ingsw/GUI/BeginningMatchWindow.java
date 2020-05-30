@@ -31,7 +31,6 @@ public class BeginningMatchWindow extends GameWindow implements Initializable {
                     guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
 
                 }
-                guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
                 return null;
             }
         };
