@@ -22,14 +22,20 @@ public class MessageHandler extends Observable<MessageHandler>{
         this.guiToNotify = guiHandler;
     }
 
+    public GUIHandler getGuiToNotify() {
+        return guiToNotify;
+    }
 
     public String getString() {
         return message;
     }
 
+
     public void setMessage(String message) {
         this.message = message;
-        notify(this);
+        if ( !message.contains("Ending") ) {
+            notify(this);
+        }
     }
 
     public SerializableLiteGame getLiteGameFromServer() {
