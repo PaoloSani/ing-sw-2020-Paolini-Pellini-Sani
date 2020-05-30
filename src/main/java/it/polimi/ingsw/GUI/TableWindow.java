@@ -45,7 +45,11 @@ public class TableWindow extends GameWindow implements Initializable {
     public Label level2label;
     public Label level3label;
     public Label domeLabel;
+    public ImageView player2Turn;
+    public ImageView player3Turn;
+    public ImageView player1Turn;
     private SerializableLiteGame newSLG;
+    private SerializableLiteGame muuSLG;
     private boolean endOfTheGame = false;
     private String lastAction = "none";
     private String messageFromFrontEnd = "none";
@@ -82,12 +86,17 @@ public class TableWindow extends GameWindow implements Initializable {
             nameOfMyPlayer = guiHandler.getClientMessage().getName() + " (YOU)";
             player1label.setText(nameOfMyPlayer);
             player2label.setText(guiHandler.getSerializableLiteGame().getName2());
+            player1Turn.setImage(new Image("/Decorations/frame_yellow.png"));
+            player2Turn.setImage(new Image("/Decorations/frame_white.png"));
         }
         else if ( guiHandler.getClientMessage().getName().equals(guiHandler.getSerializableLiteGame().getName2() )) {
             nameOfMyPlayer = guiHandler.getClientMessage().getName() + " (YOU)";
             player2label.setText(nameOfMyPlayer);
             player1label.setText(guiHandler.getSerializableLiteGame().getName1());
+            player1Turn.setImage(new Image("/Decorations/frame_white.png"));
+            player2Turn.setImage(new Image("/Decorations/frame_yellow.png"));
         }
+
         god1label.setText(guiHandler.getSerializableLiteGame().getGod1().toString());
         god2label.setText(guiHandler.getSerializableLiteGame().getGod2().toString());
 
@@ -97,17 +106,43 @@ public class TableWindow extends GameWindow implements Initializable {
                 player3label.setText(nameOfMyPlayer);
                 player1label.setText(guiHandler.getSerializableLiteGame().getName1());
                 player2label.setText(guiHandler.getSerializableLiteGame().getName2());
+                player1Turn.setImage(new Image("/Decorations/frame_white.png"));
+                player2Turn.setImage(new Image("/Decorations/frame_white.png"));
+                player3Turn.setImage(new Image("/Decorations/frame_yellow.png"));
             }
             else {
                 player3label.setText(guiHandler.getSerializableLiteGame().getName3());
+                player3Turn.setImage(new Image("/Decorations/frame_white.png"));
             }
             god3label.setText(guiHandler.getSerializableLiteGame().getGod3().toString());
+            player3Turn.setFitHeight(148.0);
+            player3Turn.setFitWidth(59.0);
+            player3Turn.setRotate(90.0);
+            player3Turn.setLayoutX(70.0);
+            player3Turn.setLayoutX(45.0);
         }
         else{
             player3label.setVisible(false);
             god3label.setVisible(false);
             worker3image.setVisible(false);
         }
+
+        /*player1Turn.setFitHeight(148.0);
+        player1Turn.setFitWidth(59.0);
+        //player1Turn.setRotate(90.0);
+        player1Turn.setLayoutX(70.0);
+        player1Turn.setLayoutX(45.0);
+        player2Turn.setFitHeight(148.0);
+        player2Turn.setFitWidth(59.0);
+        player2Turn.setLayoutX(70.0);
+        player2Turn.setLayoutX(104.0);
+        player3Turn.setFitHeight(148.0);
+        player3Turn.setFitWidth(59.0);
+        player3Turn.setLayoutX(70.0);
+        player3Turn.setLayoutX(159.0);*/
+        player1Turn.setVisible(false);
+        player2Turn.setVisible(true);
+        player3Turn.setVisible(false);
 
         currThread = new Thread(this::runGUI);
         currThread.start();
@@ -286,6 +321,21 @@ public class TableWindow extends GameWindow implements Initializable {
             level2label.setText("level 2: " + guiHandler.getSerializableLiteGame().getLevel2());
             level3label.setText("level 3: " + guiHandler.getSerializableLiteGame().getLevel3());
             domeLabel.setText("dome: " + guiHandler.getSerializableLiteGame().getDome());
+            if (guiHandler.getSerializableLiteGame().getCurrPlayer().equals(guiHandler.getSerializableLiteGame().getName1())){
+                player1Turn.setVisible(true);
+                player2Turn.setVisible(false);
+                player3Turn.setVisible(false);
+            }
+            else if (guiHandler.getSerializableLiteGame().getCurrPlayer().equals(guiHandler.getSerializableLiteGame().getName2())){
+                player1Turn.setVisible(false);
+                player2Turn.setVisible(true);
+                player3Turn.setVisible(false);
+            }
+            else if (guiHandler.getSerializableLiteGame().getCurrPlayer().equals(guiHandler.getSerializableLiteGame().getName3())){
+                player1Turn.setVisible(false);
+                player2Turn.setVisible(false);
+                player3Turn.setVisible(true);
+            }
 
         });
     }
@@ -366,6 +416,7 @@ public class TableWindow extends GameWindow implements Initializable {
             setMessageLabel(messageFromFrontEnd);
             if (messageFromFrontEnd.contains("Wait")) {
                 guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
+                muuSLG = guiHandler.getSerializableLiteGame();
                 buildGameTable();
             }
         }

@@ -52,7 +52,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
         boolean repeat = false;
         int [] lastSpace = new int[]{5,5};
         int[] firstWorker = new int[]{5,5};
-        String messageToPrint = "none";             //TODO: stampo questo invece che lastAction
+        String messageToPrint = "none";
         int charonSwitch = 0;
 
         new Thread ( () -> clientConnection.run()).start();
