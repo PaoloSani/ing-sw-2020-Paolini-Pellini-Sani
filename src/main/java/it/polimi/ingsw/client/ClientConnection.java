@@ -93,7 +93,13 @@ public class ClientConnection implements Runnable{
                     if (message != null) {
                         if ( message instanceof String ) {
                             if ( ((String) message).contains("Ending")){
-                                System.out.println("  " + message);
+                                if ( messageHandler.getGuiToNotify() == null ) {
+                                    System.out.println("  " + message);
+                                }
+                                else{
+                                    messageHandler.setStringRead(true);
+                                    messageHandler.setMessage( (String)message);
+                                }
                             }
                             else {
                                 messageHandler.setStringRead(true);
