@@ -76,12 +76,31 @@ public class TableWindow extends GameWindow implements Initializable {
             }
         }
 
-        player1label.setText(guiHandler.getSerializableLiteGame().getName1());
+
+        String nameOfMyPlayer;
+        if ( guiHandler.getClientMessage().getName().equals(guiHandler.getSerializableLiteGame().getName1() )) {
+            nameOfMyPlayer = guiHandler.getClientMessage().getName() + " (YOU)";
+            player1label.setText(nameOfMyPlayer);
+            player2label.setText(guiHandler.getSerializableLiteGame().getName2());
+        }
+        else if ( guiHandler.getClientMessage().getName().equals(guiHandler.getSerializableLiteGame().getName2() )) {
+            nameOfMyPlayer = guiHandler.getClientMessage().getName() + " (YOU)";
+            player2label.setText(nameOfMyPlayer);
+            player1label.setText(guiHandler.getSerializableLiteGame().getName1());
+        }
         god1label.setText(guiHandler.getSerializableLiteGame().getGod1().toString());
-        player2label.setText(guiHandler.getSerializableLiteGame().getName2());
         god2label.setText(guiHandler.getSerializableLiteGame().getGod2().toString());
+
         if (guiHandler.getNumOfPlayers() == 3){
-            player3label.setText(guiHandler.getSerializableLiteGame().getName3());
+            if ( guiHandler.getClientMessage().getName().equals(guiHandler.getSerializableLiteGame().getName3() )) {
+                nameOfMyPlayer = guiHandler.getClientMessage().getName() + " (YOU)";
+                player3label.setText(nameOfMyPlayer);
+                player1label.setText(guiHandler.getSerializableLiteGame().getName1());
+                player2label.setText(guiHandler.getSerializableLiteGame().getName2());
+            }
+            else {
+                player3label.setText(guiHandler.getSerializableLiteGame().getName3());
+            }
             god3label.setText(guiHandler.getSerializableLiteGame().getGod3().toString());
         }
         else{
