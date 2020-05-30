@@ -20,7 +20,7 @@ public class SerializableLiteGame implements Serializable {
     private God god2;
     private God god3;
 
-    private String currPlayer;
+    private String currPlayer = "";
 
     //indica il worker scelto dal giocatore, se nullo allora la scelta ha dato esito negativo (per entrambe le pedine) e il giocatore ha perso
     private int[] currWorker;
