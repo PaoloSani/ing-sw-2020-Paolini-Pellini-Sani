@@ -235,7 +235,9 @@ public class GUIHandler implements Observer<MessageHandler> {
     public void setClientMessage(God currGod) {
         clientMessage.setName(nickname);
         clientMessage.setGod(currGod);
-        clientConnection.send(clientMessage);
+        if ( mode != Mode.NEW_GAME ) {
+            clientConnection.send(clientMessage);
+        }
     }
 
     public void setSerializableLiteGame(SerializableLiteGame serializableLiteGame) {
