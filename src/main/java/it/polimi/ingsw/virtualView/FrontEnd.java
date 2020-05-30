@@ -115,9 +115,13 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
                     gameMessage.setSpace2(clientMessage.getSpace2());
                     //la chiamata di notify termina nel momento in cui viene eseguita completamente la funzione update della classe FrontEnd
                     gameMessage.notify(gameMessage);
-                    sendLiteGame();
+                    if (!updateModel) {
+                        sendLiteGame();
+                    }
                 }
                 updateCurrClient();
+                liteGame.setPlayer(currClient.getName());
+                sendLiteGame();
             }
         }
 
@@ -147,6 +151,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
                  gameMessage.resetGameMessage();
                  updateCurrClient();
                  liteGame.setCurrWorker(5,5);
+                 liteGame.setPlayer(currClient.getName());
                  sendLiteGame();
              }
              else {

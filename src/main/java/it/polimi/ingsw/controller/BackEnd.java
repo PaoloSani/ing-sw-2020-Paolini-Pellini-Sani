@@ -105,6 +105,7 @@ public class BackEnd implements Observer<GameMessage> {
         if (setPlayersState == currState) {
             if ( (gameMessage.getSpace1()[0] != -1 ) || (gameMessage.getSpace1() == null) ) {
                 currPlayer = this.player2;      //perché il primo è il challenger
+                game.setCurrPlayer(player2);
                 currState.reset();
                 currState = placeWorkersState; //Cambio lo stato solo se x1 non è negativo (come di default all'inizio del gioco)
             }
