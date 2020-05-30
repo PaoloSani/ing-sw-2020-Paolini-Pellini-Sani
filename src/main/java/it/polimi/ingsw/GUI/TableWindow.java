@@ -244,12 +244,15 @@ public class TableWindow extends GameWindow implements Initializable {
                     guiHandler.getClientConnection().send(guiHandler.getClientMessage());
                 }
                 //Siamo in caso in cui o abbiamo vinto o abbiamo perso
-                else if (!messageFromFrontEnd.contains("Wait")) {
+                else if ( !messageFromFrontEnd.contains("Wait") ) {
                     endOfTheGame = true;
-                } else setMessageLabel(messageFromFrontEnd);
+                }
+                else setMessageLabel(messageFromFrontEnd);
 
-                guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
-                buildGameTable();
+                if ( !endOfTheGame ) {
+                    guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
+                    buildGameTable();
+                }
 
                 if (messageFromFrontEnd.equals("Next action") && !lastAction.equals("End")) {
                     messageFromFrontEnd = guiHandler.readString();
