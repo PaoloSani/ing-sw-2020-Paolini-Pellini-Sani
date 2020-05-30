@@ -179,8 +179,10 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
             else System.out.println(messageFromFrontEnd);
 
-            serializableLiteGame = readSerializableLG();
-            buildGameTable();
+            if ( !endOfTheGame) {
+                serializableLiteGame = readSerializableLG();
+                buildGameTable();
+            }
 
             if ( messageFromFrontEnd.equals("Next action") && !lastAction.equals("End") ) {
                 messageFromFrontEnd = readString();
