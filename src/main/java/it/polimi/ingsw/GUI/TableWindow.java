@@ -46,6 +46,7 @@ public class TableWindow extends GameWindow implements Initializable {
     public Label level3label;
     public Label domeLabel;
     private SerializableLiteGame newSLG;
+    private SerializableLiteGame muuSLG;
     private boolean endOfTheGame = false;
     private String lastAction = "none";
     private String messageFromFrontEnd = "none";
@@ -119,8 +120,6 @@ public class TableWindow extends GameWindow implements Initializable {
 
 
 
-        /*guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
-        buildGameTable();*/
         placeWorkers();
         while(!endOfTheGame) {
             try {
@@ -346,6 +345,7 @@ public class TableWindow extends GameWindow implements Initializable {
             setMessageLabel(messageFromFrontEnd);
             if (messageFromFrontEnd.contains("Wait")) {
                 guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
+                muuSLG = guiHandler.getSerializableLiteGame();
                 buildGameTable();
             }
         }
