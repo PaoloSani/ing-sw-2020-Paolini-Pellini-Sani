@@ -33,7 +33,7 @@ public class MessageHandler extends Observable<MessageHandler>{
 
     public void setMessage(String message) {
         this.message = message;
-        if ( message.contains("Ending") ) {
+        if ( !message.contains("Ending") ) {
             notify(this);
         }
     }

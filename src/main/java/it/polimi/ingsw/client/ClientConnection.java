@@ -92,7 +92,7 @@ public class ClientConnection implements Runnable{
                     Object message = messageInQueue.poll();
                     if (message != null) {
                         if ( message instanceof String ) {
-                            if ( ((String) message).contains("Ending")){
+                            if ( ((String) message).contains("Ending") ){
                                 if ( messageHandler.getGuiToNotify() == null ) {
                                     System.out.println("  " + message);
                                 }
