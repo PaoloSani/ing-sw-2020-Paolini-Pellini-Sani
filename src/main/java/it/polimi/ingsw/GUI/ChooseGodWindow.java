@@ -30,8 +30,8 @@ public class ChooseGodWindow extends GameWindow implements Initializable {
 
     public void backGod(ActionEvent actionEvent) {
         if (currGod == guiHandler.getGods().get(0)){
-            if (guiHandler.getNumOfPlayers() == 3) currGod = guiHandler.getGods().get(2);
-            else if (guiHandler.getNumOfPlayers() == 2) currGod = guiHandler.getGods().get(1);
+            if (guiHandler.getNumOfPlayers() == 3 && guiHandler.getGods().size() == 3) currGod = guiHandler.getGods().get(2);
+            else currGod = guiHandler.getGods().get(1);
         } else if (currGod == guiHandler.getGods().get(1)){
             currGod = guiHandler.getGods().get(0);
         } else if (currGod == guiHandler.getGods().get(2)){
@@ -44,8 +44,8 @@ public class ChooseGodWindow extends GameWindow implements Initializable {
         if (currGod == guiHandler.getGods().get(0)){
             currGod = guiHandler.getGods().get(1);
         } else if (currGod == guiHandler.getGods().get(1)){
-            if (guiHandler.getNumOfPlayers() == 3) currGod = guiHandler.getGods().get(2);
-            else if (guiHandler.getNumOfPlayers() == 2) currGod = guiHandler.getGods().get(0);
+            if (guiHandler.getNumOfPlayers() == 3 && guiHandler.getGods().size() == 3) currGod = guiHandler.getGods().get(2);
+            else currGod = guiHandler.getGods().get(0);
         } else if (currGod == guiHandler.getGods().get(2)){
             currGod = guiHandler.getGods().get(0);
         }
@@ -154,7 +154,8 @@ public class ChooseGodWindow extends GameWindow implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        guiHandler.setNumOfPlayers(guiHandler.getGods().size());
+        if (guiHandler.getMode() == Mode.EXISTING_MATCH && guiHandler.getSerializableLiteGame().getName3() == null) guiHandler.setNumOfPlayers(2);
+        else if (guiHandler.getMode() == Mode.EXISTING_MATCH && guiHandler.getSerializableLiteGame().getName3() != null) guiHandler.setNumOfPlayers(3);
         currGod = guiHandler.getGods().get(0);
         setGodImage();
     }
