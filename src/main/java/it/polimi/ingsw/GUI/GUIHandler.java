@@ -10,10 +10,12 @@ import it.polimi.ingsw.model.SerializableLiteGame;
 import it.polimi.ingsw.server.Message;
 import it.polimi.ingsw.util.Observer;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,6 +38,7 @@ public class GUIHandler implements Observer<MessageHandler> {
     private List<God> gods = new ArrayList<>();
     private String messageFromFrontend;
     private SerializableLiteGame serializableLiteGame;
+    private ImageView errorImage;
 
 
     public GUIHandler(){
@@ -45,7 +48,7 @@ public class GUIHandler implements Observer<MessageHandler> {
         settingGameMessage = new SettingGameMessage();
     }
 
-    public synchronized void loadFXMLFile(Button nextButton, Stage nextStage, String fileToLoad){
+    public synchronized void loadFXMLFile(Node nextButton, Stage nextStage, String fileToLoad){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fileToLoad));
         try {
             Parent root = fxmlLoader.load();
@@ -246,6 +249,14 @@ public class GUIHandler implements Observer<MessageHandler> {
 
     public ClientMessage getClientMessage() {
         return clientMessage;
+    }
+
+    public void setErrorImage(ImageView errorImage){
+        this.errorImage = errorImage;
+    }
+
+    public ImageView getErrorImage() {
+        return errorImage;
     }
 
     public ClientConnection getClientConnection() {

@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
+<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
    <children>
-      <ImageView fitHeight="544.0" fitWidth="972.0">
+      <ImageView fx:id="background" fitHeight="544.0" fitWidth="972.0">
          <image>
             <Image url="@../Backgrounds/SantoriniBoard.png" />
          </image>
@@ -120,29 +120,25 @@
       <Label fx:id="domeLabel" alignment="CENTER" layoutX="63.0" layoutY="411.0" prefHeight="20.0" prefWidth="100.0" text="dome" />
       <Pane layoutX="195.0" layoutY="53.0" prefHeight="435.0" prefWidth="550.0">
          <children>
-            <ImageView fitHeight="311.0" fitWidth="294.0" layoutX="136.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="goldGlow" fx:id="goldenGlow" fitHeight="311.0" fitWidth="294.0" layoutX="136.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@../../../../../../Desktop/Corsi/Correnti/Santorini/Grafiche/Texture2D/podium_gold_glow.png" />
+                  <Image url="@../PodiumAvatar/podium_gold_glow.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="66.0" fitWidth="100.0" layoutX="232.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="podium" fx:id="podium" fitHeight="66.0" fitWidth="100.0" layoutX="232.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@../../../../../../Desktop/Corsi/Correnti/Santorini/Grafiche/Texture2D/podium.png" />
+                  <Image url="@../PodiumAvatar/podium.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="177.0" fitWidth="150.0" layoutX="208.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="winningPlayer" fx:id="winningPlayer" fitHeight="177.0" fitWidth="150.0" layoutX="208.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+            <ImageView fx:id="label" fitHeight="150.0" fitWidth="200.0" layoutX="182.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@../../../../../../Desktop/Corsi/Correnti/Santorini/Grafiche/Texture2D/podium-characters-Aphrodite.png" />
+                  <Image url="@../Decorations/gameGodFrameName1.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="182.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Desktop/Corsi/Correnti/Santorini/Grafiche/Texture2D/gameGodFrameName1.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="220.0" layoutY="301.0" text="Player won the game" />
+            <Label fx:id="winningLabel" layoutX="220.0" layoutY="301.0" textAlignment="CENTER" visible="false" wrapText="true" />
          </children>
       </Pane>
-      <ImageView fitHeight="544.0" fitWidth="972.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="endingImage" fitHeight="544.0" fitWidth="972.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

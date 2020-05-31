@@ -4,6 +4,11 @@ import it.polimi.ingsw.CLI.CommandLineGame;
 import it.polimi.ingsw.GUI.GUIHandler;
 import it.polimi.ingsw.model.SerializableLiteGame;
 import it.polimi.ingsw.util.Observable;
+import javafx.application.Platform;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class MessageHandler extends Observable<MessageHandler>{
     private String message;
@@ -35,6 +40,13 @@ public class MessageHandler extends Observable<MessageHandler>{
         this.message = message;
         if ( !message.contains("Ending") ) {
             notify(this);
+        }
+        else {
+            Platform.runLater(() -> {
+                ImageView imageView = guiToNotify.getErrorImage();
+                imageView.setVisible(true);
+                imageView.setImage(new Image("Backgrounds/Odyssey-Circe.png"));
+            });
         }
     }
 
