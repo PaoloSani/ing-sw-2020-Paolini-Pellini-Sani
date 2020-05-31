@@ -97,7 +97,6 @@ public class TableWindow extends GameWindow implements Initializable {
 
         guiHandler.setErrorImage(endingImage);
 
-
         String nameOfMyPlayer;
         if ( guiHandler.getClientMessage().getName().equals(guiHandler.getSerializableLiteGame().getName1() )) {
             nameOfMyPlayer = guiHandler.getClientMessage().getName();
