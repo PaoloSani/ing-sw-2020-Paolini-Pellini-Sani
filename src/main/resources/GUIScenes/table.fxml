@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -12,11 +7,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
+<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
    <children>
-      <ImageView fitHeight="544.0" fitWidth="972.0">
+      <ImageView fx:id="background" fitHeight="544.0" fitWidth="972.0">
          <image>
             <Image url="@../Backgrounds/SantoriniBoard.png" />
          </image>
@@ -53,7 +49,7 @@
             <InnerShadow />
          </effect>
       </ImageView>
-      <Label fx:id="messageLabel" alignment="CENTER" layoutX="786.0" layoutY="377.0" prefHeight="148.0" prefWidth="118.0" stylesheets="@CSSFiles/ButtonTexts.css" wrapText="true" />
+      <Label fx:id="messageLabel" alignment="CENTER" layoutX="761.0" layoutY="377.0" prefHeight="148.0" prefWidth="170.0" stylesheets="@CSSFiles/ButtonTexts.css" wrapText="true" />
       <Label fx:id="player1label" alignment="CENTER" layoutX="63.0" layoutY="99.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="player1" />
       <Label fx:id="player2label" alignment="CENTER" layoutX="63.0" layoutY="158.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="player2" />
       <Label fx:id="player3label" alignment="CENTER" layoutX="63.0" layoutY="213.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="player3" />
@@ -99,12 +95,12 @@
       <Label fx:id="level2label" alignment="CENTER" layoutX="63.0" layoutY="328.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="level2" />
       <Label fx:id="level3label" alignment="CENTER" layoutX="63.0" layoutY="367.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="level3" />
       <Label fx:id="domeLabel" alignment="CENTER" layoutX="63.0" layoutY="411.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="dome" />
-      <ImageView fx:id="player2Turn" fitHeight="148.0" fitWidth="59.0" layoutX="70.0" layoutY="105.0" pickOnBounds="true" rotate="90.0">
+      <ImageView fx:id="player2Turn" fitHeight="148.0" fitWidth="59.0" layoutX="70.0" layoutY="104.0" pickOnBounds="true" rotate="90.0">
          <image>
             <Image url="@../Decorations/frame_white.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="player3Turn" fitHeight="148.0" fitWidth="59.0" layoutX="70.0" layoutY="160.0" pickOnBounds="true" rotate="90.0">
+      <ImageView fx:id="player3Turn" fitHeight="148.0" fitWidth="59.0" layoutX="70.0" layoutY="159.0" pickOnBounds="true" rotate="90.0">
          <image>
             <Image url="@../Decorations/frame_white.png" />
          </image>
@@ -114,5 +110,39 @@
             <Image url="@../Decorations/frame_yellow.png" />
          </image>
       </ImageView>
+      <Label fx:id="level1label" alignment="CENTER" layoutX="63.0" layoutY="287.0" prefHeight="20.0" prefWidth="100.0" />
+      <Label fx:id="level2label" alignment="CENTER" layoutX="63.0" layoutY="328.0" prefHeight="20.0" prefWidth="100.0" />
+      <Label fx:id="level3label" alignment="CENTER" layoutX="63.0" layoutY="367.0" prefHeight="20.0" prefWidth="100.0" />
+      <Label fx:id="domeLabel" alignment="CENTER" layoutX="63.0" layoutY="411.0" prefHeight="20.0" prefWidth="100.0" />
+      <Pane fx:id="endingPane" layoutX="195.0" layoutY="53.0" prefHeight="435.0" prefWidth="550.0" visible="false">
+         <children>
+            <ImageView id="goldGlow" fx:id="goldenGlow" fitHeight="311.0" fitWidth="294.0" layoutX="136.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../PodiumAvatar/podium_gold_glow.png" />
+               </image>
+            </ImageView>
+            <ImageView id="podium" fx:id="podium" fitHeight="66.0" fitWidth="100.0" layoutX="232.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../PodiumAvatar/podium.png" />
+               </image>
+            </ImageView>
+            <ImageView id="winningPlayer" fx:id="winningPlayer" fitHeight="177.0" fitWidth="150.0" layoutX="208.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+            <ImageView fx:id="label" fitHeight="150.0" fitWidth="200.0" layoutX="182.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../Decorations/gameGodFrameName1.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="177.0" fitWidth="110.0" layoutX="221.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Decorations/giphy.gif" />
+               </image>
+            </ImageView>
+            <Label fx:id="winningLabel" layoutX="220.0" layoutY="301.0" textAlignment="CENTER" visible="false" wrapText="true" />
+         </children>
+      </Pane>
+      <ImageView fx:id="endingImage" fitHeight="544.0" fitWidth="972.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../Backgrounds/winningWindow.PNG" />
+         </image></ImageView>
    </children>
 </AnchorPane>

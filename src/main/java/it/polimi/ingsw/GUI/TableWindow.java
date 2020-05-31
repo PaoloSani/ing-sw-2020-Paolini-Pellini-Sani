@@ -2,6 +2,7 @@ package it.polimi.ingsw.GUI;
 
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -16,12 +17,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -45,15 +51,24 @@ public class TableWindow extends GameWindow implements Initializable {
     public Label level2label;
     public Label level3label;
     public Label domeLabel;
+    public ImageView podium;
+    public ImageView label;
+    public ImageView endingImage;
+    public ImageView goldenGlow;
+    public ImageView winningPlayer;
+    public Label winningLabel;
+    public ImageView background;
     public ImageView player2Turn;
     public ImageView player3Turn;
     public ImageView player1Turn;
+    public Pane endingPane;
+    public Label errorLabel;
     private SerializableLiteGame newSLG;
-    private SerializableLiteGame muuSLG;
     private boolean endOfTheGame = false;
     private String lastAction = "none";
     private String messageFromFrontEnd = "none";
     private BlockingQueue<Object> clientChoices = new LinkedBlockingDeque<>();
+
 
     public void mouseClicking(ActionEvent actionEvent) {
         if ( !messageLabel.getText().contains("Wait") ) {
@@ -79,6 +94,8 @@ public class TableWindow extends GameWindow implements Initializable {
                 gameTable.add(button,col,row);
             }
         }
+
+        guiHandler.setErrorImage(endingImage);
 
 
         String nameOfMyPlayer;
@@ -238,7 +255,11 @@ public class TableWindow extends GameWindow implements Initializable {
                     if (!lastAction.equals("End")) {
                         setMessageLabel(messageToPrint);
                         clientChoices.clear();
-                        lastSpace = (int[]) clientChoices.take();
+                        Object selection = clientChoices.take();
+                        while ( !  (selection instanceof int[]) ){
+                            selection = clientChoices.take();
+                        }
+                        lastSpace = (int[]) selection;
                         guiHandler.getClientMessage().setSpace1(lastSpace);
                         if (god == God.CHARON && charonSwitch == 1) {
                             String space = guiHandler.getSerializableLiteGame().getStringValue(lastSpace[0], lastSpace[1]);
@@ -290,6 +311,115 @@ public class TableWindow extends GameWindow implements Initializable {
             }
         }
         setMessageLabel(messageFromFrontEnd);
+        Platform.runLater( () ->
+        {
+
+            PauseTransition hidePodium = new PauseTransition(Duration.seconds(6));
+
+            background.setOpacity(0.5);
+            endingPane.setVisible(true);
+            for ( Node imageView: gameTable.getChildren()){
+                if( imageView instanceof ImageView) imageView.setOpacity(0.5);
+            }
+            showWinner();
+            hidePodium.setOnFinished(e -> {
+                endingPane.setVisible(false);
+                if (messageFromFrontEnd.contains("You won")) {
+                    endingImage.setVisible(true);
+                    endingImage.setImage(new Image("Backgrounds/winningWindow.PNG"));
+                }
+                else {
+                    endingImage.setVisible(true);
+                    endingImage.setImage(new Image("Backgrounds/losingWindow.PNG"));
+                }
+            });
+            hidePodium.play();
+        });
+    }
+
+    private void showWinner() {
+        String winner = guiHandler.getSerializableLiteGame().getCurrPlayer();
+        goldenGlow.setVisible(true);
+        podium.setVisible(true);
+        winningPlayer.setVisible(true);
+        label.setVisible(true);
+        winningLabel.setVisible(true);
+        winningLabel.setText( winner + " won the match!");
+        God winningGod ;
+        if ( winner.equals(guiHandler.getSerializableLiteGame().getName1()))
+            winningGod= guiHandler.getSerializableLiteGame().getGod1();
+        else if ( winner.equals(guiHandler.getSerializableLiteGame().getName2()))
+            winningGod= guiHandler.getSerializableLiteGame().getGod2();
+        else winningGod= guiHandler.getSerializableLiteGame().getGod3();
+
+        switch (winningGod) {
+            case APOLLO: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Apollo.png"));
+                break;
+            }
+            case ARTEMIS: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Artemis.png"));
+                break;
+            }
+            //
+            case ATHENA: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Athena.png"));
+                break;
+            }
+            case ATLAS: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Atlas.png"));
+                break;
+            }
+            //
+            case CHARON: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Charon.png"));
+                break;
+            }
+            //
+            case DEMETER: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Demeter.png"));
+                break;
+            }
+            case HEPHAESTUS: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Hephaestus.png"));
+                break;
+            }
+            //
+            case HYPNUS: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Hypnus.png"));
+                break;
+            }
+
+            case MINOTAUR: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Minotaur.png"));
+                break;
+            }
+            case MORTAL: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Mortal.png"));
+                break;
+            }
+            case PAN: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Pan.png"));
+                break;
+            }
+            case POSEIDON: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Poseidon.png"));
+                break;
+            }
+            case PROMETHEUS: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Prometheus.png"));
+                break;
+            }
+            case TRITON: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Triton.png"));
+                break;
+            }
+            case ZEUS: {
+                winningPlayer.setImage(new Image("PodiumAvatar/podium-characters-Zeus.png"));
+                break;
+            }
+        }
+
     }
 
     public void buildGameTable() {
@@ -399,7 +529,6 @@ public class TableWindow extends GameWindow implements Initializable {
             setMessageLabel(messageFromFrontEnd);
             if (messageFromFrontEnd.contains("Wait")) {
                 guiHandler.setSerializableLiteGame(guiHandler.readSerializableLG());
-                muuSLG = guiHandler.getSerializableLiteGame();
                 buildGameTable();
             }
         }
