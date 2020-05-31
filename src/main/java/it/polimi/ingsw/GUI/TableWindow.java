@@ -2,6 +2,7 @@ package it.polimi.ingsw.GUI;
 
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -60,6 +62,7 @@ public class TableWindow extends GameWindow implements Initializable {
     public ImageView player3Turn;
     public ImageView player1Turn;
     public Pane endingPane;
+    public Label errorLabel;
     private SerializableLiteGame newSLG;
     private SerializableLiteGame muuSLG;
     private boolean endOfTheGame = false;
@@ -266,7 +269,11 @@ public class TableWindow extends GameWindow implements Initializable {
                     if (!lastAction.equals("End")) {
                         setMessageLabel(messageToPrint);
                         clientChoices.clear();
-                        lastSpace = (int[]) clientChoices.take();
+                        Object selection = clientChoices.take();
+                        while ( !  (selection instanceof int[]) ){
+                            selection = clientChoices.take();
+                        }
+                        lastSpace = (int[]) selection;
                         guiHandler.getClientMessage().setSpace1(lastSpace);
                         if (god == God.CHARON && charonSwitch == 1) {
                             String space = guiHandler.getSerializableLiteGame().getStringValue(lastSpace[0], lastSpace[1]);
@@ -321,6 +328,7 @@ public class TableWindow extends GameWindow implements Initializable {
         Platform.runLater( () ->
         {
 
+            PauseTransition hidePodium = new PauseTransition(Duration.seconds(6));
 
             background.setOpacity(0.5);
             endingPane.setVisible(true);
@@ -328,15 +336,18 @@ public class TableWindow extends GameWindow implements Initializable {
                 if( imageView instanceof ImageView) imageView.setOpacity(0.5);
             }
             showWinner();
-            if (messageFromFrontEnd.contains("You won")) {
-                endingImage.setVisible(true);
-                endingImage.setImage(new Image("Backgrounds/winningWindow.PNG"));
-            }
-            else {
-                endingImage.setVisible(true);
-                endingImage.setImage(new Image("Backgrounds/losingWindow.PNG"));
-            }
-
+            hidePodium.setOnFinished(e -> {
+                endingPane.setVisible(false);
+                if (messageFromFrontEnd.contains("You won")) {
+                    endingImage.setVisible(true);
+                    endingImage.setImage(new Image("Backgrounds/winningWindow.PNG"));
+                }
+                else {
+                    endingImage.setVisible(true);
+                    endingImage.setImage(new Image("Backgrounds/losingWindow.PNG"));
+                }
+            });
+            hidePodium.play();
         });
     }
 
@@ -422,16 +433,7 @@ public class TableWindow extends GameWindow implements Initializable {
                 break;
             }
         }
-        TimerTask task = new TimerTask()
-        {
-            public void run()
-            {
 
-            }
-
-        };
-        Timer timer = new Timer();
-        timer.schedule(task,10000l);
     }
 
     public void buildGameTable() {
