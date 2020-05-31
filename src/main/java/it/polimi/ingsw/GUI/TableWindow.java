@@ -100,14 +100,14 @@ public class TableWindow extends GameWindow implements Initializable {
 
         String nameOfMyPlayer;
         if ( guiHandler.getClientMessage().getName().equals(guiHandler.getSerializableLiteGame().getName1() )) {
-            nameOfMyPlayer = guiHandler.getClientMessage().getName() + " (YOU)";
+            nameOfMyPlayer = guiHandler.getClientMessage().getName();
             player1label.setText(nameOfMyPlayer);
             player2label.setText(guiHandler.getSerializableLiteGame().getName2());
             player1Turn.setImage(new Image("/Decorations/frame_yellow.png"));
             player2Turn.setImage(new Image("/Decorations/frame_white.png"));
         }
         else if ( guiHandler.getClientMessage().getName().equals(guiHandler.getSerializableLiteGame().getName2() )) {
-            nameOfMyPlayer = guiHandler.getClientMessage().getName() + " (YOU)";
+            nameOfMyPlayer = guiHandler.getClientMessage().getName();
             player2label.setText(nameOfMyPlayer);
             player1label.setText(guiHandler.getSerializableLiteGame().getName1());
             player1Turn.setImage(new Image("/Decorations/frame_white.png"));
@@ -119,7 +119,7 @@ public class TableWindow extends GameWindow implements Initializable {
 
         if (guiHandler.getNumOfPlayers() == 3){
             if ( guiHandler.getClientMessage().getName().equals(guiHandler.getSerializableLiteGame().getName3() )) {
-                nameOfMyPlayer = guiHandler.getClientMessage().getName() + " (YOU)";
+                nameOfMyPlayer = guiHandler.getClientMessage().getName();
                 player3label.setText(nameOfMyPlayer);
                 player1label.setText(guiHandler.getSerializableLiteGame().getName1());
                 player2label.setText(guiHandler.getSerializableLiteGame().getName2());
@@ -132,11 +132,6 @@ public class TableWindow extends GameWindow implements Initializable {
                 player3Turn.setImage(new Image("/Decorations/frame_white.png"));
             }
             god3label.setText(guiHandler.getSerializableLiteGame().getGod3().toString());
-            player3Turn.setFitHeight(148.0);
-            player3Turn.setFitWidth(59.0);
-            player3Turn.setRotate(90.0);
-            player3Turn.setLayoutX(70.0);
-            player3Turn.setLayoutX(45.0);
         }
         else{
             player3label.setVisible(false);
@@ -144,22 +139,14 @@ public class TableWindow extends GameWindow implements Initializable {
             worker3image.setVisible(false);
         }
 
-        /*player1Turn.setFitHeight(148.0);
-        player1Turn.setFitWidth(59.0);
-        //player1Turn.setRotate(90.0);
-        player1Turn.setLayoutX(70.0);
-        player1Turn.setLayoutX(45.0);
-        player2Turn.setFitHeight(148.0);
-        player2Turn.setFitWidth(59.0);
-        player2Turn.setLayoutX(70.0);
-        player2Turn.setLayoutX(104.0);
-        player3Turn.setFitHeight(148.0);
-        player3Turn.setFitWidth(59.0);
-        player3Turn.setLayoutX(70.0);
-        player3Turn.setLayoutX(159.0);*/
         player1Turn.setVisible(false);
         player2Turn.setVisible(true);
         player3Turn.setVisible(false);
+
+        level1label.setText("level 1: " + guiHandler.getSerializableLiteGame().getLevel1());
+        level2label.setText("level 2: " + guiHandler.getSerializableLiteGame().getLevel2());
+        level3label.setText("level 3: " + guiHandler.getSerializableLiteGame().getLevel3());
+        domeLabel.setText("dome: " + guiHandler.getSerializableLiteGame().getDome());
 
         currThread = new Thread(this::runGUI);
         currThread.start();
@@ -326,15 +313,14 @@ public class TableWindow extends GameWindow implements Initializable {
         setMessageLabel(messageFromFrontEnd);
         Platform.runLater( () ->
         {
-
-            PauseTransition hidePodium = new PauseTransition(Duration.seconds(6));
-
+            PauseTransition hidePodium = new PauseTransition(Duration.seconds(10));
             background.setOpacity(0.5);
             endingPane.setVisible(true);
             for ( Node imageView: gameTable.getChildren()){
                 if( imageView instanceof ImageView) imageView.setOpacity(0.5);
             }
             showWinner();
+
             hidePodium.setOnFinished(e -> {
                 endingPane.setVisible(false);
                 if (messageFromFrontEnd.contains("You won")) {
@@ -352,11 +338,6 @@ public class TableWindow extends GameWindow implements Initializable {
 
     private void showWinner() {
         String winner = guiHandler.getSerializableLiteGame().getCurrPlayer();
-        goldenGlow.setVisible(true);
-        podium.setVisible(true);
-        winningPlayer.setVisible(true);
-        label.setVisible(true);
-        winningLabel.setVisible(true);
         winningLabel.setText( winner + " won the match!");
         God winningGod ;
         if ( winner.equals(guiHandler.getSerializableLiteGame().getName1()))

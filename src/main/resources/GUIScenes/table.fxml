@@ -91,10 +91,10 @@
             <Image url="@../Table/4.png" />
          </image>
       </ImageView>
-      <Label fx:id="level1label" alignment="CENTER" layoutX="63.0" layoutY="287.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="level1" />
-      <Label fx:id="level2label" alignment="CENTER" layoutX="63.0" layoutY="328.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="level2" />
-      <Label fx:id="level3label" alignment="CENTER" layoutX="63.0" layoutY="367.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="level3" />
-      <Label fx:id="domeLabel" alignment="CENTER" layoutX="63.0" layoutY="411.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="dome" />
+      <Label fx:id="level1label" alignment="CENTER" layoutX="63.0" layoutY="287.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" />
+      <Label fx:id="level2label" alignment="CENTER" layoutX="63.0" layoutY="328.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" />
+      <Label fx:id="level3label" alignment="CENTER" layoutX="63.0" layoutY="367.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" />
+      <Label fx:id="domeLabel" alignment="CENTER" layoutX="63.0" layoutY="411.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" />
       <ImageView fx:id="player2Turn" fitHeight="148.0" fitWidth="59.0" layoutX="70.0" layoutY="104.0" pickOnBounds="true" rotate="90.0">
          <image>
             <Image url="@../Decorations/frame_white.png" />
@@ -110,39 +110,36 @@
             <Image url="@../Decorations/frame_yellow.png" />
          </image>
       </ImageView>
-      <Label fx:id="level1label" alignment="CENTER" layoutX="63.0" layoutY="287.0" prefHeight="20.0" prefWidth="100.0" />
-      <Label fx:id="level2label" alignment="CENTER" layoutX="63.0" layoutY="328.0" prefHeight="20.0" prefWidth="100.0" />
-      <Label fx:id="level3label" alignment="CENTER" layoutX="63.0" layoutY="367.0" prefHeight="20.0" prefWidth="100.0" />
-      <Label fx:id="domeLabel" alignment="CENTER" layoutX="63.0" layoutY="411.0" prefHeight="20.0" prefWidth="100.0" />
-      <Pane fx:id="endingPane" layoutX="195.0" layoutY="53.0" prefHeight="435.0" prefWidth="550.0" visible="false">
-         <children>
-            <ImageView id="goldGlow" fx:id="goldenGlow" fitHeight="311.0" fitWidth="294.0" layoutX="136.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <image>
-                  <Image url="@../PodiumAvatar/podium_gold_glow.png" />
-               </image>
-            </ImageView>
-            <ImageView id="podium" fx:id="podium" fitHeight="66.0" fitWidth="100.0" layoutX="232.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <image>
-                  <Image url="@../PodiumAvatar/podium.png" />
-               </image>
-            </ImageView>
-            <ImageView id="winningPlayer" fx:id="winningPlayer" fitHeight="177.0" fitWidth="150.0" layoutX="208.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-            <ImageView fx:id="label" fitHeight="150.0" fitWidth="200.0" layoutX="182.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <image>
-                  <Image url="@../Decorations/gameGodFrameName1.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="177.0" fitWidth="110.0" layoutX="221.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Decorations/giphy.gif" />
-               </image>
-            </ImageView>
-            <Label fx:id="winningLabel" layoutX="220.0" layoutY="301.0" textAlignment="CENTER" visible="false" wrapText="true" />
-         </children>
-      </Pane>
+
       <ImageView fx:id="endingImage" fitHeight="544.0" fitWidth="972.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../Backgrounds/winningWindow.PNG" />
          </image></ImageView>
+      <Pane fx:id="endingPane" layoutX="195.0" layoutY="53.0" prefHeight="435.0" prefWidth="550.0" visible="false">
+         <children>
+            <ImageView id="goldGlow" fx:id="goldenGlow" fitHeight="311.0" fitWidth="294.0" layoutX="136.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../PodiumAvatar/podium_gold_glow.png" />
+               </image>
+            </ImageView>
+            <ImageView id="podium" fx:id="podium" fitHeight="66.0" fitWidth="100.0" layoutX="232.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../PodiumAvatar/podium.png" />
+               </image>
+            </ImageView>
+            <ImageView id="winningPlayer" fx:id="winningPlayer" fitHeight="177.0" fitWidth="150.0" layoutX="208.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="label" fitHeight="93.0" fitWidth="285.0" layoutX="143.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Decorations/gameGodFrameName1.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="177.0" fitWidth="110.0" layoutX="232.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Decorations/giphy.gif" />
+               </image>
+            </ImageView>
+            <Label fx:id="winningLabel" layoutX="212.0" layoutY="299.0" stylesheets="@CSSFiles/ButtonTexts.css" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
