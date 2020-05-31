@@ -127,19 +127,6 @@ public class TableWindow extends GameWindow implements Initializable {
             worker3image.setVisible(false);
         }
 
-        /*player1Turn.setFitHeight(148.0);
-        player1Turn.setFitWidth(59.0);
-        //player1Turn.setRotate(90.0);
-        player1Turn.setLayoutX(70.0);
-        player1Turn.setLayoutX(45.0);
-        player2Turn.setFitHeight(148.0);
-        player2Turn.setFitWidth(59.0);
-        player2Turn.setLayoutX(70.0);
-        player2Turn.setLayoutX(104.0);
-        player3Turn.setFitHeight(148.0);
-        player3Turn.setFitWidth(59.0);
-        player3Turn.setLayoutX(70.0);
-        player3Turn.setLayoutX(159.0);*/
         player1Turn.setVisible(false);
         player2Turn.setVisible(true);
         player3Turn.setVisible(false);
@@ -310,11 +297,7 @@ public class TableWindow extends GameWindow implements Initializable {
             gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
             for( int i = 0; i < 5; i++) {
                 for (int j = 0; j < 5; j++) {
-                    try {
-                        buildGameSpace(i, j);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    buildGameSpace(i, j);
                 }
             }
             level1label.setText("level 1: " + guiHandler.getSerializableLiteGame().getLevel1());
@@ -340,7 +323,7 @@ public class TableWindow extends GameWindow implements Initializable {
         });
     }
 
-    public void buildGameSpace(int i, int j) throws FileNotFoundException {
+    public void buildGameSpace(int i, int j) {
         char[] spaceToPrint;
         ImageView building = new ImageView(), worker = new ImageView(), currWorker = new ImageView();
 
