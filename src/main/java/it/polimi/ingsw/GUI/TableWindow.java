@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -58,6 +59,7 @@ public class TableWindow extends GameWindow implements Initializable {
     public ImageView player2Turn;
     public ImageView player3Turn;
     public ImageView player1Turn;
+    public Pane endingPane;
     private SerializableLiteGame newSLG;
     private SerializableLiteGame muuSLG;
     private boolean endOfTheGame = false;
@@ -321,6 +323,7 @@ public class TableWindow extends GameWindow implements Initializable {
 
 
             background.setOpacity(0.5);
+            endingPane.setVisible(true);
             for ( Node imageView: gameTable.getChildren()){
                 if( imageView instanceof ImageView) imageView.setOpacity(0.5);
             }

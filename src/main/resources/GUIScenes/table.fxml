@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -12,9 +7,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
+<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
    <children>
       <ImageView fx:id="background" fitHeight="544.0" fitWidth="972.0">
          <image>
@@ -118,7 +114,7 @@
       <Label fx:id="level2label" alignment="CENTER" layoutX="63.0" layoutY="328.0" prefHeight="20.0" prefWidth="100.0" text="level2" />
       <Label fx:id="level3label" alignment="CENTER" layoutX="63.0" layoutY="367.0" prefHeight="20.0" prefWidth="100.0" text="level3" />
       <Label fx:id="domeLabel" alignment="CENTER" layoutX="63.0" layoutY="411.0" prefHeight="20.0" prefWidth="100.0" text="dome" />
-      <Pane layoutX="195.0" layoutY="53.0" prefHeight="435.0" prefWidth="550.0">
+      <Pane fx:id="endingPane" layoutX="195.0" layoutY="53.0" prefHeight="435.0" prefWidth="550.0" visible="false">
          <children>
             <ImageView id="goldGlow" fx:id="goldenGlow" fitHeight="311.0" fitWidth="294.0" layoutX="136.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
@@ -139,6 +135,6 @@
             <Label fx:id="winningLabel" layoutX="220.0" layoutY="301.0" textAlignment="CENTER" visible="false" wrapText="true" />
          </children>
       </Pane>
-      <ImageView fx:id="endingImage" fitHeight="544.0" fitWidth="972.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="endingImage" fitHeight="544.0" fitWidth="972.0" pickOnBounds="true" preserveRatio="true" visible="false" />
    </children>
 </AnchorPane>

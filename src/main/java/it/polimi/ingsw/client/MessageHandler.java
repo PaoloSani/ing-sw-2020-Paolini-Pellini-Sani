@@ -45,7 +45,8 @@ public class MessageHandler extends Observable<MessageHandler>{
             Platform.runLater(() -> {
                 ImageView imageView = guiToNotify.getErrorImage();
                 imageView.setVisible(true);
-                imageView.setImage(new Image("Backgrounds/Odyssey-Circe.png"));
+                imageView.setOpacity(1);
+                imageView.setImage(new Image("Backgrounds/Odyssey-Circe-scaled.png"));
             });
         }
     }
