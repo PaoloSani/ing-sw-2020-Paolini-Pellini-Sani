@@ -32,10 +32,6 @@ public class ClientConnection implements Runnable{
     private boolean active = true; /////////////
     private boolean serverIsActive = true;
 
-    public synchronized boolean isActive(){
-        return active;
-    }
-
     public synchronized void setActive(boolean active){
         this.active = active;
     }
@@ -52,7 +48,8 @@ public class ClientConnection implements Runnable{
                     send(Message.PONG);
                 }
                 else {
-                    if ( newMessage instanceof Message && newMessage.equals(Message.CLOSE)){
+                    if ( newMessage instanceof Message && newMessage.equals(Message.CLOSE) ||
+                            ( newMessage instanceof String && ((String) newMessage).contains("You have been")) ){
                         serverIsActive = false;
                     }
                     messageInQueue.add(newMessage);
@@ -96,8 +93,11 @@ public class ClientConnection implements Runnable{
                                 if ( messageHandler.getGuiToNotify() == null ) {
                                     System.out.println("  " + message);
                                 }
+                                else if ( ((String) message).contains("You have been") ){
+                                    active = false;
+                                    messageHandler.setMessage((String)message);
+                                }
                                 else{
-                                    messageHandler.setStringRead(true);
                                     messageHandler.setMessage( (String)message);
                                 }
                             }

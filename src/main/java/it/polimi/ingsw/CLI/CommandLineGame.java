@@ -399,7 +399,10 @@ public class CommandLineGame implements Observer<MessageHandler> {
                 serializableLiteGame = newSLG;
             }
             buildGameTable();
-            if(!validPlacing) System.out.println("  Please retype two correct spaces!");
+            if(!validPlacing){
+                System.out.println("  Please retype two correct spaces!");
+                messageFromFrontEnd = readString();
+            }
         }
     }
 

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -35,6 +36,10 @@ public class WelcomeWindow extends GameWindow {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            ImageView imageView = new ImageView(new Image("/Backgrounds/Odyssey-Circe-scaled.png"));
+            guiHandler.setErrorImage(imageView);
+            imageView.setVisible(false);
         }
     }
 }
