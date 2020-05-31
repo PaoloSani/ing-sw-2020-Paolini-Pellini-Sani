@@ -132,11 +132,6 @@ public class TableWindow extends GameWindow implements Initializable {
                 player3Turn.setImage(new Image("/Decorations/frame_white.png"));
             }
             god3label.setText(guiHandler.getSerializableLiteGame().getGod3().toString());
-            player3Turn.setFitHeight(148.0);
-            player3Turn.setFitWidth(59.0);
-            player3Turn.setRotate(90.0);
-            player3Turn.setLayoutX(70.0);
-            player3Turn.setLayoutX(45.0);
         }
         else{
             player3label.setVisible(false);
