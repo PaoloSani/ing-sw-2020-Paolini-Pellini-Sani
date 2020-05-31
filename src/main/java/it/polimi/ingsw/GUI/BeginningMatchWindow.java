@@ -16,6 +16,7 @@ public class BeginningMatchWindow extends GameWindow implements Initializable {
     public Button nextButton;
 
     public Stage stage = new Stage();
+    public Label waitingLabelCards;
     private String toLoad;
 
 
@@ -25,6 +26,7 @@ public class BeginningMatchWindow extends GameWindow implements Initializable {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
+                waitingLabelCards.setVisible(true);
                 String messageFromFrontEnd = guiHandler.readString();
                 if( guiHandler.getMode() == Mode.NEW_GAME ) {
                     guiHandler.setClientMessage(God.valueOf(messageFromFrontEnd));

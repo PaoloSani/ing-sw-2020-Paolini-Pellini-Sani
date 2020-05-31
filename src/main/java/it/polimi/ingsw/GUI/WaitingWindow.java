@@ -22,6 +22,7 @@ public class WaitingWindow extends GameWindow implements Initializable{
     public Button nextButton;
 
     public Stage stage = new Stage();
+    public Label waitingLabelCards;
     private String toLoad;
 
     @Override
@@ -41,7 +42,6 @@ public class WaitingWindow extends GameWindow implements Initializable{
                 waitLabel.setText("WAITING FOR OTHER PLAYERS");
                 waitLabel.setVisible(true);
                 String messageFromServer = guiHandler.readString();
-                System.out.println("  Server says: " + messageFromServer + "\n");
                 if ( messageFromServer.contains("You are")) {
                     guiHandler.setMode(Mode.NEW_GAME);
                     IDLabel.setText("YOU ARE THE CHALLENGER");
@@ -53,8 +53,8 @@ public class WaitingWindow extends GameWindow implements Initializable{
                     waitLabel.setVisible(true);
                 }
                 else if (guiHandler.getMessageFromServer().equals(Message.WAIT.toString())){
-                    waitLabel.setText("WAITING FOR AN OTHER PLAYER");
-                    waitLabel.setVisible(true);
+                    waitLabel.setVisible(false);
+                    waitingLabelCards.setVisible(true);
                 }
             }
 
@@ -65,6 +65,8 @@ public class WaitingWindow extends GameWindow implements Initializable{
                     if (guiHandler.getMode() == Mode.NEW_GAME) {
                         return "/GUIScenes/challengerWindow.fxml";
                     } else {
+                        waitLabel.setVisible(false);
+                        waitingLabelCards.setVisible(true);
                         String messageFromFrontend = guiHandler.readString();
                         while (!messageFromFrontend.contains("[")){
                             messageFromFrontend = guiHandler.readString();
