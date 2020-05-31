@@ -32,10 +32,6 @@ public class ClientConnection implements Runnable{
     private boolean active = true; /////////////
     private boolean serverIsActive = true;
 
-    public synchronized boolean isActive(){
-        return active;
-    }
-
     public synchronized void setActive(boolean active){
         this.active = active;
     }
@@ -97,7 +93,6 @@ public class ClientConnection implements Runnable{
                                     System.out.println("  " + message);
                                 }
                                 else{
-                                    messageHandler.setStringRead(true);
                                     messageHandler.setMessage( (String)message);
                                 }
                             }

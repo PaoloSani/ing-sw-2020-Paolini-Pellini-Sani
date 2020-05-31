@@ -563,7 +563,10 @@ public class TableWindow extends GameWindow implements Initializable {
                     guiHandler.setSerializableLiteGame(newSLG);
                 }
                 buildGameTable();
-                if (!validPlacing) setMessageLabel("Please retype two correct spaces!");
+                if (!validPlacing) {
+                    setMessageLabel("Please retype two correct spaces!");
+                    guiHandler.readString();
+                }
                 } catch (InterruptedException e) {
                 e.printStackTrace();
             }
