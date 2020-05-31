@@ -68,6 +68,7 @@ public class TableWindow extends GameWindow implements Initializable {
     private String lastAction = "none";
     private String messageFromFrontEnd = "none";
     private BlockingQueue<Object> clientChoices = new LinkedBlockingDeque<>();
+    private Object choice = null;
 
 
     public void mouseClicking(ActionEvent actionEvent) {
@@ -192,14 +193,30 @@ public class TableWindow extends GameWindow implements Initializable {
                                 messageToPrint = "Please select a space";
                             } else if (god == God.PROMETHEUS) {
                                 setMessageLabel("Move or press B to build");
-                                if ("B".equals(clientChoices.take())) {
+                                choice = clientChoices.take();
+                                if (choice instanceof String && "B".equals((String)choice)) {
                                     lastAction = "Prometheus Build";
                                     messageToPrint = "Please select the space where you want to build";
                                 } else {
-                                    lastAction = "Move";
-                                    messageToPrint = "Please select the space you want to occupy";
+                                    //fai metodo tipo move salta turno
                                     moveCounter++;
-                                }
+                                    if ((god == God.ARTEMIS && moveCounter == 1) || (god == God.TRITON && guiHandler.getSerializableLiteGame().isPerimetralSpace(lastSpace))) {
+                                        setMessageLabel("Move again or press B to build");
+                                        if ("B".equals(clientChoices.take())) {
+                                            lastAction = "Buid";
+                                            buildCounter++;
+                                            messageToPrint = "Please select the space where you want to build";
+                                        } else {
+                                            lastAction = "Move";
+                                            messageToPrint = "Please select the space you want to occupy";
+                                            moveCounter++;
+                                        }
+                                    }
+                                    else {
+                                        buildCounter++;
+                                        lastAction = "Move";
+                                        messageToPrint = "Please select the space where you want to build";}
+                                    }
                             } else {
                                 lastAction = "Move";
                                 moveCounter++;
@@ -214,7 +231,7 @@ public class TableWindow extends GameWindow implements Initializable {
                             if ((god == God.ARTEMIS && moveCounter == 1) || (god == God.TRITON && guiHandler.getSerializableLiteGame().isPerimetralSpace(lastSpace))) {
                                 setMessageLabel("Move again or press B to build");
                                 if ("B".equals(clientChoices.take())) {
-                                    lastAction = "Build";
+                                    lastAction = "Buid";
                                     buildCounter++;
                                     messageToPrint = "Please select the space where you want to build";
                                 } else {
@@ -255,11 +272,16 @@ public class TableWindow extends GameWindow implements Initializable {
                     if (!lastAction.equals("End")) {
                         setMessageLabel(messageToPrint);
                         clientChoices.clear();
-                        Object selection = clientChoices.take();
-                        while ( !  (selection instanceof int[]) ){
-                            selection = clientChoices.take();
+                        Object selection;
+                        if(choice instanceof int[]) lastSpace = (int[]) choice;
+                        else {
+                                selection= clientChoices.take();
+                                while ( !  (selection instanceof int[]) ){
+                                selection = clientChoices.take();
+                            }
+                            lastSpace = (int[]) selection;
                         }
-                        lastSpace = (int[]) selection;
+                        if(choice instanceof int[]) lastSpace = (int[]) choice;
                         guiHandler.getClientMessage().setSpace1(lastSpace);
                         if (god == God.CHARON && charonSwitch == 1) {
                             String space = guiHandler.getSerializableLiteGame().getStringValue(lastSpace[0], lastSpace[1]);
@@ -309,6 +331,7 @@ public class TableWindow extends GameWindow implements Initializable {
             catch ( InterruptedException e) {
                 e.printStackTrace();
             }
+        choice = null;
         }
         setMessageLabel(messageFromFrontEnd);
         Platform.runLater( () ->
@@ -450,6 +473,8 @@ public class TableWindow extends GameWindow implements Initializable {
 
         });
     }
+
+
 
     public void buildGameSpace(int i, int j) throws FileNotFoundException {
         char[] spaceToPrint;
