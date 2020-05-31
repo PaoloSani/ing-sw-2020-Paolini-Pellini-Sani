@@ -210,6 +210,15 @@ public class Server {
         nicknames.remove(nameToRemove);
     }
 
+    public void removePlayerFromMatch(int gameID, ServerConnection toRemove ){
+        if ( playingConnection2Players.containsKey(gameID) ){
+            playingConnection2Players.get(gameID).remove(toRemove);
+        }
+        else if ( playingConnection3Players.containsKey(gameID) ){
+            playingConnection3Players.get(gameID).remove(toRemove);
+        }
+        removeNickname(toRemove.getName());
+    }
     public void printNicknames(){
         new Thread ( () ->{
             while( true ){

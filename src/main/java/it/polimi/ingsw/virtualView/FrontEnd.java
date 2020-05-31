@@ -25,6 +25,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     private ServerConnection client2;
     private ServerConnection client3;
     private ServerConnection currClient;
+    private ServerConnection toRemove;
     private boolean endOfTheGame = false;
     private boolean updateServer;
 
@@ -156,9 +157,11 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
              }
              else {
                  sendLiteGame();
-                 if (!updateModel) {
-                     currClient.send("Invalid action");
-                 } else currClient.send("Action performed");
+                 if ( !endOfTheGame ) {
+                     if (!updateModel) {
+                         currClient.send("Invalid action");
+                     } else currClient.send("Action performed");
+                 }
              }
         }
 
@@ -215,10 +218,11 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     //chiude la connessione del giocatore corrente e inizia il turno con il giocatore successivo
     //se è il caso di due giocatori conclude la partita e notifica il giocatore vincente
     private void removePlayerFromTheGame(){
-        currClient.send("You have lost the match!");
-        ServerConnection toRemove = currClient;
+        currClient.send("You have been removed from the match!");
+        toRemove = currClient;
         updateCurrClient();
         toRemove.closeConnection();
+        server.removePlayerFromMatch(gameID, toRemove);
         toRemove = null;
 
         // il backEnd esegue la execute di RemovePlayerState
@@ -226,7 +230,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
         //Se il giocare era l'ultimo in gioco il backEnd lo scrive nel LiteGame
         gameMessage.notify(gameMessage);
-
+        if ( liteGame.isWinner() ) endOfTheGame = true;
     }
 
     @Override

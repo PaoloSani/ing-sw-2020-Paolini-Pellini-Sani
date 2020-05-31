@@ -98,7 +98,6 @@ public class TableWindow extends GameWindow implements Initializable {
 
         guiHandler.setErrorImage(endingImage);
 
-
         String nameOfMyPlayer;
         if ( guiHandler.getClientMessage().getName().equals(guiHandler.getSerializableLiteGame().getName1() )) {
             nameOfMyPlayer = guiHandler.getClientMessage().getName();
@@ -502,12 +501,10 @@ public class TableWindow extends GameWindow implements Initializable {
             }
         }
         else if (spaceToPrint[1] == '3') {
-            if (spaceToPrint[2] == 'D') {
-                building.setImage(new Image("/Table/1+2+3+4.png"));
-
-            } else {
                 building.setImage(new Image("/Table/1+2+3.png"));
-            }
+        }
+        else if ( spaceToPrint[1] == '4' ) {
+            building.setImage(new Image("/Table/1+2+3+4.png"));
         }
         switch(spaceToPrint[0]){
             case 'A':

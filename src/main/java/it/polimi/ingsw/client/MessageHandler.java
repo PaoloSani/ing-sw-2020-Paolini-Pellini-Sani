@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.SerializableLiteGame;
 import it.polimi.ingsw.util.Observable;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -41,12 +42,25 @@ public class MessageHandler extends Observable<MessageHandler>{
         if ( !message.contains("Ending") ) {
             notify(this);
         }
-        else {
-            Platform.runLater(() -> {
+        else if ( message.contains("You have been")){
+            if ( cliToNotify != null ){
+                System.out.println("  " + message);
+            }
+            else Platform.runLater(() -> {
+                Label label = new Label();
                 ImageView imageView = guiToNotify.getErrorImage();
                 imageView.setVisible(true);
                 imageView.setOpacity(1);
-                imageView.setImage(new Image("Backgrounds/Odyssey-Circe-scaled.png"));
+                label.setText(message);
+            });
+        }
+        else {
+            Platform.runLater(() -> {
+                Label label = new Label();
+                ImageView imageView = guiToNotify.getErrorImage();
+                imageView.setVisible(true);
+                imageView.setOpacity(1);
+                label.setText(message);
             });
         }
     }

@@ -48,7 +48,8 @@ public class ClientConnection implements Runnable{
                     send(Message.PONG);
                 }
                 else {
-                    if ( newMessage instanceof Message && newMessage.equals(Message.CLOSE)){
+                    if ( newMessage instanceof Message && newMessage.equals(Message.CLOSE) ||
+                            ( newMessage instanceof String && ((String) newMessage).contains("You have been")) ){
                         serverIsActive = false;
                     }
                     messageInQueue.add(newMessage);
@@ -91,6 +92,10 @@ public class ClientConnection implements Runnable{
                             if ( ((String) message).contains("Ending") ){
                                 if ( messageHandler.getGuiToNotify() == null ) {
                                     System.out.println("  " + message);
+                                }
+                                else if ( ((String) message).contains("You have been") ){
+                                    active = false;
+                                    messageHandler.setMessage((String)message);
                                 }
                                 else{
                                     messageHandler.setMessage( (String)message);
