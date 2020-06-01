@@ -48,8 +48,9 @@ public class MessageHandler extends Observable<MessageHandler>{
             }
             else Platform.runLater(() -> {
                 Label label = new Label();
-                ImageView imageView = guiToNotify.getErrorImage();
-                imageView.setImage(new Image("Backgrounds/Odyssey-Circe-scaled.png"));
+                ImageView imageView;
+                imageView = guiToNotify.getErrorImage();
+                imageView.setImage(new Image("/Backgrounds/Odyssey-Circe-scaled.png"));
                 imageView.setVisible(true);
                 imageView.setOpacity(1);
                 label.setText(message);
@@ -58,8 +59,9 @@ public class MessageHandler extends Observable<MessageHandler>{
         else {
             Platform.runLater(() -> {
                 Label label = new Label();
-                ImageView imageView = guiToNotify.getErrorImage();
-                imageView.setImage(new Image("Backgrounds/Odyssey-Circe-scaled.png"));
+                ImageView imageView;
+                imageView = guiToNotify.getErrorImage();
+                imageView.setImage(new Image("/Backgrounds/Odyssey-Circe-scaled.png"));
                 imageView.setVisible(true);
                 imageView.setOpacity(1);
                 label.setText(message);
