@@ -345,7 +345,11 @@ public class TableWindow extends GameWindow implements Initializable {
                     if (messageFromFrontEnd.equals("Invalid action")) {
                         repeat = true;
                         setMessageLabel(messageFromFrontEnd);
-                    } else{
+                    }
+                    else if ( messageFromFrontEnd.contains("You won")){
+                        endOfTheGame = true;
+                    }
+                    else{
                         charonSwitch = 0;
                         repeat = false;
                     }
