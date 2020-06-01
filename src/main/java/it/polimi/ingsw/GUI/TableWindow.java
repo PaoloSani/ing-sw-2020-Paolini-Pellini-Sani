@@ -79,6 +79,18 @@ public class TableWindow extends GameWindow implements Initializable {
             String coordToSplit = clickedButton.getText();
             String[] coordToParse = coordToSplit.split("-");
             clientChoices.add(new int[]{Integer.parseInt(coordToParse[0]), Integer.parseInt(coordToParse[1])});
+
+
+                PauseTransition showSelectedSpace = new PauseTransition(Duration.seconds(0.1));
+                ImageView selectedSpace = new ImageView( new Image("/Backgrounds/playermoveindicator_red.png"));
+                gameTable.add(selectedSpace, Integer.parseInt(coordToParse[1]), Integer.parseInt(coordToParse[0]));
+                selectedSpace.setVisible(true);
+                showSelectedSpace.setOnFinished( e -> {
+                    selectedSpace.setVisible(false);
+                });
+
+                showSelectedSpace.play();
+
         }
     }
 
