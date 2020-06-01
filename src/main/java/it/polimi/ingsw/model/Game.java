@@ -273,7 +273,6 @@ public class Game {
 
    public boolean buildSwitch (Space space, int level, boolean isAtlas){
         switch (level) {
-
             case 1:
                 // level>0
                 if (this.level1 > 0) {                       //controllo che il pezzo corrispondente sia disponibile
@@ -300,7 +299,7 @@ public class Game {
 
             case 4:
                 if (this.dome > 0) {
-                    if (isAtlas) {
+                    if ( isAtlas && space.getHeight() != 3 ) {
                         space.setHeight(space.getHeight());
                         space.setDome();
                     } else space.setHeight(level);

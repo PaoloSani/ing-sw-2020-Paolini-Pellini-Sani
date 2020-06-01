@@ -29,7 +29,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
     private SettingGameMessage settingGameMessage = new SettingGameMessage();
     private boolean quit = true;
     private ClientConnection clientConnection;
-    private String[] challengerMessage;
     private ClientMessage clientMessage = new ClientMessage();
     private boolean endOfTheGame = false;
     private String messageFromFrontEnd;
@@ -339,6 +338,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
                     System.out.println(ColourFont.ANSI_BOLD + "  Please, type a valid God!\n" + ColourFont.ANSI_RESET + ColourFont.ANSI_BLUE_BACKGROUND);
                 }
             }
+            String[] challengerMessage;
             if (numOfPlayers == 2) {
                 challengerMessage =
                         new String[]{chosenGods.get(0).toString(), chosenGods.get(1).toString()};
