@@ -1,21 +1,19 @@
 package it.polimi.ingsw.GUI;
 
-import it.polimi.ingsw.CLI.ColourFont;
 import it.polimi.ingsw.client.ClientConnection;
 import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.MessageHandler;
 import it.polimi.ingsw.client.SettingGameMessage;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
-import it.polimi.ingsw.server.Message;
 import it.polimi.ingsw.util.Observer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -39,6 +37,7 @@ public class GUIHandler implements Observer<MessageHandler> {
     private String messageFromFrontend;
     private SerializableLiteGame serializableLiteGame;
     private ImageView errorImage;
+    private AnchorPane currPane;
 
 
     public GUIHandler(){
@@ -265,5 +264,13 @@ public class GUIHandler implements Observer<MessageHandler> {
 
     public SerializableLiteGame getSerializableLiteGame() {
         return serializableLiteGame;
+    }
+
+    public AnchorPane getCurrPane() {
+        return currPane;
+    }
+
+    public void setCurrPane(AnchorPane nextPane) {
+        this.currPane = nextPane;
     }
 }
