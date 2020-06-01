@@ -116,13 +116,13 @@ public class Server {
     public synchronized boolean addPlayer(int gameID, ServerConnection player){
         if (playingConnection2Players.containsKey(gameID)) {
             List<ServerConnection> list = playingConnection2Players.get(gameID);
-            if (list.size() < 2){             //TODO: Un terzo giocatore non può collegarsi, la sua connessione si chiude
+            if (list.size() < 2){
                 list.add(player);
                 return true;
             }
         } else if (playingConnection3Players.containsKey(gameID)){
             List<ServerConnection> list = playingConnection3Players.get(gameID);
-            if (list.size() < 3){             //Todo: Un quarto giocatore non può collegarsi, la sua connessione si chiude
+            if (list.size() < 3){
                 list.add(player);
                 return true;
             }

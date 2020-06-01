@@ -36,10 +36,6 @@ public class WelcomeWindow extends GameWindow {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            ImageView imageView = new ImageView(new Image("/Backgrounds/Odyssey-Circe-scaled.png"));
-            guiHandler.setErrorImage(imageView);
-            imageView.setVisible(false);
         }
     }
 }
