@@ -278,15 +278,11 @@ public class TableWindow extends GameWindow implements Initializable {
                     if (!lastAction.equals("End")) {
 
                         if ( lastAction.equals(move) && !repeat ){
-                            messageToPrint = "Please select the space you want to occupy";
-                        if ( lastAction.equals(move) ){
                             if(invalidSpace) messageToPrint = "Please select a valid space you want to occupy";
                             else messageToPrint = "Please select the space you want to occupy";
                             moveCounter++;
                         }
                         else if ( lastAction.contains(build) && !repeat ){
-                            messageToPrint = "Please select the space where you want to build";
-                        else if ( lastAction.contains(build) ){
                             if(invalidSpace) messageToPrint = "Please select a valid space where you want to build";
                             else messageToPrint = "Please select the space where you want to build";
                             buildCounter++;
@@ -351,9 +347,6 @@ public class TableWindow extends GameWindow implements Initializable {
                     } else{
                         charonSwitch = 0;
                         repeat = false;
-                    }
-                    } else {
-                        charonSwitch = 0;
                         invalidSpace = false;
                     }
                 }
