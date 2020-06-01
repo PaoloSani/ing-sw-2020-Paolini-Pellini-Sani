@@ -93,13 +93,13 @@ public class ClientConnection implements Runnable{
                                 if ( messageHandler.getGuiToNotify() == null ) {
                                     System.out.println("  " + message);
                                 }
-                                else if ( ((String) message).contains("You have been") ){
-                                    active = false;
-                                    messageHandler.setMessage((String)message);
-                                }
                                 else{
                                     messageHandler.setMessage( (String)message);
                                 }
+                            }
+                            else if ( ((String) message).contains("You have been") ){
+                                active = false;
+                                messageHandler.setMessage((String)message);
                             }
                             else {
                                 messageHandler.setStringRead(true);

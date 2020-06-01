@@ -39,7 +39,7 @@ public class MessageHandler extends Observable<MessageHandler>{
 
     public void setMessage(String message) {
         this.message = message;
-        if ( !message.contains("Ending") ) {
+        if ( !message.contains("Ending") && !message.contains("You have been") ) {
             notify(this);
         }
         else if ( message.contains("You have been")){
@@ -49,15 +49,17 @@ public class MessageHandler extends Observable<MessageHandler>{
             else Platform.runLater(() -> {
                 Label label = new Label();
                 ImageView imageView = guiToNotify.getErrorImage();
+                imageView.setImage(new Image("Backgrounds/Odyssey-Circe-scaled.png"));
                 imageView.setVisible(true);
                 imageView.setOpacity(1);
                 label.setText(message);
             });
-        }
+        } //TODO: condizione quando un giocatore lascia la partita?
         else {
             Platform.runLater(() -> {
                 Label label = new Label();
                 ImageView imageView = guiToNotify.getErrorImage();
+                imageView.setImage(new Image("Backgrounds/Odyssey-Circe-scaled.png"));
                 imageView.setVisible(true);
                 imageView.setOpacity(1);
                 label.setText(message);
