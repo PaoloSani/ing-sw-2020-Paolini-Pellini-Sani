@@ -65,6 +65,7 @@ public class TableWindow extends GameWindow implements Initializable {
     public Label errorLabel;
     private SerializableLiteGame newSLG;
     private boolean endOfTheGame = false;
+    private boolean invalidSpace = false;
     private String lastAction = "none";
     private String messageFromFrontEnd = "none";
     private BlockingQueue<Object> clientChoices = new LinkedBlockingDeque<>();
@@ -278,11 +279,13 @@ public class TableWindow extends GameWindow implements Initializable {
                     if (!lastAction.equals("End")) {
 
                         if ( lastAction.equals(move) ){
-                            messageToPrint = "Please select the space you want to occupy";
+                            if(invalidSpace) messageToPrint = "Please select a valid space you want to occupy";
+                            else messageToPrint = "Please select the space you want to occupy";
                             moveCounter++;
                         }
                         else if ( lastAction.contains(build) ){
-                            messageToPrint = "Please select the space where you want to build";
+                            if(invalidSpace) messageToPrint = "Please select a valid space where you want to build";
+                            else messageToPrint = "Please select the space where you want to build";
                             buildCounter++;
                         }
 
@@ -340,8 +343,12 @@ public class TableWindow extends GameWindow implements Initializable {
 
                     if (messageFromFrontEnd.equals("Invalid action")) {
                         repeat = true;
+                        invalidSpace = true;
                         setMessageLabel(messageFromFrontEnd);
-                    } else charonSwitch = 0;
+                    } else {
+                        charonSwitch = 0;
+                        invalidSpace = false;
+                    }
                 }
             }
             catch ( InterruptedException e) {
@@ -491,8 +498,6 @@ public class TableWindow extends GameWindow implements Initializable {
         });
     }
 
-
-
     public void buildGameSpace(int i, int j) throws FileNotFoundException {
         char[] spaceToPrint;
         ImageView building = new ImageView(), worker = new ImageView(), currWorker = new ImageView();
@@ -553,10 +558,6 @@ public class TableWindow extends GameWindow implements Initializable {
         gameTable.add(worker, j , i );
         gameTable.add(currWorker, j , i );
 
-    }
-
-    private String getLastAction() {
-        return lastAction;
     }
 
     public void placeWorkers() {
