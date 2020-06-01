@@ -63,15 +63,16 @@ public class BuildState implements GameState {
                     if (counterHephaestus == 2 && !hephaestusConstraint) setToReset(true);
                 }
 
-                //alla fine del suo turno può costruire al massimo tre volte con il worker che non ha usato a patto che questo sia a terra
-                if (counterPoseidon >= 0 && backEnd.getCurrPlayer().getGod() == God.POSEIDON) {
-                    counterPoseidon++;
-                    if (counterPoseidon == 3) setToReset(true);
-                }
 
                 if (!hephaestusConstraint && !(counterDemeter == 1 && toBuild == lastSpace)) {       //può costruire al massimo due volte e non sulla stessa cella
                     if (!backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level)) result = false;
                 } else result = false;
+
+                //alla fine del suo turno può costruire al massimo tre volte con il worker che non ha usato a patto che questo sia a terra
+                if ( result && counterPoseidon >= 0 && backEnd.getCurrPlayer().getGod() == God.POSEIDON) {
+                    counterPoseidon++;
+                    if (counterPoseidon == 3) setToReset(true);
+                }
 
                 if ( result ) {
                     if (backEnd.getCurrPlayer().getGod() == God.POSEIDON && counterPoseidon == -1) {    //se il counter è -1 significa che ho costruito con il worker di partenza senza usare il suo potere

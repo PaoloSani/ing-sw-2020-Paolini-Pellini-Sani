@@ -65,6 +65,7 @@ public class TableWindow extends GameWindow implements Initializable {
     public Label errorLabel;
     private SerializableLiteGame newSLG;
     private boolean endOfTheGame = false;
+    private boolean invalidSpace = false;
     private String lastAction = "none";
     private String messageFromFrontEnd = "none";
     private BlockingQueue<Object> clientChoices = new LinkedBlockingDeque<>();
@@ -273,23 +274,24 @@ public class TableWindow extends GameWindow implements Initializable {
                                 lastAction = "End";
                             }
                         }
-                    } else repeat = false;
-
+                    }
                     if (!lastAction.equals("End")) {
 
-                        if ( lastAction.equals(move) ){
-                            messageToPrint = "Please select the space you want to occupy";
+                        if ( lastAction.equals(move) && !repeat ){
+                            if(invalidSpace) messageToPrint = "Please select a valid space you want to occupy";
+                            else messageToPrint = "Please select the space you want to occupy";
                             moveCounter++;
                         }
-                        else if ( lastAction.contains(build) ){
-                            messageToPrint = "Please select the space where you want to build";
+                        else if ( lastAction.contains(build) && !repeat ){
+                            if(invalidSpace) messageToPrint = "Please select a valid space where you want to build";
+                            else messageToPrint = "Please select the space where you want to build";
                             buildCounter++;
                         }
 
                         setMessageLabel(messageToPrint);
                         clientChoices.clear();
                         Object selection;
-                        if( choice instanceof int[] ) lastSpace = (int[]) choice;
+                        if(  choice != null && choice instanceof int[] ) lastSpace = (int[]) choice;
                         else {
                             selection = clientChoices.take();
                             while ( !  (selection instanceof int[]) ){
@@ -297,7 +299,7 @@ public class TableWindow extends GameWindow implements Initializable {
                             }
                             lastSpace = (int[]) selection;
                         }
-
+                        choice = null;
                         guiHandler.getClientMessage().setSpace1(lastSpace);
 
                         if ( god == God.CHARON && charonSwitch == 1 ) {
@@ -321,6 +323,7 @@ public class TableWindow extends GameWindow implements Initializable {
                             }
                         }
                     }
+
                     guiHandler.getClientMessage().setAction(lastAction);
                     guiHandler.getClientConnection().send(guiHandler.getClientMessage());
                 }
@@ -328,7 +331,6 @@ public class TableWindow extends GameWindow implements Initializable {
                 else if ( !messageFromFrontEnd.contains("Wait") ) {
                     endOfTheGame = true;
                 }
-
                 else setMessageLabel(messageFromFrontEnd);
 
                 if ( !endOfTheGame ) {
@@ -338,21 +340,20 @@ public class TableWindow extends GameWindow implements Initializable {
 
                 if (messageFromFrontEnd.equals("Next action") && !lastAction.equals("End")) {
                     messageFromFrontEnd = guiHandler.readString();
-
                     if (messageFromFrontEnd.equals("Invalid action")) {
                         repeat = true;
+                        invalidSpace = true;
                         setMessageLabel(messageFromFrontEnd);
-                    } else if (messageFromFrontEnd.contains("You won")){
-                        endOfTheGame = true;
+                    } else{
+                        charonSwitch = 0;
+                        repeat = false;
+                        invalidSpace = false;
                     }
-                    else charonSwitch = 0;
                 }
             }
             catch ( InterruptedException e) {
                 e.printStackTrace();
             }
-
-            choice = null;
         }
         setMessageLabel(messageFromFrontEnd);
         Platform.runLater( () ->
@@ -495,8 +496,6 @@ public class TableWindow extends GameWindow implements Initializable {
         });
     }
 
-
-
     public void buildGameSpace(int i, int j) throws FileNotFoundException {
         char[] spaceToPrint;
         ImageView building = new ImageView(), worker = new ImageView(), currWorker = new ImageView();
@@ -557,10 +556,6 @@ public class TableWindow extends GameWindow implements Initializable {
         gameTable.add(worker, j , i );
         gameTable.add(currWorker, j , i );
 
-    }
-
-    private String getLastAction() {
-        return lastAction;
     }
 
     public void placeWorkers() {
