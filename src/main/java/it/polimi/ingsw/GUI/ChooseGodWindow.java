@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -25,6 +26,7 @@ public class ChooseGodWindow extends GameWindow implements Initializable {
     public ImageView chooseButtonImage;
     public ImageView backButtonImage;
     public ImageView nextButtonImage;
+    public AnchorPane chooseGodPane;
     private Stage nextStage = new Stage();
     private God currGod = guiHandler.getGods().get(0);
 
@@ -158,5 +160,6 @@ public class ChooseGodWindow extends GameWindow implements Initializable {
         else if (guiHandler.getMode() == Mode.EXISTING_MATCH && guiHandler.getSerializableLiteGame().getName3() != null) guiHandler.setNumOfPlayers(3);
         currGod = guiHandler.getGods().get(0);
         setGodImage();
+        guiHandler.setCurrPane(chooseGodPane);
     }
 }

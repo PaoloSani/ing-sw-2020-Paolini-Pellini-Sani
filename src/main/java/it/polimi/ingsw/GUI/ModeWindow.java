@@ -3,6 +3,7 @@ package it.polimi.ingsw.GUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ModeWindow extends GameWindow  {
@@ -13,6 +14,7 @@ public class ModeWindow extends GameWindow  {
     public Button friendsButton;
     @FXML
     public Button randomGameButton;
+    public AnchorPane modePane;
 
     private Stage nextStage = new Stage();
 

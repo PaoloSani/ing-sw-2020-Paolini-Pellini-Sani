@@ -6,12 +6,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class NewGameWindow extends GameWindow {
     public RadioButton twoPlayersButton;
     public RadioButton threePlayersButton;
     public Button nextButton;
+    public AnchorPane newGamePane;
 
 
     private Stage nextStage = new Stage();

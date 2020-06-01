@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
+<AnchorPane fx:id="tablePane" prefHeight="540.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.GUI.TableWindow">
    <children>
       <ImageView fx:id="background" fitHeight="544.0" fitWidth="972.0">
          <image>
@@ -55,9 +55,9 @@
          </effect>
       </ImageView>
       <Label fx:id="messageLabel" alignment="CENTER" layoutX="761.0" layoutY="377.0" prefHeight="148.0" prefWidth="170.0" stylesheets="@CSSFiles/ButtonTexts.css" wrapText="true" />
-      <Label fx:id="player1label" alignment="CENTER" layoutX="63.0" layoutY="99.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="player1" />
-      <Label fx:id="player2label" alignment="CENTER" layoutX="63.0" layoutY="158.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="player2" />
-      <Label fx:id="player3label" alignment="CENTER" layoutX="63.0" layoutY="213.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="player3" />
+      <Label fx:id="player1label" layoutX="84.0" layoutY="99.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="player1" />
+      <Label fx:id="player2label" layoutX="84.0" layoutY="158.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="player2" />
+      <Label fx:id="player3label" layoutX="84.0" layoutY="213.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="player3" />
       <ImageView fx:id="worker1image" fitHeight="50.0" fitWidth="50.0" layoutX="34.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Table/male3.png" />
@@ -73,7 +73,7 @@
             <Image url="@../Table/male1.png" />
          </image>
       </ImageView>
-      <Label fx:id="god1label" alignment="CENTER" layoutX="63.0" layoutY="119.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="god1" />
+      <Label fx:id="god1label" layoutX="84.0" layoutY="119.0" prefHeight="20.0" prefWidth="89.0" stylesheets="@CSSFiles/keys.css" text="god1" />
       <Label fx:id="god2label" alignment="CENTER" layoutX="63.0" layoutY="178.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="god2" />
       <Label fx:id="god3label" alignment="CENTER" layoutX="63.0" layoutY="233.0" prefHeight="20.0" prefWidth="100.0" stylesheets="@CSSFiles/keys.css" text="god3" />
       <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="46.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true">

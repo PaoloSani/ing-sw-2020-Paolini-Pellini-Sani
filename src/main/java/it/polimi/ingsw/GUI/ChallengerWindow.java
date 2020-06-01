@@ -2,18 +2,22 @@ package it.polimi.ingsw.GUI;
 
 import it.polimi.ingsw.model.God;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class ChallengerWindow extends GameWindow {
+public class ChallengerWindow extends GameWindow implements Initializable {
     public boolean isVisible = true;
     public Button backGodButton;
     public Button nextGodButton;
@@ -30,6 +34,7 @@ public class ChallengerWindow extends GameWindow {
     public Label firstGodLabel;
     public Label secondGodLabel;
     public Label thirdGodLabel;
+    public AnchorPane challengerPane;
     private Stage nextStage = new Stage();
     private God currGod = God.APOLLO;
 
@@ -253,5 +258,10 @@ public class ChallengerWindow extends GameWindow {
 
     public void releasePlay(MouseEvent mouseEvent) {
         playImage.setImage(new Image("Buttons/cm_btn_blue.png"));
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        guiHandler.setCurrPane(challengerPane);
     }
 }

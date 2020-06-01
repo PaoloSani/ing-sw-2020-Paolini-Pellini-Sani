@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,40 +24,43 @@ public class WaitingWindow extends GameWindow implements Initializable{
 
     public Stage stage = new Stage();
     public Label waitingLabelCards;
+    public AnchorPane waitingPane;
     private String toLoad;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-            if (guiHandler.getMode() == Mode.NEW_GAME) {
-                guiHandler.createNewGame();
-                String stringID = guiHandler.readString();
-                int gameID = Integer.parseInt(stringID);
-                guiHandler.setGameID(gameID);
-                waitLabel.setText("WAITING FOR OTHER PLAYERS");
-                waitLabel.setVisible(true);
-                IDLabel.setText("THE GAME ID IS: " + guiHandler.getGameID());
+        guiHandler.setCurrPane(waitingPane);
+
+        if (guiHandler.getMode() == Mode.NEW_GAME) {
+            guiHandler.createNewGame();
+            String stringID = guiHandler.readString();
+            int gameID = Integer.parseInt(stringID);
+            guiHandler.setGameID(gameID);
+            waitLabel.setText("WAITING FOR OTHER PLAYERS");
+            waitLabel.setVisible(true);
+            IDLabel.setText("THE GAME ID IS: " + guiHandler.getGameID());
+            IDLabel.setVisible(true);
+        } else if (guiHandler.getMode() == Mode.RANDOM_MATCH) {
+            guiHandler.randomMatch();
+            waitLabel.setText("WAITING FOR OTHER PLAYERS");
+            waitLabel.setVisible(true);
+            String messageFromServer = guiHandler.readString();
+            if ( messageFromServer.contains("You are")) {
+                guiHandler.setMode(Mode.NEW_GAME);
+                IDLabel.setText("YOU ARE THE CHALLENGER");
                 IDLabel.setVisible(true);
-            } else if (guiHandler.getMode() == Mode.RANDOM_MATCH) {
-                guiHandler.randomMatch();
-                waitLabel.setText("WAITING FOR OTHER PLAYERS");
-                waitLabel.setVisible(true);
-                String messageFromServer = guiHandler.readString();
-                if ( messageFromServer.contains("You are")) {
-                    guiHandler.setMode(Mode.NEW_GAME);
-                    IDLabel.setText("YOU ARE THE CHALLENGER");
-                    IDLabel.setVisible(true);
-                }
-            } else if (guiHandler.getMode() == Mode.EXISTING_MATCH) {
-                if (guiHandler.getMessageFromServer().equals(Message.BEGIN.toString())) {
-                    waitLabel.setText("THE CHALLENGER IS CHOOSING THE GODS");
-                    waitLabel.setVisible(true);
-                }
-                else if (guiHandler.getMessageFromServer().equals(Message.WAIT.toString())){
-                    waitLabel.setVisible(false);
-                    waitingLabelCards.setVisible(true);
-                }
             }
+        } else if (guiHandler.getMode() == Mode.EXISTING_MATCH) {
+            if (guiHandler.getMessageFromServer().equals(Message.BEGIN.toString())) {
+                waitLabel.setText("THE CHALLENGER IS CHOOSING THE GODS");
+                waitLabel.setVisible(true);
+            }
+            else if (guiHandler.getMessageFromServer().equals(Message.WAIT.toString())){
+                waitLabel.setVisible(false);
+                waitingLabelCards.setVisible(true);
+            }
+        }
 
         Task<String> task = new Task<String>() {
             @Override

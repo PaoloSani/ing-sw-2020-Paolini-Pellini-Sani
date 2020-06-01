@@ -7,11 +7,13 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ExistingGameWindow extends GameWindow {
     public TextField IDField;
     public Button nextButton;
+    public AnchorPane existingGamePane;
 
     private Stage nextStage = new Stage();
 

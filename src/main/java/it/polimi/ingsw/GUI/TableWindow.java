@@ -62,7 +62,7 @@ public class TableWindow extends GameWindow implements Initializable {
     public ImageView player3Turn;
     public ImageView player1Turn;
     public Pane endingPane;
-    public Label errorLabel;
+    public AnchorPane tablePane;
     private SerializableLiteGame newSLG;
     private boolean endOfTheGame = false;
     private String lastAction = "none";
@@ -97,6 +97,7 @@ public class TableWindow extends GameWindow implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Thread currThread;
+        guiHandler.setCurrPane(tablePane);
 
         for (int row = 0; row < 5; row++){
             for (int col = 0; col <5; col++){

@@ -5,6 +5,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -17,7 +18,7 @@ public class BeginningMatchWindow extends GameWindow implements Initializable {
 
     public Stage stage = new Stage();
     public Label waitingLabelCards;
-    private String toLoad;
+    public AnchorPane beginningMatchPane;
 
 
     @Override

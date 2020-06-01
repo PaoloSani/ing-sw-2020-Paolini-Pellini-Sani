@@ -49,22 +49,35 @@ public class MessageHandler extends Observable<MessageHandler>{
             else Platform.runLater(() -> {
                 Label label = new Label();
                 ImageView imageView;
-                imageView = guiToNotify.getErrorImage();
+                //imageView = guiToNotify.getErrorImage();
+                imageView = new ImageView();
                 imageView.setImage(new Image("/Backgrounds/Odyssey-Circe-scaled.png"));
                 imageView.setVisible(true);
                 imageView.setOpacity(1);
                 label.setText(message);
-            });
+                double labelX = guiToNotify.getCurrPane().getWidth()/2.0;
+                double labelY = guiToNotify.getCurrPane().getHeight()/2.0;
+                label.setLayoutX(labelX);
+                label.setLayoutY(labelY);
+                label.getStylesheets().add("/GUIScenes/CSSFiles/ButtonTexts.css");
+                guiToNotify.getCurrPane().getChildren().addAll(imageView,label);
+        });
         } //TODO: condizione quando un giocatore lascia la partita?
         else {
             Platform.runLater(() -> {
                 Label label = new Label();
                 ImageView imageView;
-                imageView = guiToNotify.getErrorImage();
+                imageView = new ImageView();
                 imageView.setImage(new Image("/Backgrounds/Odyssey-Circe-scaled.png"));
                 imageView.setVisible(true);
                 imageView.setOpacity(1);
                 label.setText(message);
+                label.getStylesheets().add("/GUIScenes/CSSFiles/Labels.css");
+                double labelX = (guiToNotify.getCurrPane().getWidth() - 2*label.getWidth())/2.0;
+                double labelY = guiToNotify.getCurrPane().getHeight()/2.0;
+                label.setLayoutX(labelX);
+                label.setLayoutY(labelY);
+                guiToNotify.getCurrPane().getChildren().addAll(imageView,label);
             });
         }
     }
