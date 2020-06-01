@@ -190,6 +190,9 @@ public class CommandLineGame implements Observer<MessageHandler> {
                     repeat = true;
                     System.out.println("  " + messageFromFrontEnd);
                 }
+                else if ( messageFromFrontEnd.contains("You won")){
+                    endOfTheGame = true;
+                }
                 else charonSwitch = 0;
             }
         }

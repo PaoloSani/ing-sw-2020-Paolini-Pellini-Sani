@@ -65,7 +65,6 @@ public class TableWindow extends GameWindow implements Initializable {
     public AnchorPane tablePane;
     private SerializableLiteGame newSLG;
     private boolean endOfTheGame = false;
-    private boolean invalidSpace = false;
     private String lastAction = "none";
     private String messageFromFrontEnd = "none";
     private BlockingQueue<Object> clientChoices = new LinkedBlockingDeque<>();
@@ -279,14 +278,17 @@ public class TableWindow extends GameWindow implements Initializable {
                     if (!lastAction.equals("End")) {
 
                         if ( lastAction.equals(move) && !repeat ){
-                            if(invalidSpace) messageToPrint = "Please select a valid space you want to occupy";
-                            else messageToPrint = "Please select the space you want to occupy";
+                            messageToPrint = "Please select the space you want to occupy";
                             moveCounter++;
                         }
                         else if ( lastAction.contains(build) && !repeat ){
-                            if(invalidSpace) messageToPrint = "Please select a valid space where you want to build";
-                            else messageToPrint = "Please select the space where you want to build";
+                            messageToPrint = "Please select the space where you want to build";
                             buildCounter++;
+                        }
+
+                        if ( repeat ){
+                            if(lastAction.equals(move) ) messageToPrint = "Please select a valid space you want to occupy";
+                            else if ( lastAction.equals(build) ) messageToPrint = "Please select a valid space where you want to build";
                         }
 
                         setMessageLabel(messageToPrint);
@@ -343,12 +345,14 @@ public class TableWindow extends GameWindow implements Initializable {
                     messageFromFrontEnd = guiHandler.readString();
                     if (messageFromFrontEnd.equals("Invalid action")) {
                         repeat = true;
-                        invalidSpace = true;
                         setMessageLabel(messageFromFrontEnd);
-                    } else{
+                    }
+                    else if ( messageFromFrontEnd.contains("You won")){
+                        endOfTheGame = true;
+                    }
+                    else{
                         charonSwitch = 0;
                         repeat = false;
-                        invalidSpace = false;
                     }
                 }
             }
