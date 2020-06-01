@@ -218,6 +218,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     //chiude la connessione del giocatore corrente e inizia il turno con il giocatore successivo
     //se è il caso di due giocatori conclude la partita e notifica il giocatore vincente
     private void removePlayerFromTheGame(){
+        currClient.send(liteGame);
         currClient.send("You have been removed from the match!");
         toRemove = currClient;
         updateCurrClient();

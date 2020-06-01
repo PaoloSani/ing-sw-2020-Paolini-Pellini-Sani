@@ -116,7 +116,8 @@ public class CommandLineGame implements Observer<MessageHandler> {
                             messageToPrint = "  Please select the space where you want to build (ROW-COL)";
                         }
                     } else if (lastAction.equals("Build")) {
-                        if ( ((god == God.HEPHAESTUS || god == God.DEMETER) && buildCounter == 1)  ||     //se Efesto o Demetra e ha già fatto una sola build
+                        if (  god == God.DEMETER && buildCounter == 1                     ||     //se Efesto o Demetra e ha già fatto una sola build
+                              god == God.HEPHAESTUS && buildCounter == 1 && serializableLiteGame.getHeight(lastSpace) < 3 ||
                             ( god == God.POSEIDON && buildCounter > 0 && buildCounter < 4 &&              // se Poseidone e ha già fatto una o più costruzioni (max 3)
                              !Arrays.equals(firstWorker, serializableLiteGame.getCurrWorker()))           ){       // sta giocando con il suo secondo worker
 

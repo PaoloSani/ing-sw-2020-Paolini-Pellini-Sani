@@ -246,8 +246,9 @@ public class TableWindow extends GameWindow implements Initializable {
                                 lastAction = build;
                             }
                         } else if (lastAction.equals(build)) {
-                            if (    ((god == God.HEPHAESTUS || god == God.DEMETER) && buildCounter == 1 )               ||     //se Efesto o Demetra e ha già fatto una sola build
-                                    (god == God.POSEIDON && buildCounter > 0 && buildCounter < 4                        &&     // se Poseidone e ha già fatto una o più costruzioni (max 3)
+                            if (  ( god == God.DEMETER && buildCounter == 1  )                   ||     //se Efesto o Demetra e ha già fatto una sola build
+                                    (  god == God.HEPHAESTUS && buildCounter == 1 && guiHandler.getSerializableLiteGame().getHeight(lastSpace) < 3 ) ||
+                                  (god == God.POSEIDON && buildCounter > 0 && buildCounter < 4                        &&     // se Poseidone e ha già fatto una o più costruzioni (max 3)
                                      !Arrays.equals(firstWorker, guiHandler.getSerializableLiteGame().getCurrWorker())) ) {  // sta giocando con il suo secondo worker
 
                                 setMessageLabel("Build again or press E to end your turn");

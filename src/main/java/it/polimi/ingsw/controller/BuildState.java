@@ -5,7 +5,10 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
 
-
+/**
+ * BuildState is a class part of the FSM of the controller. It manages the call of methods in the Model, which change the building in the
+ * game table and writes the output on the LiteGame class, which will be sent to clients.
+ */
 public class BuildState implements GameState {
     private BackEnd backEnd;
     private int level;
@@ -23,7 +26,9 @@ public class BuildState implements GameState {
     }
 
 
-
+    /**
+     * @return true in case the execute was successful, meaning that the method has built something correctly in the game table.
+     */
     @Override
     public boolean execute() {
         boolean result = true;
@@ -40,31 +45,25 @@ public class BuildState implements GameState {
                 level = backEnd.getGameMessage().getLevel();
 
                 //caso Demetra: può costruire due volte ma non sulla stessa cella, la prima volta salvo la cella
-                if (backEnd.getCurrPlayer().getGod() == God.DEMETER && counterDemeter >= 0) {
-
+                if (backEnd.getCurrPlayer().getGod() == God.DEMETER && counterDemeter >= 0 ) {
                     if (counterDemeter == 1 && lastSpace != toBuild)
                         setToReset(true);
-
                     if (counterDemeter == 0) {
                         lastSpace = toBuild;
                     }
-
                 }
 
                 //caso Efesto: può costruire al massimo due volte sulla stessa cella, ma la seconda non una cupola
-                if (backEnd.getCurrPlayer().getGod() == God.HEPHAESTUS && counterHephaestus >= 0) {
-                    if (counterHephaestus == 0) {
+                if (backEnd.getCurrPlayer().getGod() == God.HEPHAESTUS && counterHephaestus >= 0 ) {
+                    if ( counterHephaestus == 0 ) {
                         lastSpace = toBuild;
-                        counterHephaestus++;
-                    } else if (level == 4 || toBuild != lastSpace)
+                    }
+                    else if ( level == 4 || toBuild != lastSpace )
                         hephaestusConstraint = true;
-                    else counterHephaestus++;
-
-                    if (counterHephaestus == 2 && !hephaestusConstraint) setToReset(true);
+                    else hephaestusConstraint = false;
                 }
 
-
-                if (!hephaestusConstraint && !(counterDemeter == 1 && toBuild == lastSpace)) {       //può costruire al massimo due volte e non sulla stessa cella
+                if ( !hephaestusConstraint && !(counterDemeter == 1 && toBuild == lastSpace)) {       //può costruire al massimo due volte e non sulla stessa cella
                     if (!backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level)) result = false;
                 } else result = false;
 
@@ -83,13 +82,11 @@ public class BuildState implements GameState {
                         } else {                      //se non è a terra il suo potere non vale
                             setToReset(true);
                         }
-
-
                     }
 
-                    hephaestusConstraint = false;
-
                     if (counterDemeter == 0 && backEnd.getCurrPlayer().getGod() == God.DEMETER) counterDemeter++;
+                    if ( backEnd.getCurrPlayer().getGod() == God.HEPHAESTUS ) counterHephaestus++;
+                    if ( counterHephaestus == 2 ) setToReset(true);
                 }
             }
         }
@@ -115,6 +112,9 @@ public class BuildState implements GameState {
         this.toReset = toReset;
     }
 
+    /**
+     * sets the counters back to 0 and the boolean constraints to false
+     */
     @Override
     public void reset(){
         counterDemeter = 0;
