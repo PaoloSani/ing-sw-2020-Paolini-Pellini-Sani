@@ -316,6 +316,7 @@ public class TableWindow extends GameWindow implements Initializable {
                 else if ( !messageFromFrontEnd.contains("Wait") ) {
                     endOfTheGame = true;
                 }
+
                 else setMessageLabel(messageFromFrontEnd);
 
                 if ( !endOfTheGame ) {
@@ -329,7 +330,10 @@ public class TableWindow extends GameWindow implements Initializable {
                     if (messageFromFrontEnd.equals("Invalid action")) {
                         repeat = true;
                         setMessageLabel(messageFromFrontEnd);
-                    } else charonSwitch = 0;
+                    } else if (messageFromFrontEnd.contains("You won")){
+                        endOfTheGame = true;
+                    }
+                    else charonSwitch = 0;
                 }
             }
             catch ( InterruptedException e) {
