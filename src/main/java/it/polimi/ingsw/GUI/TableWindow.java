@@ -273,15 +273,14 @@ public class TableWindow extends GameWindow implements Initializable {
                                 lastAction = "End";
                             }
                         }
-                    } else repeat = false;
-
+                    }
                     if (!lastAction.equals("End")) {
 
-                        if ( lastAction.equals(move) ){
+                        if ( lastAction.equals(move) && !repeat ){
                             messageToPrint = "Please select the space you want to occupy";
                             moveCounter++;
                         }
-                        else if ( lastAction.contains(build) ){
+                        else if ( lastAction.contains(build) && !repeat ){
                             messageToPrint = "Please select the space where you want to build";
                             buildCounter++;
                         }
@@ -289,7 +288,7 @@ public class TableWindow extends GameWindow implements Initializable {
                         setMessageLabel(messageToPrint);
                         clientChoices.clear();
                         Object selection;
-                        if( choice instanceof int[] ) lastSpace = (int[]) choice;
+                        if(  choice != null && choice instanceof int[] ) lastSpace = (int[]) choice;
                         else {
                             selection = clientChoices.take();
                             while ( !  (selection instanceof int[]) ){
@@ -297,7 +296,7 @@ public class TableWindow extends GameWindow implements Initializable {
                             }
                             lastSpace = (int[]) selection;
                         }
-
+                        choice = null;
                         guiHandler.getClientMessage().setSpace1(lastSpace);
 
                         if ( god == God.CHARON && charonSwitch == 1 ) {
@@ -321,6 +320,7 @@ public class TableWindow extends GameWindow implements Initializable {
                             }
                         }
                     }
+
                     guiHandler.getClientMessage().setAction(lastAction);
                     guiHandler.getClientConnection().send(guiHandler.getClientMessage());
                 }
@@ -337,18 +337,18 @@ public class TableWindow extends GameWindow implements Initializable {
 
                 if (messageFromFrontEnd.equals("Next action") && !lastAction.equals("End")) {
                     messageFromFrontEnd = guiHandler.readString();
-
                     if (messageFromFrontEnd.equals("Invalid action")) {
                         repeat = true;
                         setMessageLabel(messageFromFrontEnd);
-                    } else charonSwitch = 0;
+                    } else{
+                        charonSwitch = 0;
+                        repeat = false;
+                    }
                 }
             }
             catch ( InterruptedException e) {
                 e.printStackTrace();
             }
-
-            choice = null;
         }
         setMessageLabel(messageFromFrontEnd);
         Platform.runLater( () ->
