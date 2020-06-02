@@ -246,8 +246,13 @@ public class LiteGame extends Observable<LiteGame>  {
             this.currWorker = null;
         }
         else {
-            this.currWorker[0] = x;
-            this.currWorker[1] = y;
+            if ( this.currWorker == null ){
+                this.currWorker = new int[]{x,y};
+            }
+            else {
+                this.currWorker[0] = x;
+                this.currWorker[1] = y;
+            }
         }
     }
 

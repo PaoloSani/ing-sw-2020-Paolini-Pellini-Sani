@@ -211,6 +211,7 @@ public class Server {
     }
 
     public void removePlayerFromMatch(int gameID, ServerConnection toRemove ){
+        toRemove.setGameID(-1);
         if ( playingConnection2Players.containsKey(gameID) ){
             playingConnection2Players.get(gameID).remove(toRemove);
         }

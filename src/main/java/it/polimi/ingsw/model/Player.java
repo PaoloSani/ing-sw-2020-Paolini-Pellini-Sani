@@ -1,8 +1,6 @@
 package it.polimi.ingsw.model;
 
-
-
-public class Player {
+public class Player  {
     private final String nickname;
     private God god;
     private Worker worker1;
@@ -119,7 +117,6 @@ public class Player {
     public boolean buildSpace(Worker worker, Space spaceToBuild, int level) {
         return this.build.execute(worker, spaceToBuild, level);
     }
-
 
 }
 

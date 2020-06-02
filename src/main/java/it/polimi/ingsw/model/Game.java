@@ -77,6 +77,7 @@ public class Game {
     //Scrive i nickname e le divinità dei giocatori nella classe liteGame
     //Non è nel liteGame, per far sì che i setter non siano visibili alla virtualView
     public void setPlayers( Player player1, Player player2, Player player3 ){
+
         liteGame.setName1(player1.getNickname());
         liteGame.setGod1(player1.getGod());
         liteGame.setName2(player2.getNickname());

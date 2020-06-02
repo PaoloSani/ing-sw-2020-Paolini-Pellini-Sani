@@ -27,7 +27,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     private ServerConnection currClient;
     private ServerConnection toRemove;
     private boolean endOfTheGame = false;
-    private boolean updateServer;
+    private boolean playerRemoved;
 
     private int gameID;
 
@@ -40,7 +40,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         this.gameID = gameID;
         this.backEnd = backEnd;
         this.gameMessage = new GameMessage(this);
-        this.updateServer = false;
+        this.playerRemoved = false;
     }
 
     public FrontEnd(Server server, ServerConnection client1, ServerConnection client2, ServerConnection client3, int gameID, BackEnd backEnd) {
@@ -52,7 +52,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         this.gameID = gameID;
         this.backEnd = backEnd;
         this.gameMessage = new GameMessage(this);
-        this.updateServer = false;
+        this.playerRemoved = false;
     }
 
     @Override
@@ -157,11 +157,12 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
              }
              else {
                  sendLiteGame();
-                 if ( !endOfTheGame ) {
+                 if ( !endOfTheGame && !playerRemoved ) {
                      if (!updateModel) {
                          currClient.send("Invalid action");
                      } else currClient.send("Action performed");
                  }
+                 else playerRemoved = false;
              }
         }
 
@@ -229,8 +230,11 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         gameMessage.notify(gameMessage);
 
         //Se il giocare era l'ultimo in gioco il backEnd lo scrive nel LiteGame
-        gameMessage.notify(gameMessage);
+        if ( (client1 == null && client2 == null) ||  (client2 == null && client3 == null) || (client1 == null && client3 == null) ){
+            gameMessage.notify(gameMessage);
+        }
         if ( liteGame.isWinner() ) endOfTheGame = true;
+        playerRemoved = true;
     }
 
     @Override
