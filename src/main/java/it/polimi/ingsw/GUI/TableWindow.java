@@ -550,8 +550,10 @@ public class TableWindow extends GameWindow implements Initializable {
                 break;
         }
 
-        if (guiHandler.getSerializableLiteGame().getCurrWorker()[0] == i && guiHandler.getSerializableLiteGame().getCurrWorker()[1] == j){
-            currWorker.setImage( new Image("/Backgrounds/playermoveindicator_blue.png"));
+        if ( guiHandler.getSerializableLiteGame().getCurrWorker() != null ) {
+            if (guiHandler.getSerializableLiteGame().getCurrWorker()[0] == i && guiHandler.getSerializableLiteGame().getCurrWorker()[1] == j) {
+                currWorker.setImage(new Image("/Backgrounds/playermoveindicator_blue.png"));
+            }
         }
 
         building.setMouseTransparent(true);

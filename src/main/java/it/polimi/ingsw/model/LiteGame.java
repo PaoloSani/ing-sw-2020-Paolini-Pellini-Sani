@@ -135,6 +135,7 @@ public class LiteGame extends Observable<LiteGame>  {
                     liteGame.name1.equals(this.name1)                                              &&
                     liteGame.name2.equals(this.name2)                                               &&
                     //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&
+                    this.currWorker != null                                                         &&
                     liteGame.currWorker[0] == this.currWorker[0]                                    &&
                     liteGame.currWorker[1] == this.currWorker[1]                                    &&
                     liteGame.level1 == this.level1 && liteGame.level2 == this.level2                &&
@@ -144,6 +145,7 @@ public class LiteGame extends Observable<LiteGame>  {
                     liteGame.god3.equals(this.god3) && liteGame.name1.equals(this.name1)            &&
                     liteGame.name2.equals(this.name2) && liteGame.name3.equals(this.name3)          &&
                     //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&
+                    this.currWorker != null                                                         &&
                     liteGame.currWorker[0] == this.currWorker[0]                                    &&
                     liteGame.currWorker[1] == this.currWorker[1]                                    &&
                     liteGame.level1 == this.level1 && liteGame.level2 == this.level2                &&
