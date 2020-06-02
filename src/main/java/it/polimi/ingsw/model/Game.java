@@ -130,7 +130,7 @@ public class Game {
 
                         //caso con il blocco, deve esistere una posizione la cui differenza di altezza è al massimo 0
                         else if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 0 ) && constraint.athenaBlocks() ) return true;
-                        else if ( table[i][j].getWorker() != null && table[i][j].getWorker().getPlayer() != worker.getPlayer() && worker.getPlayer().getGod().equals(God.APOLLO) ){
+                        else if ( table[i][j].getWorker() != null && table[i][j].getWorker().getPlayer() != worker.getPlayer() && worker.getPlayer().getGod().equals(God.APOLLO) && table[i][j].getHeight() - currH <= 1 ){
                             return true;
                         }
                     }
