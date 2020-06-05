@@ -224,8 +224,16 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         updateCurrClient();
         toRemove.closeConnection();
         server.removePlayerFromMatch(gameID, toRemove);
-        toRemove = null;
 
+        if ( toRemove == client1 ){
+            this.client1 = null;
+        }
+        else if ( toRemove == client2 ){
+            this.client2 = null;
+        }
+        else {
+            client3 = null;
+        }
         // il backEnd esegue la execute di RemovePlayerState
         gameMessage.notify(gameMessage);
 

@@ -130,27 +130,29 @@ public class LiteGame extends Observable<LiteGame>  {
             return false;
         }
         else {
-            if ( name3 == null )
-            return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2)   &&
-                    liteGame.name1.equals(this.name1)                                              &&
-                    liteGame.name2.equals(this.name2)                                               &&
-                    //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&
-                    this.currWorker != null                                                         &&
-                    liteGame.currWorker[0] == this.currWorker[0]                                    &&
-                    liteGame.currWorker[1] == this.currWorker[1]                                    &&
-                    liteGame.level1 == this.level1 && liteGame.level2 == this.level2                &&
-                    liteGame.level3 == this.level3 && liteGame.dome == this.dome                    &&
-                    liteGame.isWinner == this.isWinner                                              );
-            else return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2)   &&
-                    liteGame.god3.equals(this.god3) && liteGame.name1.equals(this.name1)            &&
-                    liteGame.name2.equals(this.name2) && liteGame.name3.equals(this.name3)          &&
-                    //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&
-                    this.currWorker != null                                                         &&
-                    liteGame.currWorker[0] == this.currWorker[0]                                    &&
-                    liteGame.currWorker[1] == this.currWorker[1]                                    &&
-                    liteGame.level1 == this.level1 && liteGame.level2 == this.level2                &&
-                    liteGame.level3 == this.level3 && liteGame.dome == this.dome                    &&
-                    liteGame.isWinner == this.isWinner                                              );
+            if ( name3 == null ) {
+                return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2) &&
+                        liteGame.name1.equals(this.name1) &&
+                        liteGame.name2.equals(this.name2) &&
+                        //liteGame.currPlayer.equalsLG(this.currPlayer)                                   &&
+                        this.currWorker != null &&
+                        liteGame.currWorker[0] == this.currWorker[0] &&
+                        liteGame.currWorker[1] == this.currWorker[1] &&
+                        liteGame.level1 == this.level1 && liteGame.level2 == this.level2 &&
+                        liteGame.level3 == this.level3 && liteGame.dome == this.dome &&
+                        liteGame.isWinner == this.isWinner);
+            }
+            else return ( isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2)   &&
+                    liteGame.god3.equals(this.god3) && liteGame.name1.equals( this.name1 )                &&
+                    liteGame.name2.equals(this.name2) && liteGame.name3.equals( this.name3 )              &&
+                    //liteGame.currPlayer.equalsLG(this.currPlayer)                                       &&
+                    this.currWorker != null                                                               &&
+                    liteGame.currWorker != null                                                           &&
+                    liteGame.currWorker[0] == this.currWorker[0]                                          &&
+                    liteGame.currWorker[1] == this.currWorker[1]                                          &&
+                    liteGame.level1 == this.level1 && liteGame.level2 == this.level2                      &&
+                    liteGame.level3 == this.level3 && liteGame.dome == this.dome                          &&
+                    liteGame.isWinner == this.isWinner                                                     );
         }
 
 

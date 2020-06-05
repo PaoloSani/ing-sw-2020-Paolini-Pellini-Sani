@@ -36,5 +36,4 @@ public enum God {
 
     private String godName;
     private String power;
-
 }
