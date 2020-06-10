@@ -156,8 +156,6 @@ public class ChooseGodWindow extends GameWindow implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (guiHandler.getMode() == Mode.EXISTING_MATCH && guiHandler.getSerializableLiteGame().getName3() == null) guiHandler.setNumOfPlayers(2);
-        else if (guiHandler.getMode() == Mode.EXISTING_MATCH && guiHandler.getSerializableLiteGame().getName3() != null) guiHandler.setNumOfPlayers(3);
         currGod = guiHandler.getGods().get(0);
         setGodImage();
         guiHandler.setCurrPane(chooseGodPane);

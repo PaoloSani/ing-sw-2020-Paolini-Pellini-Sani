@@ -52,23 +52,33 @@ public class WaitingWindow extends GameWindow implements Initializable{
                 IDLabel.setVisible(true);
             }
         } else if (guiHandler.getMode() == Mode.EXISTING_MATCH) {
-            if (guiHandler.getMessageFromServer().equals(Message.BEGIN.toString())) {
+            String messageFromServer = guiHandler.getMessageFromServer();
+            if (messageFromServer.equals(Message.BEGIN.toString())) {
                 waitLabel.setText("THE CHALLENGER IS CHOOSING THE GODS");
                 waitLabel.setVisible(true);
             }
-            else if (guiHandler.getMessageFromServer().equals(Message.WAIT.toString())){
+            else if (messageFromServer.equals(Message.WAIT.toString())){
                 waitLabel.setVisible(false);
                 waitingLabelCards.setVisible(true);
+                waitingLabelCards.setText("WAITING FOR OTHER PLAYERS");
+
             }
         }
 
         Task<String> task = new Task<String>() {
             @Override
             protected String call() throws Exception {
-                if (guiHandler.readString().contains("Game has started")) {
+                String messageFromServer = guiHandler.readString();
+                if (messageFromServer.contains("Game has started")) {
                     if (guiHandler.getMode() == Mode.NEW_GAME) {
                         return "/GUIScenes/challengerWindow.fxml";
                     } else {
+                        if ( guiHandler.getMode() == Mode.EXISTING_MATCH){
+                            String array[] = messageFromServer.split("are");
+                            if ( array[1].split(",").length == 2 )
+                                guiHandler.setNumOfPlayers(2);
+                            else guiHandler.setNumOfPlayers(3);
+                        }
                         waitLabel.setVisible(false);
                         waitingLabelCards.setVisible(true);
                         String messageFromFrontend = guiHandler.readString();
