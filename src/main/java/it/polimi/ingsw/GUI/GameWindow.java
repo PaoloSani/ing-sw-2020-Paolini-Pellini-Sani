@@ -1,8 +1,10 @@
 package it.polimi.ingsw.GUI;
 
-import it.polimi.ingsw.client.ClientConnection;
+/**
+ * It has a static GUIHandler as an attribute.
+ * It is inherited by every class that extends GameWindow.
+ */
 
 public class GameWindow {
     public static final GUIHandler guiHandler = new GUIHandler();
-
 }

@@ -20,6 +20,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * It is the interface of GUI towards and backwards network.
+ * It is responsible of every message which is sent on the net and received from it.
+ */
+
 public class GUIHandler implements Observer<MessageHandler> {
 
     private final ClientConnection clientConnection;
@@ -47,7 +52,7 @@ public class GUIHandler implements Observer<MessageHandler> {
         settingGameMessage = new SettingGameMessage();
     }
 
-    public synchronized void loadFXMLFile(Node nextButton, Stage nextStage, String fileToLoad){
+    public synchronized void loadFXMLFile(Node node, Stage nextStage, String fileToLoad){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fileToLoad));
         try {
             Parent root = fxmlLoader.load();
@@ -55,7 +60,7 @@ public class GUIHandler implements Observer<MessageHandler> {
             nextStage.setTitle("SANTORINI");
             nextStage.setResizable(false);
             nextStage.setOnCloseRequest(event -> System.exit(0));
-            Stage toClose = (Stage) nextButton.getScene().getWindow();
+            Stage toClose = (Stage) node.getScene().getWindow();
             toClose.close();
             nextStage.show();
         } catch (IOException e) {
