@@ -97,7 +97,7 @@ public class TableWindow extends GameWindow implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Thread currThread;
-        guiHandler.setCurrPane(tablePane);
+        //guiHandler.setCurrPane(tablePane);
 
         for (int row = 0; row < 5; row++){
             for (int col = 0; col <5; col++){
@@ -111,7 +111,7 @@ public class TableWindow extends GameWindow implements Initializable {
             }
         }
 
-        guiHandler.setErrorImage(endingImage);
+        //guiHandler.setErrorImage(endingImage);
 
         String nameOfMyPlayer;
         if ( guiHandler.getClientMessage().getName().equals(guiHandler.getSerializableLiteGame().getName1() )) {

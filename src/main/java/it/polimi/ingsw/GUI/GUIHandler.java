@@ -27,22 +27,77 @@ import java.util.List;
 
 public class GUIHandler implements Observer<MessageHandler> {
 
+    /**
+     * It represents the client's connection to the net. It let the GUI send messages on the internet
+     */
     private final ClientConnection clientConnection;
+
+    /**
+     * It is the message which is going to be sent on the internet, to communicate client's decisions.
+     */
     private ClientMessage clientMessage;
+
+    /**
+     * It handles all the messages which come from the internet.
+     */
     private MessageHandler messageHandler;
+
+    /**
+     * If true, it lets the method readString() terminate.
+     */
     private boolean updateString = false;
+
+    /**
+     * If true, it lets the method readSerializableLG() terminate.
+     */
     private boolean updateLG = false;
+
+    /**
+     * It is the nickname chosen by the client to play the game.
+     */
     private String nickname;
+
+    /**
+     * It is a message sent by the server, which communicates the current state of the game process.
+     */
     private String messageFromServer;
+
+    /**
+     * It is the number of players playing the same match of the client. Client is counted too.
+     */
     private int numOfPlayers;
+
+    /**
+     * It is the message sent by the client to start a game.
+     */
     private SettingGameMessage settingGameMessage;
+
+    /**
+     * It is the gameID associated to client's match .
+     */
     private int gameID;
+
+    /**
+     * It is the mode chosen by the client to play the game.
+     */
     private Mode mode;
+
+    /**
+     * It is the list of gods chosen by the challenger.
+     * If the client is the challenger, this list will be filled by the client itself and sent with the method sendChallengerMessage().
+     * Else, it will be sent on the internet by the challenger and read through the method readString() by the client's GUI.
+     */
     private List<God> gods = new ArrayList<>();
-    private String messageFromFrontend;
+
+    /**
+     * It contains useful information about the match, as players' names, players' gods and game-table.
+     * It is not modifiable.
+     */
     private SerializableLiteGame serializableLiteGame;
-    private ImageView errorImage;
-    private AnchorPane currPane;
+
+    //Inutili!!
+   /*private ImageView errorImage;
+    private AnchorPane currPane;*/
 
 
     public GUIHandler(){
@@ -52,6 +107,12 @@ public class GUIHandler implements Observer<MessageHandler> {
         settingGameMessage = new SettingGameMessage();
     }
 
+    /**
+     * It opens a new stage, loading a new scene based on the FXML file "fileToLoad". It closes the previous stage.
+     * @param node An element of the previous stage. It is needed to close that one.
+     * @param nextStage It is the stage to set.
+     * @param fileToLoad FXML file to load on the scene.
+     */
     public synchronized void loadFXMLFile(Node node, Stage nextStage, String fileToLoad){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fileToLoad));
         try {
@@ -68,6 +129,10 @@ public class GUIHandler implements Observer<MessageHandler> {
         }
     }
 
+    /**
+     * It establishes the connection with the server.
+     * @return true if the server is active, false otherwise.
+     */
     public boolean setClientConnection(){
         new Thread (clientConnection::run).start();
         messageFromServer = readString();
@@ -228,9 +293,8 @@ public class GUIHandler implements Observer<MessageHandler> {
         clientConnection.send(challengerMessage);
     }
 
-    public void setMessageFromFrontend(String messageFromFrontend) {
-        this.messageFromFrontend = messageFromFrontend;             //  god1-god2-god3   [god1, god2]
-        String stringGods = messageFromFrontend.replace(", ","-");
+    public void setMessageFromFrontend(String message) {
+        String stringGods = message.replace(", ","-");
         stringGods = stringGods.replace("[","");
         stringGods = stringGods.replace("]","");
         String[] godArray = stringGods.split("-");
@@ -255,20 +319,17 @@ public class GUIHandler implements Observer<MessageHandler> {
         return clientMessage;
     }
 
-    public void setErrorImage(ImageView errorImage){
-        this.errorImage = errorImage;
-    }
-
-    public ImageView getErrorImage() {
-        return errorImage;
-    }
-
     public ClientConnection getClientConnection() {
         return clientConnection;
     }
 
     public SerializableLiteGame getSerializableLiteGame() {
         return serializableLiteGame;
+    }
+
+/*    INUTILI!
+    public void setErrorImage(ImageView errorImage){
+        this.errorImage = errorImage;
     }
 
     public AnchorPane getCurrPane() {
@@ -278,4 +339,5 @@ public class GUIHandler implements Observer<MessageHandler> {
     public void setCurrPane(AnchorPane nextPane) {
         this.currPane = nextPane;
     }
+    */
 }

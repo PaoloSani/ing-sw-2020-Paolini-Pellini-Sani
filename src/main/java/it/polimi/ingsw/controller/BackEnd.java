@@ -18,6 +18,7 @@ public class BackEnd implements Observer<GameMessage> {
     private Player toRemove; //serve per memorizzare il giocatore che non può muovere nessuna pedina, così che poi lo rimuovo dal gioco
     private Worker currWorker;
     private boolean lastExecute;
+
     public final GameState setPlayersState = new SetPlayersState(this);
     public final GameState placeWorkersState = new PlaceWorkersState(this);
     public final GameState chooseWorkerState = new ChooseWorkerState(this);

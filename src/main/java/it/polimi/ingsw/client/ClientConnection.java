@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.SerializableLiteGame;
-import it.polimi.ingsw.server.Message;
+import it.polimi.ingsw.util.Message;
 
 import java.io.*;
 import java.net.Socket;
