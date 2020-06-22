@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Classe da passare come messaggio alla virtual view
+
+/**
+ * Class used as a message to send to the virtual view
+ */
 public class LiteGame extends Observable<LiteGame>  {
 
     private String name1;       // Challenger: sceglie le carte e gioca per ultimo
@@ -30,11 +34,21 @@ public class LiteGame extends Observable<LiteGame>  {
     private int dome;
     private boolean isWinner;
 
-    // A, B, C a seconda del player
-    //
+    /**
+     * Two-dimensional string array used to briefly describe the game table. A string is composed as follows:
+     * (A,B,C if there is a worker of a player on that cell, V otherwise) + (0,1,2,3 space height) + (N or D if there is a dome)
+     */
+
     private String[][] table;
+    private List<Observer<LiteGame>> observers = new ArrayList<>();
 
     //crea la tabella semplificata da mandare ai client
+
+
+    /**
+     * Method that converts the model's original play table into the synthetic string table to be sent to the client
+     * @param gameTable Model's original play table
+     */
     protected void convertTable( Space[][] gameTable){
         String player, dome;
         for( int i = 0; i < 5; i++ )
@@ -61,8 +75,6 @@ public class LiteGame extends Observable<LiteGame>  {
         // cella[1] è l'altezza
         // cella[2] è la cupola
      }
-
-    private List<Observer<LiteGame>> observers = new ArrayList<>();
 
 
     public LiteGame() {
@@ -200,7 +212,6 @@ public class LiteGame extends Observable<LiteGame>  {
         return god3;
     }
 
-
     protected void setGod1(God god1) {
         this.god1 = god1;
     }
@@ -212,7 +223,6 @@ public class LiteGame extends Observable<LiteGame>  {
     protected void setGod3(God god3) {
         this.god3 = god3;
     }
-
 
     public String getCurrPlayer() {
         return currPlayer;
@@ -241,7 +251,6 @@ public class LiteGame extends Observable<LiteGame>  {
     public boolean isWinner() {
         return isWinner;
     }
-
 
     public void setCurrWorker(int x, int y) {
         if ( x < 0 ){   //se il giocatore ha perso, setto una cella non valida nella tabella
@@ -291,7 +300,9 @@ public class LiteGame extends Observable<LiteGame>  {
         return table;
     }
 
-
+    /**
+     * Method that creates a serializable copy of the table
+     */
     public SerializableLiteGame makeSerializable() {
         SerializableLiteGame newSLG = new SerializableLiteGame();
 

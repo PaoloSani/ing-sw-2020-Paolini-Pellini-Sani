@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class used as a serializable message to send to virtual-view
+ */
 public class SerializableLiteGame implements Serializable {
 
     private static final long ID = 1L;
@@ -31,8 +34,12 @@ public class SerializableLiteGame implements Serializable {
     private int dome;
     private boolean isWinner;
 
-    // A, B, C a seconda del player
-    //
+
+    /**
+     * Two-dimensional string array used to briefly describe the game table. A string is composed as follows:
+     * (A,B,C if there is a worker of a player on that cell, V otherwise) + (0,1,2,3 space height) + (N or D if there is a dome)
+     */
+
     private String[][] table;
 
     public SerializableLiteGame() {

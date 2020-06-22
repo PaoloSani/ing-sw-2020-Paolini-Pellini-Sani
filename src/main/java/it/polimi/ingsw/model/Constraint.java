@@ -1,22 +1,23 @@
 package it.polimi.ingsw.model;
 
-public class Constraint
-{
-    /*
-      La classe è istanziata ogni volta che è presente in gioco o Atena o Ipnos. Atena viene utilizzata
-      nella move se il flag è vero allora tutti i giocatori avversari non possono salira al livello successivo.
-
-      Se Ipnos è presenti i workers avversari non possono muovere il worker più alto.
-
-     */
-
+/**
+ * The class is instantiated whenever either Athena or Hypnus is present in the game.
+ * If the Athena flag is true, all opposing players cannot go up to the next level.
+ * If Hypnus is present, opposing workers cannot move the highest worker.
+ */
+public class Constraint {
     private boolean Athena;
     private boolean Hypnus;
 
+    public Constraint() {
+        Athena = false;
+        Hypnus = false;
+    }
     // Getter
     public boolean athenaBlocks() {
         return Athena;
     }
+
     public boolean hypnusBlocks() {
         return Hypnus;
     }
@@ -27,12 +28,6 @@ public class Constraint
 
     public void setAthena(boolean athena) {
         Athena = athena;
-    }
-
-
-    public Constraint() {
-        Athena = false;
-        Hypnus = false;
     }
 
 }
