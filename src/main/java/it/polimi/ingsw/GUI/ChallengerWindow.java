@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ChallengerWindow extends GameWindow implements Initializable {
+public class ChallengerWindow extends GameWindow /*implements Initializable*/ {
     public boolean isVisible = true;
     public Button backGodButton;
     public Button nextGodButton;
@@ -260,8 +260,8 @@ public class ChallengerWindow extends GameWindow implements Initializable {
         playImage.setImage(new Image("Buttons/cm_btn_blue.png"));
     }
 
-    @Override
+    /*@Override
     public void initialize(URL location, ResourceBundle resources) {
         guiHandler.setCurrPane(challengerPane);
-    }
+    }*/
 }
