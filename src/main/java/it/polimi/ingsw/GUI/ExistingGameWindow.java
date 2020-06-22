@@ -1,11 +1,8 @@
 package it.polimi.ingsw.GUI;
 
-import it.polimi.ingsw.server.Message;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
+import it.polimi.ingsw.util.Message;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;

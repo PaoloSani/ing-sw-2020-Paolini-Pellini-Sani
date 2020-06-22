@@ -1,16 +1,16 @@
 package it.polimi.ingsw.virtualView;
 
 import it.polimi.ingsw.model.God;
-import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.util.Observable;
 import it.polimi.ingsw.util.Observer;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class GameMessage extends Observable <GameMessage> {
-    private FrontEnd frontEnd;
-    private int numOfPlayers;
+    private final FrontEnd frontEnd;
 
     //Utilizzati per settare i due workers di ogni players
     // il valore {-1,0} serve per l'inizio della partita nel backend
@@ -20,8 +20,8 @@ public class GameMessage extends Observable <GameMessage> {
     // Lo uso per differenziare il caso della Build
     int level;
 
-    private String name1;       // Challenger: sceglie le carte e gioca per ultimo
-    private String name2;       // Start Player: giocatore che gioca per primo il turno e pesca per primo la carta
+    private String name1;
+    private String name2;
     private String name3;
 
     private God god1;
@@ -136,8 +136,6 @@ public class GameMessage extends Observable <GameMessage> {
 
 
     public GameMessage cloneGM(){
-
-        //TODO: clone delle stringhe?
         GameMessage newMessage = new GameMessage(frontEnd);
         newMessage.name1 = this.name1;
         newMessage.name2 = this.name2;

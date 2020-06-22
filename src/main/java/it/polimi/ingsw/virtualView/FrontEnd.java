@@ -8,29 +8,36 @@ import it.polimi.ingsw.model.SerializableLiteGame;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.ServerConnection;
 import it.polimi.ingsw.util.Observer;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * a virtual view, which manages the turns of the match and notifies the BackEnd
+ */
 public class FrontEnd implements Observer<LiteGame>,Runnable {
-
     private Server server;
     private BackEnd backEnd;
-    private ClientMessage clientMessage;
-    private GameMessage gameMessage;
-    private LiteGame liteGame;
-    private boolean updateModel = false;
     private ServerConnection client1;
     private ServerConnection client2;
     private ServerConnection client3;
     private ServerConnection currClient;
-    private ServerConnection toRemove;
+    private ClientMessage clientMessage;
+    private LiteGame liteGame;
+    private final GameMessage gameMessage;
+    private boolean updateModel = false;
     private boolean endOfTheGame = false;
     private boolean playerRemoved;
-
     private int gameID;
 
+    /**
+     * 2 players FrontEnd constructor
+     * @param server: the server of the game
+     * @param client1 : first client, which is the challenger, and will play as last
+     * @param client2: second client
+     * @param gameID: match identifier
+     * @param backEnd: backEnd of the game
+     */
     public FrontEnd(Server server, ServerConnection client1, ServerConnection client2, int gameID, BackEnd backEnd) {
         this.server = server;
         this.client1 = client1;
@@ -167,7 +174,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         }
 
         sendToCurrClient("You won the match.");
-        server.endGame(gameID, null);
+        server.endMatch(gameID, null);
     }
 
 
@@ -219,8 +226,9 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     //chiude la connessione del giocatore corrente e inizia il turno con il giocatore successivo
     //se è il caso di due giocatori conclude la partita e notifica il giocatore vincente
     private void removePlayerFromTheGame(){
+        ServerConnection toRemove = currClient;
+
         currClient.send("You have been removed from the match!");
-        toRemove = currClient;
         updateCurrClient();
         toRemove.closeConnection();
         server.removePlayerFromMatch(gameID, toRemove);
@@ -318,7 +326,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     public synchronized ClientMessage readClientMessage(){
-        while ( !currClient.isUpdateClientMessage() ) {
+        while ( !currClient.isUpdatingClientMessage() ) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -330,7 +338,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         return currClient.getClientMessage();
     }
 
-    public synchronized void updating(){
+    public synchronized void wakeUpFrontEnd(){
         notify();
     }
 
