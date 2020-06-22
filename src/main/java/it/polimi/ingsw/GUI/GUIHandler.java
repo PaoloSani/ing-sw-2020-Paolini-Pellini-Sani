@@ -39,7 +39,6 @@ public class GUIHandler implements Observer<MessageHandler> {
     private int gameID;
     private Mode mode;
     private List<God> gods = new ArrayList<>();
-    private String messageFromFrontend;
     private SerializableLiteGame serializableLiteGame;
     private ImageView errorImage;
     private AnchorPane currPane;
@@ -228,9 +227,8 @@ public class GUIHandler implements Observer<MessageHandler> {
         clientConnection.send(challengerMessage);
     }
 
-    public void setMessageFromFrontend(String messageFromFrontend) {
-        this.messageFromFrontend = messageFromFrontend;             //  god1-god2-god3   [god1, god2]
-        String stringGods = messageFromFrontend.replace(", ","-");
+    public void setMessageFromFrontend(String message) {
+        String stringGods = message.replace(", ","-");
         stringGods = stringGods.replace("[","");
         stringGods = stringGods.replace("]","");
         String[] godArray = stringGods.split("-");
