@@ -1,5 +1,9 @@
 package it.polimi.ingsw.model;
 
+/**
+ * Represents the core of the game, describing the status of the current game
+ */
+
 public class Game {
     private int level1;
     private int level2;
@@ -57,6 +61,9 @@ public class Game {
         return liteGame;
     }
 
+    /**
+     * This method initializes the game table for the first time during a game
+     */
     public void setUpTable(){
         this.table = new Space[5][5];
         for ( int i = 0; i < 5; i++ ){
@@ -74,8 +81,9 @@ public class Game {
         else return null;
     }
 
-    //Scrive i nickname e le divinità dei giocatori nella classe liteGame
-    //Non è nel liteGame, per far sì che i setter non siano visibili alla virtualView
+    /**
+     * Write the nicknames and gods of the players in the instance of the liteGame
+     */
     public void setPlayers( Player player1, Player player2, Player player3 ){
         liteGame.setName1(player1.getNickname());
         liteGame.setGod1(player1.getGod());
@@ -87,7 +95,9 @@ public class Game {
         }
     }
 
-
+    /**
+     * This method is invoked every time you need to update the game status
+     */
     public void refreshLiteGame(){
         liteGame.setLevel1(this.level1);
         liteGame.setLevel2(this.level2);
@@ -112,6 +122,10 @@ public class Game {
         }
     }
 
+    /** This method controls whether a player is free to move around
+     * @param worker Worker you want to check on
+     * @return The method returns true if the worker is free to move in adjacent cells
+     */
     public boolean isFreeToMove( Worker worker ){
         int currX, currY, currH;
         currX = worker.getSpace().getX();
@@ -140,6 +154,10 @@ public class Game {
         return false;
     }
 
+    /** This method controls whether a player is free to build around
+     * @param worker Worker you want to check on
+     * @return The method returns true if the worker is free to build in adjacent cells
+     */
     public boolean isFreeToBuild( Worker worker ){
         int currX,currY;
         currX = worker.getSpace().getX();
@@ -158,6 +176,12 @@ public class Game {
 
     //lascio al controller la gestione del caso in cui myWorker coincide con oppWorker e che la cella passata sia effetivamente nelle celle adiacenti
     //devo anche controllare di non scambiare un worker dello stesso player
+
+    /**
+     * This method performs the necessary game changes for the use of the special power of Charon
+     * @param oppWorker Opponent player to which the special ability is invoked
+     * @return This method returns true if the move has been successful, false otherwise
+     */
     public boolean charonPower( Worker myWorker, Worker oppWorker ) {
         int myX, myY, oppX, oppY, newX, newY;
 
@@ -202,6 +226,11 @@ public class Game {
 
 
     //Gli ho dovuto passare il model perchè è un metodo statico sostiturei il tutto con un observer in futuro
+    /**
+     * This method performs the necessary game changes for the use of the special power of Minotaur
+     * @param oppWorker Opponent player to which the special ability is invoked
+     * @return This method returns true if the move has been successful, false otherwise
+     */
     public boolean minotaurPower( Worker myWorker, Worker oppWorker ) {
         int myX, myY, oppX, oppY, newX, newY;
 
@@ -250,6 +279,7 @@ public class Game {
     }
 
     // la uso nelle move per eliminare duplicazione del codice
+    //TODO Miglirare queste due
     public boolean invalidMoveSpace (Space nextSpace, Space currSpace){
         int currX, currY, currH;
         currX = currSpace.getX();
@@ -271,7 +301,14 @@ public class Game {
                 ( currY - space.getY() ) > 1 || ( currY - space.getY() ) < -1);
     }
 
-   public boolean buildSwitch (Space space, int level, boolean isAtlas){
+    /**
+     * Method used to perform the build
+     * @param space Space where you want to build
+     * @param level Level you want to build
+     * @param isAtlas This parameter indicates whether the Atlas constraint is active
+     * @return This method returns true if the move has been successful, false otherwise
+     */
+    public boolean buildSwitch (Space space, int level, boolean isAtlas){
         switch (level) {
             case 1:
                 // level>0

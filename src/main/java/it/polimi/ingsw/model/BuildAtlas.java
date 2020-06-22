@@ -1,6 +1,16 @@
 package it.polimi.ingsw.model;
 
+/**
+ * Class that implements the build method for Atlas
+ */
+
 public class BuildAtlas implements Build{
+    /**
+     * @param worker Worker performing the build
+     * @param space Space where you want to build
+     * @param level Level you want to build
+     * @return This method returns true if the move has been successful, false otherwise
+     */
     public boolean execute( Worker worker, Space space, int level ) {
         int currX, currY, newH;
         currX = worker.getSpace().getX();

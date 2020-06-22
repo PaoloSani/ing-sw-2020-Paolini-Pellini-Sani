@@ -1,5 +1,9 @@
 package it.polimi.ingsw.model;
 
+/**
+ * Class used to describe a game table space
+ */
+
 public class Space {
     private final int x;
     private final int y;

@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+/**
+ * Class used to keep track of players in a game
+ */
 public class Player  {
     private final String nickname;
     private God god;
@@ -98,6 +101,13 @@ public class Player  {
 
     //Il metodo isWinner viene invocato successivamente ad ogni move() e controlla se la mossa è vincente
     //Al suo interno chiama la scrittura nel liteGame per segnalare se il giocatore corrente ha vinto
+
+    /**
+     * The isWinner method is invoked after each move and checks if the move is winning.
+     * In case of victory, the winner parameter is set in the Litegame
+     * @param oldSpace Space where the current worker was before the move
+     * @param currSpace Space where the current worker is currently located
+     */
     public void isWinner(Space oldSpace, Space currSpace) {
         if ( oldSpace.getHeight() == 2 && currSpace.getHeight() == 3 ) {
             game.getLiteGame().setWinner(true);

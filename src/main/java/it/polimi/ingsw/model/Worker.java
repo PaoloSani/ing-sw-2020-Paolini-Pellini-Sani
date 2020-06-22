@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+/**
+ * Class used to describe the worker
+ */
 public class Worker {
     private Space space = null;
     private Player player;

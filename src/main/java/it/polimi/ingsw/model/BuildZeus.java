@@ -1,6 +1,15 @@
 package it.polimi.ingsw.model;
 
+/**
+ * Class that implements the build method for Zeus
+ */
 public class BuildZeus implements Build {
+    /**
+     * @param worker Worker performing the build
+     * @param space Space where you want to build
+     * @param level Level you want to build
+     * @return This method returns true if the move has been successful, false otherwise
+     */
     public boolean execute( Worker worker, Space space, int level ) {
         int newH = space.getHeight() + 1;
 

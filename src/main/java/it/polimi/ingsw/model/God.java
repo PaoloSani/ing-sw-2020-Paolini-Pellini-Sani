@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
-import javafx.scene.image.Image;
+/**
+ * This class indicates the various gods that can be used during the game
+ */
 
 public enum God {
     APOLLO("APOLLO","God Of Music\nYour Move: Your Worker may move into an opponent Worker's space by forcing their Worker to the space yours just vacated."),
@@ -32,7 +34,6 @@ public enum God {
     public String getPower(){
         return power;
     }
-
 
     private String godName;
     private String power;

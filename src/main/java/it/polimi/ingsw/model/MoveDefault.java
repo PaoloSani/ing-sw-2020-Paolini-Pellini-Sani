@@ -1,7 +1,11 @@
 package it.polimi.ingsw.model;
 
 public class MoveDefault implements Move {
-
+    /**
+     * @param worker Worker performing the move
+     * @param nextSpace Space where you want to move
+     * @return This method returns true if the move has been successful, false otherwise
+     */
     public boolean execute( Worker worker, Space nextSpace ) {
         boolean result = true;
         int currH = worker.getSpace().getHeight();
