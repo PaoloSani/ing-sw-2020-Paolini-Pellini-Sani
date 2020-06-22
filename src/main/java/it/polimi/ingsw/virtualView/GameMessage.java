@@ -1,38 +1,47 @@
 package it.polimi.ingsw.virtualView;
 
 import it.polimi.ingsw.model.God;
-import it.polimi.ingsw.model.LiteGame;
 import it.polimi.ingsw.util.Observable;
 import it.polimi.ingsw.util.Observer;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * is the message sent by the remote view (the FrontEnd) to the controller (the BackEnd), it contains the information for
+ * an action performed in a player's turn
+ */
 public class GameMessage extends Observable <GameMessage> {
-    private FrontEnd frontEnd;
-    private int numOfPlayers;
+    private final FrontEnd frontEnd;
+    private List<Observer<GameMessage>> observers = new ArrayList<>();
 
-    //Utilizzati per settare i due workers di ogni players
-    // il valore {-1,0} serve per l'inizio della partita nel backend
+    /**
+     * used to set a space or two at the start of the game, in which the client places or selects his workers.
+     */
     private int[] space1 = new int[]{-1,0};
     private int[] space2 = new int[]{0,0};
 
-    // Lo uso per differenziare il caso della Build
+    /**
+     * if greater than zero it indicates a build
+     */
     int level;
 
-    private String name1;       // Challenger: sceglie le carte e gioca per ultimo
-    private String name2;       // Start Player: giocatore che gioca per primo il turno e pesca per primo la carta
+    private String name1;
+    private String name2;
     private String name3;
 
     private God god1;
     private God god2;
     private God god3;
 
+    /**
+     * if true, it means that the action his a switch performed by Charon
+     */
     private boolean charonSwitching;
 
-
-    private List<Observer<GameMessage>> observers = new ArrayList<>();
-
+    /**
+     * is the GameMessage constructor. It resets the charonSwitching flag and adds the BackEnd as observer.
+     * @param frontEnd : is the corresponding FrontEnd
+     */
     public GameMessage(FrontEnd frontEnd) {
         this.charonSwitching = false;       //Viene settato a true dal frontend, dopo viene resettato a false nella move
         this.frontEnd = frontEnd;
@@ -128,16 +137,29 @@ public class GameMessage extends Observable <GameMessage> {
         return frontEnd;
     }
 
+    /**
+     * used when finishing a build or a performing a move after Charon's switch.
+     */
+    protected void resetGameMessage(){
+        charonSwitching = false;
+        level = 0;
+    }
+
+    /**
+     * notifies the message to the BackEnd.
+     * @param message : message to send to the observer
+     */
     public void notify(GameMessage message) {
         for (Observer<GameMessage> observer : observers) {
             observer.update(message.cloneGM());
         }
     }
 
-
+    /**
+     * clones the current GameMessage
+     * @return a copy of the GameMessage
+     */
     public GameMessage cloneGM(){
-
-        //TODO: clone delle stringhe?
         GameMessage newMessage = new GameMessage(frontEnd);
         newMessage.name1 = this.name1;
         newMessage.name2 = this.name2;
@@ -154,10 +176,5 @@ public class GameMessage extends Observable <GameMessage> {
         newMessage.observers = this.observers;
 
         return newMessage;
-    }
-
-    protected void resetGameMessage(){
-        charonSwitching = false;
-        level = 0;
     }
 }

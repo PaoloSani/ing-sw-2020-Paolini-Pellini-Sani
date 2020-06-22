@@ -2,8 +2,8 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.client.ClientMessage;
 import it.polimi.ingsw.client.SettingGameMessage;
+import it.polimi.ingsw.util.Message;
 import it.polimi.ingsw.virtualView.FrontEnd;
-
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,35 +11,47 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Vector;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import static java.lang.Thread.sleep;
 
 
+/**
+ * is responsible of the communication with a client
+ */
 public class ServerConnection implements Runnable {
-    private Socket socket;
-    private Server server;
+    private final Socket socket;
+    private final Server server;
+    /**
+     * Queues for the messages
+     */
+    private final BlockingQueue<Object> messageInQueue;
+    private final BlockingQueue<Object> messageOutQueue;
+
+    /**
+     * Active is true if the socket can receive and process messages
+     */
     private boolean active = true;
+
+    /**
+     * clientIsActive is true if the timeout hasn't expired
+     */
     private boolean clientIsActive = true;
-    private String name = null;
-    private ObjectOutputStream out;
     private ObjectInputStream in;
+    private ObjectOutputStream out;
+    private String name = null;
     private String[] challengerChoice;
     private ClientMessage clientMessage;
-    private volatile boolean updateClientMessage;
+    private boolean updateClientMessage;
     private int gameID;
     private FrontEnd frontEnd;
-    private BlockingQueue<Object> messageInQueue;
-    private BlockingQueue<Object> messageOutQueue;
 
-
+    /**
+     * is the constructor of a ServerConnection
+     * @param socket: the socket to communicate with the corresponding client
+     * @param server: the server of the game
+     */
     public ServerConnection(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
@@ -52,14 +64,17 @@ public class ServerConnection implements Runnable {
         messageOutQueue = new LinkedBlockingDeque<>();
     }
 
-    private synchronized boolean isActive(){
-        return active;
-    }
-
+    /**
+     * sends the message to the client
+     * @param message: the Object to send
+     */
     public synchronized void send(Object message) {
         messageOutQueue.add(message);
     }
 
+    /**
+     * reads messages from the socket and puts them in the messageInQueue if the socket is active
+     */
     public void read(){
         try {
             while (clientIsActive) {
@@ -74,6 +89,10 @@ public class ServerConnection implements Runnable {
         }
     }
 
+
+    /**
+     * closes the socket
+     */
     public synchronized void closeConnection() {
         try {
             in.close();
@@ -84,10 +103,13 @@ public class ServerConnection implements Runnable {
         }
     }
 
+    /**
+     * starts a connection with the client and processes the messages read from the client
+     */
     @Override
     public void run() {
         active = true;
-         try {
+        try {
              socket.setSoTimeout(6000);
              out = new ObjectOutputStream(socket.getOutputStream());
              out.flush();
@@ -123,7 +145,7 @@ public class ServerConnection implements Runnable {
                          if (message.equals(Message.CLOSE)) {
                              //If the gameID is -1, the player isn't playing a match yet. Else, I'll end the match he is playing
                              if (gameID != -1) {
-                                 server.endGame(gameID, this);
+                                 server.endMatch(gameID, this);
                                  active = false;
                                  read.interrupt();
                              } else {
@@ -146,26 +168,28 @@ public class ServerConnection implements Runnable {
                  toSend = messageOutQueue.poll();
              }
              closeConnection();
-             //controllo se la connessione cade o se il client si disconnette
-         }
-         catch ( SocketException s){
-             clientIsActive = false;
-             if (gameID != -1) {
-                 server.endGame(gameID, this);
-             } else {
-                 server.removeFromWaitingList(this);
-                 server.removeNickname(name);
-             }
-         }
-         catch ( SocketTimeoutException s ){
-             active = false;
-         }
-         catch (IOException e) {
+        }
+        catch ( SocketException s){
+            clientIsActive = false;
+            if (gameID != -1) {
+                server.endMatch(gameID, this);
+            } else {
+                server.removeFromWaitingList(this);
+                server.removeNickname(name);
+            }
+        }
+        catch ( SocketTimeoutException s ){
+            active = false;
+        }
+        catch (IOException e) {
             e.printStackTrace();
-         }
-
+        }
     }
 
+    /**
+     * adds a new nickname to the server or sends a message of invalid nickname
+     * @param name: the nickname of the client
+     */
     public void setNickname(String name){
         if ( server.existingNickname(name) ) {
             send("Invalid Nickname");
@@ -178,11 +202,13 @@ public class ServerConnection implements Runnable {
         }
     }
 
+    /**
+     * gets the information of the match, which the client wants to play.
+     * @param settings : a SettingGameMessage with all the information of the current playing request
+     */
     public void initialize(SettingGameMessage settings){
         int playersInTheGame = 0;
 
-        // Nel server crea un nuovo GameID e aspetta che i giocatori si colleghino
-        // legge quanti giocatori mettere nella partita, invia come stringa il gameID del match creato
         if ( settings.isCreatingNewGame() ) {
             server.updateCurrMatch();                       //Creato il game ID aggiornato
             settings.setGameID(server.getCurrMatch());      //Passiamo al client l'ID aggiornato
@@ -192,13 +218,11 @@ public class ServerConnection implements Runnable {
             server.createMatch(gameID, playersInTheGame, this);
             send(String.valueOf(gameID));
         }
-        //se il giocatore vuole partecipare ad una partita creata da un altro
+
         else if ( settings.isPlayingExistingMatch() ) {
             gameID = settings.getGameID();
 
             if (server.addPlayer(gameID, this)) {
-                // checkMatch mi dice se ho raggiunto il numero di giocatori necessario
-                // per iniziare la partita corrispondente al gameID considerato
                 if (server.checkMatch(gameID)) {
                     server.startGame(gameID);
                     send(Message.BEGIN.toString());
@@ -210,19 +234,15 @@ public class ServerConnection implements Runnable {
             }
         }
 
-        //il server lo inserisce nella waitingConnection tenendo
-        // conto del numero di giocatori con cui vuole giocare
-        //Il giocatore è aggiunto e controllo se è possibile lanciare una nuova partita
         else {
             playersInTheGame = settings.getNumberOfPlayer();
             server.lobby(playersInTheGame, this);
         }
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
+    /**
+     * sends a ping message every 5 seconds to verify if the client is active
+     */
     public void sendPing(){
         new Thread ( () ->{
             while( active ){
@@ -245,6 +265,10 @@ public class ServerConnection implements Runnable {
         this.gameID = gameID;
     }
 
+    public void setFrontEnd(FrontEnd frontEnd) {
+        this.frontEnd = frontEnd;
+    }
+
     public String[] getChallengerChoice() {
         return challengerChoice;
     }
@@ -253,7 +277,11 @@ public class ServerConnection implements Runnable {
         return clientMessage;
     }
 
-    public boolean isUpdateClientMessage() {
+    /**
+     * used by the FrontEnd to read a new ClientMessage
+     * @return true if the client has sent a new ClientMessage
+     */
+    public boolean isUpdatingClientMessage() {
         return updateClientMessage;
     }
 
@@ -261,11 +289,7 @@ public class ServerConnection implements Runnable {
         this.updateClientMessage = updateClientMessage;
     }
 
-    public void setFrontEnd(FrontEnd frontEnd) {
-        this.frontEnd = frontEnd;
-    }
-
     public void notifyFrontEnd(){
-        frontEnd.updating();
+        frontEnd.wakeUpFrontEnd();
     }
 }

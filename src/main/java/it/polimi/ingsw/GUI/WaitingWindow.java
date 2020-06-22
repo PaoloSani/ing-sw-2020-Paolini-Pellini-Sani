@@ -1,19 +1,13 @@
 package it.polimi.ingsw.GUI;
 
-import it.polimi.ingsw.server.Message;
-import javafx.application.Platform;
+import it.polimi.ingsw.util.Message;
 import javafx.concurrent.Task;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.BackEnd;
+import it.polimi.ingsw.util.Message;
 import it.polimi.ingsw.virtualView.FrontEnd;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,27 +12,51 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import static java.lang.Thread.sleep;
 
+/**
+ *  The main server class
+ */
 public class Server {
-    public static final int PORT = 4702;
-    private ServerSocket serverSocket;
-    private ExecutorService executor = Executors.newFixedThreadPool(128);
-    private ExecutorService nowPlaying = Executors.newFixedThreadPool(128);
+    public final int PORT = 4702;
+    private final ServerSocket serverSocket;
 
-    private List<ServerConnection> waitingConnection2Players = new ArrayList<>();
-    private List<ServerConnection> waitingConnection3Players = new ArrayList<>();
+    private final ExecutorService executor = Executors.newFixedThreadPool(128);
+    private final ExecutorService nowPlaying = Executors.newFixedThreadPool(128);
 
-    private Map<Integer, List<ServerConnection>> playingConnection2Players = new HashMap<>();
-    private Map<Integer, List<ServerConnection>> playingConnection3Players = new HashMap<>();
-    private List<String> nicknames = new ArrayList<>();
+    /**
+     * Waiting list for new players
+     */
+    private final List<ServerConnection> waitingConnection2Players = new ArrayList<>();
+    private final List<ServerConnection> waitingConnection3Players = new ArrayList<>();
 
+    /**
+     * Maps containing the players in a match and the match identifier
+     */
+    private final Map<Integer, List<ServerConnection>> playingConnection2Players = new HashMap<>();
+    private final Map<Integer, List<ServerConnection>> playingConnection3Players = new HashMap<>();
+
+    /**
+     * list of the nicknames of the players now playing or waiting to play
+     */
+    private final List<String> nicknames = new ArrayList<>();
+    /**
+     * Gradually incremented, is the ID of the last match, which has been created
+     */
+    private int currMatch;
+
+    /**
+     * Is the constructor of the Server
+     * @throws IOException if socket cannot be created
+     */
     public Server() throws IOException {
         this.serverSocket = new ServerSocket(PORT);
         this.currMatch = 0;
     }
 
+    /**
+     * Accepts new players connecting to the server and creates a connection to speak and deal with them
+     */
     public void run(){
         while(true){
             try {
@@ -46,17 +70,11 @@ public class Server {
         }
     }
 
-    //currMatch si riferisce all'ultima partita che è stata creata
-    private int currMatch;
-
-    public int getCurrMatch() {
-        return currMatch;
-    }
-
-    public synchronized void updateCurrMatch() { currMatch++; }
-
-    public void resetCurrMatch() { currMatch = 0; }
-
+    /**
+     * Adds a client to a corrisponding waiting list according to the number of players he wants to play with
+     * @param numberOfPlayers : chosen by the client (2 or 3)
+     * @param client : ServerConnection of the client
+     */
     public synchronized void lobby(int numberOfPlayers, ServerConnection client){
         if (numberOfPlayers == 2) {
             waitingConnection2Players.add(client);
@@ -98,10 +116,12 @@ public class Server {
         }
     }
 
-    public synchronized boolean existingNickname(String nickname) {
-        return nicknames.contains(nickname);
-    }
-
+    /**
+     * Creates a new match
+     * @param gameID: match identifier
+     * @param numberOfPlayers: indicates the number of players of the match
+     * @param challenger: ServerConnection of the client, which creates the new match
+     */
     public void createMatch(int gameID , int numberOfPlayers, ServerConnection challenger) {
         List<ServerConnection> list = new ArrayList<>();
         list.add(challenger);
@@ -113,6 +133,12 @@ public class Server {
         }
     }
 
+    /**
+     * Adds a player to an existing match
+     * @param gameID: the identifier of the match
+     * @param player: Server connection of the player
+     * @return : return true if the client has been correctly added to the match
+     */
     public synchronized boolean addPlayer(int gameID, ServerConnection player){
         if (playingConnection2Players.containsKey(gameID)) {
             List<ServerConnection> list = playingConnection2Players.get(gameID);
@@ -130,12 +156,29 @@ public class Server {
         return false;
     }
 
+
     public void addNickname(String name){
         nicknames.add(name);
     }
 
-    //Fa partire la partita gameID
+    public synchronized boolean existingNickname(String nickname) {
+        return nicknames.contains(nickname);
+    }
+    public void removeNickname(String nameToRemove) {
+        nicknames.remove(nameToRemove);
+    }
+
+
+
+    /**
+     * Starts a match
+     * @param gameID : match identifier of the match to start
+     */
     public void startGame(int gameID) {
+        /**
+         * Every match has a corresponding FrontEnd and Backend, which deal with
+         * turns scheduling and communicate with the client after the game has started
+         */
         FrontEnd frontEnd;
         BackEnd backEnd = new BackEnd();
 
@@ -152,22 +195,28 @@ public class Server {
             list.get(2).setFrontEnd(frontEnd);
         }
 
-
         nowPlaying.submit(frontEnd);
     }
 
 
-    // TODO: controlla possibili miglioramenti per due giocatori
-    // Controlla se si può avviare la partita gameID
+
+    /**
+     * Checks if a match has reached the number of players it needs to start
+     * @param gameID : match to check
+     * @return : true if the match corresponding to the gameID is ready to start
+     */
     public boolean checkMatch(int gameID) {
         if ( playingConnection2Players.containsKey(gameID) && playingConnection2Players.get(gameID).size() == 2 )
             return true;
         else return ( playingConnection3Players.containsKey(gameID) && playingConnection3Players.get(gameID).size() == 3 );
     }
 
-
-
-    public void endGame(int gameID, ServerConnection closingPlayer) {
+    /**
+     * Closes a match and sends a closing message to all the clients of the match
+     * @param gameID : match identifier
+     * @param closingPlayer : null if there is a winner, else is the player who has left the game
+     */
+    public void endMatch(int gameID, ServerConnection closingPlayer) {
         if ( playingConnection2Players.containsKey(gameID) ){
             for ( ServerConnection s : playingConnection2Players.get(gameID) ){
                 s.setGameID(-1);
@@ -196,6 +245,10 @@ public class Server {
         }
     }
 
+    /**
+     * Removes a client from a waiting list if it ends its connection
+     * @param toRemove : ServerConnection of the client toRemove
+     */
     public void removeFromWaitingList(ServerConnection toRemove){
         if ( waitingConnection2Players.contains(toRemove)){
             waitingConnection2Players.remove(toRemove);
@@ -205,11 +258,13 @@ public class Server {
         }
     }
 
-    public void removeNickname(String nameToRemove) {
-        //Firstly, I must check the player is not waiting in a list. In that case I'll remove him
-        nicknames.remove(nameToRemove);
-    }
 
+    /**
+     * Removes a player from a match, removes the nickname from the list of nicknames,
+     * resets the gameID to -1, which stands for invalid match
+     * @param gameID : match identifier
+     * @param toRemove : ServerConnection of the client to remove
+     */
     public void removePlayerFromMatch(int gameID, ServerConnection toRemove ){
         toRemove.setGameID(-1);
         if ( playingConnection2Players.containsKey(gameID) ){
@@ -220,6 +275,10 @@ public class Server {
         }
         removeNickname(toRemove.getName());
     }
+
+    /**
+     * Every 5 seconds, prints the nicknames of the players connected to the server
+     */
     public void printNicknames(){
         new Thread ( () ->{
             while( true ){
@@ -236,4 +295,13 @@ public class Server {
         }
         ).start();
     }
+
+    /**
+     * @return : the ID if the last match created
+     */
+    public int getCurrMatch() {
+        return currMatch;
+    }
+
+    public synchronized void updateCurrMatch() { currMatch++; }
 }
