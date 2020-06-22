@@ -2,19 +2,39 @@ package it.polimi.ingsw.GUI;
 
 import it.polimi.ingsw.util.Message;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * It is the window where the player types a gameID ot play an existing match with friends.
+ */
 public class ExistingGameWindow extends GameWindow {
+
+    /**
+     * It is the field to fill in with a gameID.
+     */
+    @FXML
     public TextField IDField;
+
+    /**
+     * It is the button to press to confirm the gameID.
+     */
+    @FXML
     public Button nextButton;
-    public AnchorPane existingGamePane;
 
-    private Stage nextStage = new Stage();
+    /**
+     * It is the stage which succeeds the current one.
+     */
+    private final Stage nextStage = new Stage();
 
 
+    /**
+     * It sets the gameID typed by the player and sends it to the server. If the ID is not valid, the player must retype it.
+     * @param actionEvent
+     */
     public void goFurther(ActionEvent actionEvent) {
         int gameID;
         String messageFromServer;
