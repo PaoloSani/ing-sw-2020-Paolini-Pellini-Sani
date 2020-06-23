@@ -113,7 +113,7 @@ public class BuildState implements GameState {
     }
 
     /**
-     * sets the counters back to 0 and the boolean constraints to false
+     * Sets the counters back to 0 and the boolean constraints to false
      */
     @Override
     public void reset(){

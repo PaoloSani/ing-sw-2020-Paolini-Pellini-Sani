@@ -29,6 +29,9 @@ public class RemovePlayerState implements GameState {
         return true;
     }
 
+    /**
+     * Sets the counters back to 0 and the boolean constraints to false
+     */
     @Override
     public void reset() {
         backEnd.setToRemove(null);

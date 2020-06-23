@@ -6,6 +6,9 @@ import it.polimi.ingsw.util.GameState;
 import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.GameMessage;
 
+/**
+ * Class in which the current state of the FSM implemented through the pattern state is decided
+ */
 
 public class BackEnd implements Observer<GameMessage> {
     private Game game;
@@ -101,6 +104,10 @@ public class BackEnd implements Observer<GameMessage> {
         }
         game.setCurrPlayer(currPlayer);
     }
+
+    /**
+     * Method in which the next state of the FSM is chosen and set
+     */
 
     public void changeState(){
         if (setPlayersState == currState) {
@@ -201,6 +208,10 @@ public class BackEnd implements Observer<GameMessage> {
         else return (lastPlayer == player3 && challenger == null && player2 == null); //False se la valutazione è falsa
     }
 
+    /**
+     * Method that is executed after a notification from the virtual view
+     * @param gameMessage Message that is received from the virtual view about the next status of the machine
+     */
     @Override
     public void update(GameMessage gameMessage){
 
@@ -209,6 +220,9 @@ public class BackEnd implements Observer<GameMessage> {
         lastExecute = currState.execute();
     }
 
+    /**
+     * Method that returns the player to be removed
+     */
     public Player getToRemove() {
         return toRemove;
     }

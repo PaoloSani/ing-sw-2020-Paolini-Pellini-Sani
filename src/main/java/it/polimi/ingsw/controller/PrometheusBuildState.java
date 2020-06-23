@@ -34,7 +34,9 @@ public class PrometheusBuildState implements GameState {
     }
 
 
-
+    /**
+     * Sets the counters back to 0 and the boolean constraints to false
+     */
     @Override
     public void reset(){
         toBuild = null;

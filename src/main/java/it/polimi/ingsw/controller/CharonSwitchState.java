@@ -3,7 +3,10 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
-
+/**
+ * Class that represents the status of the FSM in which used for the special power of Charon,
+ * the current worker exchanges his position with the opponent's position.
+ */
 public class CharonSwitchState implements GameState {
     private BackEnd backEnd;
     private Space spaceToSwitch;
@@ -16,6 +19,10 @@ public class CharonSwitchState implements GameState {
 
 
     //chiamata a charonPower in game
+
+    /**
+     * @return The method returns true if the swicht has been executed correctly
+     */
     @Override
     public boolean execute() {
         boolean result = true;
@@ -34,6 +41,9 @@ public class CharonSwitchState implements GameState {
         return result;
     }
 
+    /**
+     * Sets the counters back to 0 and the boolean constraints to false
+     */
     @Override
     public void reset() {
         spaceToSwitch = null;

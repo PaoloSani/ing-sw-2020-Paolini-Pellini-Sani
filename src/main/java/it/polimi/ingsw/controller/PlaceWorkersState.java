@@ -3,6 +3,9 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
+/**
+ * Class that represents the state of the FSM in which the current player places his workers
+ */
 
 public class PlaceWorkersState implements GameState {
     private BackEnd backEnd;
@@ -13,6 +16,9 @@ public class PlaceWorkersState implements GameState {
         this.backEnd = backEnd;
     }
 
+    /**
+     * @return true in case the execute was successful, meaning that the method has placed the workers correctly in the game table.
+     */
     //TODO: da correggere, poiché non avrò mai null in una delle due celle (nullPointerException)
     //TODO Sistemare caso tre giocatore durante il placing workers, se il terzo client mette workers in cella sbagliata poi si chiude
     @Override
@@ -38,7 +44,9 @@ public class PlaceWorkersState implements GameState {
         return result;
     }
 
-
+    /**
+     * Sets the counters back to 0 and the boolean constraints to false
+     */
     @Override
     public void reset(){
         space1 = null;

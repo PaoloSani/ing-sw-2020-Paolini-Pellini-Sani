@@ -5,6 +5,9 @@ import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.util.GameState;
 
 
+/**
+ * Class that represents the status of the FSM in which the current player chooses the worker to play with
+ */
 
 public class ChooseWorkerState implements GameState {
     private BackEnd backEnd;
@@ -17,6 +20,9 @@ public class ChooseWorkerState implements GameState {
         otherWorker = null;
     }
 
+    /**
+     * @return true in case the execute was successful, meaning that the method has chosen the worker correctly in the game table.
+     */
     @Override
     public boolean execute() {
         boolean result = true;
@@ -65,6 +71,9 @@ public class ChooseWorkerState implements GameState {
         return result;
     }
 
+    /**
+     * Sets the counters back to 0 and the boolean constraints to false
+     */
     @Override
     public void reset() {
         otherWorker = null;

@@ -5,6 +5,9 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
 
+/**
+ * Class that represents the state of the FSM in which the current worker execute his move
+ */
 
 public class MoveState implements GameState {
     private BackEnd backEnd;
@@ -22,6 +25,9 @@ public class MoveState implements GameState {
         toReset = false;
     }
 
+    /**
+     * @return true in case the execute was successful, meaning that the method has moved the worker correctly in the game table.
+     */
     @Override
     public boolean execute() {
         boolean result = true;
@@ -79,7 +85,9 @@ public class MoveState implements GameState {
     }
 
 
-
+    /**
+     * Sets the counters back to 0 and the boolean constraints to false
+     */
     @Override
     public void reset(){
         counterArtemis = 0;

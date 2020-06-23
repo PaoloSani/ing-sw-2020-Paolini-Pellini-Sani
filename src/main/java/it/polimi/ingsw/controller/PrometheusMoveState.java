@@ -32,6 +32,9 @@ public class PrometheusMoveState implements GameState {
         return result;
     }
 
+    /**
+     * Sets the counters back to 0 and the boolean constraints to false
+     */
     @Override
     public void reset() {
         toMove[0] = -1;
