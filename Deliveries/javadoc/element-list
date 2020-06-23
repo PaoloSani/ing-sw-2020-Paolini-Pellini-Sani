@@ -1,9 +1,0 @@
-module:it.polimi.ingsw
-it.polimi.ingsw.CLI
-it.polimi.ingsw.client
-it.polimi.ingsw.controller
-it.polimi.ingsw.GUI
-it.polimi.ingsw.model
-it.polimi.ingsw.server
-it.polimi.ingsw.util
-it.polimi.ingsw.virtualView

@@ -29,6 +29,5 @@
             <Font size="22.0" />
          </font>
       </Label>
-        <Button fx:id="nextButton" layoutX="262.0" layoutY="333.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="57.0" stylesheets="@CSSFiles/Buttons.css" text="GO!" visible="false" />
     </children>
 </AnchorPane>

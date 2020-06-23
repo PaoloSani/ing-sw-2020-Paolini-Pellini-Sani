@@ -19,9 +19,6 @@ import java.io.IOException;
 
 public class WelcomeWindow extends GameWindow {
 
-    public AnchorPane welcomePane;
-
-
     /**
      * It is the button bound to the method goFurther. It lets the stage and the scene change, if clicked.
      */

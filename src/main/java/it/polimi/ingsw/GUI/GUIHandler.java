@@ -96,8 +96,8 @@ public class GUIHandler implements Observer<MessageHandler> {
     private SerializableLiteGame serializableLiteGame;
 
     //Inutili!!
-   /*private ImageView errorImage;
-    private AnchorPane currPane;*/
+   /*private ImageView errorImage;*/
+    private AnchorPane currPane;
 
 
     public GUIHandler(){
@@ -140,6 +140,11 @@ public class GUIHandler implements Observer<MessageHandler> {
         else return false;
     }
 
+    /**
+     * It asks the server if the chosen nickname is available.
+     * @param nickname It is the nickname chosen by the client.
+     * @return true if the nickname is available, false otherwise.
+     */
     public boolean askNameAvailability(String nickname){
         if (nickname.equals("")) return false;
         clientConnection.send(nickname);
@@ -149,9 +154,13 @@ public class GUIHandler implements Observer<MessageHandler> {
             return true;
         }
         else return false;
-
     }
 
+    /**
+     * It reads a String message sent by the server.
+     * If there are no messages, it waits until a message comes.
+     * @return the read message.
+     */
     public synchronized String readString(){
         while ( !updateString ){
             try {
@@ -166,6 +175,11 @@ public class GUIHandler implements Observer<MessageHandler> {
         return result;
     }
 
+    /**
+     * It reads a SerializableLiteGame message sent by the server.
+     * If there are no messages, it waits until a message comes.
+     * @return the read message.
+     */
     public synchronized SerializableLiteGame readSerializableLG() {
         while ( !updateLG ){
             try {
@@ -180,6 +194,10 @@ public class GUIHandler implements Observer<MessageHandler> {
         return result;
     }
 
+    /**
+     * It sets updateString or updateLG and notifies all sleeping threads.
+     * @param message: message received from the observable instance
+     */
     @Override
     public synchronized void update(MessageHandler message) {
         if ( message.isStringRead() ){
@@ -226,6 +244,9 @@ public class GUIHandler implements Observer<MessageHandler> {
         return messageFromServer;
     }
 
+    /**
+     * It sets settingGameMessage if the chosen mode is NEW_GAME.
+     */
     public void createNewGame() {
         settingGameMessage.setNumberOfPlayer(numOfPlayers);
         settingGameMessage.setCreatingNewGame(true);
@@ -233,6 +254,9 @@ public class GUIHandler implements Observer<MessageHandler> {
         clientConnection.send(settingGameMessage);
     }
 
+    /**
+     * It sets settingGameMessage if the chosen mode is EXISTING_MATCH.
+     */
     public void playExistingMatch() {
         settingGameMessage.setCreatingNewGame(false);
         settingGameMessage.setPlayingExistingMatch(true);
@@ -240,6 +264,9 @@ public class GUIHandler implements Observer<MessageHandler> {
         clientConnection.send(settingGameMessage);
     }
 
+    /**
+     * It sets settingGameMessage if the chosen mode is RANDOM_GAME.
+     */
     public void randomMatch() {
         settingGameMessage.setPlayingExistingMatch(false);
         settingGameMessage.setCreatingNewGame(false);
@@ -247,6 +274,13 @@ public class GUIHandler implements Observer<MessageHandler> {
         clientConnection.send(settingGameMessage);
     }
 
+    /**
+     * It fills the attribute gods and modifies labels on screen, containing chosen gods' name.
+     * @param currGod The god to be added to the list.
+     * @param label1  First label on screen.
+     * @param label2  Second label on screen.
+     * @param label3  Third label on screen.
+     */
     public void addGod(God currGod, Label label1, Label label2, Label label3) {
         if (gods.contains(currGod)) {
             gods.remove(currGod);
@@ -280,7 +314,9 @@ public class GUIHandler implements Observer<MessageHandler> {
         return gods;
     }
 
-
+    /**
+     * It sends the challengerMessage to the server.
+     */
     public void sendChallengerMessage() {
         String[] challengerMessage;
         if (numOfPlayers == 2) {
@@ -293,6 +329,10 @@ public class GUIHandler implements Observer<MessageHandler> {
         clientConnection.send(challengerMessage);
     }
 
+    /**
+     * It parses the message containing all the gods chosen by the challenger.
+     * @param message It contains the gods chosen by the challenger.
+     */
     public void setMessageFromFrontend(String message) {
         String stringGods = message.replace(", ","-");
         stringGods = stringGods.replace("[","");
@@ -303,6 +343,10 @@ public class GUIHandler implements Observer<MessageHandler> {
         }
     }
 
+    /**
+     * It sets the clientMessage to be sent to the server. If the client isn't the challenger, it sends this message too.
+     * @param currGod It is the god chosen by the client.
+     */
     public void setClientMessage(God currGod) {
         clientMessage.setName(nickname);
         clientMessage.setGod(currGod);
@@ -327,10 +371,6 @@ public class GUIHandler implements Observer<MessageHandler> {
         return serializableLiteGame;
     }
 
-/*    INUTILI!
-    public void setErrorImage(ImageView errorImage){
-        this.errorImage = errorImage;
-    }
 
     public AnchorPane getCurrPane() {
         return currPane;
@@ -339,5 +379,4 @@ public class GUIHandler implements Observer<MessageHandler> {
     public void setCurrPane(AnchorPane nextPane) {
         this.currPane = nextPane;
     }
-    */
 }
