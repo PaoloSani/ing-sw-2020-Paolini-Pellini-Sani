@@ -4,6 +4,9 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
+/**
+ * A GameState which follows the PrometheusBuildState in order to make Prometheus use his power
+ */
 public class PrometheusMoveState implements GameState {
     private BackEnd backEnd;
     private int[] toMove = new int[]{0,-1};
@@ -12,6 +15,10 @@ public class PrometheusMoveState implements GameState {
         this.backEnd = backEnd;
     }
 
+    /**
+     * performs the move and check if the player is not moving up
+     * @return true if the action was correctly performed
+     */
     @Override
     public boolean execute() {
         boolean result = true;
@@ -21,14 +28,14 @@ public class PrometheusMoveState implements GameState {
 
         if ( nextSpace == null ) result = false;
 
-        if ( result && (nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() <= 0)) { //non sto salendo posso muovermi
+        if ( result && (nextSpace.getHeight() - backEnd.getCurrWorker().getSpace().getHeight() <= 0)) {
                 result = backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace);
         }
         else result = false;
 
         backEnd.getGame().setCurrWorker(backEnd.getCurrWorker());
-        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
+        backEnd.getGame().refreshLiteGame();
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());
         return result;
     }
 
@@ -39,10 +46,4 @@ public class PrometheusMoveState implements GameState {
     public void reset() {
         toMove[0] = -1;
     }
-
-
-    //update: riceve una cella in cui è contenuta la posizione in cui muoversi
-    //execute: esegue la mossa
-    //changeState: porta in building
-
 }

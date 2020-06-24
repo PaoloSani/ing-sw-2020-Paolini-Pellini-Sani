@@ -4,7 +4,9 @@ import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.util.GameState;
 
-
+/**
+ * SetPlayerState is the initial GameState, it receives the name and gods of the players and creates a game table
+ */
 public class SetPlayersState implements  GameState {
     private BackEnd backEnd;
     private String name1;
@@ -24,6 +26,11 @@ public class SetPlayersState implements  GameState {
         this.god3 = null;
     }
 
+    /**
+     * sets names and gods of the player in the backend and in the model, then fires the first notify with the
+     * initial game table
+     * @return always true, because the action can always be performed.
+     */
     @Override
     public boolean execute() {
         god1 = backEnd.getGameMessage().getGod1();
@@ -51,6 +58,9 @@ public class SetPlayersState implements  GameState {
         return true;
     }
 
+    /**
+     * resets the names and gods to default
+     */
     @Override
     public void reset() {
         this.name1 = null;
@@ -62,5 +72,4 @@ public class SetPlayersState implements  GameState {
     }
 }
 
-    //update: riceve tramite notifica i tre nickname dalla virtual view e le tre divinità e lancia execute
 

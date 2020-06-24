@@ -2,6 +2,9 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.util.GameState;
 
+/**
+ * A GameState that ends the match
+ */
 public class WinState implements GameState {
     BackEnd backEnd;
 
@@ -10,7 +13,10 @@ public class WinState implements GameState {
         this.backEnd = backEnd;
     }
 
-
+    /**
+     * sets the model, so that the remote view is notified that the current player won the match
+     * @return always true, because the action can always be performed
+     */
     @Override
     public boolean execute() {
         backEnd.getGame().setWinner(true);

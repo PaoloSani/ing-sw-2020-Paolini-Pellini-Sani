@@ -2,6 +2,9 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.util.GameState;
 
+/**
+ * A GameState which performs the remove of a player from the game
+ */
 public class RemovePlayerState implements GameState {
     private BackEnd backEnd;
 
@@ -9,23 +12,25 @@ public class RemovePlayerState implements GameState {
         this.backEnd = backEnd;
     }
 
-    //chiamato dal server: rimuove i worker del giocatore corrente.
+    /**
+     * removes the player from the game and updates the set of players in the match.
+     * @return always true, because the action can always be performed
+     */
     @Override
     public boolean execute() {
-        backEnd.getToRemove().getWorker1().getSpace().setWorker(null);     //svuoto la cella dalla pedina del worker1
-        backEnd.getToRemove().getWorker1().setSpace(null);                 //il worker non è più associato a nessuna cella
-        backEnd.getToRemove().getWorker2().getSpace().setWorker(null);     //stesso per il worker2
+        backEnd.getToRemove().getWorker1().getSpace().setWorker(null);
+        backEnd.getToRemove().getWorker1().setSpace(null);
+        backEnd.getToRemove().getWorker2().getSpace().setWorker(null);
         backEnd.getToRemove().getWorker2().setSpace(null);
 
-        //setto a null il giocatore che ha perso, nel Server mi occuperò di notificare tale giocatore
         if ( backEnd.getChallenger() == backEnd.getToRemove() )
             backEnd.setChallenger(null);
         else if ( backEnd.getPlayer2() == backEnd.getToRemove() )
             backEnd.setPlayer2(null);
         else backEnd.setPlayer3(null);
 
-        backEnd.getGame().refreshLiteGame();        //Aggiorno il LiteGame
-        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la View
+        backEnd.getGame().refreshLiteGame();
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());
         return true;
     }
 
@@ -37,5 +42,4 @@ public class RemovePlayerState implements GameState {
         backEnd.setToRemove(null);
     }
 
-    //questo stato non funziona tramite update!
 }

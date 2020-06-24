@@ -295,7 +295,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
         SerializableLiteGame toSend = liteGame.makeSerializable();
 
         if ( client1 != null ) {
-            client1.send(toSend);  //Invio sempre tabella di gioco a tutti i giocatori
+            client1.send(toSend);
         }
         if ( client2 != null ) {
             client2.send(toSend);
