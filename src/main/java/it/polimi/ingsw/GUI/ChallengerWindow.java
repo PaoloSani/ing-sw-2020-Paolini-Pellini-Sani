@@ -17,12 +17,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * It is the window where the challenger can choose the gods he wants to play with.
+ * These gods will be sent to other players for being chosen
+ */
+
 public class ChallengerWindow extends GameWindow /*implements Initializable*/ {
+
+    /**
+     * It let the button nextButton to be visible or not
+     */
     public boolean isVisible = true;
+
+    /**
+     * It is the button to scroll backwards the gods
+     */
     public Button backGodButton;
+
+    /**
+     * It is the button to scroll forward the gods
+     */
     public Button nextGodButton;
+
+    /**
+     * It shows god's name.
+     * It changes when the current god on screen changes
+     */
     public Label godLabel;
+
+    /**
+     * It shows a short description of god's power
+     */
     public Label powerLabel;
+
+    /**
+     * It shows the message "PLAY!" on screen
+     */
     public Label playLabel;
     public Button chooseButton;
     public Button nextButton;
@@ -35,7 +65,7 @@ public class ChallengerWindow extends GameWindow /*implements Initializable*/ {
     public Label secondGodLabel;
     public Label thirdGodLabel;
     public AnchorPane challengerPane;
-    private Stage nextStage = new Stage();
+    private final Stage nextStage = new Stage();
     private God currGod = God.APOLLO;
 
 
