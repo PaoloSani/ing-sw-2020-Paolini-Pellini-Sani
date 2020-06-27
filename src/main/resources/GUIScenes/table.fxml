@@ -133,7 +133,7 @@
                </image>
             </ImageView>
             <ImageView id="winningPlayer" fx:id="winningPlayer" fitHeight="177.0" fitWidth="150.0" layoutX="208.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="label" fitHeight="93.0" fitWidth="285.0" layoutX="143.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="labelImage" fitHeight="93.0" fitWidth="285.0" layoutX="143.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Decorations/gameGodFrameName1.png" />
                </image>

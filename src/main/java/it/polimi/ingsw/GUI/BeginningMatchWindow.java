@@ -2,6 +2,7 @@ package it.polimi.ingsw.GUI;
 
 import it.polimi.ingsw.model.God;
 import javafx.concurrent.Task;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,12 +13,33 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class BeginningMatchWindow extends GameWindow implements Initializable {
-    public Label waitLabel;
-    public Label IDLabel;
-    public Button nextButton;
 
+    /**
+     * It shows the message of waiting.
+     */
+    @FXML
+    public Label waitLabel;
+
+    /**
+     * It shows the gameID of the match, or tells the player that she/he is the challenger.
+     */
+    @FXML
+    public Label IDLabel;
+
+    /**
+     * It is the stage that succeeds the current one.
+     */
     public Stage stage = new Stage();
+
+    /**
+     * It is visible if players are choosing their cards.
+     */
+    @FXML
     public Label waitingLabelCards;
+    /**
+     * It is the pane of the current window.
+     */
+    @FXML
     public AnchorPane beginningMatchPane;
 
 
@@ -38,7 +60,7 @@ public class BeginningMatchWindow extends GameWindow implements Initializable {
             }
         };
         task.setOnSucceeded( event -> {
-            guiHandler.loadFXMLFile(nextButton, stage , "/GUIScenes/table.fxml");
+            guiHandler.loadFXMLFile(beginningMatchPane, stage , "/GUIScenes/table.fxml");
             task.cancel();
         });
 

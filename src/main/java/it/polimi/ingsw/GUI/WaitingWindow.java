@@ -30,8 +30,22 @@ public class WaitingWindow extends GameWindow implements Initializable{
      * It is the stage which succeeds the current one.
      */
     public Stage stage = new Stage();
+
+    /**
+     * It is visible if players are choosing their cards.
+     */
+    @FXML
     public Label waitingLabelCards;
+
+    /**
+     * It is the pane of the current window.
+     */
+    @FXML
     public AnchorPane waitingPane;
+
+    /**
+     * It is the path of the FXML file to load when the waiting is finished.
+     */
     private String toLoad;
 
     @Override
