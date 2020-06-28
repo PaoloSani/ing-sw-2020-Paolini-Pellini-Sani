@@ -42,7 +42,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
     public CommandLineGame() {
         this.messageHandler = new MessageHandler(this);
-        this.clientConnection = new ClientConnection("127.0.0.1", 4702, messageHandler);
+        this.clientConnection = new ClientConnection("79.23.157.70", 12345, messageHandler);
         enableInput = false;
     }
 
