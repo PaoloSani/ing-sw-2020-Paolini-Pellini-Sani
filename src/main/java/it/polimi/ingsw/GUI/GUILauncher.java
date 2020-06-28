@@ -24,6 +24,4 @@ public class GUILauncher extends Application {
     public static void launchGUI(){
         launch();
     }
-
-
 }

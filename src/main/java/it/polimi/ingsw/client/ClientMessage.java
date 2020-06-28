@@ -5,14 +5,40 @@ import it.polimi.ingsw.model.God;
 
 import java.io.Serializable;
 
+/**
+ * It is the message sent to the server to describe the client's choices.
+ */
+
 public class ClientMessage implements Serializable {
+
+    /**
+     * It is the name of the client
+     */
     String name;
+
+    /**
+     * It is the god chosen by the client.
+     */
     God god;
+
+    /**
+     * It is the action performed by the client during his turn.
+     */
     String action;
 
-    //TODO: controlla che siano diverse quando fai PlacingWorkers!
+    /**
+     * It is the space chosen by the client.
+     */
     int [] space1 = null;
+
+    /**
+     * It is the second space chosen by the client when he's placing his workers.
+     */
     int [] space2 = null;
+
+    /**
+     * It tells how many level the client wants to build.
+     */
     int levelToBuild;
 
     public String getName() {
@@ -31,10 +57,7 @@ public class ClientMessage implements Serializable {
         this.space2 = space2;
     }
 
-    public void setName(String name) {
-
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
     public int[] getSpace1() {
         return space1;

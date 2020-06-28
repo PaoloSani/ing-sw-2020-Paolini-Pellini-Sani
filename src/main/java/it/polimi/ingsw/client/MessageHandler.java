@@ -11,13 +11,41 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+/**
+ * It is the handler of all the message coming in and out on the internet.
+ */
 public class MessageHandler extends Observable<MessageHandler>{
+
+    /**
+     * It is the last String read by the handler
+     */
     private String message;
+
+    /**
+     * It is the last SerializableLiteGame read by the handler
+     */
     private SerializableLiteGame liteGameFromServer;
+
+    /**
+     * It is the CLI bound to this message handler.
+     * It isn't null if guiToNotify is null
+     */
     private CommandLineGame cliToNotify;
+
+    /**
+     * It is the GUI bound to this message handler.
+     * It isn't null if cliToNotify is null
+     */
     private GUIHandler guiToNotify;
-    //true se ho letto una stringa, false se ho letto un liteGame
+
+    /**
+     * It tells if a String is read by the handler.
+     */
     private boolean stringRead;
+
+    /**
+     * It tells if a SerializableLiteGame is read by the handler.
+     */
     private boolean LGRead;
 
     public MessageHandler(CommandLineGame cli) {
@@ -36,7 +64,10 @@ public class MessageHandler extends Observable<MessageHandler>{
         return message;
     }
 
-
+    /**
+     * It parses the message coming from the server
+     * @param message
+     */
     public void setMessage(String message) {
         this.message = message;
         if ( !message.contains("Ending") && !message.contains("You have been") ) {
@@ -62,7 +93,7 @@ public class MessageHandler extends Observable<MessageHandler>{
                 label.getStylesheets().add("/GUIScenes/CSSFiles/ButtonTexts.css");
                 guiToNotify.getCurrPane().getChildren().addAll(imageView,label);
         });
-        } //TODO: condizione quando un giocatore lascia la partita?
+        }
         else {
             Platform.runLater(() -> {
                 Label label = new Label();
@@ -81,6 +112,7 @@ public class MessageHandler extends Observable<MessageHandler>{
             });
         }
     }
+
 
     public SerializableLiteGame getLiteGameFromServer() {
         return liteGameFromServer;

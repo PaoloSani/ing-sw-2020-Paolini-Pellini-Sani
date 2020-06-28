@@ -10,7 +10,7 @@ import it.polimi.ingsw.util.GameState;
  * game table and writes the output on the LiteGame class, which will be sent to clients.
  */
 public class BuildState implements GameState {
-    private BackEnd backEnd;
+    private final BackEnd backEnd;
     private int level;
     private Space lastSpace;
     private int counterDemeter;
