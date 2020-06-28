@@ -12,14 +12,56 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 
 public class ClientConnection implements Runnable{
+
+    /**
+     * It is the IP address of the server
+     */
     private String ip;
+
+    /**
+     * It is the port of the server
+     */
     private int port;
+
+    /**
+     * It is the stream which read input objects
+     */
     private ObjectInputStream in;
+
+    /**
+     * It is the stream which write output objects
+     */
     private ObjectOutputStream out;
+
+    /**
+     * It is the socket of the client
+     */
     private Socket socket;
+
+    /**
+     * It manages all the messages coming and going on the internet
+     */
     private MessageHandler messageHandler;
+
+    /**
+     * It contains all the objects which have been received from the internet
+     */
     private BlockingQueue<Object> messageInQueue;
+
+    /**
+     * It contains all the objects which must be sent on the internet
+     */
     private BlockingQueue<Object> messageOutQueue;
+
+    /**
+     * It tells if the client is still active or not
+     */
+    private boolean active = true;
+
+    /**
+     * It tells if the server is still active or not
+     */
+    private boolean serverIsActive = true;
 
     public ClientConnection(String ip, int port, MessageHandler messageHandler){
         this.ip = ip;
@@ -29,17 +71,21 @@ public class ClientConnection implements Runnable{
         messageOutQueue = new LinkedBlockingDeque<>();
     }
 
-    private boolean active = true; /////////////
-    private boolean serverIsActive = true;
-
     public synchronized void setActive(boolean active){
         this.active = active;
     }
 
+    /**
+     * It adds an object to messageOutQueue, which will be sent
+     * @param message is the object to send
+     */
     public synchronized void send(Object message) {
         messageOutQueue.add(message);
     }
 
+    /**
+     * It adds an object to messageInQueue.
+     */
     public void read(){
         try {
             while ( serverIsActive ) {
@@ -135,22 +181,14 @@ public class ClientConnection implements Runnable{
     }
 
 
+    /**
+     * It closes the socket and every stream.
+     * @throws IOException
+     */
     public void closeConnection() throws IOException {
         in.close();
         out.close();
         socket.close();
         System.out.println("  End of the game.");
-    }
-
-    public String readString(){
-        String message = null;
-        try {
-            message = (String) in.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return message;
     }
 }
