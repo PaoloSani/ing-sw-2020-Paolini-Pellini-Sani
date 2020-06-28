@@ -18,7 +18,7 @@ import static java.lang.Thread.sleep;
  *  The main server class
  */
 public class Server {
-    public final int PORT = 4702;
+    public final int PORT = 12345;
     private final ServerSocket serverSocket;
 
     private final ExecutorService executor = Executors.newFixedThreadPool(128);

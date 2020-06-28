@@ -5,6 +5,10 @@ import it.polimi.ingsw.model.God;
 
 import java.io.Serializable;
 
+/**
+ * It is the message sent to the server to describe the client's choices.
+ */
+
 public class ClientMessage implements Serializable {
 
     /**
@@ -53,10 +57,7 @@ public class ClientMessage implements Serializable {
         this.space2 = space2;
     }
 
-    public void setName(String name) {
-
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
     public int[] getSpace1() {
         return space1;

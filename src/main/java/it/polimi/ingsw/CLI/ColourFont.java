@@ -2,6 +2,9 @@ package it.polimi.ingsw.CLI;
 
 import it.polimi.ingsw.model.God;
 
+/**
+ * It contains the colours used by the CLI.
+ */
 public enum ColourFont {
     //FOREGROUND COLOR: "\033[38;5;<COLOR>m"
     //BACKGROUND COLOR: "\033[48;5;<COLOR>m"
@@ -35,14 +38,13 @@ public enum ColourFont {
 
     public static final String ANSI_RESET = "\u001B[0m";
 
+    /**
+     * It is the escape code of the given colour.
+     */
     private String escape;
 
     ColourFont(String escape){
         this.escape = escape;
-    }
-
-    public String getEscape(){
-        return escape;
     }
 
     @Override
@@ -51,7 +53,11 @@ public enum ColourFont {
     }
 
 
-    //TODO:setta i colori nella view delle varie divinità
+    /**
+     * It returns a colour given a god.
+     * @param god
+     * @return the escape colour of the colour.
+     */
     public static String getGodColour(God god){
         String colour;
         switch (god) {

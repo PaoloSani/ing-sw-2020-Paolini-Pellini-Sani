@@ -10,6 +10,9 @@ import java.net.SocketTimeoutException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
+/**
+ * It represents the client itself during his match
+ */
 
 public class ClientConnection implements Runnable{
 

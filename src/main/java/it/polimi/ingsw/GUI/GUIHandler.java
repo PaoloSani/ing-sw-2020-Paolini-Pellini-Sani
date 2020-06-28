@@ -102,7 +102,7 @@ public class GUIHandler implements Observer<MessageHandler> {
 
     public GUIHandler(){
         this.messageHandler = new MessageHandler(this);
-        this.clientConnection = new ClientConnection("127.0.0.1",4702, this.messageHandler);
+        this.clientConnection = new ClientConnection("79.23.157.70",12345, this.messageHandler);
         this.clientMessage = new ClientMessage();
         settingGameMessage = new SettingGameMessage();
     }

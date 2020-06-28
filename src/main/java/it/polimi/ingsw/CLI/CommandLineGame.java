@@ -20,32 +20,104 @@ import java.util.Scanner;
 
 public class CommandLineGame implements Observer<MessageHandler> {
 
+    /**
+     * It is the standard input scanner.
+     */
     private final Scanner in = new Scanner(System.in);
+
+    /**
+     * It is player's nickname.
+     */
     private String nickname;
+
+    /**
+     * It is player's god.
+     */
     private God god;
+
+    /**
+     * It is the mode chosen by the player to start a match.
+     */
     private Mode mode = Mode.DEFAULT;
+
+    /**
+     * It is the number of player of the match
+     */
     private int numOfPlayers;
+
+    /**
+     * It is the game ID of the match
+     */
     private int gameID;
-    private SettingGameMessage settingGameMessage = new SettingGameMessage();
+
+    /**
+     * It is the message sent to the server to fix the game.
+     */
+    private final SettingGameMessage settingGameMessage = new SettingGameMessage();
+
+    /**
+     * It tells if the client wants to come back and change his mode.
+     */
     private boolean quit = true;
-    private ClientConnection clientConnection;
-    private ClientMessage clientMessage = new ClientMessage();
+
+    /**
+     * It is the client's connection
+     */
+    private final ClientConnection clientConnection;
+
+    /**
+     * It is the message sent by the client to play the game.
+     */
+    private final ClientMessage clientMessage = new ClientMessage();
+
+    /**
+     * It tells if the game has ended
+     */
     private boolean endOfTheGame = false;
+
+    /**
+     * It is the message sent from the server to communicate the state of the game.
+     */
     private String messageFromFrontEnd;
+
+    /**
+     * It is the last action performed by the player during his turn.
+     */
     private String lastAction = "none";
+
+    /**
+     * It is the last SerializableLiteGame read.
+     */
     private SerializableLiteGame serializableLiteGame = new SerializableLiteGame();
+
+    /**
+     * It is used to understand if two SerializableLiteGame are equal during "placing workers".
+     */
     private SerializableLiteGame newSLG = new SerializableLiteGame();
+
+    /**
+     * It handles every message coming in and out on the internet
+     */
     private MessageHandler messageHandler;
+
+    /**
+     * It tells if a String has been read.
+     */
     private boolean updateString = false;
+
+    /**
+     * It tells if a SerializableLiteGame has been read.
+     */
     private boolean updateLG = false;
-    private boolean enableInput;
 
     public CommandLineGame() {
         this.messageHandler = new MessageHandler(this);
-        this.clientConnection = new ClientConnection("127.0.0.1", 4702, messageHandler);
-        enableInput = false;
+        this.clientConnection = new ClientConnection("79.23.157.70", 12345, messageHandler);
     }
 
+    /**
+     * It let the CLI process the game.
+     */
     public void runCLI() {
         int moveCounter =0, buildCounter = 0;
         boolean repeat = false;
@@ -322,7 +394,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
     }
 
     /**
-     * The Challenger chooses the cards which he wants to play with*
+     * The Challenger chooses the cards which he wants to play with
      */
 
     void challengerChoosesGods(){
@@ -357,6 +429,9 @@ public class CommandLineGame implements Observer<MessageHandler> {
         else System.out.println("  Please, wait the Challenger to choose the Pantheon");
     }
 
+    /**
+     * It let the player choose his card to play with.
+     */
     private void chooseCard() {
 
         messageFromFrontEnd = readString();
@@ -382,6 +457,9 @@ public class CommandLineGame implements Observer<MessageHandler> {
         buildGameTable();
     }
 
+    /**
+     * It let the player put his worker on the game table.
+     */
     private void placeWorkers() {
         messageFromFrontEnd = "none";
         while ( !messageFromFrontEnd.equals("Placing workers") ){
@@ -410,9 +488,12 @@ public class CommandLineGame implements Observer<MessageHandler> {
         }
     }
 
+    /**
+     * It parses the player's space from standard input.
+     * @return the parsed space.
+     */
     private int[] getSpaceFromClient(){
         int[] newSpace = new int[]{5,5};
-        //TODO: migliorare controlli sulle celle disponibili e messaggio di errore al client
         while ( newSpace[0] < 0 || newSpace[0] > 4 || newSpace[1] < 0 || newSpace[1] > 4 ) {
             System.out.println("  Insert the space coordinates (ROW-COL): \n ");
             for(boolean validMessage = false;!validMessage; ) {
@@ -437,16 +518,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
      * It prints on mirror the gametable from the litegame
      */
 
-    void printKeysTable(){
-        System.out.println(ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET+ColourFont.ANSI_BLACK_BACKGROUND + "\n");
-        System.out.println("  - GROUND LEVEL: " + ColourFont.ANSI_GREEN_BACKGROUND + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - FIRST LEVEL:  " + ColourFont.ANSI_LEVEL1 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - SECOND LEVEL: " + ColourFont.ANSI_LEVEL2 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - THIRD LEVEL:  " + ColourFont.ANSI_LEVEL3 + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND);
-        System.out.println("  - DOME:         " + ColourFont.ANSI_DOME + "    " + ColourFont.ANSI_RESET + ColourFont.ANSI_BLACK_BACKGROUND + ColourFont.ANSI_RESET+"\n");
-
-    }
-
     public synchronized void  buildGameTable(){
         String[][] gameTable = serializableLiteGame.getTable();
         System.out.println("                                                             ");
@@ -457,6 +528,11 @@ public class CommandLineGame implements Observer<MessageHandler> {
         }
     }
 
+    /**
+     * It prints on mirror a single row of the gametable from a litegame.
+     * @param serializableLiteGameRow
+     * @param row is the number of the row to print.
+     */
     void buildTableRow(String[] serializableLiteGameRow, int row){
         String[] space1 = buildGameSpace(serializableLiteGameRow[0],row-1,0);
         String[] space2 = buildGameSpace(serializableLiteGameRow[1],row-1,1);
@@ -631,59 +707,21 @@ public class CommandLineGame implements Observer<MessageHandler> {
         return gameSpace;
     }
 
-    //todo: da finire
-    String parseInput() {
-        String message = in.nextLine();
-        message = message.toUpperCase();
-        String[] parsedMessage = message.split(" ");
-        for (String s : parsedMessage){
-            message = s + " ";
-        }
-        return null;
-    }
-
     public void setLiteGame(SerializableLiteGame serializableLiteGame) {
         this.serializableLiteGame = serializableLiteGame;
-    }
-
-    public SerializableLiteGame getSerializableLiteGame(){
-        return this.serializableLiteGame;
     }
 
     public void setNumOfPlayer(int i) {
         this.numOfPlayers = i;
     }
 
-   /* public synchronized String readStringFromInput(){
-        fromClient = null;
-        enableInput = true;
-        while( fromClient )
-    }
-    */
 
-    public void readInputThread() {
-        new Thread ( () ->
-        {
-            String command = "start";
-            while (!command.equals("CLOSE")) {
-                if (in.hasNext()) {
-                    command = in.nextLine().toUpperCase();
-                    if ( enableInput ){
-                        String fromClient = command;
-                    }
+    /**
+     * It reads a String message sent by the server.
+     * If there are no messages, it waits until a message comes.
+     * @return the read message.
+     */
 
-                    //processo la stringa
-                    //se non è il suo turno non riceve NEXT ACTION dal front end, quindi non fa niente se l'utente scrive un comando valido
-
-                }
-            }
-            clientConnection.send(Message.CLOSE);
-            clientConnection.setActive(false);
-        }
-        ).start();
-    }
-
-    //Legge stringhe dal MessageHandler se la cli è stata notificata per una stringa nuova dal messageHandler
     public synchronized String readString(){
         while ( !updateString ){
             try {
@@ -698,6 +736,11 @@ public class CommandLineGame implements Observer<MessageHandler> {
         return result;
     }
 
+    /**
+     * It reads a SerializableLiteGame message sent by the server.
+     * If there are no messages, it waits until a message comes.
+     * @return the read message.
+     */
     public synchronized SerializableLiteGame readSerializableLG() {
         while ( !updateLG ){
             try {
@@ -712,6 +755,10 @@ public class CommandLineGame implements Observer<MessageHandler> {
         return result;
     }
 
+    /**
+     * It sets updateString or updateLG and notifies all sleeping threads.
+     * @param message: message received from the observable instance
+     */
     @Override
     public synchronized void update(MessageHandler message){
         if ( message.isStringRead() ){
