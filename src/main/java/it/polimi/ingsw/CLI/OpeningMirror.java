@@ -5,6 +5,9 @@ import it.polimi.ingsw.GUI.GUILauncher;
 
 import java.util.Scanner;
 
+/**
+ * It is the first class shown to the client
+ */
 public class OpeningMirror {
 
     private Scanner in = new Scanner(System.in);
