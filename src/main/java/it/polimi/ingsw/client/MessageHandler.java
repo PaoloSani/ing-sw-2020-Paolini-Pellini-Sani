@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.CLI.CommandLineGame;
 import it.polimi.ingsw.GUI.GUIHandler;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SerializableLiteGame;
 import it.polimi.ingsw.util.Observable;
 import javafx.application.Platform;
@@ -73,41 +74,42 @@ public class MessageHandler extends Observable<MessageHandler>{
         if ( !message.contains("Ending") && !message.contains("You have been") ) {
             notify(this);
         }
-        else if ( message.contains("You have been")){
-            if ( cliToNotify != null ){
+        else if ( message.contains("You have been")) {
+            if (cliToNotify != null) {
                 System.out.println("  " + message);
+            } else {
+                Platform.runLater(() -> {
+                    Label label = new Label();
+                    ImageView imageView;
+                    imageView = new ImageView();
+                    imageView.setImage(new Image("/Backgrounds/Odyssey-Circe-scaled.png"));
+                    imageView.setVisible(true);
+                    imageView.setOpacity(1);
+                    label.setText(message);
+                    label.getStylesheets().add("/GUIScenes/CSSFiles/Labels.css");
+                    double labelX = guiToNotify.getCurrPane().getWidth() / 3.7;
+                    double labelY = guiToNotify.getCurrPane().getHeight() / 1.75;
+                    label.setLayoutX(labelX);
+                    label.setLayoutY(labelY);
+                    label.setVisible(true);
+                    guiToNotify.getCurrPane().getChildren().addAll(imageView, label);
+                });
             }
-            else Platform.runLater(() -> {
-                Label label = new Label();
-                ImageView imageView;
-                //imageView = guiToNotify.getErrorImage();
-                imageView = new ImageView();
-                imageView.setImage(new Image("/Backgrounds/Odyssey-Circe-scaled.png"));
-                imageView.setVisible(true);
-                imageView.setOpacity(1);
-                label.setText(message);
-                double labelX = guiToNotify.getCurrPane().getWidth()/2.0;
-                double labelY = guiToNotify.getCurrPane().getHeight()/2.0;
-                label.setLayoutX(labelX);
-                label.setLayoutY(labelY);
-                label.getStylesheets().add("/GUIScenes/CSSFiles/ButtonTexts.css");
-                guiToNotify.getCurrPane().getChildren().addAll(imageView,label);
-        });
         }
         else {
             Platform.runLater(() -> {
                 Label label = new Label();
-                ImageView imageView;
-                imageView = new ImageView();
+                ImageView imageView = new ImageView();
                 imageView.setImage(new Image("/Backgrounds/Odyssey-Circe-scaled.png"));
                 imageView.setVisible(true);
                 imageView.setOpacity(1);
                 label.setText(message);
                 label.getStylesheets().add("/GUIScenes/CSSFiles/Labels.css");
-                double labelX = (guiToNotify.getCurrPane().getWidth() - 2*label.getWidth())/2.0;
-                double labelY = guiToNotify.getCurrPane().getHeight()/2.0;
+                double labelX = (guiToNotify.getCurrPane().getWidth())/3.1;
+                double labelY = guiToNotify.getCurrPane().getHeight()/1.75;
                 label.setLayoutX(labelX);
                 label.setLayoutY(labelY);
+                label.setVisible(true);
                 guiToNotify.getCurrPane().getChildren().addAll(imageView,label);
             });
         }

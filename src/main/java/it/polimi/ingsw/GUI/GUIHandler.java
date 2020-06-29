@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class GUIHandler implements Observer<MessageHandler> {
     /**
      * It represents the client's connection to the net. It let the GUI send messages on the internet
      */
-    private final ClientConnection clientConnection;
+    private ClientConnection clientConnection;
 
     /**
      * It is the message which is going to be sent on the internet, to communicate client's decisions.
@@ -95,6 +95,8 @@ public class GUIHandler implements Observer<MessageHandler> {
      */
     private SerializableLiteGame serializableLiteGame;
 
+
+
     //Inutili!!
    /*private ImageView errorImage;*/
     private AnchorPane currPane;
@@ -102,9 +104,24 @@ public class GUIHandler implements Observer<MessageHandler> {
 
     public GUIHandler(){
         this.messageHandler = new MessageHandler(this);
-        this.clientConnection = new ClientConnection("79.23.157.70",12345, this.messageHandler);
-        this.clientMessage = new ClientMessage();
-        settingGameMessage = new SettingGameMessage();
+        try {
+            String filename = "/server-settings.txt";
+            BufferedReader settings = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filename)));
+            String ip = settings.readLine();
+            ip = ip.replaceAll("\\s+","");
+            ip = ip.split(":")[1];
+            String port = settings.readLine();
+            port = port.replaceAll("\\s+","");
+            port = port.split(":")[1];
+            this.clientConnection = new ClientConnection(ip,Integer.parseInt(port), this.messageHandler);
+            this.clientMessage = new ClientMessage();
+            settingGameMessage = new SettingGameMessage();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
