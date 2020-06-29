@@ -1,9 +1,13 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.client.ClientConnection;
+import it.polimi.ingsw.client.ClientMessage;
+import it.polimi.ingsw.client.SettingGameMessage;
 import it.polimi.ingsw.controller.BackEnd;
 import it.polimi.ingsw.util.Message;
 import it.polimi.ingsw.virtualView.FrontEnd;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -18,7 +22,7 @@ import static java.lang.Thread.sleep;
  *  The main server class
  */
 public class Server {
-    public final int PORT = 12345;
+    public final int PORT;
     private final ServerSocket serverSocket;
 
     private final ExecutorService executor = Executors.newFixedThreadPool(128);
@@ -50,6 +54,15 @@ public class Server {
      * @throws IOException if socket cannot be created
      */
     public Server() throws IOException {
+        String filename = "/server-settings.txt";
+
+        BufferedReader settings = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filename)));
+
+        String port = settings.readLine();
+        port = settings.readLine();
+        port = port.replaceAll("\\s+","");
+        port = port.split(":")[1];
+        this.PORT = Integer.parseInt(port);
         this.serverSocket = new ServerSocket(PORT);
         this.currMatch = 0;
     }

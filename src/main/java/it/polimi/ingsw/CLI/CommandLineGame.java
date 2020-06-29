@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.SerializableLiteGame;
 import it.polimi.ingsw.util.Message;
 import it.polimi.ingsw.util.Observer;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,7 +64,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
     /**
      * It is the client's connection
      */
-    private final ClientConnection clientConnection;
+    private ClientConnection clientConnection;
 
     /**
      * It is the message sent by the client to play the game.
@@ -112,7 +113,22 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
     public CommandLineGame() {
         this.messageHandler = new MessageHandler(this);
-        this.clientConnection = new ClientConnection("127.0.0.1", 12345, messageHandler);
+        try {
+            String filename = "/server-settings.txt";
+            BufferedReader settings = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filename)));
+
+            String ip = settings.readLine();
+            ip = ip.replaceAll("\\s+","");
+            ip = ip.split(":")[1];
+            String port = settings.readLine();
+            port = port.replaceAll("\\s+","");
+            port = port.split(":")[1];
+            this.clientConnection = new ClientConnection(ip, Integer.parseInt(port), messageHandler);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

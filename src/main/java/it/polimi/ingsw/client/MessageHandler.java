@@ -86,12 +86,12 @@ public class MessageHandler extends Observable<MessageHandler>{
                     imageView.setVisible(true);
                     imageView.setOpacity(1);
                     label.setText(message);
-                    double labelX = guiToNotify.getCurrPane().getWidth() / 2.0;
-                    double labelY = guiToNotify.getCurrPane().getHeight() / 2.0;
+                    label.getStylesheets().add("/GUIScenes/CSSFiles/Labels.css");
+                    double labelX = guiToNotify.getCurrPane().getWidth() / 3.7;
+                    double labelY = guiToNotify.getCurrPane().getHeight() / 1.75;
                     label.setLayoutX(labelX);
                     label.setLayoutY(labelY);
                     label.setVisible(true);
-                    label.getStylesheets().add("/GUIScenes/CSSFiles/ButtonTexts.css");
                     guiToNotify.getCurrPane().getChildren().addAll(imageView, label);
                 });
             }
@@ -105,8 +105,8 @@ public class MessageHandler extends Observable<MessageHandler>{
                 imageView.setOpacity(1);
                 label.setText(message);
                 label.getStylesheets().add("/GUIScenes/CSSFiles/Labels.css");
-                double labelX = (guiToNotify.getCurrPane().getWidth() - 2.5*label.getWidth())/2.0;
-                double labelY = guiToNotify.getCurrPane().getHeight()/2.0;
+                double labelX = (guiToNotify.getCurrPane().getWidth())/3.1;
+                double labelY = guiToNotify.getCurrPane().getHeight()/1.75;
                 label.setLayoutX(labelX);
                 label.setLayoutY(labelY);
                 label.setVisible(true);
