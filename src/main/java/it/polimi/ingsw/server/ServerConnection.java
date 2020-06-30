@@ -110,7 +110,7 @@ public class ServerConnection implements Runnable {
     public void run() {
         active = true;
         try {
-             socket.setSoTimeout(7000);
+             socket.setSoTimeout(10001);
              out = new ObjectOutputStream(socket.getOutputStream());
              out.flush();
              in = new ObjectInputStream(socket.getInputStream());

@@ -216,7 +216,7 @@ public class BackEnd implements Observer<GameMessage> {
     public void update(GameMessage gameMessage){
 
         this.gameMessage = gameMessage;
-        if( this.lastExecute ) this.changeState(); // Se la scorsa esecuzione è sata negativa non posso cambiare stato
+        if(this.lastExecute || (currState == charonSwitchState && !gameMessage.isCharonSwitching()) ) this.changeState(); // Se la scorsa esecuzione è sata negativa non posso cambiare stato
         lastExecute = currState.execute();
     }
 
