@@ -31,10 +31,12 @@ public enum God {
         return godName;
     }
 
+
+
     public String getPower(){
         return power;
     }
 
-    private String godName;
-    private String power;
+    private final String godName;
+    private final String power;
 }
