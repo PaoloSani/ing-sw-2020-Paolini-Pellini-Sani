@@ -463,7 +463,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
                 choice = in.nextLine().toUpperCase();
             }
             god = God.valueOf(choice);
-            //in realtà settare il nickname è superfluo perché il frontend già conosce i nickname dei client
             clientMessage.setName(nickname);
             clientMessage.setGod(god);
             clientConnection.send(clientMessage);
