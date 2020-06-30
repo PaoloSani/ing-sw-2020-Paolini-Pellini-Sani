@@ -469,7 +469,6 @@ public class CommandLineGame implements Observer<MessageHandler> {
                 }
 
             }
-            //in realtà settare il nickname è superfluo perché il frontend già conosce i nickname dei client
             clientMessage.setName(nickname);
             clientMessage.setGod(god);
             clientConnection.send(clientMessage);
