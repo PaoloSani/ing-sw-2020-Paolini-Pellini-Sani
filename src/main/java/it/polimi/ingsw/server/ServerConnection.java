@@ -154,8 +154,6 @@ public class ServerConnection implements Runnable {
                                  active = false;
                                  read.interrupt();
                              }
-                         } else if (message.equals(Message.PONG)) {
-                             System.out.println("Pong from : " + socket);
                          }
                      }
                  }
@@ -175,7 +173,6 @@ public class ServerConnection implements Runnable {
                 server.endMatch(gameID, this);
             } else {
                 server.removeFromWaitingList(this);
-                server.removeNickname(name);
             }
         }
         catch ( SocketTimeoutException s ){

@@ -76,7 +76,6 @@ public class Server {
                 Socket newSocket = serverSocket.accept();
                 ServerConnection serverConnection = new ServerConnection(newSocket, this);
                 executor.submit(serverConnection);
-                printNicknames();
             } catch (IOException e) {
                 System.out.println("Connection Error!");
             }
@@ -144,6 +143,8 @@ public class Server {
         else if (numberOfPlayers == 3){
             playingConnection3Players.put(gameID, list);
         }
+
+        System.out.println( challenger.getName() + " has created a new match.\n");
     }
 
     /**
@@ -157,12 +158,14 @@ public class Server {
             List<ServerConnection> list = playingConnection2Players.get(gameID);
             if (list.size() < 2){
                 list.add(player);
+                System.out.println( player.getName() + " has joined the match with code: " + gameID + ".\n" );
                 return true;
             }
         } else if (playingConnection3Players.containsKey(gameID)){
             List<ServerConnection> list = playingConnection3Players.get(gameID);
             if (list.size() < 3){
                 list.add(player);
+                System.out.println( player.getName() + " has joined the match with code: " + gameID + ".\n" );
                 return true;
             }
         }
@@ -172,13 +175,16 @@ public class Server {
 
     public void addNickname(String name){
         nicknames.add(name);
+        System.out.println(name + " is online!\n");
     }
 
     public synchronized boolean existingNickname(String nickname) {
         return nicknames.contains(nickname);
     }
+
     public void removeNickname(String nameToRemove) {
         nicknames.remove(nameToRemove);
+        System.out.println(nameToRemove + " has left!\n");
     }
 
 
@@ -200,12 +206,18 @@ public class Server {
             frontEnd = new FrontEnd(this, list.get(0), list.get(1), gameID, backEnd);
             list.get(0).setFrontEnd(frontEnd);
             list.get(1).setFrontEnd(frontEnd);
+            System.out.print("A new match has started with code: " + gameID + ".\nPlayers: ");
+            list.stream().map(x -> x.getName() + "\t").forEach(System.out::print);
+            System.out.println();
         } else {
             List<ServerConnection> list = playingConnection3Players.get(gameID);
             frontEnd = new FrontEnd(this, list.get(0), list.get(1), list.get(2), gameID, backEnd);
             list.get(0).setFrontEnd(frontEnd);
             list.get(1).setFrontEnd(frontEnd);
             list.get(2).setFrontEnd(frontEnd);
+            System.out.print("A new match has started with code: " + gameID + ".\nPlayers: ");
+            list.stream().map(x -> x.getName() + "\t").forEach(System.out::print);
+            System.out.println();
         }
 
         nowPlaying.submit(frontEnd);
@@ -230,6 +242,9 @@ public class Server {
      * @param closingPlayer : null if there is a winner, else is the player who has left the game
      */
     public void endMatch(int gameID, ServerConnection closingPlayer) {
+
+        System.out.println("Match with code " + gameID + " has ended.");
+
         if ( playingConnection2Players.containsKey(gameID) ){
             for ( ServerConnection s : playingConnection2Players.get(gameID) ){
                 s.setGameID(-1);
@@ -287,26 +302,6 @@ public class Server {
             playingConnection3Players.get(gameID).remove(toRemove);
         }
         removeNickname(toRemove.getName());
-    }
-
-    /**
-     * Every 5 seconds, prints the nicknames of the players connected to the server
-     */
-    public void printNicknames(){
-        new Thread ( () ->{
-            while( true ){
-                try {
-                    sleep(5000);
-                    for ( String name : nicknames ){
-                        System.out.print(name + "\t");
-                    }
-                    if (nicknames.size() > 0 ) System.out.println();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        ).start();
     }
 
     /**
