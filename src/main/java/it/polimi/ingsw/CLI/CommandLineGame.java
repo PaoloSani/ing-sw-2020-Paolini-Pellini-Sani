@@ -8,7 +8,6 @@ import it.polimi.ingsw.client.SettingGameMessage;
 
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.SerializableLiteGame;
-import it.polimi.ingsw.util.Message;
 import it.polimi.ingsw.util.Observer;
 
 import java.io.*;
@@ -461,9 +460,15 @@ public class CommandLineGame implements Observer<MessageHandler> {
             while ( !messageFromFrontEnd.contains(choice) ){
                 System.out.println("  Choose your god! Available gods: " + messageFromFrontEnd);
                 choice = in.nextLine().toUpperCase();
+                try {
+                    god = God.valueOf(choice);
+                }
+                catch ( IllegalArgumentException e ){
+                    System.out.println("Please type a valid God!");
+                    choice = "none";
+                }
+
             }
-            god = God.valueOf(choice);
-            //in realtà settare il nickname è superfluo perché il frontend già conosce i nickname dei client
             clientMessage.setName(nickname);
             clientMessage.setGod(god);
             clientConnection.send(clientMessage);
