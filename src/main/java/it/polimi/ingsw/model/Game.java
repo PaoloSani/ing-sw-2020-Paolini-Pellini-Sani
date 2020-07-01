@@ -154,6 +154,30 @@ public class Game {
         return false;
     }
 
+    /** This method controls whether Prometheus is free to move around
+     * @param worker Worker you want to check on
+     * @return The method returns true if the worker is free to move in adjacent cells
+     */
+    public boolean isPrometheusFreeToMove( Worker worker ){
+        int currX, currY, currH;
+        currX = worker.getSpace().getX();
+        currY = worker.getSpace().getY();
+        currH = worker.getSpace().getHeight();
+
+        if( ( 0 <= currX && currX <=4 ) && ( 0 <= currY && currY <= 4 )){
+            for( int i = currX - 1; i < currX + 2; i++ ){
+                for( int j = currY - 1 ; j < currY + 2; j++ ){
+                    if( !( i == currX && j == currY ) && ( i >= 0 && i <= 4 && j >= 0 && j <= 4 ) && ( table[i][j].getHeight() < 4 && !table[i][j].isDomed() ) ){
+                        //deve esistere una posizione la cui differenza di altezza è al massimo +0
+                        if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 0 )  ){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     /** This method controls whether a player is free to build around
      * @param worker Worker you want to check on

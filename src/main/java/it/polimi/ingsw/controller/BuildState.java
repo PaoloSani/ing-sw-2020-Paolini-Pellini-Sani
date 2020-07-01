@@ -45,16 +45,16 @@ public class BuildState implements GameState {
                 level = backEnd.getGameMessage().getLevel();
 
                 //caso Demetra: può costruire due volte ma non sulla stessa cella, la prima volta salvo la cella
-                if (backEnd.getCurrPlayer().getGod() == God.DEMETER && counterDemeter >= 0 ) {
-                    if (counterDemeter == 1 && lastSpace != toBuild)
+                if (backEnd.getCurrPlayer().getGod() == God.DEMETER && counterDemeter >= 0 && ( toBuild.getWorker() == null ) ){
+                    if ( counterDemeter == 1 && lastSpace != toBuild  )
                         setToReset(true);
-                    if (counterDemeter == 0) {
+                    if ( counterDemeter == 0 ) {
                         lastSpace = toBuild;
                     }
                 }
 
                 //caso Efesto: può costruire al massimo due volte sulla stessa cella, ma la seconda non una cupola
-                if (backEnd.getCurrPlayer().getGod() == God.HEPHAESTUS && counterHephaestus >= 0 ) {
+                if ( backEnd.getCurrPlayer().getGod() == God.HEPHAESTUS && counterHephaestus >= 0 && toBuild.getWorker() == null ) {
                     if ( counterHephaestus == 0 ) {
                         lastSpace = toBuild;
                     }
@@ -63,7 +63,7 @@ public class BuildState implements GameState {
                     else hephaestusConstraint = false;
                 }
 
-                if ( !hephaestusConstraint && !(counterDemeter == 1 && toBuild == lastSpace)) {       //può costruire al massimo due volte e non sulla stessa cella
+                if ( !hephaestusConstraint && !( counterDemeter == 1 && ( toBuild == lastSpace || toBuild.getWorker() != null))) {       //può costruire al massimo due volte e non sulla stessa cella
                     if (!backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level)) result = false;
                 } else result = false;
 
@@ -84,8 +84,8 @@ public class BuildState implements GameState {
                         }
                     }
 
-                    if (counterDemeter == 0 && backEnd.getCurrPlayer().getGod() == God.DEMETER) counterDemeter++;
-                    if ( backEnd.getCurrPlayer().getGod() == God.HEPHAESTUS ) counterHephaestus++;
+                    if ( counterDemeter == 0 && backEnd.getCurrPlayer().getGod() == God.DEMETER ) counterDemeter++;
+                    if ( backEnd.getCurrPlayer().getGod() == God.HEPHAESTUS  ) counterHephaestus++;
                     if ( counterHephaestus == 2 ) setToReset(true);
                 }
             }
