@@ -144,7 +144,7 @@ public class Server {
             playingConnection3Players.put(gameID, list);
         }
 
-        System.out.println( challenger.getName() + " has created a new match.\n");
+        System.out.println( challenger.getName() + " has created a new match with code: " + gameID +".\n");
     }
 
     /**
@@ -258,7 +258,7 @@ public class Server {
             }
             playingConnection2Players.remove(gameID);
         }
-        else {
+        else if ( playingConnection3Players.containsKey(gameID) ) {
             for ( ServerConnection s : playingConnection3Players.get(gameID) ){
                 s.setGameID(-1);
                 if ( closingPlayer != null ) {

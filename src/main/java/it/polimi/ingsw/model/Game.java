@@ -154,6 +154,7 @@ public class Game {
         return false;
     }
 
+
     /** This method controls whether a player is free to build around
      * @param worker Worker you want to check on
      * @return The method returns true if the worker is free to build in adjacent cells
