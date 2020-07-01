@@ -36,6 +36,11 @@ public class PrometheusBuildState implements GameState {
             if (!backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level))
                 result = false;
 
+            //the player built somewhere and now is not able to move without moving up
+            if ( result && !backEnd.getGame().isPrometheusFreeToMove(backEnd.getCurrWorker())){
+                backEnd.getGame().setCurrWorker(null);
+                backEnd.setToRemove(backEnd.getCurrPlayer());
+            }
         }
 
         backEnd.getGame().refreshLiteGame();
