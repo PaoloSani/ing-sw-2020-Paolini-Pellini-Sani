@@ -99,7 +99,7 @@ public class ServerConnection implements Runnable {
             out.close();
             socket.close();
         } catch (IOException e) {
-            System.err.println("Error when closing socket!");
+            e.printStackTrace();
         }
     }
 
@@ -150,7 +150,6 @@ public class ServerConnection implements Runnable {
                                  read.interrupt();
                              } else {
                                  server.removeFromWaitingList(this);
-                                 server.removeNickname(name);
                                  active = false;
                                  read.interrupt();
                              }

@@ -280,9 +280,11 @@ public class Server {
     public void removeFromWaitingList(ServerConnection toRemove){
         if ( waitingConnection2Players.contains(toRemove)){
             waitingConnection2Players.remove(toRemove);
+            removeNickname(toRemove.getName());
         }
         else if ( waitingConnection3Players.contains(toRemove) ){
             waitingConnection3Players.remove(toRemove);
+            removeNickname(toRemove.getName());
         }
     }
 
