@@ -208,7 +208,7 @@ public class Server {
             list.get(1).setFrontEnd(frontEnd);
             System.out.print("A new match has started with code: " + gameID + ".\nPlayers: ");
             list.stream().map(x -> x.getName() + "\t").forEach(System.out::print);
-            System.out.println();
+            System.out.println("\n");
         } else {
             List<ServerConnection> list = playingConnection3Players.get(gameID);
             frontEnd = new FrontEnd(this, list.get(0), list.get(1), list.get(2), gameID, backEnd);
@@ -217,7 +217,7 @@ public class Server {
             list.get(2).setFrontEnd(frontEnd);
             System.out.print("A new match has started with code: " + gameID + ".\nPlayers: ");
             list.stream().map(x -> x.getName() + "\t").forEach(System.out::print);
-            System.out.println();
+            System.out.println("\n");
         }
 
         nowPlaying.submit(frontEnd);
