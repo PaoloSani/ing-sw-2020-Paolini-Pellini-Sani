@@ -157,8 +157,15 @@ public class BackEnd implements Observer<GameMessage> {
         }
 
         else if (prometheusBuildState == currState) {
-            currState.reset();
-            currState = prometheusMoveState;
+            if ( this.toRemove != null ){
+                updateCurrPlayer();
+                currState.reset();
+                currState = removePlayerState;
+            }
+            else {
+                currState.reset();
+                currState = prometheusMoveState;
+            }
         }
 
         else if (prometheusMoveState == currState) {
@@ -190,7 +197,6 @@ public class BackEnd implements Observer<GameMessage> {
         }
 
         else if (removePlayerState == currState) {
-
             if ( lastPlayerInTheGame(currPlayer) ) {
                 currState.reset();
                 currState = winState;

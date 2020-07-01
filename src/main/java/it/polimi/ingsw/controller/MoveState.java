@@ -37,19 +37,21 @@ public class MoveState implements GameState {
             if (nextSpace == null) result = false;
 
             if (result) {
-                if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 1) {
+                if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 1 && nextSpace.getWorker() == null) {
                     if (lastSpaceArtemis == nextSpace)
                         returnBack = true;
-                    else counterArtemis++;
+                    else {
+                        counterArtemis++;
+                    }
                 }
 
-                if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 0) {
+                if (backEnd.getCurrPlayer().getGod() == God.ARTEMIS && counterArtemis == 0 && nextSpace.getWorker() == null ){
                     lastSpaceArtemis = backEnd.getCurrWorker().getSpace();
                     counterArtemis++;
                 }
 
 
-                if (!returnBack) {
+                if (!returnBack && result) {
 
                     if (!backEnd.getCurrPlayer().moveWorker(backEnd.getCurrWorker(), nextSpace))
                         result = false;
