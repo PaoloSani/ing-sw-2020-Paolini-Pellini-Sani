@@ -144,7 +144,7 @@ public class Server {
             playingConnection3Players.put(gameID, list);
         }
 
-        System.out.println( challenger.getName() + " has created a new match.\n");
+        System.out.println( challenger.getName() + " has created a new match with code: " + gameID +".\n");
     }
 
     /**
@@ -208,7 +208,7 @@ public class Server {
             list.get(1).setFrontEnd(frontEnd);
             System.out.print("A new match has started with code: " + gameID + ".\nPlayers: ");
             list.stream().map(x -> x.getName() + "\t").forEach(System.out::print);
-            System.out.println();
+            System.out.println("\n");
         } else {
             List<ServerConnection> list = playingConnection3Players.get(gameID);
             frontEnd = new FrontEnd(this, list.get(0), list.get(1), list.get(2), gameID, backEnd);
@@ -217,7 +217,7 @@ public class Server {
             list.get(2).setFrontEnd(frontEnd);
             System.out.print("A new match has started with code: " + gameID + ".\nPlayers: ");
             list.stream().map(x -> x.getName() + "\t").forEach(System.out::print);
-            System.out.println();
+            System.out.println("\n");
         }
 
         nowPlaying.submit(frontEnd);
@@ -258,7 +258,7 @@ public class Server {
             }
             playingConnection2Players.remove(gameID);
         }
-        else {
+        else if ( playingConnection3Players.containsKey(gameID) ) {
             for ( ServerConnection s : playingConnection3Players.get(gameID) ){
                 s.setGameID(-1);
                 if ( closingPlayer != null ) {
