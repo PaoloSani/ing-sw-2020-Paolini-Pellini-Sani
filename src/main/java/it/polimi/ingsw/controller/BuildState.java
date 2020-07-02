@@ -20,6 +20,10 @@ public class BuildState implements GameState {
     private boolean toReset;
 
 
+    /**
+     * Constructor of the class
+     * @param backEnd: reference BackEnd
+     */
     public BuildState(BackEnd backEnd) {
         this.backEnd = backEnd;
         reset();
@@ -32,19 +36,14 @@ public class BuildState implements GameState {
     @Override
     public boolean execute() {
         boolean result = true;
-        //update: riceve una cella in cui costruire
-        //execute: esegue la costruzione
-        //changeState: porta in choosingWorker se non ha poteri speciali
-
-        // prendo le coordinate della cella dove costruire:
-        if ( !toReset ) {
+       if ( !toReset ) {
             Space toBuild = backEnd.getGame().getSpace(backEnd.getGameMessage().getSpace1()[0], backEnd.getGameMessage().getSpace1()[1]);
             if (toBuild == null) result = false;
 
             if (result) {
                 level = backEnd.getGameMessage().getLevel();
 
-                //caso Demetra: può costruire due volte ma non sulla stessa cella, la prima volta salvo la cella
+                //Demeter case: she may build two times in different Spaces, I use the counter only if the selected doesn't contain a worker
                 if (backEnd.getCurrPlayer().getGod() == God.DEMETER && counterDemeter >= 0 && ( toBuild.getWorker() == null ) ){
                     if ( counterDemeter == 1 && lastSpace != toBuild  )
                         setToReset(true);
@@ -53,33 +52,32 @@ public class BuildState implements GameState {
                     }
                 }
 
-                //caso Efesto: può costruire al massimo due volte sulla stessa cella, ma la seconda non una cupola
+                //Hephaestus case: he may build two times on the same space, if the second time he doesn't build a dome
                 if ( backEnd.getCurrPlayer().getGod() == God.HEPHAESTUS && counterHephaestus >= 0 && toBuild.getWorker() == null ) {
                     if ( counterHephaestus == 0 ) {
                         lastSpace = toBuild;
                     }
-                    else if ( level == 4 || toBuild != lastSpace )
-                        hephaestusConstraint = true;
-                    else hephaestusConstraint = false;
+                    else hephaestusConstraint = level == 4 || toBuild != lastSpace;
                 }
 
-                if ( !hephaestusConstraint && !( counterDemeter == 1 && ( toBuild == lastSpace || toBuild.getWorker() != null))) {       //può costruire al massimo due volte e non sulla stessa cella
+                if ( !hephaestusConstraint && !( counterDemeter == 1 && ( toBuild == lastSpace || toBuild.getWorker() != null))) {
                     if (!backEnd.getCurrPlayer().buildSpace(backEnd.getCurrWorker(), toBuild, level)) result = false;
                 } else result = false;
 
-                //alla fine del suo turno può costruire al massimo tre volte con il worker che non ha usato a patto che questo sia a terra
                 if ( result && counterPoseidon >= 0 && backEnd.getCurrPlayer().getGod() == God.POSEIDON) {
                     counterPoseidon++;
                     if (counterPoseidon == 3) setToReset(true);
                 }
 
                 if ( result ) {
-                    if (backEnd.getCurrPlayer().getGod() == God.POSEIDON && counterPoseidon == -1) {    //se il counter è -1 significa che ho costruito con il worker di partenza senza usare il suo potere
+                    //If the counter is -1, Poseidon has built with his first worker so I can check if the power may be used with the other one
+                    if (backEnd.getCurrPlayer().getGod() == God.POSEIDON && counterPoseidon == -1) {
+                        //check if the second worker is on ground level
                         if (backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrWorker()).getSpace().getHeight() == 0) {
-                            backEnd.setCurrWorker(backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrWorker()));//cambio lavoratore
-                            backEnd.getGame().setCurrWorker(backEnd.getCurrWorker()); //lo scrivo nel lite game
-                            counterPoseidon++;      //lo aggiorno già a 0 così mi accorgo che ho attivato il suo potere e sto costruendo col secondo worker
-                        } else {                      //se non è a terra il suo potere non vale
+                            backEnd.setCurrWorker(backEnd.getCurrPlayer().getOtherWorker(backEnd.getCurrWorker()));
+                            backEnd.getGame().setCurrWorker(backEnd.getCurrWorker());
+                            counterPoseidon++;
+                        } else {
                             setToReset(true);
                         }
                     }
@@ -91,7 +89,6 @@ public class BuildState implements GameState {
             }
         }
 
-        //le righe che seguono (97-104) sono per il caso sfigatissimo
         boolean saveAthena = backEnd.getGame().getConstraint().athenaBlocks();
         backEnd.getGame().getConstraint().setAthena(false);
 
@@ -99,10 +96,12 @@ public class BuildState implements GameState {
 
 
 
-        backEnd.getGame().refreshLiteGame();        //Aggiorno il GameLite
-        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la View
+        backEnd.getGame().refreshLiteGame();
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());
         return result;
     }
+
+
     public void setToReset(boolean toReset) {
         this.toReset = toReset;
     }

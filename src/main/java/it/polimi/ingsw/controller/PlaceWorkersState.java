@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Space;
 import it.polimi.ingsw.util.GameState;
 
 /**
- * Class that represents the state of the FSM in which the current player places his workers
+ * PlaceWorkerState is a class that represents the state of the FSM in which the current player places his workers
  */
 
 public class PlaceWorkersState implements GameState {
@@ -12,6 +12,10 @@ public class PlaceWorkersState implements GameState {
     private Space space1;
     private Space space2;
 
+    /**
+     * Class constructor
+     * @param backEnd reference backEnd
+     */
     public PlaceWorkersState(BackEnd backEnd) {
         this.backEnd = backEnd;
     }
@@ -33,12 +37,10 @@ public class PlaceWorkersState implements GameState {
                 backEnd.getCurrPlayer().getWorker1().setSpace(space1);
                 backEnd.getCurrPlayer().getWorker2().setSpace(space2);
             }
-            //A questo punto il model modifica il liteGame
-            //notify del LiteGame
         }
 
         backEnd.getGame().refreshLiteGame();
-        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());   //Notifico la VView
+        backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());
         return result;
     }
 
@@ -50,14 +52,5 @@ public class PlaceWorkersState implements GameState {
         space1 = null;
         space2 = null;
     }
-
-
-    /////////////////////
-    // Metodi per Test //
-    /////////////////////
-
-    //update: il currPlayer del Server ha scelto dove piazzare i suoi giocatori
-    // lancio execute che agisce sul model
-
 
 }

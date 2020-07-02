@@ -25,7 +25,91 @@ public class GameTest {
         assertTrue(game.isFreeToMove(myWorker));
         game.getConstraint().setAthena(true);
         assertTrue(game.isFreeToMove(myWorker));
+
+        player1 = new Player("test1", God.APOLLO, game);
+        myWorker = new Worker(player1);
+        myWorker.setSpace(game.getSpace(2, 2));
+        game.getSpace(2, 2).setWorker(myWorker);
+        player2 = new Player("test2", God.CHARON, game);
+        oppWorker = new Worker(player2);
+        oppWorker.setSpace(game.getSpace(3, 2));
+        game.getSpace(3, 2).setWorker(oppWorker);
+        game.getConstraint().setAthena(false);
+        game.getSpace(3, 1).setWorker(null);
+        game.getSpace(2,1).setWorker(null);
+        game.getSpace(1, 1).setWorker(null);
+        game.getSpace(1, 2).setWorker(null);
+        game.getSpace(1, 3).setWorker(null);
+        game.getSpace(2, 3).setWorker(null);
+        game.getSpace(3, 3).setWorker(null);
+        game.getSpace(3, 1).setHeight(2);
+        game.getSpace(2,1).setHeight(2);
+        game.getSpace(1, 1).setHeight(2);
+        game.getSpace(1, 2).setHeight(2);
+        game.getSpace(1, 3).setHeight(2);
+        game.getSpace(2, 3).setHeight(2);
+        game.getSpace(3, 3).setHeight(2);
+
+        assertTrue(game.isFreeToMove(myWorker));
     }
+
+    @Test
+    public void apolloNotFreeToMoveTrue() {
+        player1 = new Player("test1", God.APOLLO, game);
+        myWorker = new Worker(player1);
+        myWorker.setSpace(game.getSpace(2, 2));
+        game.getSpace(2, 2).setWorker(myWorker);
+        player2 = new Player("test2", God.CHARON, game);
+        oppWorker = new Worker(player2);
+        oppWorker.setSpace(game.getSpace(3, 2));
+        game.getSpace(3, 2).setWorker(oppWorker);
+        game.getConstraint().setAthena(true);
+        game.getSpace(3, 1).setWorker(null);
+        game.getSpace(2,1).setWorker(null);
+        game.getSpace(1, 1).setWorker(null);
+        game.getSpace(1, 2).setWorker(null);
+        game.getSpace(1, 3).setWorker(null);
+        game.getSpace(2, 3).setWorker(null);
+        game.getSpace(3, 3).setWorker(null);
+        game.getSpace(3, 1).setHeight(1);
+        game.getSpace(2,1).setHeight(1);
+        game.getSpace(1, 1).setHeight(1);
+        game.getSpace(1, 2).setHeight(1);
+        game.getSpace(1, 3).setHeight(1);
+        game.getSpace(2, 3).setHeight(1);
+        game.getSpace(3, 3).setHeight(1);
+
+        assertFalse(game.isFreeToMove(myWorker));
+    }
+
+    @Test
+    public void prometheusFreeToMoveTrue() {
+        player1 = new Player("test1", God.PROMETHEUS, game);
+        myWorker = new Worker(player1);
+        myWorker.setSpace(game.getSpace(2, 2));
+        game.getSpace(2, 2).setWorker(myWorker);
+        assertTrue(game.isFreeToMove(myWorker));
+        game.getConstraint().setAthena(true);
+        assertTrue(game.isPrometheusFreeToMove(myWorker));
+    }
+
+    @Test
+    public void prometheusNotFreeToMoveTrue() {
+        player1 = new Player("test1", God.PROMETHEUS, game);
+        myWorker = new Worker(player1);
+        myWorker.setSpace(game.getSpace(2, 2));
+        game.getSpace(2, 2).setWorker(myWorker);
+        game.getSpace(1, 1).setDome();
+        game.getSpace(1, 2).setDome();
+        game.getSpace(1, 3).setDome();
+        game.getSpace(2, 1).setDome();
+        game.getSpace(2, 3).setDome();
+        game.getSpace(3, 1).setDome();
+        game.getSpace(3, 2).setDome();
+        game.getSpace(3, 3).setDome();
+        assertFalse(game.isPrometheusFreeToMove(myWorker));
+    }
+
 
     @Test
     public void notFreeToMoveTrue() {
@@ -40,8 +124,8 @@ public class GameTest {
         game.getSpace(3, 2).setDome();
         game.getSpace(3, 3).setDome();
         assertFalse(game.isFreeToMove(myWorker));
-    }
 
+    }
     //*******************//
     //Test su charonPower//
     //*******************//
@@ -80,6 +164,7 @@ public class GameTest {
         oppWorker.setSpace(game.getSpace(1, 0));
         game.getSpace(1, 2).setDome();
         game.charonPower(myWorker, oppWorker);
+        assertFalse(game.charonPower(myWorker, oppWorker));
     }
 
     @Test
@@ -139,7 +224,7 @@ public class GameTest {
         game.getSpace(3,2).setDome();
         game.getSpace(3,3).setDome();
         game.getSpace(2,3).setDome();
-        assertEquals(game.isFreeToBuild(myWorker), false);
+        assertFalse(game.isFreeToBuild(myWorker));
     }
 
     //*********************//
@@ -215,7 +300,7 @@ public class GameTest {
         game.setPlayers(player1, player2, null);
         assertEquals(game.getLiteGame().getGod1(), player1.getGod());
         assertEquals(game.getLiteGame().getGod2(), player2.getGod());
-        assertEquals(game.getLiteGame().getGod3(), null);
+        assertNull(game.getLiteGame().getGod3());
         game.setPlayers(player1, player2, player3);
         assertEquals(game.getLiteGame().getGod1(), player1.getGod());
         assertEquals(game.getLiteGame().getGod2(), player2.getGod());
@@ -231,11 +316,11 @@ public class GameTest {
         assertEquals(game.getLiteGame().getCurrWorker()[0], 5);
         assertEquals(game.getLiteGame().getCurrWorker()[1], 5);
         game.setCurrWorker(null);
-        assertEquals(game.getLiteGame().getCurrWorker(), null);
+        assertNull(game.getLiteGame().getCurrWorker());
 
         //setWinner()
         game.setWinner(true);
-        assertEquals(game.getLiteGame().isWinner(), true);
+        assertTrue(game.getLiteGame().isWinner());
 
         //refreshLiteGame()
 
@@ -289,16 +374,16 @@ public class GameTest {
         game.getLiteGame().setCurrWorker(0, 0);
         LiteGame test = new LiteGame();
         test = game.getLiteGame().cloneLG();
-        assertEquals(test.equalsLG(game.getLiteGame()), true);
+        assertTrue(test.equalsLG(game.getLiteGame()));
 
         game.getLiteGame().setName3("test3");
         game.getLiteGame().setGod3(player3.getGod());
         game.refreshLiteGame();
         test = game.getLiteGame().cloneLG();
-        assertEquals(test.equalsLG(game.getLiteGame()), true);
+        assertTrue(test.equalsLG(game.getLiteGame()));
 
         test.setName3("test4");
-        assertEquals(test.equalsLG(game.getLiteGame()), false);
+        assertFalse(test.equalsLG(game.getLiteGame()));
 
     }
 
@@ -320,7 +405,6 @@ public class GameTest {
         game.getLiteGame().setName3("test3");
         game.getLiteGame().setCurrPlayer("test1");
         game.getLiteGame().setCurrWorker(0, 0);
-        game.getLiteGame().isWinner();
         SerializableLiteGame test = new SerializableLiteGame();
         test = game.getLiteGame().makeSerializable();
 
@@ -353,7 +437,6 @@ public class GameTest {
         game.getLiteGame().setName3("test3");
         game.getLiteGame().setCurrPlayer("test1");
         game.getLiteGame().setCurrWorker(0, 0);
-        game.getLiteGame().isWinner();
         SerializableLiteGame test = new SerializableLiteGame();
         test = game.getLiteGame().makeSerializable();
 
@@ -390,6 +473,7 @@ public class GameTest {
 
     @Test
     public void testGetOtherWorker() {
+        game.setConstraint(game.getConstraint());
         assertEquals(player1.getWorker2(),player1.getOtherWorker(player1.getWorker1()));
     }
 
