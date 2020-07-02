@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * BuildAtlas implements the build method for Atlas
+ * BuildAtlas implements the build strategy for Atlas
  */
 
 public class BuildAtlas implements Build{

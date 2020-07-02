@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * MoveMinotaur implements the move of Minotaur
+ * MoveMinotaur implements the move strategy for Minotaur
  */
 public class MoveMinotaur implements Move {
     /**

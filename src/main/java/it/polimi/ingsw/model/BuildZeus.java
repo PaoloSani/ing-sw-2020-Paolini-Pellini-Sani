@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * BuildZeus implements the build method for Zeus
+ * BuildZeus implements the build strategy for Zeus
  */
 public class BuildZeus implements Build {
     /**
