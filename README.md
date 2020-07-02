@@ -44,10 +44,10 @@ After that, enter you nickname and choose:
 3) **PLAY WITH STRANGERS** / **RANDOM GAME** (CLI-GUI) To play with other unknown players.
 
 CLI show:
-![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/blob/master/Deliverables/README_pics/CLI.png)
+![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/blob/master/Deliverables/README_pics/CLI.PNG)
 
 GUI show: 
-![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/blob/master/Deliverables/README_pics/GUI.png)
+![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/blob/master/Deliverables/README_pics/GUI.PNG)
 
 ## OBIETTIVI REALIZZATI
 - Regole complete
