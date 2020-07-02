@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model;
 
-// Interfaccia per il pattern stategy per la Move.
 /**
- * Pattern strategy interface for the move method
+ * Move is a strategy pattern interface for the move method
  */
 public interface Move {
     /**

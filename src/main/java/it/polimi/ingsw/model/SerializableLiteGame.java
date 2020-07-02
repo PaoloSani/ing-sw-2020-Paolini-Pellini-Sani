@@ -10,13 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class used as a serializable message to send to virtual-view
+ * SerializableLiteGame is a serializable version of the LiteGame class, which will be sent to the client
  */
 public class SerializableLiteGame implements Serializable {
 
+    //for comments in specific methods, where not specified, see LiteGame
+
     private static final long ID = 1L;
-    private String name1;       // Challenger: sceglie le carte e gioca per ultimo
-    private String name2;       // Start Player: giocatore che gioca per primo il turno e pesca per primo la carta
+    private String name1;
+    private String name2;
     private String name3;
 
     private God god1;
@@ -25,7 +27,6 @@ public class SerializableLiteGame implements Serializable {
 
     private String currPlayer = "";
 
-    //indica il worker scelto dal giocatore, se nullo allora la scelta ha dato esito negativo (per entrambe le pedine) e il giocatore ha perso
     private int[] currWorker;
 
     private int level1;
@@ -39,13 +40,12 @@ public class SerializableLiteGame implements Serializable {
      * Two-dimensional string array used to briefly describe the game table. A string is composed as follows:
      * (A,B,C if there is a worker of a player on that cell, V otherwise) + (0,1,2,3 space height) + (N or D if there is a dome)
      */
-
     private String[][] table;
 
     public SerializableLiteGame() {
         isWinner = false;
         table = new String[5][5];
-        currWorker = new int[]{5,5};    // 5,5 è una posizione fuori dalla tabella indicata come posizione default all'inizio del gioco
+        currWorker = new int[]{5,5};
     }
 
     public boolean equalsSLG(SerializableLiteGame newOne){
@@ -164,7 +164,7 @@ public class SerializableLiteGame implements Serializable {
     }
 
     protected void setCurrWorker(int x, int y) {
-        if ( x < 0 ){   //se il giocatore ha perso, setto una cella non valida nella tabella
+        if ( x < 0 ){
             this.currWorker = null;
         }
         else {
@@ -196,22 +196,30 @@ public class SerializableLiteGame implements Serializable {
     protected void setWinner(boolean winner) {
         isWinner = winner;
     }
-    //per i test
-    public String getStringValue(int x, int y) {
-        return this.table[x][y];
-    }
-    // per i test
 
-    public String[][] getTable() {
-        return table;
-    }
-
+    /**
+     * @param space : a reference space
+     * @return : the height of the space
+     */
     public int getHeight(int[] space) {
         return Integer.parseInt(table[space[0]][space[1]].substring(1,2));
     }
 
+    /**
+     * @param space : a reference space
+     * @return : true if the space is in the perimeter of the table
+     */
     public boolean isPerimetralSpace(int[] space){
         return space[0]== 0 || space[1] == 0 || space[0]== 4 || space[1] == 4;
+    }
+
+
+    //for the tests
+    public String getStringValue(int x, int y) {
+        return this.table[x][y];
+    }
+    public String[][] getTable() {
+        return table;
     }
 
 }

@@ -214,7 +214,7 @@ public class GameTest {
         //assertEquals(game.isFreeToBuild(myWorker),false);
         myWorker.setSpace(game.getSpace(2, 2));
         game.getSpace(2, 2).setWorker(myWorker);
-        assertEquals(game.isFreeToBuild(myWorker), true);
+        assertTrue(game.isFreeToBuild(myWorker));
 
         game.getSpace(1,1).setDome();
         game.getSpace(1,2).setDome();
@@ -319,7 +319,7 @@ public class GameTest {
         assertNull(game.getLiteGame().getCurrWorker());
 
         //setWinner()
-        game.setWinner(true);
+        game.setWinner();
         assertTrue(game.getLiteGame().isWinner());
 
         //refreshLiteGame()

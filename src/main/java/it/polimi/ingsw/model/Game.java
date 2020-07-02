@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * Represents the core of the game, describing the status of the current game
+ * The class Game represents the core of the game, describing the status of the current match
  */
 
 public class Game {
@@ -17,19 +17,27 @@ public class Game {
     private Constraint constraint;
     private LiteGame liteGame;
 
+    /**
+     * Game constructor, sets all the level and spaces back to the default characteristics
+     */
     public Game() {
         this.level1 = constLevel1;
         this.level2 = constLevel2;
         this.level3 = constLevel3;
         this.dome = constDome;
+
+        //creates the game table
         this.setUpTable();
         this.liteGame = new LiteGame();
         liteGame.setLevel1(this.level1);
         liteGame.setLevel2(this.level2);
         liteGame.setLevel3(this.level3);
         liteGame.setDome(this.dome);
-        //converte la tabella di Spaces in una tabella a tre dimensioni di caratteri in LiteGame
-        liteGame.convertTable(table); //per copiare la tabella e i pezzi disponibili nel liteGame
+
+        //creates the first light version of the table
+        liteGame.convertTable(table);
+
+        //sets the constraints of the game (Athena and Hypnus in this case)
         this.constraint = new Constraint();
     }
 
@@ -73,6 +81,12 @@ public class Game {
         }
     }
 
+    /**
+     * Takes coordinates and returns the corresponding space in the game table
+     * @param x : x coordinate
+     * @param y : y coordinate
+     * @return : a space in the table
+     */
     public Space getSpace(int x, int y) {
         if( x >= 0 && x <= 4    &&
             y >= 0 && y <= 4     ){
@@ -89,6 +103,8 @@ public class Game {
         liteGame.setGod1(player1.getGod());
         liteGame.setName2(player2.getNickname());
         liteGame.setGod2(player2.getGod());
+
+        //if the match is a three players match
         if ( player3 != null ) {
             liteGame.setName3(player3.getNickname());
             liteGame.setGod3(player3.getGod());
@@ -103,18 +119,25 @@ public class Game {
         liteGame.setLevel2(this.level2);
         liteGame.setLevel3(this.level3);
         liteGame.setDome(this.dome);
-        //converte la tabella di Spaces in una tabella a tre dimensioni di caratteri in LiteGame
+
+        //converts the table to a lighter table, to be processed by clients
         liteGame.convertTable(table);
-
     }
 
-    public void setWinner(boolean result){
-        liteGame.setWinner(result);
+    /**
+     * This method is called when a player wins the game
+     */
+    public void setWinner(){
+        liteGame.setWinner(true);
     }
 
-
+    /**
+     * Sets the current Worker in the liteGame
+     * @param worker : current worker
+     */
     public void setCurrWorker( Worker worker ){
-        if ( worker == null ){          //il giocatore ha perso
+        //the player lost the game
+        if ( worker == null ){
             liteGame.setCurrWorker(-1, 0);
         }
         else {
@@ -137,15 +160,17 @@ public class Game {
                 for( int j = currY - 1 ; j < currY + 2; j++ ){
                     if( !( i == currX && j == currY ) && ( i >= 0 && i <= 4 && j >= 0 && j <= 4 ) && ( table[i][j].getHeight() < 4 && !table[i][j].isDomed() ) ){
 
-                        //caso senza il blocco, deve esistere una posizione la cui differenza di altezza è al massimo +1
-                        if ( table[i][j].getWorker() != null && table[i][j].getWorker().getPlayer() != worker.getPlayer() && worker.getPlayer().getGod().equals(God.APOLLO) && table[i][j].getHeight() - currH <= 1 && !constraint.athenaBlocks()){
+                        //If the player is Apollo and there is a non empty space containing an opponent's worker, he can perform a move according to the move rules
+                        if ( worker.getPlayer().getGod().equals(God.APOLLO) && table[i][j].getWorker() != null &&
+                                table[i][j].getWorker().getPlayer() != worker.getPlayer() &&  table[i][j].getHeight() - currH <= 1 && !constraint.athenaBlocks()){
                             return true;
                         }
+                        //default move rules
                         else if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 1 ) && !constraint.athenaBlocks() ){
                             return true;
                         }
 
-                        //caso con il blocco, deve esistere una posizione la cui differenza di altezza è al massimo 0
+                        //If Athena blocks the other players, the move can be performed only on space that are on the same level or lower
                         else if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 0 ) && constraint.athenaBlocks() ) return true;
 
                     }
@@ -169,7 +194,7 @@ public class Game {
             for( int i = currX - 1; i < currX + 2; i++ ){
                 for( int j = currY - 1 ; j < currY + 2; j++ ){
                     if( !( i == currX && j == currY ) && ( i >= 0 && i <= 4 && j >= 0 && j <= 4 ) && ( table[i][j].getHeight() < 4 && !table[i][j].isDomed() ) ){
-                        //deve esistere una posizione la cui differenza di altezza è al massimo +0
+                        //He cannot move up after he first built
                         if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 0 )  ){
                             return true;
                         }
@@ -200,9 +225,6 @@ public class Game {
        }
 
 
-    //lascio al controller la gestione del caso in cui myWorker coincide con oppWorker e che la cella passata sia effetivamente nelle celle adiacenti
-    //devo anche controllare di non scambiare un worker dello stesso player
-
     /**
      * This method performs the necessary game changes for the use of the special power of Charon
      * @param oppWorker Opponent player to which the special ability is invoked
@@ -211,24 +233,24 @@ public class Game {
     public boolean charonPower( Worker myWorker, Worker oppWorker ) {
         int myX, myY, oppX, oppY, newX, newY;
 
-        //salvo le coordinate per fare i calcoli
+        //at first I save the coordinates
         myX = myWorker.getSpace().getX();
         myY = myWorker.getSpace().getY();
         oppX = oppWorker.getSpace().getX();
         oppY = oppWorker.getSpace().getY();
 
-        //calcolo le nuove coordinate
-        if ( myX == oppX  ){        //spostamento nella stessa riga
+        //calculates the new coordinates
+        if ( myX == oppX  ){        //on the same row
             newX = oppX;
             if ( myY > oppY ) newY = oppY + 2;
             else newY = oppY - 2;
         }
-        else if ( myY == oppY ){    //spostamento nella stessa colonna
+        else if ( myY == oppY ){    //on the same column
             newY = oppY;
             if ( myX > oppX ) newX = oppX + 2;
             else newX = oppX - 2;
         }
-        else {                      //spostamento nella diagonale
+        else {                      //on the diagonal
             if ( myX > oppX ) newX = oppX + 2;
             else newX = oppX - 2;
 
@@ -236,22 +258,20 @@ public class Game {
             else newY = oppY - 2;
         }
 
-        //ora che ho le nuove coordinate, controllo eventuali anomalie
-        if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
-             this.table[newX][newY].isDomed()             ||        //la space non è occupate da una cupola
-                myWorker.getPlayer() == oppWorker.getPlayer()   ||
-                this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
+        //after the calculation, check is the new space is valid
+        if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //the space is in the table
+             this.table[newX][newY].isDomed()             ||        //the space is not domed
+                myWorker.getPlayer() == oppWorker.getPlayer()   ||     //not an action on a worker of mine
+                this.table[newX][newY].getWorker() != null    )        //the new space must be empty
              return false;
 
-        //se i controlli sono stati superati allora effettuo lo scambio
-        oppWorker.getSpace().setWorker(null);           //la cella che conteneva l'oppWorker è ora liberata
-        oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY e
-                                                        //la nuova cella contiene ora il worker
+        //after checking I can now perform the switch
+        oppWorker.getSpace().setWorker(null);           //the previous space is made empty
+        oppWorker.setSpace(this.table[newX][newY]);     //the worker is placed in the new space
+
         return true;
     }
 
-
-    //Gli ho dovuto passare il model perchè è un metodo statico sostiturei il tutto con un observer in futuro
     /**
      * This method performs the necessary game changes for the use of the special power of Minotaur
      * @param oppWorker Opponent player to which the special ability is invoked
@@ -260,24 +280,23 @@ public class Game {
     public boolean minotaurPower( Worker myWorker, Worker oppWorker ) {
         int myX, myY, oppX, oppY, newX, newY;
 
-        //salvo le coordinate per fare i calcoli
+        //similar to charonSwitch
         myX = myWorker.getSpace().getX();
         myY = myWorker.getSpace().getY();
         oppX = oppWorker.getSpace().getX();
         oppY = oppWorker.getSpace().getY();
 
-        //Calcolo casella dove viene spinto il workers
-        if ( myX == oppX  ){        //spostamento nella stessa riga
+        if ( myX == oppX  ){
             newX = oppX;
             if ( myY > oppY ) newY = oppY - 1;
             else newY = oppY + 1;
         }
-        else if ( myY == oppY ){    //spostamento nella stessa colonna
+        else if ( myY == oppY ){
             newY = oppY;
             if ( myX > oppX ) newX = oppX - 1;
             else newX = oppX + 1;
         }
-        else {                      //spostamento nella diagonale
+        else {
             if ( myX > oppX ) newX = oppX - 1;
             else newX = oppX + 1;
 
@@ -285,45 +304,57 @@ public class Game {
             else newY = oppY + 1;
         }
 
-        //ora che ho le nuove coordinate, controllo eventuali anomalie
-        if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||        //la space deve appartenere alla tabella
-                this.table[newX][newY].isDomed()          ||        //la space non è occupate da una cupola
+
+        if ( newX < 0 || newX > 4 || newY < 0 || newY > 4 ||
+                this.table[newX][newY].isDomed()          ||
                 myWorker.getPlayer() == oppWorker.getPlayer()   ||
-                this.table[newX][newY].getWorker() != null    )        //la space non è occupata da un altro worker
+                this.table[newX][newY].getWorker() != null    )
             return false;
 
-        oppWorker.getSpace().setWorker(null);           //la cella che conteneva l'oppWorker è ora liberata
-        oppWorker.setSpace(this.table[newX][newY]);     //la posizione del oppWorker è ora newX - newY e
-                                                        // la nuova cella contiene ora il worker spostato precedentemente
+        oppWorker.getSpace().setWorker(null);
+        oppWorker.setSpace(this.table[newX][newY]);
+
         return true;
 
     }
 
-
+    /**
+     * Sets the name of the current player in the liteGame
+     * @param currPlayer : the current player
+     */
     public void setCurrPlayer(Player currPlayer) {
         liteGame.setCurrPlayer(currPlayer.getNickname());
     }
 
-    // la uso nelle move per eliminare duplicazione del codice
-    //TODO Miglirare queste due
+    /**
+     * Checks if the current space is adjacent to the next space
+     * @param nextSpace : the space where the player wants to move
+     * @param currSpace : the space where the player is now
+     * @return : true if the next space is not a valid space where to move
+     */
     public boolean invalidMoveSpace (Space nextSpace, Space currSpace){
         int currX, currY, currH;
         currX = currSpace.getX();
         currY = currSpace.getY();
         currH = currSpace.getHeight();
         return ( invalidSpace(nextSpace,currSpace)                                    ||
-                nextSpace.getHeight() - currH > 1                                     ||     //sale più di un livello
+                nextSpace.getHeight() - currH > 1                                     ||     //the player cannot move up more than one level
                 currX == nextSpace.getX() && currY == nextSpace.getY());
     }
 
-    // la uso nelle build per eliminare duplicazione del codice
+    /**
+     * Checks if the space is a valid space where to build
+     * @param space : the space where the player wants to build
+     * @param currSpace : the space where the player is now
+     * @return : true if the space is not valid
+     */
     public boolean invalidSpace (Space space, Space currSpace){
         int currX, currY;
         currX = currSpace.getX();
         currY = currSpace.getY();
         return (space.getX() > 4 || space.getX() < 0                           ||
-                space.getY() > 4 || space.getY() < 0                           ||     //space non appartenente alla tabella
-                ( currX - space.getX() ) > 1 || ( currX - space.getX() ) < -1  ||     //riga non valida
+                space.getY() > 4 || space.getY() < 0                           ||
+                ( currX - space.getX() ) > 1 || ( currX - space.getX() ) < -1  ||
                 ( currY - space.getY() ) > 1 || ( currY - space.getY() ) < -1);
     }
 
@@ -337,13 +368,14 @@ public class Game {
     public boolean buildSwitch (Space space, int level, boolean isAtlas){
         switch (level) {
             case 1:
-                // level>0
-                if (this.level1 > 0) {                       //controllo che il pezzo corrispondente sia disponibile
-                    //decremento i pezzi del livello disponibili, level1 --
+                //checks if the current piece is available
+                if (this.level1 > 0) {
+                    //decrements the pieces --
                     this.level1--;
-                    space.setHeight(level);                                          //setto la nuova altezza dello space
-                } else
-                    return false;        // se il pezzo non è disponibile lancio l'eccezione per la costruzione in quella cella
+                    space.setHeight(level);
+                }
+                else
+                    return false;
                 break;
 
             case 2:
@@ -362,10 +394,12 @@ public class Game {
 
             case 4:
                 if (this.dome > 0) {
+                    //if the player is Atlas and wants to build a dome on a lower space
                     if ( isAtlas && space.getHeight() != 3 ) {
                         space.setHeight(space.getHeight());
                         space.setDome();
-                    } else space.setHeight(level);
+                    }
+                    else space.setHeight(level);
                     this.dome--;
                 } else return false;
                 break;
