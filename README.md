@@ -33,7 +33,7 @@ For the server, and
     
 For the client. 
 
-##Usage
+## Usage
 
 In the first stage, choose A to play with GUI or B to play with the CLI:
 ![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/tree/master/Deliverables/README_pics/Initial.png)
@@ -49,15 +49,15 @@ CLI show:
 GUI show: 
 ![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/tree/master/Deliverables/README_pics/GUI.png)
 
-##OBIETTIVI REALIZZATI
+## OBIETTIVI REALIZZATI
 - Regole complete
 - Implementazione socket
 - CLI e GUI
 - 2 FA: **Divinità avanzate** (Zeus, Charon, Triton, Poseidon e Hypnus) e **Partite Multiple**
 
-##COVERAGE REPORT
+## COVERAGE REPORT
 
-##AUTHORS
+## AUTHORS
 _Giuseppe Paolini_  
 _Riccardo Pellini_  
 _Paolo Sani_  
