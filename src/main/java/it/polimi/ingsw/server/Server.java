@@ -191,8 +191,10 @@ public class Server {
      * @param nameToRemove: the name to remove
      */
     public void removeNickname(String nameToRemove) {
-        nicknames.remove(nameToRemove);
-        System.out.println(nameToRemove + " has left!\n");
+        if (nicknames.contains(nameToRemove)){
+            nicknames.remove(nameToRemove);
+            System.out.println(nameToRemove + " has left!\n");
+        }
     }
 
 
@@ -293,6 +295,7 @@ public class Server {
             waitingConnection3Players.remove(toRemove);
             removeNickname(toRemove.getName());
         }
+        else removeNickname(toRemove.getName());
     }
 
 
