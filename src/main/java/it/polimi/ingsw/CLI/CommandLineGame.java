@@ -16,7 +16,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * It defines the command line interface for the user and all the logic behind it.
+ */
 
 public class CommandLineGame implements Observer<MessageHandler> {
 

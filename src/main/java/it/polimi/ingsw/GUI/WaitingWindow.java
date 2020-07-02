@@ -12,6 +12,10 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * It is the window where the player waits for other players to join the match.
+ */
+
 public class WaitingWindow extends GameWindow implements Initializable{
 
     /**
