@@ -16,6 +16,10 @@ public class SetPlayersState implements  GameState {
     private God god2;
     private God god3;
 
+    /**
+     * Class constructor
+     * @param backEnd: reference backEnd
+     */
     public SetPlayersState(BackEnd backEnd) {
         this.backEnd = backEnd;
         this.name1 = null;
@@ -27,7 +31,7 @@ public class SetPlayersState implements  GameState {
     }
 
     /**
-     * sets names and gods of the player in the backend and in the model, then fires the first notify with the
+     * Sets names and gods of the player in the backend and in the model, then fires the first notify with the
      * initial game table
      * @return always true, because the action can always be performed.
      */
@@ -50,16 +54,15 @@ public class SetPlayersState implements  GameState {
             backEnd.setPlayer3(null);
         }
 
-        //se hypnus è presente in gioco, la classe Player ha già settato il costraint
+        //NOTE: if hypnus is playing, the Player class has already set the constraint
         backEnd.getGame().setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
-        //invio la classe litegame backEnd.getGameMessage dal model alla view
         backEnd.getGame().getLiteGame().addObservers(backEnd.getGameMessage().getFrontEnd());
         backEnd.getGame().getLiteGame().notify(backEnd.getGame().getLiteGame());
         return true;
     }
 
     /**
-     * resets the names and gods to default
+     * Resets the names and gods to default
      */
     @Override
     public void reset() {

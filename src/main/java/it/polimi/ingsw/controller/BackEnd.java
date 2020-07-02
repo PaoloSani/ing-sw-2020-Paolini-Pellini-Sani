@@ -7,7 +7,7 @@ import it.polimi.ingsw.util.Observer;
 import it.polimi.ingsw.virtualView.GameMessage;
 
 /**
- * Class in which the current state of the FSM implemented through the pattern state is decided
+ * BackEnd is the class in which the current state of the FSM implemented through the pattern state is decided
  */
 
 public class BackEnd implements Observer<GameMessage> {
@@ -33,6 +33,9 @@ public class BackEnd implements Observer<GameMessage> {
     public final GameState prometheusMoveState = new PrometheusMoveState(this);
     public final GameState winState = new WinState(this);
 
+    /**
+     *  Constructor of the class
+     */
     public BackEnd() {
         this.game = new Game();
         this.currState = setPlayersState;
@@ -76,17 +79,14 @@ public class BackEnd implements Observer<GameMessage> {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
-        //se player2 == null devo noticare il giocatore della sconfitta
     }
 
     public void setPlayer3(Player player3) {
         this.player3 = player3;
-        //se player3 == null devo noticare il giocatore della sconfitta (sempre che ci fosse collegamento e quindi tre giocatori)
     }
 
     public void setChallenger(Player challenger) {
         this.challenger = challenger;
-        //se challenger == null devo noticare il giocatore della sconfitta
     }
 
     public void setToRemove(Player toRemove) {
@@ -94,6 +94,9 @@ public class BackEnd implements Observer<GameMessage> {
     }
 
 
+    /**
+     * Used to update the current player
+     */
     public void updateCurrPlayer(){
         if ( ( ( player2 == currPlayer) && (player3 != null ) ) || ( (challenger == currPlayer) && ( player2 == null ) ) ) {
             currPlayer = player3;
@@ -108,21 +111,20 @@ public class BackEnd implements Observer<GameMessage> {
     /**
      * Method in which the next state of the FSM is chosen and set
      */
-
     public void changeState(){
         if (setPlayersState == currState) {
             if ( (gameMessage.getSpace1()[0] != -1 ) || (gameMessage.getSpace1() == null) ) {
-                currPlayer = this.player2;      //perché il primo è il challenger
+                currPlayer = this.player2;
                 game.setCurrPlayer(player2);
                 currState.reset();
-                currState = placeWorkersState; //Cambio lo stato solo se x1 non è negativo (come di default all'inizio del gioco)
+                currState = placeWorkersState;
             }
         }
 
         else if (placeWorkersState == currState) {
             if (currPlayer == challenger) {
                 currState.reset();
-                currState = chooseWorkerState; //Il challenger è l'ultimo giocatore che sceglie
+                currState = chooseWorkerState;
             }
             this.updateCurrPlayer();
         }
@@ -177,7 +179,7 @@ public class BackEnd implements Observer<GameMessage> {
             if (!((currPlayer.getGod() == God.ARTEMIS || currPlayer.getGod() == God.TRITON) && gameMessage.getLevel() == 0))
             {
                 currState.reset();
-                currState = buildState;      // Nel client controlleremo quando è il momento di costruire con una build
+                currState = buildState;
             }
         }
 
@@ -208,10 +210,15 @@ public class BackEnd implements Observer<GameMessage> {
 
     }
 
+    /**
+     * Checks if the given player is the last player in the game
+     * @param lastPlayer: player to check
+     * @return : true if the given player is the last one
+     */
     public boolean lastPlayerInTheGame(Player lastPlayer){
         if (lastPlayer == challenger && player2 == null && player3 == null) return true;
         else if (lastPlayer == player2 &&  challenger == null && player3 == null) return true;
-        else return (lastPlayer == player3 && challenger == null && player2 == null); //False se la valutazione è falsa
+        else return (lastPlayer == player3 && challenger == null && player2 == null);
     }
 
     /**
@@ -220,9 +227,8 @@ public class BackEnd implements Observer<GameMessage> {
      */
     @Override
     public void update(GameMessage gameMessage){
-
         this.gameMessage = gameMessage;
-        if(this.lastExecute || (currState == charonSwitchState && !gameMessage.isCharonSwitching()) ) this.changeState(); // Se la scorsa esecuzione è sata negativa non posso cambiare stato
+        if(this.lastExecute || (currState == charonSwitchState && !gameMessage.isCharonSwitching()) ) this.changeState();
         lastExecute = currState.execute();
     }
 

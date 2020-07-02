@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * a virtual view, which manages the turns of the match and notifies the BackEnd
+ * FrontEnd is a virtual view, which manages the turns of the match and notifies the BackEnd
  */
 public class FrontEnd implements Observer<LiteGame>,Runnable {
     private Server server;
@@ -73,7 +73,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
 
     /**
-     * executes the game flow, starting with the second client and finishing with the first
+     * Executes the game flow, starting with the second client and finishing with the first
      */
     @Override
     public void run(){
@@ -183,7 +183,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * sets the space chosen by the current client, where his worker is placed.
+     * Sets the space chosen by the current client, where his worker is placed.
      * If the resulting field in the LiteGame is null, the client has lost the game,
      * because he couldn't choose a valid worker to play with.
      */
@@ -199,7 +199,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * sets a space with an opponent worker, which Charon wants to switch
+     * Sets a space with an opponent worker, which Charon wants to switch
      */
     private void charonSwitch() {
         resetUpdate();
@@ -209,7 +209,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * sets a space in which the worker is going to move. If the client makes a winning move,
+     * Sets a space in which the worker is going to move. If the client makes a winning move,
      * the field endOfTheGame is set to true
      */
     private void move() {
@@ -224,7 +224,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * sets a space where the clients want to build and the corresponding level. In case the client is closed in a circle of
+     * Sets a space where the clients want to build and the corresponding level. In case the client is closed in a circle of
      * building he looses the game and is removed
      */
     private void build() {
@@ -240,7 +240,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * closes the connection with the current client and updates the backend.
+     * Closes the connection with the current client and updates the backend.
      * If the next current player is the last one in the match he wins and is notified.
      * Alternatively the loosing player is removed from the game and has no more workers on the table.
      */
@@ -249,7 +249,6 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
         currClient.send("You have been removed from the match!");
         updateCurrClient();
-        toRemove.closeConnection();
         server.removePlayerFromMatch(gameID, toRemove);
 
         if ( toRemove == client1 ){
@@ -271,7 +270,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * updates the LiteGame if something has changed or if the initial LiteGame hasn't been set.
+     * Updates the LiteGame if something has changed or if the initial LiteGame hasn't been set.
      * @param message: message received from the observable instance
      */
     @Override
@@ -289,7 +288,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
 
     /**
-     * sends the LiteGame to every client in the match.
+     * Sends the LiteGame to every client in the match.
      */
     public void sendLiteGame(){
         SerializableLiteGame toSend = liteGame.makeSerializable();
@@ -306,7 +305,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * updates the current playing client.
+     * Updates the current playing client.
      */
     public void updateCurrClient(){
         if ( ( ( client2 == currClient) && ( client3 != null ) ) || ( (client1 == currClient) && ( client2 == null ) ) ) {
@@ -319,7 +318,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * sends a message to the current client and a message of wait to the others.
+     * Sends a message to the current client and a message of wait to the others.
      * In case the message signs the end of the match it adds the winning player.
      * @param message : message to send to the client
      */
@@ -335,7 +334,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * reads a ChallengerMessage from the ServerConnection of the challenger (client1).
+     * Reads a ChallengerMessage from the ServerConnection of the challenger (client1).
      * The thread is put in waiting mode, until a ChallengerMessage is received.
      * @return an array of strings, which is the challenger message.
      */
@@ -351,7 +350,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * reads a clientMessage from the ServerConnection.
+     * Reads a clientMessage from the ServerConnection.
      * @return the ClientMessage read.
      */
     public synchronized ClientMessage readClientMessage(){
@@ -368,7 +367,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     }
 
     /**
-     * wakes up the thread waiting on a ClientMessage or a Challenger message
+     * Wakes up the thread waiting on a ClientMessage or a Challenger message
      */
     public synchronized void wakeUpFrontEnd(){
         notify();

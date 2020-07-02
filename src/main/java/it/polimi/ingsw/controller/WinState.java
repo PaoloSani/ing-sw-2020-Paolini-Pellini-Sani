@@ -14,7 +14,7 @@ public class WinState implements GameState {
     }
 
     /**
-     * sets the model, so that the remote view is notified that the current player won the match
+     * Sets the model, so that the remote view is notified that the current player won the match
      * @return always true, because the action can always be performed
      */
     @Override
@@ -26,8 +26,6 @@ public class WinState implements GameState {
     }
 
     @Override
-    public void reset() {
-
-    }
+    public void reset() {}
 
 }
