@@ -204,10 +204,8 @@ public class Server {
      * @param gameID match identifier of the match to start
      */
     public void startGame(int gameID) {
-        /**
-         * Every match has a corresponding FrontEnd and Backend, which deal with
-         * turns scheduling and communicate with the client after the game has started
-         */
+        //Every match has a corresponding FrontEnd and Backend, which deal with
+        //turns scheduling and communicate with the client after the game has started
         FrontEnd frontEnd;
         BackEnd backEnd = new BackEnd();
 

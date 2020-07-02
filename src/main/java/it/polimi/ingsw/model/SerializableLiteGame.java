@@ -164,9 +164,7 @@ public class SerializableLiteGame implements Serializable {
     }
 
     protected void setCurrWorker(int x, int y) {
-        if ( x < 0 ){
-            this.currWorker = null;
-        }
+        if ( x < 0 ) this.currWorker = null;
         else {
             this.currWorker[0] = x;
             this.currWorker[1] = y;

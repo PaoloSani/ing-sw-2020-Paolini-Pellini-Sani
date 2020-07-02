@@ -2,9 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.util.Observable;
 import it.polimi.ingsw.util.Observer;
-
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
