@@ -6,11 +6,11 @@ package it.polimi.ingsw.model;
 public class Player  {
     private final String nickname;
     private God god;
-    private Worker worker1;
-    private Worker worker2;
+    private final Worker worker1;
+    private final Worker worker2;
     private Move move;
     private Build build;
-    private Game game;
+    private final Game game;
 
     public Player( String nickname, God god, Game game) {
         this.nickname = nickname;
