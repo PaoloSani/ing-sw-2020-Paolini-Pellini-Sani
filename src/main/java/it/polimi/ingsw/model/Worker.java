@@ -19,6 +19,10 @@ public class Worker {
         return player;
     }
 
+    /**
+     * It sets the attribute space of Worker and the attribute worker of Space
+     * @param space : space occupied by the worker
+     */
     public void setSpace( Space space ) {
         if(space == null){
             this.space = null;

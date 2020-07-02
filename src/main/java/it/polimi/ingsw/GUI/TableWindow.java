@@ -632,7 +632,7 @@ public class TableWindow extends GameWindow implements Initializable {
     /**
      * It designs the general view of the game-table, modified with blocks' image and workers' image.
      */
-    public void buildGameTable() {
+    private void buildGameTable() {
         Platform.runLater(() ->{
             gameTable.getChildren().removeIf(imageView -> imageView instanceof ImageView);
             for( int i = 0; i < 5; i++) {
@@ -669,15 +669,15 @@ public class TableWindow extends GameWindow implements Initializable {
 
     /**
      * It design the general view of a single space of the game-table.
-     * @param i represents the row of the gridpane.
-     * @param j represents the column of the gridpane.
+     * @param row represents the row of the gridpane.
+     * @param col represents the column of the gridpane.
      * @throws FileNotFoundException
      */
-    public void buildGameSpace(int i, int j) throws FileNotFoundException {
+    private void buildGameSpace(int row, int col) throws FileNotFoundException {
         char[] spaceToPrint;
         ImageView building = new ImageView(), worker = new ImageView(), currWorker = new ImageView();
 
-        spaceToPrint = guiHandler.getSerializableLiteGame().getTable()[i][j].toCharArray();
+        spaceToPrint = guiHandler.getSerializableLiteGame().getTable()[row][col].toCharArray();
 
 
         if (spaceToPrint[1] == '0' && spaceToPrint[2] == 'D' ) building.setImage(new Image("/Table/4.png"));
@@ -722,7 +722,7 @@ public class TableWindow extends GameWindow implements Initializable {
         }
 
         if ( guiHandler.getSerializableLiteGame().getCurrWorker() != null ) {
-            if (guiHandler.getSerializableLiteGame().getCurrWorker()[0] == i && guiHandler.getSerializableLiteGame().getCurrWorker()[1] == j) {
+            if (guiHandler.getSerializableLiteGame().getCurrWorker()[0] == row && guiHandler.getSerializableLiteGame().getCurrWorker()[1] == col) {
                 currWorker.setImage(new Image("/Backgrounds/playermoveindicator_blue.png"));
             }
         }
@@ -731,9 +731,9 @@ public class TableWindow extends GameWindow implements Initializable {
         worker.setMouseTransparent(true);
         currWorker.setMouseTransparent(true);
 
-        gameTable.add(building, j , i );
-        gameTable.add(worker, j , i );
-        gameTable.add(currWorker, j , i );
+        gameTable.add(building, col , row );
+        gameTable.add(worker, col , row );
+        gameTable.add(currWorker, col , row );
 
     }
 

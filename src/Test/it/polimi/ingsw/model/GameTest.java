@@ -5,13 +5,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameTest {
-    private Game game = new Game();
-    private Player player1 = new Player("test1", God.CHARON, game);
-    private Player player2 = new Player("test2", God.APOLLO, game);
-    private Player player3 = new Player("test3", God.HEPHAESTUS, game);
-    private Worker myWorker = new Worker(player1);
-    private Worker oppWorker = new Worker(player2);
-    private Worker otherWorker = new Worker(player3);
+    private final Game game = new Game();
+    private final Player player1 = new Player("test1", God.CHARON, game);
+    private final Player player2 = new Player("test2", God.APOLLO, game);
+    private final Player player3 = new Player("test3", God.HEPHAESTUS, game);
+    private final Worker myWorker = new Worker(player1);
+    private final Worker oppWorker = new Worker(player2);
+    private final Worker otherWorker = new Worker(player3);
 
 
     //********************//
@@ -102,6 +102,16 @@ public class GameTest {
 
     @Test
     public void charonHasWorked() {
+        myWorker.setSpace(game.getSpace(1, 1));
+        oppWorker.setSpace(game.getSpace(1, 0));
+        assertNotEquals(oppWorker.getSpace(), game.getSpace(1, 2));
+        assertTrue(game.charonPower(myWorker, oppWorker));
+        assertEquals(oppWorker.getSpace(), game.getSpace(1, 2));
+        assertEquals(myWorker.getSpace(), game.getSpace(1, 1));
+    }
+
+    @Test
+    public void charonHasWorked2() {
         myWorker.setSpace(game.getSpace(1, 1));
         oppWorker.setSpace(game.getSpace(1, 0));
         assertNotEquals(oppWorker.getSpace(), game.getSpace(1, 2));
@@ -381,6 +391,79 @@ public class GameTest {
     @Test
     public void testGetOtherWorker() {
         assertEquals(player1.getWorker2(),player1.getOtherWorker(player1.getWorker1()));
+    }
+
+    @Test
+    public void noLevel1ToBuild(){
+        Space toBuild = game.getSpace(1,2);
+        game.setLevel1(0);
+        assertFalse(game.buildSwitch(toBuild,1,false));
+    }
+
+    @Test
+    public void noLevel2ToBuild(){
+        Space toBuild = game.getSpace(1,2);
+        game.setLevel2(0);
+        assertFalse(game.buildSwitch(toBuild,2,false));
+    }
+
+    @Test
+    public void noLevel3ToBuild(){
+        Space toBuild = game.getSpace(1,2);
+        game.setLevel3(0);
+        assertFalse(game.buildSwitch(toBuild,3,false));
+    }
+
+    @Test
+    public void noDomeToBuild(){
+        Space toBuild = game.getSpace(1,2);
+        game.setDome(0);
+        assertFalse(game.buildSwitch(toBuild,4,false));
+    }
+
+    @Test
+    public void thereIsLevel3ToBuild(){
+        Space toBuild = game.getSpace(1,2);
+        game.setLevel3(20);
+        assertTrue(game.buildSwitch(toBuild,3,false));
+    }
+
+    @Test
+    public void thereIsDomeToBuild(){
+        Space toBuild = game.getSpace(1,2);
+        game.setDome(20);
+        assertTrue(game.buildSwitch(toBuild,4,false));
+    }
+
+    @Test
+    public void wrongLevelToBuild(){
+        Space toBuild = game.getSpace(1,2);
+        assertFalse(game.buildSwitch(toBuild,5,false));
+    }
+
+    @Test
+    public void wrongSpaceToGet(){
+        assertNull(game.getSpace(5,1));
+    }
+
+    @Test
+    public void PrometheusIsFreeToMove(){
+        myWorker.setSpace(game.getSpace(0,0));
+        game.getSpace(0,0).setHeight(1);
+        game.getSpace(1,0).setHeight(3);
+        game.getSpace(0,1).setDome();
+        game.getSpace(1,1).setHeight(1);
+        assertTrue(game.isPrometheusFreeToMove(myWorker));
+    }
+
+    @Test
+    public void PrometheusIsNotFreeToMove(){
+        myWorker.setSpace(game.getSpace(0,0));
+        game.getSpace(0,0).setHeight(1);
+        game.getSpace(1,0).setHeight(3);
+        game.getSpace(0,1).setDome();
+        game.getSpace(1,1).setHeight(2);
+        assertFalse(game.isPrometheusFreeToMove(myWorker));
     }
 
 }
