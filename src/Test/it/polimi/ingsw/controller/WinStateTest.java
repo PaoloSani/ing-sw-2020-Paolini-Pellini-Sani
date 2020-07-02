@@ -77,6 +77,8 @@ public class WinStateTest {
         gameMessage.notify(gameMessage);
         assertTrue(game.getLiteGame().isWinner());
         backEnd.winState.reset();
+        game.getLiteGame().setPlayer("giuseppe");
+        assertEquals(backEnd.getCurrPlayer().getNickname(), game.getLiteGame().getCurrPlayer());
     }
 
     @Test

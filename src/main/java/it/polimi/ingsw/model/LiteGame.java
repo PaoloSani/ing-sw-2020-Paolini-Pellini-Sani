@@ -138,6 +138,7 @@ public class LiteGame extends Observable<LiteGame>  {
         if ( liteGame.god1 == null ){
             return false;
         }
+
         else {
             if ( name3 == null ) {
                 return (isEqual && liteGame.god1.equals(this.god1) && liteGame.god2.equals(this.god2) &&
@@ -310,8 +311,8 @@ public class LiteGame extends Observable<LiteGame>  {
         newSLG.setGod2(this.god2);
         newSLG.setGod3(this.god3);
         newSLG.setCurrPlayer(this.currPlayer);
-        if (this.currWorker != null ) newSLG.setCurrWorker(this.currWorker[0], this.currWorker[1]);
-        else newSLG.setCurrWorker(-1, 0);
+        if ( this.currWorker != null ) newSLG.setCurrWorker(this.currWorker[0], this.currWorker[1]);
+        else newSLG.setCurrWorker(-1,0);
         newSLG.setLevel1(this.level1);
         newSLG.setLevel2(this.level2);
         newSLG.setLevel3(this.level3);

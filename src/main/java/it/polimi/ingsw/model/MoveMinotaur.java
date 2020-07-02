@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+
 public class MoveMinotaur implements Move {
     /**
      * @param worker Worker performing the move

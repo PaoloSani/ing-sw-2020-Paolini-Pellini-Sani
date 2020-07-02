@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.SerializableLiteGame;
 import it.polimi.ingsw.virtualView.FrontEnd;
 import it.polimi.ingsw.virtualView.GameMessage;
 import org.junit.Before;
@@ -163,6 +164,7 @@ public class PrometheusBuildStateTest {
         backEnd.setCurrPlayer(backEnd.getPlayer2());
 
         backEnd.setCurrWorker(backEnd.getCurrPlayer().getWorker1());
+        game.setCurrWorker(null);
 
         int[] toBuild = new int[]{1,2};
         gameMessage.setSpace1(toBuild);
@@ -178,6 +180,18 @@ public class PrometheusBuildStateTest {
 
         assertSame(backEnd.getCurrState(), backEnd.removePlayerState);
 
+        assertEquals(backEnd.getCurrPlayer(), backEnd.getPlayer3());
+        //siccome è stato rimosso ora nel game la cella è null
+        assertNull(game.getLiteGame().getCurrWorker());
+
+        //controllo che venga correttamente rinizializzato provando con il prossimo worker
+        game.getSpace(3,3).setWorker(backEnd.getPlayer3().getWorker1());
+        backEnd.getPlayer3().getWorker1().setSpace(game.getSpace(3,3));
+        gameMessage.setSpace1(new int[]{3,3});
+        gameMessage.notify(gameMessage);
+
+        //ora il currWorker deve essere 3-3
+        assertArrayEquals(new int[]{3,3}, game.getLiteGame().getCurrWorker());
     }
 
     @Test
@@ -241,6 +255,8 @@ public class PrometheusBuildStateTest {
         //il liteGame ritorna un currWorker nullo, segno che il giocatore è stato rimosso
 
         assertNull(game.getLiteGame().getCurrWorker());
+        SerializableLiteGame testSLG = frontEnd.getLiteGame().makeSerializable();
+        assertNull(testSLG.getCurrWorker());
     }
 
 }

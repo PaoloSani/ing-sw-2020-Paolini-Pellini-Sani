@@ -20,7 +20,7 @@ public class PrometheusBuildState implements GameState {
     }
 
     /**
-     * builds in a space if the action is valid
+     * Builds in a space if the action is valid
      * @return true if the action was correctly performed.
      */
     @Override
