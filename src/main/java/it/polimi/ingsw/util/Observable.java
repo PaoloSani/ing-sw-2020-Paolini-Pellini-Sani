@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Observable is an implementation of the observable object of the observer pattern
- * @param <T> : type of the message to send to the observer
+ * @param <T> type of the message to send to the observer
  */
 public class Observable<T> {
 
@@ -16,7 +16,7 @@ public class Observable<T> {
 
     /**
      * Add an observer to the observer list
-     * @param observer : observer to add
+     * @param observer observer to add
      */
     public void addObservers(Observer<T> observer){
         observers.add(observer);
@@ -24,7 +24,7 @@ public class Observable<T> {
 
     /**
      * Notifies the observers
-     * @param message : message to send to the observer
+     * @param message message to send to the observer
      */
     public void notify(T message){
         for(Observer<T> observer: observers){

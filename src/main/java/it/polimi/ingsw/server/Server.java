@@ -80,8 +80,8 @@ public class Server {
 
     /**
      * Adds a client to a corrisponding waiting list according to the number of players he wants to play with
-     * @param numberOfPlayers : chosen by the client (2 or 3)
-     * @param client : ServerConnection of the client
+     * @param numberOfPlayers chosen by the client (2 or 3)
+     * @param client ServerConnection of the client
      */
     public synchronized void lobby(int numberOfPlayers, ServerConnection client){
         if (numberOfPlayers == 2) {
@@ -126,9 +126,9 @@ public class Server {
 
     /**
      * Creates a new match
-     * @param gameID: match identifier
-     * @param numberOfPlayers: indicates the number of players of the match
-     * @param challenger: ServerConnection of the client, which creates the new match
+     * @param gameID match identifier
+     * @param numberOfPlayers indicates the number of players of the match
+     * @param challenger ServerConnection of the client, which creates the new match
      */
     public void createMatch(int gameID , int numberOfPlayers, ServerConnection challenger) {
         List<ServerConnection> list = new ArrayList<>();
@@ -145,9 +145,9 @@ public class Server {
 
     /**
      * Adds a player to an existing match
-     * @param gameID: the identifier of the match
-     * @param player: Server connection of the player
-     * @return : return true if the client has been correctly added to the match
+     * @param gameID the identifier of the match
+     * @param player Server connection of the player
+     * @return return true if the client has been correctly added to the match
      */
     public synchronized boolean addPlayer(int gameID, ServerConnection player){
         if (playingConnection2Players.containsKey(gameID)) {
@@ -170,7 +170,7 @@ public class Server {
 
     /**
      * Adds a new nickname to the nicknames' list
-     * @param name: nickname to add
+     * @param name nickname to add
      */
     public void addNickname(String name){
         nicknames.add(name);
@@ -179,8 +179,8 @@ public class Server {
 
     /**
      * Checks if the nickname is already used on server
-     * @param nickname: nickname to check
-     * @return: true if the nickname is already used
+     * @param nickname nickname to check
+     * @return true if the nickname is already used
      */
     public synchronized boolean existingNickname(String nickname) {
         return nicknames.contains(nickname);
@@ -188,7 +188,7 @@ public class Server {
 
     /**
      * Removes the nickname from the nickname list
-     * @param nameToRemove: the name to remove
+     * @param nameToRemove the name to remove
      */
     public void removeNickname(String nameToRemove) {
         if (nicknames.contains(nameToRemove)){
@@ -201,7 +201,7 @@ public class Server {
 
     /**
      * Starts a match
-     * @param gameID : match identifier of the match to start
+     * @param gameID match identifier of the match to start
      */
     public void startGame(int gameID) {
         /**
@@ -237,8 +237,8 @@ public class Server {
 
     /**
      * Checks if a match has reached the number of players it needs to start
-     * @param gameID : match to check
-     * @return : true if the match corresponding to the gameID is ready to start
+     * @param gameID match to check
+     * @return true if the match corresponding to the gameID is ready to start
      */
     public boolean checkMatch(int gameID) {
         if ( playingConnection2Players.containsKey(gameID) && playingConnection2Players.get(gameID).size() == 2 )
@@ -248,8 +248,8 @@ public class Server {
 
     /**
      * Closes a match and sends a closing message to all the clients of the match
-     * @param gameID : match identifier
-     * @param closingPlayer : null if there is a winner, else is the player who has left the game
+     * @param gameID match identifier
+     * @param closingPlayer null if there is a winner, else is the player who has left the game
      */
     public void endMatch(int gameID, ServerConnection closingPlayer) {
 
@@ -284,7 +284,7 @@ public class Server {
 
     /**
      * Removes a client from a waiting list if it ends its connection
-     * @param toRemove : ServerConnection of the client toRemove
+     * @param toRemove ServerConnection of the client toRemove
      */
     public void removeFromWaitingList(ServerConnection toRemove){
         if ( waitingConnection2Players.contains(toRemove)){
@@ -302,8 +302,8 @@ public class Server {
     /**
      * Removes a player from a match, removes the nickname from the list of nicknames,
      * resets the gameID to -1, which stands for invalid match
-     * @param gameID : match identifier
-     * @param toRemove : ServerConnection of the client to remove
+     * @param gameID match identifier
+     * @param toRemove ServerConnection of the client to remove
      */
     public void removePlayerFromMatch(int gameID, ServerConnection toRemove ){
         toRemove.setGameID(-1);
@@ -317,7 +317,7 @@ public class Server {
     }
 
     /**
-     * @return : the ID if the last match created
+     * @return the ID if the last match created
      */
     public int getCurrMatch() {
         return currMatch;

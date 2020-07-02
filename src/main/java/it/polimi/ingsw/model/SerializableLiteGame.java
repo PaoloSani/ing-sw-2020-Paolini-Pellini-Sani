@@ -198,16 +198,16 @@ public class SerializableLiteGame implements Serializable {
     }
 
     /**
-     * @param space : a reference space
-     * @return : the height of the space
+     * @param space a reference space
+     * @return the height of the space
      */
     public int getHeight(int[] space) {
         return Integer.parseInt(table[space[0]][space[1]].substring(1,2));
     }
 
     /**
-     * @param space : a reference space
-     * @return : true if the space is in the perimeter of the table
+     * @param space a reference space
+     * @return true if the space is in the perimeter of the table
      */
     public boolean isPerimetralSpace(int[] space){
         return space[0]== 0 || space[1] == 0 || space[0]== 4 || space[1] == 4;

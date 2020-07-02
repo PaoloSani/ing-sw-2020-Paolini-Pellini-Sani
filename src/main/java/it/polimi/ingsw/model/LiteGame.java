@@ -53,7 +53,7 @@ public class LiteGame extends Observable<LiteGame>  {
     }
 
     /**
-     * @param observer : observer to add
+     * @param observer observer to add
      */
     public void addObservers(Observer<LiteGame> observer){
         observers.add(observer);
@@ -62,7 +62,7 @@ public class LiteGame extends Observable<LiteGame>  {
 
     /**
      * Notifies the virtual view
-     * @param message : message to send to the observer
+     * @param message message to send to the observer
      */
     @Override
     public void notify(LiteGame message){
@@ -135,8 +135,8 @@ public class LiteGame extends Observable<LiteGame>  {
 
     /**
      * Used to compare two liteGame
-     * @param liteGame : liteGame to compare
-     * @return : true if the two liteGames are equal
+     * @param liteGame liteGame to compare
+     * @return true if the two liteGames are equal
      */
     public boolean equalsLG(LiteGame liteGame){
         if(liteGame.getTable()==null) return false;
@@ -263,8 +263,8 @@ public class LiteGame extends Observable<LiteGame>  {
 
     /**
      * sets the current Worker space in the liteGame
-     * @param x : x coordinate
-     * @param y : y coordinate
+     * @param x x coordinate
+     * @param y y coordinate
      */
     public void setCurrWorker(int x, int y) {
         //x < 0 means that the worker must be set to null, because he lost the game

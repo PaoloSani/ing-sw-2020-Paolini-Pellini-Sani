@@ -32,11 +32,11 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
     /**
      * 2 players FrontEnd constructor
-     * @param server: the server of the game
-     * @param client1 : first client, which is the challenger, and will play as last
-     * @param client2: second client
-     * @param gameID: match identifier
-     * @param backEnd: backEnd of the game
+     * @param server the server of the game
+     * @param client1 first client, which is the challenger, and will play as last
+     * @param client2 second client
+     * @param gameID match identifier
+     * @param backEnd backEnd of the game
      */
     public FrontEnd(Server server, ServerConnection client1, ServerConnection client2, int gameID, BackEnd backEnd) {
         this.server = server;
@@ -52,12 +52,12 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
     /**
      * 3 players FrontEnd constructor
-     * @param server: the server of the game
-     * @param client1 : first client, which is the challenger, and will play as last
-     * @param client2: second client
-     * @param client3: third client
-     * @param gameID: match identifier
-     * @param backEnd: backend of the game
+     * @param server the server of the game
+     * @param client1 first client, which is the challenger, and will play as last
+     * @param client2 second client
+     * @param client3 third client
+     * @param gameID match identifier
+     * @param backEnd backend of the game
      */
     public FrontEnd(Server server, ServerConnection client1, ServerConnection client2, ServerConnection client3, int gameID, BackEnd backEnd) {
         this.server = server;
@@ -271,7 +271,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
 
     /**
      * Updates the LiteGame if something has changed or if the initial LiteGame hasn't been set.
-     * @param message: message received from the observable instance
+     * @param message message received from the observable instance
      */
     @Override
     public void update(LiteGame message) {
@@ -320,7 +320,7 @@ public class FrontEnd implements Observer<LiteGame>,Runnable {
     /**
      * Sends a message to the current client and a message of wait to the others.
      * In case the message signs the end of the match it adds the winning player.
-     * @param message : message to send to the client
+     * @param message message to send to the client
      */
     public void sendToCurrClient ( String message ){
         currClient.send( message );
