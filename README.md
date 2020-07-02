@@ -36,7 +36,7 @@ For the client.
 ## Usage
 
 In the first stage, choose A to play with GUI or B to play with the CLI:
-![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/blob/master/Deliverables/README_pics/Initial.png)
+![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/blob/master/Deliverables/README_pics/Initial.PNG)
   
 After that, enter you nickname and choose: 
 1) **CREATE A NEW MATCH** / **NEW GAME** (CLI-GUI) If you want to play with your friends. The server will give you a game ID, give it to the other players.
