@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * is the message sent by the remote view (the FrontEnd) to the controller (the BackEnd), it contains the information for
+ * GameMessage is the message sent by the remote view (the FrontEnd) to the controller (the BackEnd), it contains the information for
  * an action performed in a player's turn
  */
 public class GameMessage extends Observable <GameMessage> {
@@ -15,13 +15,13 @@ public class GameMessage extends Observable <GameMessage> {
     private List<Observer<GameMessage>> observers = new ArrayList<>();
 
     /**
-     * used to set a space or two at the start of the game, in which the client places or selects his workers.
+     * Used to set a space or two at the start of the game, in which the client places or selects his workers.
      */
     private int[] space1 = new int[]{-1,0};
     private int[] space2 = new int[]{0,0};
 
     /**
-     * if greater than zero it indicates a build
+     * If greater than zero it indicates a build
      */
     int level;
 
@@ -34,12 +34,12 @@ public class GameMessage extends Observable <GameMessage> {
     private God god3;
 
     /**
-     * if true, it means that the action his a switch performed by Charon
+     * If true, it means that the action his a switch performed by Charon
      */
     private boolean charonSwitching;
 
     /**
-     * is the GameMessage constructor. It resets the charonSwitching flag and adds the BackEnd as observer.
+     * Is the GameMessage constructor. It resets the charonSwitching flag and adds the BackEnd as observer.
      * @param frontEnd : is the corresponding FrontEnd
      */
     public GameMessage(FrontEnd frontEnd) {
@@ -138,7 +138,7 @@ public class GameMessage extends Observable <GameMessage> {
     }
 
     /**
-     * used when finishing a build or a performing a move after Charon's switch.
+     * Used when finishing a build or a performing a move after Charon's switch.
      */
     protected void resetGameMessage(){
         charonSwitching = false;
@@ -146,7 +146,7 @@ public class GameMessage extends Observable <GameMessage> {
     }
 
     /**
-     * notifies the message to the BackEnd.
+     * Notifies the message to the BackEnd.
      * @param message : message to send to the observer
      */
     public void notify(GameMessage message) {
@@ -156,7 +156,7 @@ public class GameMessage extends Observable <GameMessage> {
     }
 
     /**
-     * clones the current GameMessage
+     * Clones the current GameMessage
      * @return a copy of the GameMessage
      */
     public GameMessage cloneGM(){

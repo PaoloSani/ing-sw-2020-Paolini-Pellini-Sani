@@ -18,7 +18,7 @@ import static java.lang.Thread.sleep;
 
 
 /**
- * is responsible of the communication with a client
+ * ServerConnection is responsible of the communication with a client
  */
 public class ServerConnection implements Runnable {
     private final Socket socket;
@@ -35,7 +35,7 @@ public class ServerConnection implements Runnable {
     private boolean active = true;
 
     /**
-     * clientIsActive is true if the timeout hasn't expired
+     * ClientIsActive is true if the timeout hasn't expired
      */
     private boolean clientIsActive = true;
     private ObjectInputStream in;
@@ -48,7 +48,7 @@ public class ServerConnection implements Runnable {
     private FrontEnd frontEnd;
 
     /**
-     * is the constructor of a ServerConnection
+     * Is the constructor of a ServerConnection
      * @param socket: the socket to communicate with the corresponding client
      * @param server: the server of the game
      */
@@ -65,7 +65,7 @@ public class ServerConnection implements Runnable {
     }
 
     /**
-     * sends the message to the client
+     * Sends the message to the client
      * @param message: the Object to send
      */
     public synchronized void send(Object message) {
@@ -73,7 +73,7 @@ public class ServerConnection implements Runnable {
     }
 
     /**
-     * reads messages from the socket and puts them in the messageInQueue if the socket is active
+     * Reads messages from the socket and puts them in the messageInQueue if the socket is active
      */
     public void read(){
         try {
@@ -91,7 +91,7 @@ public class ServerConnection implements Runnable {
 
 
     /**
-     * closes the socket
+     * Closes the socket
      */
     public synchronized void closeConnection() {
         try {
@@ -104,7 +104,7 @@ public class ServerConnection implements Runnable {
     }
 
     /**
-     * starts a connection with the client and processes the messages read from the client
+     * Starts a connection with the client and processes the messages read from the client
      */
     @Override
     public void run() {
@@ -183,7 +183,7 @@ public class ServerConnection implements Runnable {
     }
 
     /**
-     * adds a new nickname to the server or sends a message of invalid nickname
+     * Adds a new nickname to the server or sends a message of invalid nickname
      * @param name: the nickname of the client
      */
     public void setNickname(String name){
@@ -199,7 +199,7 @@ public class ServerConnection implements Runnable {
     }
 
     /**
-     * gets the information of the match, which the client wants to play.
+     * Gets the information of the match, which the client wants to play.
      * @param settings : a SettingGameMessage with all the information of the current playing request
      */
     public void initialize(SettingGameMessage settings){
@@ -237,7 +237,7 @@ public class ServerConnection implements Runnable {
     }
 
     /**
-     * sends a ping message every 5 seconds to verify if the client is active
+     * Sends a ping message every 5 seconds to verify if the client is active
      */
     public void sendPing(){
         new Thread ( () ->{
@@ -274,7 +274,7 @@ public class ServerConnection implements Runnable {
     }
 
     /**
-     * used by the FrontEnd to read a new ClientMessage
+     * Used by the FrontEnd to read a new ClientMessage
      * @return true if the client has sent a new ClientMessage
      */
     public boolean isUpdatingClientMessage() {

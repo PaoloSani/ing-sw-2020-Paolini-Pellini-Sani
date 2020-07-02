@@ -87,9 +87,6 @@ public class LiteGame extends Observable<LiteGame>  {
         observers.add(observer);
     }
 
-    public void removeObservers(Observer<LiteGame> observer){
-        observers.remove(observer);
-    }
 
     //notify alla virtual view
     @Override

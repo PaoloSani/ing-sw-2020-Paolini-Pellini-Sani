@@ -1,7 +1,7 @@
 package it.polimi.ingsw.util;
 
 /**
- * an enum class for the different type of messages the server sends to the client.
+ * Message is an enum class for the different type of messages the server sends to the client.
  */
 public enum Message {
     BEGIN("Beginning new match"),
