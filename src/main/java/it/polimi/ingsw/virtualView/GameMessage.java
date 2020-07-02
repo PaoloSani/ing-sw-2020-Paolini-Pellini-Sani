@@ -40,7 +40,7 @@ public class GameMessage extends Observable <GameMessage> {
 
     /**
      * Is the GameMessage constructor. It resets the charonSwitching flag and adds the BackEnd as observer.
-     * @param frontEnd : is the corresponding FrontEnd
+     * @param frontEnd is the corresponding FrontEnd
      */
     public GameMessage(FrontEnd frontEnd) {
         this.charonSwitching = false;
@@ -147,7 +147,7 @@ public class GameMessage extends Observable <GameMessage> {
 
     /**
      * Notifies the message to the BackEnd.
-     * @param message : message to send to the observer
+     * @param message message to send to the observer
      */
     public void notify(GameMessage message) {
         for (Observer<GameMessage> observer : observers) {

@@ -203,7 +203,7 @@ public class ServerConnection implements Runnable {
      * @param settings : a SettingGameMessage with all the information of the current playing request
      */
     public void initialize(SettingGameMessage settings){
-        int playersInTheGame = 0;
+        int playersInTheGame;
 
         if ( settings.isCreatingNewGame() ) {
             server.updateCurrMatch();                       //Creato il game ID aggiornato

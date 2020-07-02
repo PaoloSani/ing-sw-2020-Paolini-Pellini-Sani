@@ -32,18 +32,18 @@ public class MoveApollo implements Move {
 
         if ( result ) {
             //normal move
+            //the current worker is placed in the opponent worker initial space
             if ( nextSpace.getWorker() == null ) {
                 worker.getSpace().setWorker(null);                    //the previous space is set to empty
-                worker.setSpace(nextSpace);                           //the next space contains the worker and the worker in the next space
             }
             //move with switch
             else {
                 oppWorker = nextSpace.getWorker();        //saves the opponent space
                 worker.getSpace().setWorker(oppWorker);   //the current player's initial space now contains the oppWorker
                 oppWorker.setSpace(worker.getSpace());    //the oppWorker is placed in the current worker's initial space
-                worker.setSpace(nextSpace);               //the current worker is placed in the opponent worker initial space
 
             }
+            worker.setSpace(nextSpace);                           //the next space contains the worker and the worker in the next space
         }
         return result;
     }

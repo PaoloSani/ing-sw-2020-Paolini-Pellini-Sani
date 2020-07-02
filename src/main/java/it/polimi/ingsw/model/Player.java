@@ -127,9 +127,9 @@ public class Player  {
 
     /**
      * Executes the move strategy
-     * @param worker : worker to move
-     * @param destination : space where to move
-     * @return : true if the action was correctly performed
+     * @param worker worker to move
+     * @param destination space where to move
+     * @return true if the action was correctly performed
      */
     public boolean moveWorker(Worker worker, Space destination) {
         return this.move.execute(worker, destination);
@@ -137,10 +137,10 @@ public class Player  {
 
     /**
      * Executes the build strategy
-     * @param worker : the worker which builds
-     * @param spaceToBuild : space where to build
-     * @param level : level to build
-     * @return : true if the action was correctly performed
+     * @param worker the worker which builds
+     * @param spaceToBuild space where to build
+     * @param level level to build
+     * @return true if the action was correctly performed
      */
     public boolean buildSpace(Worker worker, Space spaceToBuild, int level) {
         return this.build.execute(worker, spaceToBuild, level);

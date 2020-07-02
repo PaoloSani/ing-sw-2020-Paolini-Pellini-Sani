@@ -83,9 +83,9 @@ public class Game {
 
     /**
      * Takes coordinates and returns the corresponding space in the game table
-     * @param x : x coordinate
-     * @param y : y coordinate
-     * @return : a space in the table
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return a space in the table
      */
     public Space getSpace(int x, int y) {
         if( x >= 0 && x <= 4    &&
@@ -133,7 +133,7 @@ public class Game {
 
     /**
      * Sets the current Worker in the liteGame
-     * @param worker : current worker
+     * @param worker current worker
      */
     public void setCurrWorker( Worker worker ){
         //the player lost the game
@@ -320,7 +320,7 @@ public class Game {
 
     /**
      * Sets the name of the current player in the liteGame
-     * @param currPlayer : the current player
+     * @param currPlayer the current player
      */
     public void setCurrPlayer(Player currPlayer) {
         liteGame.setCurrPlayer(currPlayer.getNickname());
@@ -328,9 +328,9 @@ public class Game {
 
     /**
      * Checks if the current space is adjacent to the next space
-     * @param nextSpace : the space where the player wants to move
-     * @param currSpace : the space where the player is now
-     * @return : true if the next space is not a valid space where to move
+     * @param nextSpace the space where the player wants to move
+     * @param currSpace the space where the player is now
+     * @return true if the next space is not a valid space where to move
      */
     public boolean invalidMoveSpace (Space nextSpace, Space currSpace){
         int currX, currY, currH;
@@ -344,9 +344,9 @@ public class Game {
 
     /**
      * Checks if the space is a valid space where to build
-     * @param space : the space where the player wants to build
-     * @param currSpace : the space where the player is now
-     * @return : true if the space is not valid
+     * @param space the space where the player wants to build
+     * @param currSpace the space where the player is now
+     * @return true if the space is not valid
      */
     public boolean invalidSpace (Space space, Space currSpace){
         int currX, currY;

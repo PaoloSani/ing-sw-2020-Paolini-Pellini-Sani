@@ -18,28 +18,28 @@ public class Constraint {
     }
 
     /**
-     * @return : true if Athena is present and she moved up in her last turn
+     * @return true if Athena is present and she moved up in her last turn
      */
     public boolean athenaBlocks() {
         return Athena;
     }
 
     /**
-     * @return : true if hypnus is playing
+     * @return true if hypnus is playing
      */
     public boolean hypnusBlocks() {
         return Hypnus;
     }
 
     /**
-     * @param hypnusIsPlaying : true if hypnus is playing
+     * @param hypnusIsPlaying true if hypnus is playing
      */
     public void setHypnus(boolean hypnusIsPlaying) {
         Hypnus = hypnusIsPlaying;
     }
 
     /**
-     * @param athenaMovedUp : true if Athena moved up in her last turn
+     * @param athenaMovedUp true if Athena moved up in her last turn
      */
     public void setAthena(boolean athenaMovedUp) {
         Athena = athenaMovedUp;
