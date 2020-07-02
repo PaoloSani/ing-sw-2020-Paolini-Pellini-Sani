@@ -8,24 +8,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//Classe da passare come messaggio alla virtual view
 
 /**
  * Class used as a message to send to the virtual view
  */
 public class LiteGame extends Observable<LiteGame>  {
 
-    private String name1;       // Challenger: sceglie le carte e gioca per ultimo
-    private String name2;       // Start Player: giocatore che gioca per primo il turno e pesca per primo la carta
+    private String name1;
+    private String name2;
     private String name3;
 
     private God god1;
     private God god2;
     private God god3;
 
+    //The name of the current player
     private String currPlayer = "";
 
-    //indica il worker scelto dal giocatore, se nullo allora la scelta ha dato esito negativo (per entrambe le pedine) e il giocatore ha perso
+    //the space where the current worker is now
     private int[] currWorker;
 
     private int level1;
@@ -38,12 +38,38 @@ public class LiteGame extends Observable<LiteGame>  {
      * Two-dimensional string array used to briefly describe the game table. A string is composed as follows:
      * (A,B,C if there is a worker of a player on that cell, V otherwise) + (0,1,2,3 space height) + (N or D if there is a dome)
      */
-
     private String[][] table;
     private List<Observer<LiteGame>> observers = new ArrayList<>();
 
-    //crea la tabella semplificata da mandare ai client
 
+    /**
+     * Class constructor
+     */
+    public LiteGame() {
+        isWinner = false;
+        table = new String[5][5];
+        //the current worker is set to 5,5, outside the game table
+        currWorker = new int[]{5,5};
+    }
+
+    /**
+     * @param observer : observer to add
+     */
+    public void addObservers(Observer<LiteGame> observer){
+        observers.add(observer);
+    }
+
+
+    /**
+     * Notifies the virtual view
+     * @param message : message to send to the observer
+     */
+    @Override
+    public void notify(LiteGame message){
+        for(Observer<LiteGame> observer: observers){
+            observer.update(message.cloneLG());
+        }
+    }
 
     /**
      * Method that converts the model's original play table into the synthetic string table to be sent to the client
@@ -54,7 +80,7 @@ public class LiteGame extends Observable<LiteGame>  {
         for( int i = 0; i < 5; i++ )
             for(int j = 0; j < 5; j++ ){
 
-                //caso iniziale in cui non ho i nickname dei player
+                //initial case
                 if ( name1 == null && name2 == null && name3 == null ){
                     table[i][j] = "V" + gameTable[i][j].getHeight() + "N";
                 }
@@ -69,33 +95,12 @@ public class LiteGame extends Observable<LiteGame>  {
                 }
             }
 
-        // cella è una String
-        // cella = table[i][j]
-        // cella[0] è il player
-        // cella[1] è l'altezza
-        // cella[2] è la cupola
-     }
-
-
-    public LiteGame() {
-        isWinner = false;
-        table = new String[5][5];
-        currWorker = new int[]{5,5};    // 5,5 è una posizione fuori dalla tabella indicata come posizione default all'inizio del gioco
     }
 
-    public void addObservers(Observer<LiteGame> observer){
-        observers.add(observer);
-    }
-
-
-    //notify alla virtual view
-    @Override
-    public void notify(LiteGame message){
-        for(Observer<LiteGame> observer: observers){
-            observer.update(message.cloneLG());               //Non faccio cloneLG() perché la faccio in refreshLiteGame()
-        }
-    }
-
+    /**
+     *
+     * @return a clone of the liteGame
+     */
     public LiteGame cloneLG(){
 
         LiteGame newLG = new LiteGame();
@@ -115,7 +120,9 @@ public class LiteGame extends Observable<LiteGame>  {
         newLG.dome = this.dome;
         newLG.table = new String[5][5];
         newLG.setWinner(this.isWinner);
-        newLG.observers = this.observers;       //Posso usare sempre la stessa lista perché NON CAMBIA MAI!
+
+        //the observers list doesn't change
+        newLG.observers = this.observers;
 
         for (int i = 0 ; i < 5 ; i++){
             for(int j = 0 ; j < 5 ; j++){
@@ -126,6 +133,11 @@ public class LiteGame extends Observable<LiteGame>  {
         return newLG;
     }
 
+    /**
+     * Used to compare two liteGame
+     * @param liteGame : liteGame to compare
+     * @return : true if the two liteGames are equal
+     */
     public boolean equalsLG(LiteGame liteGame){
         if(liteGame.getTable()==null) return false;
         boolean isEqual = true;
@@ -184,10 +196,6 @@ public class LiteGame extends Observable<LiteGame>  {
     protected void setName1(String name1) {
         this.name1 = name1;
     }
-    //per i test di winner state
-    public void setName1Test(String name1) {
-        this.name1 = name1;
-    }
 
     protected void setName2(String name2) {
         this.name2 = name2;
@@ -222,6 +230,7 @@ public class LiteGame extends Observable<LiteGame>  {
         this.god3 = god3;
     }
 
+
     public String getCurrPlayer() {
         return currPlayer;
     }
@@ -229,6 +238,7 @@ public class LiteGame extends Observable<LiteGame>  {
     public int[] getCurrWorker() {
         return currWorker;
     }
+
 
     public int getLevel1() {
         return level1;
@@ -246,12 +256,19 @@ public class LiteGame extends Observable<LiteGame>  {
         return dome;
     }
 
+
     public boolean isWinner() {
         return isWinner;
     }
 
+    /**
+     * sets the current Worker space in the liteGame
+     * @param x : x coordinate
+     * @param y : y coordinate
+     */
     public void setCurrWorker(int x, int y) {
-        if ( x < 0 ){   //se il giocatore ha perso, setto una cella non valida nella tabella
+        //x < 0 means that the worker must be set to null, because he lost the game
+        if ( x < 0 ){
             this.currWorker = null;
         }
         else {
@@ -325,5 +342,10 @@ public class LiteGame extends Observable<LiteGame>  {
 
     public void setPlayer(String name) {
         currPlayer = name;
+    }
+
+    //used for the tests
+    public void setName1Test(String name1) {
+        this.name1 = name1;
     }
 }

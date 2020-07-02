@@ -181,10 +181,11 @@ public class PrometheusBuildStateTest {
         assertSame(backEnd.getCurrState(), backEnd.removePlayerState);
 
         assertEquals(backEnd.getCurrPlayer(), backEnd.getPlayer3());
+
         //siccome è stato rimosso ora nel game la cella è null
         assertNull(game.getLiteGame().getCurrWorker());
 
-        //controllo che venga correttamente rinizializzato provando con il prossimo worker
+        //controllo che venga correttamente riinizializzato provando con il prossimo worker
         game.getSpace(3,3).setWorker(backEnd.getPlayer3().getWorker1());
         backEnd.getPlayer3().getWorker1().setSpace(game.getSpace(3,3));
         gameMessage.setSpace1(new int[]{3,3});

@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model;
 
 /**
- * This class indicates the various gods that can be used during the game
+ * The God enum is the list of gods available in the game
  */
-
 public enum God {
     APOLLO("APOLLO","God Of Music\nYour Move: Your Worker may move into an opponent Worker's space by forcing their Worker to the space yours just vacated."),
     ARTEMIS("ARTEMIS","Goddess of the Hunt\nYour Move: Your Worker may move one additional time, but not back to its initial space."),
@@ -30,8 +29,6 @@ public enum God {
     public String toString(){
         return godName;
     }
-
-
 
     public String getPower(){
         return power;

@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 
 
 /**
- * Class that implements the move method for Apollo
+ * MoveApollo implements the move method for Apollo
  */
 
 public class MoveApollo implements Move {
@@ -16,33 +16,33 @@ public class MoveApollo implements Move {
         int currH = worker.getSpace().getHeight();
         Worker oppWorker;
 
-        // controllo il contenuto di nextSpace
-        if (    worker.getPlayer().getGame().invalidMoveSpace(nextSpace,worker.getSpace())      ||     //la prossima cella è quella corrente
+        if (    worker.getPlayer().getGame().invalidMoveSpace(nextSpace,worker.getSpace())      ||     //checks if the space is valid
                 ( nextSpace.getWorker() != null &&
-                        nextSpace.getWorker().getPlayer().equals(worker.getPlayer()))           ||     //la prossima cella è occupata da un worker alleato
+                        nextSpace.getWorker().getPlayer().equals(worker.getPlayer()))           ||     //the next space isn't occupied by a worker of the current player
                 ( nextSpace.getWorker() != null &&
-                        !worker.getPlayer().getGame().isFreeToBuild(nextSpace.getWorker()))     ||     //il worker in nextSpace non può costruire
-                nextSpace.isDomed()                                                             ||     //la prossima cella è una cupola
-
-                //se Athena è true controllo che non si possa salire
+                        !worker.getPlayer().getGame().isFreeToBuild(nextSpace.getWorker()))     ||     //if the worker in the next space cannot perform a build, it blocks the action
+                nextSpace.isDomed()                                                             ||     //the next space isn't domed
+                //Athena's block
                 (worker.getPlayer().getGame().getConstraint().athenaBlocks() && (nextSpace.getHeight() - currH == 1)))
 
             result = false;
 
-        //controllo condizione di vittoria prima di aggiornare le celle
+        //winning condition
         worker.getPlayer().isWinner(worker.getSpace(), nextSpace);
 
         if ( result ) {
-            if ( nextSpace.getWorker() == null ) {                    //aggiorno la posizione del worker e le space precedente e corrente nella table
-                worker.getSpace().setWorker(null);                    //setto il worker della space precedente a null (la svuoto)
-                worker.setSpace(nextSpace);                           //setto attributo space del worker con la space successiva e
-                                                                      //setto attributo worker nella nuova space con il valore del mio worker
-            } else {
-                oppWorker = nextSpace.getWorker();        //memorizzo il worker avversario
-                worker.getSpace().setWorker(oppWorker);   //Sposto nella mia cella il worker avversario
-                oppWorker.setSpace(worker.getSpace());    //La nuova cella del worker avversario è la mia cella
-                worker.setSpace(nextSpace);               //La mia nuova cella è la cella che aveva il worker avversario e
-                                                          //La cella dove io sono mi contieneèx
+            //normal move
+            if ( nextSpace.getWorker() == null ) {
+                worker.getSpace().setWorker(null);                    //the previous space is set to empty
+                worker.setSpace(nextSpace);                           //the next space contains the worker and the worker in the next space
+            }
+            //move with switch
+            else {
+                oppWorker = nextSpace.getWorker();        //saves the opponent space
+                worker.getSpace().setWorker(oppWorker);   //the current player's initial space now contains the oppWorker
+                oppWorker.setSpace(worker.getSpace());    //the oppWorker is placed in the current worker's initial space
+                worker.setSpace(nextSpace);               //the current worker is placed in the opponent worker initial space
+
             }
         }
         return result;

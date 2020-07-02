@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * Pattern strategy interface for the build method
+ * Build is an interface based on the strategy pattern for the build method
  */
 
 public interface Build {

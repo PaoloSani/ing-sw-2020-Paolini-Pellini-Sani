@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * Class used to keep track of players in a game
+ * Player is used to keep trace of a player in the match
  */
 public class Player  {
     private final String nickname;
@@ -12,6 +12,12 @@ public class Player  {
     private Build build;
     private final Game game;
 
+    /**
+     * Player's constructor
+     * @param nickname : the nickname of the player
+     * @param god : the player's god
+     * @param game : reference to the Game class
+     */
     public Player( String nickname, God god, Game game) {
         this.nickname = nickname;
         this.game = game;
@@ -48,7 +54,11 @@ public class Player  {
         this.build = build;
     }
 
-    //utile per choosingWorker nel controller e per il potere di Poseidone
+    /**
+     * Returns the second worker, given the first one
+     * @param worker : the first worker
+     * @return : the other worker
+     */
     public Worker getOtherWorker( Worker worker ){
         if ( worker == this.worker1 ){
             return this.worker2;
@@ -57,13 +67,13 @@ public class Player  {
     }
 
 
-
-    //setta la divinità e in base a quella sceglie le varie strategy associate al player
+    /**
+     * Sets the player's god and according to that, his move and build strategies or constraints
+     * @param god : the god to set
+     */
     public void setGod(God god) {
         this.god = god;
-        /*
-            In base alla divinità scelgo le varie strategies da utilizzare
-        */
+
         switch ( god ) {
             case APOLLO:
                 setMove( new MoveApollo() );
@@ -92,15 +102,12 @@ public class Player  {
 
         }
 
-        //l'altro caso che posso aver è che la divinità sia Hypnus, quindi vado a settare la classe costraint se è presente
+        //Hypnus has default move and build strategies, but I must set his constraint
         if( god == God.HYPNUS ){
             this.game.getConstraint().setHypnus(true);
         }
     }
 
-
-    //Il metodo isWinner viene invocato successivamente ad ogni move() e controlla se la mossa è vincente
-    //Al suo interno chiama la scrittura nel liteGame per segnalare se il giocatore corrente ha vinto
 
     /**
      * The isWinner method is invoked after each move and checks if the move is winning.
@@ -113,17 +120,28 @@ public class Player  {
             game.getLiteGame().setWinner(true);
         }
         else {
-            //Condizione di vittoria Pan
+            //Pan's winning condition
             game.getLiteGame().setWinner(this.god == God.PAN && (oldSpace.getHeight() - currSpace.getHeight() > 1));
         }
     }
 
-    // Esegue la strategy che viene associata ad ogni player secondo la propria divinità
+    /**
+     * Executes the move strategy
+     * @param worker : worker to move
+     * @param destination : space where to move
+     * @return : true if the action was correctly performed
+     */
     public boolean moveWorker(Worker worker, Space destination) {
         return this.move.execute(worker, destination);
     }
 
-    // Esegue la strategy che viene associata ad ogni player secondo la propria divinità
+    /**
+     * Executes the build strategy
+     * @param worker : the worker which builds
+     * @param spaceToBuild : space where to build
+     * @param level : level to build
+     * @return : true if the action was correctly performed
+     */
     public boolean buildSpace(Worker worker, Space spaceToBuild, int level) {
         return this.build.execute(worker, spaceToBuild, level);
     }

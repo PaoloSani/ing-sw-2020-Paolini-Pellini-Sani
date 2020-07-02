@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * Class that implements the build method for Atlas
+ * BuildAtlas implements the build method for Atlas
  */
 
 public class BuildAtlas implements Build{
@@ -17,18 +17,14 @@ public class BuildAtlas implements Build{
         currY = worker.getSpace().getY();
         newH = space.getHeight() + 1;
 
-        //controllo se la space è valida
-        if (worker.getPlayer().getGame().invalidSpace(space, worker.getSpace()) ||     //colonna non valida
-                currX == space.getX() && currY == space.getY() ||     //si costruisce sotto di sé
-                space.getWorker() != null ||     //la cella è occupata da un worker
-                space.isDomed() ||     //nella cella è già presente una cupola
-                (newH != level && level != 4))     //Controlla che l'altezza del livello da costruire sia giusto
-            //ad eccezione delle cupole, che sono sempre accettate
+        if (worker.getPlayer().getGame().invalidSpace(space, worker.getSpace()) ||     //checks if the space is valid (in the table and near to the worker
+                currX == space.getX() && currY == space.getY() ||     //checks if the worker tries to build under himself
+                space.getWorker() != null ||     //the space must not be occupied by a worker
+                space.isDomed() ||
+                (newH != level && level != 4))     //Atlas may build only one level or a couple
 
             return false;
 
-        //controllo l'altezza richiesta
-        //Poiché a questo punto si ha newH == level, impongo la condizione dello switch sul level
         return worker.getPlayer().getGame().buildSwitch(space, level, true);
     }
 }

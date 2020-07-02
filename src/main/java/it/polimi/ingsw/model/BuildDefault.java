@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * Class that implements the dafault build method
+ * BuildDefault implements the normal build method
  */
 public class BuildDefault implements Build {
     /**
@@ -17,14 +17,12 @@ public class BuildDefault implements Build {
         currY = worker.getSpace().getY();
         newH = space.getHeight() + 1;
 
-        //controllo se la space è valida
-        if (!worker.getPlayer().getGame().invalidSpace(space, worker.getSpace()) &&     //colonna non valida
-                (currX != space.getX() || currY != space.getY()) &&     //si costruisce sotto di sé
-                space.getWorker() == null &&     //la cella è occupata da un worker
-                !space.isDomed() &&     //nella cella è già presente una cupola
-                newH == level)     //Controlla che l'altezza del livello da costruire sia giusto
-
-        {//controllo l'altezza richiesta
+        if (!worker.getPlayer().getGame().invalidSpace(space, worker.getSpace()) &&
+                (currX != space.getX() || currY != space.getY()) &&
+                space.getWorker() == null &&
+                !space.isDomed() &&
+                newH == level)     //may build only one level at time
+        {
             result = worker.getPlayer().getGame().buildSwitch(space, level, false);
         }
 
