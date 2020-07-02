@@ -332,6 +332,38 @@ public class GameTest {
     }
 
     @Test
+    public void getterLiteGame() {
+        // setPlayers()
+        game.setPlayers(player1, player2, null);
+        assertEquals(game.getLiteGame().getGod1(), player1.getGod());
+        assertEquals(game.getLiteGame().getGod2(), player2.getGod());
+        assertNull(game.getLiteGame().getGod3());
+        game.setPlayers(player1, player2, player3);
+        assertEquals(game.getLiteGame().getGod1(), player1.getGod());
+        assertEquals(game.getLiteGame().getGod2(), player2.getGod());
+        assertEquals(game.getLiteGame().getGod3(), player3.getGod());
+
+        //setCurrPlayer()
+        game.setCurrPlayer(player1);
+        assertEquals(game.getLiteGame().getCurrPlayer(), "test1");
+
+        //setCurrentWorker()
+        player1.getWorker1().setSpace(new Space(1, 1));
+        game.setCurrWorker(player1.getWorker1());
+
+        //refreshLiteGame()
+
+        game.refreshLiteGame();
+
+        SerializableLiteGame serializableLiteGame = game.getLiteGame().makeSerializable();
+        assertTrue(serializableLiteGame.isPerimetralSpace(new int[]{0, 0}));
+        assertEquals(serializableLiteGame.getStringValue(0,0),"V0N");
+        assertEquals(0, serializableLiteGame.getHeight(new int[]{1, 1}));
+        assertEquals(1,serializableLiteGame.getCurrWorker()[0]);
+        assertEquals(1,serializableLiteGame.getCurrWorker()[1]);
+    }
+
+    @Test
     public void cloneLiteGame() {
         game.refreshLiteGame();
         myWorker.setSpace(game.getSpace(0, 0));
@@ -445,6 +477,35 @@ public class GameTest {
     }
 
     @Test
+    public void equalsSLG2Players() {
+        player3 = null;
+        game.refreshLiteGame();
+        myWorker.setSpace(game.getSpace(0, 0));
+        oppWorker.setSpace(game.getSpace(0, 1));
+        game.getLiteGame().setGod1(player1.getGod());
+        game.getLiteGame().setGod2(player2.getGod());
+        game.getLiteGame().setName1("test1");
+        game.getLiteGame().setName2("test2");
+        game.getLiteGame().setCurrPlayer("test1");
+        game.getLiteGame().setCurrWorker(0, 0);
+        SerializableLiteGame test = new SerializableLiteGame();
+        test = game.getLiteGame().makeSerializable();
+
+        assertTrue(test.equalsSLG(game.getLiteGame().makeSerializable()));
+        game.getLiteGame().setGod1(null);
+        test.setGod1(null);
+        assertFalse(test.equalsSLG(game.getLiteGame().makeSerializable()));
+    }
+
+    @Test
+    public void removedPlayer(){
+        game.refreshLiteGame();
+        SerializableLiteGame slg = game.getLiteGame().makeSerializable();
+        slg.setCurrWorker(-1,0);
+        assertNull(slg.getCurrWorker());
+    }
+
+    @Test
     public void testMoveWorkerPlayer() {
         myWorker.setSpace(game.getSpace(0, 0));
         assertTrue(myWorker.getPlayer().moveWorker(myWorker, game.getSpace(0,1)));
@@ -531,4 +592,20 @@ public class GameTest {
     }
 
 
+    @Test
+    public void getWorker2Test() {
+        assertEquals(player1.getWorker1(),player1.getOtherWorker(player1.getWorker2()));
+    }
+
+    @Test
+    public void hypnusIsMyGod() {
+        player1.setGod(God.HYPNUS);
+        assertTrue(game.getConstraint().hypnusBlocks());
+    }
+
+    @Test
+    public void nullSpaceToSet(){
+        myWorker.setSpace(null);
+        assertNull(myWorker.getSpace());
+    }
 }

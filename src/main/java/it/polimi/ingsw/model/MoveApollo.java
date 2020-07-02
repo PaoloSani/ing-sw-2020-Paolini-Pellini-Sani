@@ -16,11 +16,6 @@ public class MoveApollo implements Move {
         int currH = worker.getSpace().getHeight();
         Worker oppWorker;
 
-        //reset del boolean Athena nella classe costraint
-        if( worker.getPlayer().getGod() == God.ATHENA ){
-            worker.getPlayer().getGame().getConstraint().setAthena(false);
-        }
-
         // controllo il contenuto di nextSpace
         if (    worker.getPlayer().getGame().invalidMoveSpace(nextSpace,worker.getSpace())      ||     //la prossima cella è quella corrente
                 ( nextSpace.getWorker() != null &&

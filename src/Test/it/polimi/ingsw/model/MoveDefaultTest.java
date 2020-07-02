@@ -174,4 +174,15 @@ public class MoveDefaultTest {
         assertSame(myWorker.getSpace(), nextSpace);
         assertNull(currSpace.getWorker());
     }
+
+    @Test
+    public void standardWinning() {
+        currSpace = new Space(0,0);
+        nextSpace = new Space(1,1);
+        currSpace.setHeight(2);
+        nextSpace.setHeight(3);
+
+        player.isWinner(currSpace,nextSpace);
+        assertTrue(game.getLiteGame().isWinner());
+    }
 }
