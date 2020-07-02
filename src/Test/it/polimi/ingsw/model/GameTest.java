@@ -6,12 +6,12 @@ import static org.junit.Assert.*;
 
 public class GameTest {
     private final Game game = new Game();
-    private final Player player1 = new Player("test1", God.CHARON, game);
-    private final Player player2 = new Player("test2", God.APOLLO, game);
-    private final Player player3 = new Player("test3", God.HEPHAESTUS, game);
-    private final Worker myWorker = new Worker(player1);
-    private final Worker oppWorker = new Worker(player2);
-    private final Worker otherWorker = new Worker(player3);
+    private Player player1 = new Player("test1", God.CHARON, game);
+    private Player player2 = new Player("test2", God.APOLLO, game);
+    private Player player3 = new Player("test3", God.HEPHAESTUS, game);
+    private Worker myWorker = new Worker(player1);
+    private Worker oppWorker = new Worker(player2);
+    private Worker otherWorker = new Worker(player3);
 
 
     //********************//
@@ -528,26 +528,6 @@ public class GameTest {
     @Test
     public void wrongSpaceToGet(){
         assertNull(game.getSpace(5,1));
-    }
-
-    @Test
-    public void PrometheusIsFreeToMove(){
-        myWorker.setSpace(game.getSpace(0,0));
-        game.getSpace(0,0).setHeight(1);
-        game.getSpace(1,0).setHeight(3);
-        game.getSpace(0,1).setDome();
-        game.getSpace(1,1).setHeight(1);
-        assertTrue(game.isPrometheusFreeToMove(myWorker));
-    }
-
-    @Test
-    public void PrometheusIsNotFreeToMove(){
-        myWorker.setSpace(game.getSpace(0,0));
-        game.getSpace(0,0).setHeight(1);
-        game.getSpace(1,0).setHeight(3);
-        game.getSpace(0,1).setDome();
-        game.getSpace(1,1).setHeight(2);
-        assertFalse(game.isPrometheusFreeToMove(myWorker));
     }
 
 }
