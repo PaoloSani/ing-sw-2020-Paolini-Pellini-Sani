@@ -138,15 +138,16 @@ public class Game {
                     if( !( i == currX && j == currY ) && ( i >= 0 && i <= 4 && j >= 0 && j <= 4 ) && ( table[i][j].getHeight() < 4 && !table[i][j].isDomed() ) ){
 
                         //caso senza il blocco, deve esistere una posizione la cui differenza di altezza è al massimo +1
-                        if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 1 ) && !constraint.athenaBlocks() ){
+                        if ( table[i][j].getWorker() != null && table[i][j].getWorker().getPlayer() != worker.getPlayer() && worker.getPlayer().getGod().equals(God.APOLLO) && table[i][j].getHeight() - currH <= 1 && !constraint.athenaBlocks()){
+                            return true;
+                        }
+                        else if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 1 ) && !constraint.athenaBlocks() ){
                             return true;
                         }
 
                         //caso con il blocco, deve esistere una posizione la cui differenza di altezza è al massimo 0
                         else if( table[i][j].getWorker() == null && ( table[i][j].getHeight() - currH <= 0 ) && constraint.athenaBlocks() ) return true;
-                        else if ( table[i][j].getWorker() != null && table[i][j].getWorker().getPlayer() != worker.getPlayer() && worker.getPlayer().getGod().equals(God.APOLLO) && table[i][j].getHeight() - currH <= 1 && !constraint.athenaBlocks()){
-                            return true;
-                        }
+
                     }
                 }
             }
