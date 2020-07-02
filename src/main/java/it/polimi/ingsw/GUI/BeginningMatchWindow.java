@@ -12,6 +12,10 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * It is the waiting window before the beginning of the match.
+ */
+
 public class BeginningMatchWindow extends GameWindow implements Initializable {
 
     /**

@@ -36,6 +36,10 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * It is the window where the match is actually played.
+ */
+
 public class TableWindow extends GameWindow implements Initializable {
 
     /**
