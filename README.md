@@ -36,7 +36,7 @@ For the client.
 ## Usage
 
 In the first stage, choose A to play with GUI or B to play with the CLI:
-![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/tree/master/Deliverables/README_pics/Initial.png)
+![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/blob/master/Deliverables/README_pics/Initial.png)
   
 After that, enter you nickname and choose: 
 1) **CREATE A NEW MATCH** / **NEW GAME** (CLI-GUI) If you want to play with your friends. The server will give you a game ID, give it to the other players.
@@ -44,10 +44,10 @@ After that, enter you nickname and choose:
 3) **PLAY WITH STRANGERS** / **RANDOM GAME** (CLI-GUI) To play with other unknown players.
 
 CLI show:
-![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/tree/master/Deliverables/README_pics/CLI.png)
+![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/blob/master/Deliverables/README_pics/CLI.png)
 
 GUI show: 
-![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/tree/master/Deliverables/README_pics/GUI.png)
+![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/blob/master/Deliverables/README_pics/GUI.png)
 
 ## OBIETTIVI REALIZZATI
 - Regole complete
