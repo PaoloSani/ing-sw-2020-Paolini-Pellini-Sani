@@ -19,7 +19,7 @@ public class CLIPrinter {
     /**
      * It prints on mirror the gametable from the litegame
      */
-    public synchronized void  buildGameTable(SerializableLiteGame serializableLiteGame){
+    public void buildGameTable(SerializableLiteGame serializableLiteGame){
         String[][] gameTable = serializableLiteGame.getTable();
         System.out.println("                                                             ");
         System.out.println("                                  1        2        3        4        5                " +  ColourFont.ANSI_BOLD+"  KEYS  "+ColourFont.ANSI_RESET);
