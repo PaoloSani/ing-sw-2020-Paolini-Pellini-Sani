@@ -31,8 +31,8 @@ public class CLIPrinter {
 
     /**
      * It prints on mirror a single row of the gametable from a litegame.
-     * @param serializableLiteGame: the serializableLiteGame to reference
-     * @param serializableLiteGameRow: the row of spaces to print
+     * @param serializableLiteGame the serializableLiteGame to reference
+     * @param serializableLiteGameRow the row of spaces to print
      * @param row is the number of the row to print.
      */
     void buildTableRow(SerializableLiteGame serializableLiteGame, String[] serializableLiteGameRow, int row){

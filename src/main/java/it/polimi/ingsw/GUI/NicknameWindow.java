@@ -45,7 +45,7 @@ public  class NicknameWindow extends GameWindow {
     /**
      * It is the stage which succeeds the current one.
      */
-    private Stage nextStage = new Stage();
+    private final Stage nextStage = new Stage();
 
     /**
      * It establish if the nickname has been accepted by the server.

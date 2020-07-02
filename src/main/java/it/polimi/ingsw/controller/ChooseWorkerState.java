@@ -16,7 +16,7 @@ public class ChooseWorkerState implements GameState {
 
     /**
      * Class constructor
-     * @param backEnd: reference backEnd
+     * @param backEnd reference backEnd
      */
     public ChooseWorkerState(BackEnd backEnd) {
         this.backEnd = backEnd;

@@ -4,7 +4,6 @@ import it.polimi.ingsw.util.Message;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -90,16 +89,16 @@ public class WaitingWindow extends GameWindow implements Initializable{
             }
         }
 
-        Task<String> task = new Task<String>() {
+        Task<String> task = new Task<>() {
             @Override
-            protected String call() throws Exception {
+            protected String call() {
                 String messageFromServer = guiHandler.readString();
                 if (messageFromServer.contains("Game has started")) {
                     if (guiHandler.getMode() == Mode.NEW_GAME) {
                         return "/GUIScenes/challengerWindow.fxml";
                     } else {
                         if ( guiHandler.getMode() == Mode.EXISTING_MATCH){
-                            String array[] = messageFromServer.split("are");
+                            String[] array = messageFromServer.split("are");
                             if ( array[1].split(",").length == 2 )
                                 guiHandler.setNumOfPlayers(2);
                             else guiHandler.setNumOfPlayers(3);

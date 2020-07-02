@@ -13,7 +13,7 @@ public class PrometheusBuildState implements GameState {
 
     /**
      * The constructor of the class
-     * @param backEnd: his reference BackEnd
+     * @param backEnd his reference BackEnd
      */
     public PrometheusBuildState(BackEnd backEnd) {
         this.backEnd = backEnd;

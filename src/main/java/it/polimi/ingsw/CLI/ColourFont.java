@@ -6,8 +6,6 @@ import it.polimi.ingsw.model.God;
  * It contains the colours used by the CLI.
  */
 public enum ColourFont {
-    //FOREGROUND COLOR: "\033[38;5;<COLOR>m"
-    //BACKGROUND COLOR: "\033[48;5;<COLOR>m"
 
     ANSI_GREEN_BACKGROUND("\033[48;5;41m"),
     ANSI_BLUE_BACKGROUND("\033[48;5;25m"),
@@ -18,30 +16,23 @@ public enum ColourFont {
     ANSI_MENU_BACKGROUND("\033[48;5;188m"),
     ANSI_WORKER("\033[48;5;31m"),
 
-    ANSI_RED_TEXT("\033[38;5;124m"),
-    ANSI_ICE_TEXT("\033[38;5;189m"),
-    ANSI_GOLD_TEXT("\033[38;5;214m"),
     ANSI_WHITE_TEXT("\033[38;5;255m"),
     ANSI_BLACK_TEXT("\033[38;5;16m"),
 
-    ANSI_BLACK_BACKGROUND("\033[48;5;16m"),
-    ANSI_RED_BACKGROUND("\u001B[41m"),
-    ANSI_YELLOW_BACKGROUND("\u001B[43m"),
-    ANSI_PURPLE_BACKGROUND("\u001B[45m"),
-    ANSI_CYAN_BACKGROUND("\u001B[46m"),
-    ANSI_WHITE_BACKGROUND("\u001B[47m"),
 
 
-    ANSI_BOLD("\u001b[1m"),
-    ANSI_UNDERLINE(" \u001b[4m"),
-    ANSI_REVERSED("\u001b[7m");
+    ANSI_BOLD("\u001b[1m");
 
+
+    /**
+     * It is the escape code that reset the background/foreground colour
+     */
     public static final String ANSI_RESET = "\u001B[0m";
 
     /**
      * It is the escape code of the given colour.
      */
-    private String escape;
+    private final String escape;
 
     ColourFont(String escape){
         this.escape = escape;
@@ -55,7 +46,7 @@ public enum ColourFont {
 
     /**
      * It returns a colour given a god.
-     * @param god
+     * @param god is the god we want to colour
      * @return the escape colour of the colour.
      */
     public static String getGodColour(God god){

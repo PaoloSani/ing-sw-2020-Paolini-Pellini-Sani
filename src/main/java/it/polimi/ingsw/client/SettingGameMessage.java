@@ -34,10 +34,6 @@ public class SettingGameMessage implements Serializable {
      */
     private int gameID;
 
-    public String getNickname() {
-        return nickname;
-    }
-
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }

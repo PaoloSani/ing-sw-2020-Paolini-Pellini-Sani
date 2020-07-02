@@ -604,7 +604,7 @@ public class CommandLineGame implements Observer<MessageHandler> {
 
     /**
      * It sets updateString or updateLG and notifies all sleeping threads.
-     * @param message: message received from the observable instance
+     * @param message message received from the observable instance
      */
     @Override
     public synchronized void update(MessageHandler message){

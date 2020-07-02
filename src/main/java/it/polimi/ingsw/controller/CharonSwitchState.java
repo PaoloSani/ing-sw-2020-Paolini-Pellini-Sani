@@ -13,7 +13,7 @@ public class CharonSwitchState implements GameState {
 
     /**
      * Class constructor
-     * @param backEnd: reference backend
+     * @param backEnd reference backend
      */
     public CharonSwitchState(BackEnd backEnd) {
         this.backEnd = backEnd;

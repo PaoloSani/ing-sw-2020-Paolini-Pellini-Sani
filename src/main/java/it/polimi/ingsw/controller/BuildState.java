@@ -22,7 +22,7 @@ public class BuildState implements GameState {
 
     /**
      * Constructor of the class
-     * @param backEnd: reference BackEnd
+     * @param backEnd reference BackEnd
      */
     public BuildState(BackEnd backEnd) {
         this.backEnd = backEnd;

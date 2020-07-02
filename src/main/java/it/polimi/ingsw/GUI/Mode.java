@@ -34,11 +34,11 @@ public enum Mode {
      * String that represents the made choice.
      */
 
-    private String mode;
+    private final String mode;
 
     /**
      * It builds the enum as described before.
-     * @param mode
+     * @param mode is the chosen mode by the player
      */
 
     Mode(String mode){

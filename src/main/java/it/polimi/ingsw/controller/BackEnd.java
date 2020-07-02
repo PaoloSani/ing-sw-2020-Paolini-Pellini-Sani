@@ -212,8 +212,8 @@ public class BackEnd implements Observer<GameMessage> {
 
     /**
      * Checks if the given player is the last player in the game
-     * @param lastPlayer: player to check
-     * @return : true if the given player is the last one
+     * @param lastPlayer player to check
+     * @return  true if the given player is the last one
      */
     public boolean lastPlayerInTheGame(Player lastPlayer){
         if (lastPlayer == challenger && player2 == null && player3 == null) return true;

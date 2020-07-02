@@ -19,7 +19,7 @@ public class MoveState implements GameState {
 
     /**
      * Class constructor
-     * @param backEnd: reference BackEnd
+     * @param backEnd reference BackEnd
      */
     public MoveState(BackEnd backEnd) {
         this.backEnd = backEnd;

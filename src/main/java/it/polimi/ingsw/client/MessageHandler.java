@@ -67,7 +67,7 @@ public class MessageHandler extends Observable<MessageHandler>{
 
     /**
      * It parses the message coming from the server
-     * @param message
+     * @param message is the message to parse
      */
     public void setMessage(String message) {
         this.message = message;
@@ -133,6 +133,7 @@ public class MessageHandler extends Observable<MessageHandler>{
         this.stringRead = stringRead;
     }
 
+    @Override
     public void notify(MessageHandler message){
         if (cliToNotify != null) cliToNotify.update(message);
         else if (guiToNotify != null) guiToNotify.update(message);

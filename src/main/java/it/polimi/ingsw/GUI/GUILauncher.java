@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * It launches the graphical user interface
+ */
 public class GUILauncher extends Application {
 
     @Override

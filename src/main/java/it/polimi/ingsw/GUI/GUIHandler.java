@@ -87,7 +87,7 @@ public class GUIHandler implements Observer<MessageHandler> {
      * If the client is the challenger, this list will be filled by the client itself and sent with the method sendChallengerMessage().
      * Else, it will be sent on the internet by the challenger and read through the method readString() by the client's GUI.
      */
-    private List<God> gods = new ArrayList<>();
+    private final List<God> gods = new ArrayList<>();
 
     /**
      * It contains useful information about the match, as players' names, players' gods and game-table.
@@ -153,8 +153,7 @@ public class GUIHandler implements Observer<MessageHandler> {
     public boolean setClientConnection(){
         new Thread (clientConnection::run).start();
         messageFromServer = readString();
-        if (messageFromServer.equals("Welcome, server ready!\n")) return true;
-        else return false;
+        return messageFromServer.equals("Welcome, server ready!\n");
     }
 
     /**
@@ -223,10 +222,6 @@ public class GUIHandler implements Observer<MessageHandler> {
         if ( message.isLGRead() ) updateLG = true;
         messageHandler = message;
         notifyAll();
-    }
-
-    public String getNickname(){
-        return this.nickname;
     }
 
     public void setNumOfPlayers(int numToSet) {

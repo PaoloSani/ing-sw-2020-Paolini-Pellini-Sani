@@ -18,7 +18,7 @@ public class SetPlayersState implements  GameState {
 
     /**
      * Class constructor
-     * @param backEnd: reference backEnd
+     * @param backEnd reference backEnd
      */
     public SetPlayersState(BackEnd backEnd) {
         this.backEnd = backEnd;
