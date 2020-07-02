@@ -11,10 +11,6 @@ public class MoveMinotaur implements Move {
         int currH = worker.getSpace().getHeight();
         Game myGame = worker.getPlayer().getGame();
 
-        //reset del boolean Athena nella classe costraint
-        if( worker.getPlayer().getGod() == God.ATHENA ){
-            worker.getPlayer().getGame().getConstraint().setAthena(false);
-        }
 
         // controllo il contenuto di nextSpace
         if (    myGame.invalidMoveSpace(nextSpace, worker.getSpace())                 ||     //la prossima cella è quella corrente
