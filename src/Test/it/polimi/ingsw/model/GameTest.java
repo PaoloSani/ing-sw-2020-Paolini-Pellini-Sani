@@ -198,10 +198,10 @@ public class GameTest {
     @Test
     public void charonHasWorked2() {
         myWorker.setSpace(game.getSpace(1, 1));
-        oppWorker.setSpace(game.getSpace(1, 0));
-        assertNotEquals(oppWorker.getSpace(), game.getSpace(1, 2));
+        oppWorker.setSpace(game.getSpace(2, 2));
+        assertNotEquals(oppWorker.getSpace(), game.getSpace(0, 0));
         assertTrue(game.charonPower(myWorker, oppWorker));
-        assertEquals(oppWorker.getSpace(), game.getSpace(1, 2));
+        assertEquals(oppWorker.getSpace(), game.getSpace(0, 0));
         assertEquals(myWorker.getSpace(), game.getSpace(1, 1));
     }
 
@@ -529,5 +529,6 @@ public class GameTest {
     public void wrongSpaceToGet(){
         assertNull(game.getSpace(5,1));
     }
+
 
 }
