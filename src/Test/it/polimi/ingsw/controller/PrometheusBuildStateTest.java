@@ -132,4 +132,52 @@ public class PrometheusBuildStateTest {
 
     }
 
+    @Test
+    public void removePlayerPrometheusBuildState() {
+
+        backEnd.setPlayer2(new Player("riccardo", God.PROMETHEUS, game) );
+        backEnd.setPlayer3(new Player("paolo", God.POSEIDON, game) );
+        backEnd.setChallenger(new Player("giuseppe", God.APOLLO, game) );
+        backEnd.getPlayer2().getWorker1().setSpace(game.getSpace(0,0));
+        backEnd.getPlayer2().getWorker2().setSpace(game.getSpace(1,0));
+
+        //inizializzo il contenuto di GameMessage perché non sono passato dallo stato setPlayersState ma sono andato direttamente nel BuildState
+        gameMessage.setName2("riccardo");
+        gameMessage.setName3("paolo");
+        gameMessage.setName1("giuseppe");
+        gameMessage.setGod2(God.PROMETHEUS);
+        gameMessage.setGod3(God.POSEIDON);
+        gameMessage.setGod1(God.APOLLO);
+
+        gameMessage.setCharonSwitching(false);
+
+        backEnd.setState(backEnd.prometheusBuildState);
+        backEnd.setToRemove(backEnd.getPlayer2());
+
+
+        game.setPlayers(backEnd.getChallenger(), backEnd.getPlayer2(), backEnd.getPlayer3());
+
+        game.getLiteGame().addObservers(frontEnd);
+        frontEnd.setLiteGame(game.getLiteGame().cloneLG());
+
+        backEnd.setCurrPlayer(backEnd.getPlayer2());
+
+        backEnd.setCurrWorker(backEnd.getCurrPlayer().getWorker1());
+
+        int[] toBuild = new int[]{1,2};
+        gameMessage.setSpace1(toBuild);
+        gameMessage.setLevel(1);
+
+        gameMessage.notify(gameMessage);
+
+
+        assertNull(game.getSpace(0,0).getWorker());
+        assertNull(game.getSpace(1,0).getWorker());
+
+        assertNull(backEnd.getPlayer2());
+
+        assertSame(backEnd.getCurrState(), backEnd.removePlayerState);
+
+    }
+
 }
