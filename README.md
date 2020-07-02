@@ -67,8 +67,8 @@ Coverage report for the model package:
 Coverage report for the controller package:
 ![image](https://github.com/PaoloSani/ing-sw-2020-Paolini-Pellini-Sani/blob/master/Deliverables/README_pics/Cov_Controller.PNG)
 
-As shown, we tried to cover all the possibles scenarios in model and controller, otherwise, we tested other functionalities by playing.
+As shown, we tried to cover all the possible scenarios in model and controller, otherwise, we tested other functionalities by playing.
 ## Authors
-_Giuseppe Paolini_  
-_Riccardo Pellini_  
-_Paolo Sani_  
+_Giuseppe Paolini_ 10619082  
+_Riccardo Pellini_ 10633686  
+_Paolo Sani_ 10583734
