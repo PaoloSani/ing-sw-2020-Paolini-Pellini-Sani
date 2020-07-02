@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+/**
+ * MoveDefault implements the normal move strategy
+ */
 public class MoveDefault implements Move {
     /**
      * @param worker Worker performing the move

@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 
 
 /**
- * MoveApollo implements the move method for Apollo
+ * MoveApollo implements the move strategy for Apollo
  */
 
 public class MoveApollo implements Move {

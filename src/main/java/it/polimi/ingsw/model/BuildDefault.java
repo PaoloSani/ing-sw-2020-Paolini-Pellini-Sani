@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * BuildDefault implements the normal build method
+ * BuildDefault implements the normal build strategy
  */
 public class BuildDefault implements Build {
     /**
