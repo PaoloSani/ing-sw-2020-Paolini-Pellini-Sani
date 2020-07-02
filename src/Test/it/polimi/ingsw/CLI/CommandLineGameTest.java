@@ -19,7 +19,7 @@ public class CommandLineGameTest {
         game.setCurrWorker(w);
         game.refreshLiteGame();
         cli.setLiteGame(game.getLiteGame().makeSerializable());
-        cli.buildGameTable();
+        cli.getCliPrinter().buildGameTable(cli.getSerializableLiteGame());
     }
 
 
@@ -27,7 +27,7 @@ public class CommandLineGameTest {
     @Test
     public void exampleTableRow(){
         String[] testRow = new String[]{"V0D","A2N","B0N","A3N","V1N"};
-        cli.buildTableRow(testRow,0);
+        cli.getCliPrinter().buildTableRow(cli.getSerializableLiteGame(), testRow,0);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class CommandLineGameTest {
         game.refreshLiteGame();
         cli.setNumOfPlayer(3);
         cli.setLiteGame(game.getLiteGame().makeSerializable());
-        cli.buildGameTable();
+        cli.getCliPrinter().buildGameTable(cli.getSerializableLiteGame());
     }
 
 }

@@ -1,8 +1,5 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.client.ClientConnection;
-import it.polimi.ingsw.client.ClientMessage;
-import it.polimi.ingsw.client.SettingGameMessage;
 import it.polimi.ingsw.controller.BackEnd;
 import it.polimi.ingsw.util.Message;
 import it.polimi.ingsw.virtualView.FrontEnd;
@@ -16,10 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import static java.lang.Thread.sleep;
 
 /**
- *  The main server class
+ *  Server is the main server class
  */
 public class Server {
     public final int PORT;
@@ -172,16 +168,28 @@ public class Server {
         return false;
     }
 
-
+    /**
+     * Adds a new nickname to the nicknames' list
+     * @param name: nickname to add
+     */
     public void addNickname(String name){
         nicknames.add(name);
         System.out.println(name + " is online!\n");
     }
 
+    /**
+     * Checks if the nickname is already used on server
+     * @param nickname: nickname to check
+     * @return: true if the nickname is already used
+     */
     public synchronized boolean existingNickname(String nickname) {
         return nicknames.contains(nickname);
     }
 
+    /**
+     * Removes the nickname from the nickname list
+     * @param nameToRemove: the name to remove
+     */
     public void removeNickname(String nameToRemove) {
         nicknames.remove(nameToRemove);
         System.out.println(nameToRemove + " has left!\n");
@@ -243,8 +251,7 @@ public class Server {
      */
     public void endMatch(int gameID, ServerConnection closingPlayer) {
 
-        System.out.println("Match with code " + gameID + " has ended.");
-
+        System.out.println("Match with code " + gameID + " has ended.\n");
         if ( playingConnection2Players.containsKey(gameID) ){
             for ( ServerConnection s : playingConnection2Players.get(gameID) ){
                 s.setGameID(-1);
@@ -313,5 +320,8 @@ public class Server {
         return currMatch;
     }
 
+    /**
+     * Updates the currMatch ID
+     */
     public synchronized void updateCurrMatch() { currMatch++; }
 }
